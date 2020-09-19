@@ -25,7 +25,7 @@ app.use((error,req,res,next)=>{
 app.use('/',errorController.error404);
 
 
-mongoose.connect('mongodb+srv://Abhishek_Srivas:Pagalworld@cluster0.0sntl.mongodb.net/Database?retryWrites=true&w=majority',{ useNewUrlParser: true })
+mongoose.connect('mongodb+srv://dhruv:sahnifamily@cluster0.dbsdv.mongodb.net/<dbname>?retryWrites=true&w=majority')
 .then(result =>{
     app.listen(port);
 })
