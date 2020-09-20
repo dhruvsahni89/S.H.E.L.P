@@ -12,6 +12,13 @@ const port = 3000 //whatever is in the environment variable PORT or 3000
 
 app.use(bodyParser.json()); // For parsing the incoming json file from the client
 
+app.use((req, res, next) =>{  // To remove CROS (cross-resource-origin-platform) problem 
+    res.setHeader('Allow-Control-Allow-Origin','*'); // to allow all client we use *
+    res.setHeader('Allow-Control-Allow-Methods','OPTIONS,GET,POST,PUT,PATCH,DELETE'); //these are the allowed methods 
+    res.setHeader('Allow-Control-Allow-Headers','Content-Type,Authorization'); // allowed headers (Auth for extra data related to authoriaztiom)
+    next();
+})
+
 app.use(signupRoute); //For signUp route
 app.use(loginRoute);// For login route 
 
@@ -25,7 +32,7 @@ app.use((error,req,res,next)=>{
 app.use('/',errorController.error404);
 
 
-mongoose.connect('mongodb+srv://dhruv:sahnifamily@cluster0.dbsdv.mongodb.net/<dbname>?retryWrites=true&w=majority')
+mongoose.connect('mongodb+srv://Abhishek_Srivas:Pagalworld@cluster0.0sntl.mongodb.net/Database?retryWrites=true&w=majority')
 .then(result =>{
     app.listen(port);
 })

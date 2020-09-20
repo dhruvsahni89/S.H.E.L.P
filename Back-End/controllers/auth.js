@@ -1,7 +1,7 @@
 const { validationResult, Result } = require('express-validator/check');
 
 const bcrypt = require('bcryptjs');
-const jwt=require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 const User = require('../models/users');
 
   
@@ -27,7 +27,7 @@ exports.signup = (req, res, next) =>{
         return user.save();
     })
     .then(result => {
-        res.statusCode(201).json({message:'User Created'});
+        res.status(201).json({message:'User Created'});
     })
     .catch(err =>{
         if(!err.statusCode){
