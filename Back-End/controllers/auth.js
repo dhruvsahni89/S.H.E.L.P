@@ -1,10 +1,16 @@
 const { validationResult, Result } = require('express-validator/check');
 
+
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/users');
 const nodemailer=require('nodemailer');
 const sendgridTRansport=require('nodemailer-sendgrid-transport');
+const transporter=nodemailer.createTransport(sendgridTRansport({
+auth :{
+    api_key:'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'
+}
+}));
 
   
 
@@ -13,7 +19,7 @@ exports.signup = (req, res, next) =>{
     if(!error.isEmpty()){
         const error = new Error('Validation failed');
         error.statusCode = 422;
-        error.data = errors.array();
+        error.data = Errors.array();
         throw error;   
     }
     const email = req.body.email;
@@ -29,7 +35,14 @@ exports.signup = (req, res, next) =>{
         return user.save();
     })
     .then(result => {
-        res.status(201).json({message:'User Created'});
+        let otp =  Math.random() * 900000;
+        // res.status(201).json({message:'User Created'});
+        return transporter.sendMail({
+            to:email,
+            from:'dhruvsahni89@gmail.com',
+            subject:'signup successful',
+            html:'<h1>thankuh for registering here is your one time pass </h1> <h1>:${otp}</h1>'
+        });
     })
     .catch(err =>{
         if(!err.statusCode){
