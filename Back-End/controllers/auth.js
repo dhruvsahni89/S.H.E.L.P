@@ -3,6 +3,8 @@ const { validationResult, Result } = require('express-validator/check');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/users');
+const nodemailer=require('nodemailer');
+const sendgridTRansport=require('nodemailer-sendgrid-transport');
 
   
 
@@ -49,8 +51,8 @@ exports.login=(req,res,next)=>{
             error.statusCode = 401;
             throw error;
         }
-        loadedUser=User;
-        return bcrypt.compare(password, User.password);
+        loadedUser=user;
+        return bcrypt.compare(password, user.password);
 
     })
     .then(equal=>{
@@ -64,9 +66,10 @@ exports.login=(req,res,next)=>{
              'supersecret' ,
              {expiresIn:'2h'}
              );
-             res.status(200).json({token:token , userId:loadedUser._id.toString()})
+             res.status(200).json({token:token , userId:loadedUser._id.toString() , message:'User logged in'})
 
     })
+    
     .catch(err=>{
         if(!err.statusCode){
             err.statusCode = 500;
