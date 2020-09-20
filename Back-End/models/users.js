@@ -1,8 +1,8 @@
 var mongoose = require('mongoose');
 
-const Schema = mongoose.Schema;
+const Schema = mongoose.Schema; //to create a new schema i.e db field 
 
-const UserSchema = new Schema({
+const UserSchema = new Schema({ //type :- type of field require:- compulsory or not 
     email:{
         type: String,
         require:true
@@ -16,4 +16,4 @@ const UserSchema = new Schema({
         require:true
     }
 });
-module.exports = User = mongoose.model('Users',UserSchema);
+module.exports = User = mongoose.model('Users',UserSchema); //stored in users collection  and uses user schema
