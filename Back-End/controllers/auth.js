@@ -48,8 +48,8 @@ exports.login=(req,res,next)=>{
             error.statusCode = 401;
             throw error;
         }
-        loadedUser=User;
-        return bcrypt.compare(password, User.password);
+        loadedUser=user;
+        return bcrypt.compare(password, user.password);
 
     })
     .then(equal=>{
@@ -65,9 +65,6 @@ exports.login=(req,res,next)=>{
              );
              res.status(200).json({token:token , userId:loadedUser._id.toString()})
 
-    })
-    .then(result => {
-        res.status(201).json({message:'Login Succesful'});
     })
     .catch(err=>{
         if(!err.statusCode){
