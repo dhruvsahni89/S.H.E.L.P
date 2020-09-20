@@ -2,11 +2,11 @@ const bcrypt = require('bcryptjs');  //for encrypting password
 const jwt = require('jsonwebtoken'); //for creating web token 
 const User = require('../models/users'); // importing user schema 
 const nodemailer=require('nodemailer');
-const sendgridTRansport = require('nodemailer-sendgrid-transport'); 
+const sendgridTRansport = require('nodemailer-sendgrid-transport'); // for integrating sendgrid with nodemailer
 
 const { validationResult} = require('express-validator/check'); //For checking the result of validator
 
-const transporter=nodemailer.createTransport(sendgridTRansport({
+const transporter = nodemailer.createTransport(sendgridTRansport({ // tells how the mails should be transported
 auth :{
     api_key:'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' 
 }
@@ -36,7 +36,7 @@ exports.signup = (req, res, next) =>{
     })
     .then(result => {
         let otp =  Math.random() * 900000;
-        // res.status(201).json({message:'User Created'});
+        res.status(201).json({message:'User Created'});
         return transporter.sendMail({
             to:email,
             from:'dhruvsahni89@gmail.com',
