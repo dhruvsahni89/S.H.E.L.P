@@ -11,7 +11,6 @@ exports.signup = (req, res, next) =>{
     if(!error.isEmpty()){
         const error = new Error('Validation failed');
         error.statusCode = 422;
-        error.data = errors.array();
         throw error;   
     }
     const email = req.body.email;
@@ -67,13 +66,14 @@ exports.login=(req,res,next)=>{
              res.status(200).json({token:token , userId:loadedUser._id.toString()})
 
     })
+    .then(result => {
+        res.status(201).json({message:'Login Succesful'});
+    })
     .catch(err=>{
         if(!err.statusCode){
             err.statusCode = 500;
         }
         next(err);
-
-
     });
 
 };
