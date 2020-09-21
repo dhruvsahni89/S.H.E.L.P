@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './Login.css';
 import Input from '../../../components/UI/Input/Input';
 import MainPage from '../../../components/UI/MainPage/MainPage';
+import Google_logo from '../../../components/UI/Logo/google';
 
 
 class Login extends Component {
@@ -14,7 +15,7 @@ class Login extends Component {
                     elementType:'input',
                     elementConfig: {
                         type:'text',
-                        placeholder: 'Your First Name'
+                        placeholder: 'First Name'
                     },
 
                 value: '',
@@ -31,7 +32,7 @@ class Login extends Component {
                 elementType:'input',
                 elementConfig: {
                     type:'email',
-                    placeholder: 'Your Email'
+                    placeholder: 'Enter Email address'
                 },
 
             value: '',
@@ -49,7 +50,7 @@ class Login extends Component {
                 elementType:'input',
                 elementConfig: {
                     type:'password',
-                    placeholder: 'Your Password'
+                    placeholder: 'Password'
                 },
 
             value: '',
@@ -95,10 +96,10 @@ class Login extends Component {
 
         let form = (
 
-          <div>
-              <button className="google-btn">Continue with google</button>
-          
-            <form>
+          <div className="login-form">
+              <button className="google-btn"> <Google_logo/>  Continue using google</button>
+              <p className="devider-or">OR</p>
+            <form >
             
                 {
                     formElementsArray.map(x=> (
@@ -113,9 +114,10 @@ class Login extends Component {
                     ))
                 }
                 <button className="Sumbit-btn">Create account</button>
-                
-                {/* <Button btnType="Success" clicked= {this.orderHandler}>ORDER</Button> */}
-            
+                <p className="account-login"> Already have an account? <a href="/">Login</a></p>
+                 <hr/>
+
+                 <p class="Link-teach">Teach on S-help</p>          
             </form> 
             </div>
         );

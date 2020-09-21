@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import './App.css';
 import {Route, Switch, Redirect} from 'react-router-dom';
 import {BrowserRouter} from 'react-router-dom';
 import Layout from './components/Layout/Layout';
