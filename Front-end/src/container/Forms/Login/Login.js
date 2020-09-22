@@ -3,14 +3,12 @@ import './Login.css';
 import Input from '../../../components/UI/Input/Input';
 import MainPage from '../../../components/UI/MainPage/MainPage';
 import Google_logo from '../../../components/UI/Logo/google';
-
+import axios from '../../../axios-shelp/axios-shelp';
 
 class Login extends Component {
 
     state = {
         Form: {
-
-            
                 name: {
                     elementType:'input',
                     elementConfig: {
@@ -67,6 +65,25 @@ class Login extends Component {
         }
     }
 
+    formHandler = (event)=> {
+        event.preventDefault();
+        //this.setState({})
+        const formData ={};
+        for(let formElement in this.state.Form){
+            formData[formElement]=this.state.Form[formElement]; }
+         
+        const forminfo = {
+            forminformation: formData,
+        }
+
+        axios.get('/login')
+        .then(response=>{console.log(forminfo)})
+        .catch(error=>{console.log(error)});
+
+    }
+
+
+
 
 //   runs whenever there is any change in the input field
     inputchangeHandler = (event,inputIdentifier)=> {
@@ -95,7 +112,6 @@ class Login extends Component {
         };
 
         let form = (
-
           <div className="login-form">
               <button className="google-btn"> <Google_logo/>  Continue using google</button>
               <p className="devider-or">OR</p>
@@ -113,7 +129,7 @@ class Login extends Component {
                         changed={(event)=> this.inputchangeHandler(event,x.id)}/>
                     ))
                 }
-                <button className="Sumbit-btn">Create account</button>
+                <button className="Sumbit-btn" onClick={this.formHandler}>Create account</button>
                 <p className="account-login"> Already have an account? <a href="/">Login</a></p>
                  <hr/>
 
