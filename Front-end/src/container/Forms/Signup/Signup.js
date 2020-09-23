@@ -1,70 +1,90 @@
 import React, {Component} from 'react';
-import '../Login/Login.css';
+import '../Form.css';
 import Input from '../../../components/UI/Input/Input';
 import MainPage from '../../../components/UI/MainPage/MainPage';
+import Google_logo from '../../../components/UI/Logo/google';
+import axios from '../../../axios-shelp/axios-shelp';
 
+class Login extends Component {
 
-class Signup extends Component {
+    state = { 
+            Form:{
+                 name: {
 
-    state = {
-        Form: {
+                    placeholder: 'First Name',
+                    value: "",
+                    valid: false,
+                    type: 'text',
+                    error: " ",
+                    msg: '',
 
-            
-                name: {
-                    elementType:'input',
-                    elementConfig: {
-                        type:'text',
-                        placeholder: 'Your First Name'
+                    validation: {
+                        required: true,
+                        minLength:5,
+                        maxLength:15
                     },
 
-                value: '',
-
-                validation: {
-                    required: true,
-                    minLength:5,
-                    maxLength:8
-                },
-                valid: false
-            },
-
-            Email: {
-                elementType:'input',
-                elementConfig: {
-                    type:'email',
-                    placeholder: 'Your Email'
-                },
-
-            value: '',
-
-            validation: {
-                required: true,
-                minLength:5,
-                maxLength:8
-            },
-            valid: false
-        },
-
-
-            password: {
-                elementType:'input',
-                elementConfig: {
-                    type:'password',
-                    placeholder: 'Your Password'
-                },
-
-            value: '',
-
-            validation: {
-                required: true,
-                minLength:5,
-                maxLength:8
-            },
-            valid: false
-        },
+                    touched: false,
                 
+            },
+                email: {
+
+                    placeholder: 'Email',
+                    value: "",
+                    valid: false,
+                    type: 'email',
+                    error: " ",
+                    msg: '',
+
+                    validation: {
+                        required: true,
+                       
+                    },
+                    touched: false,
+                
+            },
+
+                password: {
+
+                    placeholder: 'Password',
+                    value: "",
+                    valid: false,
+                    type: 'password',
+                    error: " ",
+                    msg: '',
+
+                    validation: {
+                        required: true,
+                        minLength:5,
+                        maxLength:18
+                    },
+                    touched: false,
+                
+            },
 
         }
     }
+
+
+    checkValidity(value,rules){
+        let isValid = true;
+
+        if(rules.required){
+            isValid =value.trim()!=='' && isValid;
+        }
+
+        if(rules.minLength){
+            isValid = value.length >= rules.minLength  && isValid;
+        }
+     
+        
+        if(rules.maxLength){
+            isValid = value.length <= rules.maxLength  && isValid;
+        }
+
+        return isValid;
+        
+     }
 
 
 //   runs whenever there is any change in the input field
@@ -73,14 +93,65 @@ class Signup extends Component {
             ...this.state.Form
         }
         const updatedElement = {...updatedForm[inputIdentifier]}
-
+     
         updatedElement.value = event.target.value;
-        // validitycheck
+
+        if(updatedElement.value.length>0) 
+            updatedElement.touched=true;
+
+        else {updatedElement.touched=false;
+              updatedElement.error="";  
+        }
+        
+        updatedElement.valid = this.checkValidity(updatedElement.value,
+            updatedElement.validation);
+            
+
+        if(inputIdentifier ==='name' && !updatedElement.valid){
+            updatedElement.error = "At least 5 characters and at most 15";
+            updatedElement.msg="";
+        }
+        if(inputIdentifier ==='name' && updatedElement.valid){
+            updatedElement.error="";
+            updatedElement.msg="All good!";
+        }
+
+        if(inputIdentifier === "password" && !updatedElement.valid){
+            updatedElement.error = "At least 5 characters and at most 18";
+            updatedElement.msg="";
+        }
+        if(inputIdentifier === "password" && updatedElement.valid){
+            updatedElement.error="";
+            updatedElement.msg="All good!";
+        }
+
         updatedForm[inputIdentifier] = updatedElement;
         this.setState({Form: updatedForm});
 
     }
    
+
+    formHandler = (event)=> {
+        event.preventDefault();
+        const formData ={};
+        for(let formElement in this.state.Form){
+                formData[formElement]=this.state.Form[formElement].value;
+         }
+        
+        axios.put('/signup',formData)
+
+        .then(response => {console.log('Success:', response) 
+        
+        if(response.status ===201 || response.status ===200) 
+        alert("Account has been made") 
+        else alert("Something went wrong")})
+
+
+        .catch(error=>{console.log(error)});
+
+    }
+
+
 
     render() {
 
@@ -94,37 +165,43 @@ class Signup extends Component {
         };
 
         let form = (
-
-          <div>
-              <button className="google-btn">Continue with google</button>
-          
-            <form>
+          <div className="login-form">
+              <button className="google-btn"> <Google_logo/>  Continue using google</button>
+              <p className="devider-or">OR</p>
+            <form onSubmit={this.formHandler} >
             
                 {
                     formElementsArray.map(x=> (
 
                       <Input 
                         key={x.id}
-                        elementType={x.config.elementType}
-                        elementConfig={x.config.elementConfig}
+                        placeholder={x.config.placeholder}
                         value={x.config.value}
-                       //invalid={!x.config.valid}
+                        type={x.config.type}
+                        invalid={!x.config.valid}
+                        touched={x.config.touched}
+                        errors={x.config.error}
+                        msg={x.config.msg}
                         changed={(event)=> this.inputchangeHandler(event,x.id)}/>
+
                     ))
                 }
-                <button className="Sumbit-btn">Create account</button>
-                
-                {/* <Button btnType="Success" clicked= {this.orderHandler}>ORDER</Button> */}
-            
+                <button className="Sumbit-btn" type="sumbit" >Create account</button>
+                <p className="account-login"> Already have an account? <a href="/">Login</a></p>
+                 <hr/>
+
+                 <p class="Link-teach">Teach on S-help</p>          
             </form> 
             </div>
         );
 
         return (
             <div className="SideContent">
-                <MainPage
-                heading1={"Resume your"}
+                
+                <MainPage 
+                heading1={"Start your"}
                 heading2={"learning with"}/>
+
                     {form}
             </div>
         );
@@ -132,4 +209,5 @@ class Signup extends Component {
   
 }
 
-export default Signup;
+
+export default Login;

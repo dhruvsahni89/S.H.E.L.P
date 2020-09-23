@@ -1,27 +1,29 @@
 import React, {Component} from 'react';
-import './Login.css';
+import '../Form.css';
 import Input from '../../../components/UI/Input/Input';
 import MainPage from '../../../components/UI/MainPage/MainPage';
-import Google_logo from '../../../components/UI/Logo/google';
-import axios from '../../../axios-shelp/axios-shelp';
 
-class Login extends Component {
+
+class Signup extends Component {
 
     state = {
         Form: {
+
+            
                 name: {
                     elementType:'input',
                     elementConfig: {
                         type:'text',
-                        placeholder: 'First Name'
+                        placeholder: 'Your First Name'
                     },
 
                 value: '',
-
+                error: " ",
+                
                 validation: {
                     required: true,
                     minLength:5,
-                    maxLength:8
+                    maxLength:15
                 },
                 valid: false
             },
@@ -30,15 +32,15 @@ class Login extends Component {
                 elementType:'input',
                 elementConfig: {
                     type:'email',
-                    placeholder: 'Enter Email address'
+                    placeholder: 'Your Email'
                 },
 
             value: '',
+            error: " ",
 
             validation: {
                 required: true,
-                minLength:5,
-                maxLength:8
+                
             },
             valid: false
         },
@@ -48,15 +50,16 @@ class Login extends Component {
                 elementType:'input',
                 elementConfig: {
                     type:'password',
-                    placeholder: 'Password'
+                    placeholder: 'Your Password'
                 },
 
             value: '',
+            error: " ",
 
             validation: {
                 required: true,
                 minLength:5,
-                maxLength:8
+                maxLength:15
             },
             valid: false
         },
@@ -64,25 +67,6 @@ class Login extends Component {
 
         }
     }
-
-    formHandler = (event)=> {
-        event.preventDefault();
-        //this.setState({})
-        const formData ={};
-        for(let formElement in this.state.Form){
-            formData[formElement]=this.state.Form[formElement]; }
-         
-        const forminfo = {
-            forminformation: formData,
-        }
-
-        axios.get('/login')
-        .then(response=>{console.log(forminfo)})
-        .catch(error=>{console.log(error)});
-
-    }
-
-
 
 
 //   runs whenever there is any change in the input field
@@ -112,10 +96,11 @@ class Login extends Component {
         };
 
         let form = (
-          <div className="login-form">
-              <button className="google-btn"> <Google_logo/>  Continue using google</button>
-              <p className="devider-or">OR</p>
-            <form >
+
+          <div>
+              <button className="google-btn">Continue with google</button>
+          
+            <form>
             
                 {
                     formElementsArray.map(x=> (
@@ -129,21 +114,19 @@ class Login extends Component {
                         changed={(event)=> this.inputchangeHandler(event,x.id)}/>
                     ))
                 }
-                <button className="Sumbit-btn" onClick={this.formHandler}>Create account</button>
-                <p className="account-login"> Already have an account? <a href="/">Login</a></p>
-                 <hr/>
-
-                 <p class="Link-teach">Teach on S-help</p>          
+                <button className="Sumbit-btn">Create account</button>
+                
+                {/* <Button btnType="Success" clicked= {this.orderHandler}>ORDER</Button> */}
+            
             </form> 
             </div>
         );
 
         return (
             <div className="SideContent">
-                <MainPage 
-                heading1={"Start your"}
-                heading2={"learning with"}
-                />
+                <MainPage
+                heading1={"Resume your"}
+                heading2={"learning with"}/>
                     {form}
             </div>
         );
@@ -151,4 +134,4 @@ class Login extends Component {
   
 }
 
-export default Login;
+export default Signup;

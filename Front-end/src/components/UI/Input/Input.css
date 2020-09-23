@@ -1,16 +1,10 @@
 .Input {
     width:300px;
-    padding:10px;
+    padding:0px;
     box-sizing:border-box;
 }
 
 
-.Label {
-    font-weight:bold;
-    display:block;
-    margin-bottom:8px;
-
-}
 
 .InputElement {
     outline: none;
@@ -22,18 +16,32 @@
     font:normal normal normal 15px/12px Gilroy;
     letter-spacing: 0px;
     color: #707070;
-    opacity: 0.8;
     border-radius: 8px;
     padding: 8px;
     box-sizing: border-box;
+
 }
 
 .InputElement:focus {
     outline:none;
+
     
 }
 
 .Invalid{
     border:1px solid red;
-    background: salmon;
+    background: rgba(250, 128, 114, 0.815);
+  
+}
+
+.Valid{
+    border: 1px solid rgb(77, 212, 23);
+    background:rgba(41, 201, 41, 0.432);
+    color:black;
+}
+
+.error-msg{
+
+    padding:6px;
+
 }
