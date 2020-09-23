@@ -34,8 +34,6 @@ const input = (props)=> {
         error=<p></p>;
 
 
-    console.log(error);
-
     inputElement = <input 
     type={props.type}
     placeholder={props.placeholder}

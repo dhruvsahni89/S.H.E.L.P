@@ -5,7 +5,7 @@ import MainPage from '../../../components/UI/MainPage/MainPage';
 import Google_logo from '../../../components/UI/Logo/google';
 import axios from '../../../axios-shelp/axios-shelp';
 
-class Login extends Component {
+class Signup extends Component {
 
     state = { 
             Form:{
@@ -35,9 +35,11 @@ class Login extends Component {
                     type: 'email',
                     error: " ",
                     msg: '',
+                    
 
                     validation: {
                         required: true,
+                        regex:/^([a-z\d\.-]+)@([a-z\d-]+)\.([a-z]{2,8})(\.[a-z]{2,8})?$/
                        
                     },
                     touched: false,
@@ -68,6 +70,7 @@ class Login extends Component {
 
     checkValidity(value,rules){
         let isValid = true;
+        const regex=rules.regex;
 
         if(rules.required){
             isValid =value.trim()!=='' && isValid;
@@ -80,6 +83,10 @@ class Login extends Component {
         
         if(rules.maxLength){
             isValid = value.length <= rules.maxLength  && isValid;
+        }
+
+        if(rules.regex){
+            isValid = regex.test(value) && isValid;
         }
 
         return isValid;
@@ -106,6 +113,7 @@ class Login extends Component {
         updatedElement.valid = this.checkValidity(updatedElement.value,
             updatedElement.validation);
             
+        // msg errrors for username
 
         if(inputIdentifier ==='name' && !updatedElement.valid){
             updatedElement.error = "At least 5 characters and at most 15";
@@ -116,6 +124,8 @@ class Login extends Component {
             updatedElement.msg="All good!";
         }
 
+        //msg errors for password
+
         if(inputIdentifier === "password" && !updatedElement.valid){
             updatedElement.error = "At least 5 characters and at most 18";
             updatedElement.msg="";
@@ -125,6 +135,16 @@ class Login extends Component {
             updatedElement.msg="All good!";
         }
 
+        // msg errors for email
+        if(inputIdentifier === "email" && !updatedElement.valid){
+            updatedElement.error = "check format";
+            updatedElement.msg="";
+        }
+        if(inputIdentifier === "email" && updatedElement.valid){
+            updatedElement.error="";
+            updatedElement.msg="All good!";
+        }
+    
         updatedForm[inputIdentifier] = updatedElement;
         this.setState({Form: updatedForm});
 
@@ -210,4 +230,4 @@ class Login extends Component {
 }
 
 
-export default Login;
+export default Signup;
