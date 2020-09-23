@@ -6,14 +6,16 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/users');
 const nodemailer=require('nodemailer');
 const sendgridTRansport=require('nodemailer-sendgrid-transport');
+const key = require('../controllers/config');
 const transporter=nodemailer.createTransport(sendgridTRansport({
+    
 auth :{
-    api_key:'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'
+    api_user:'dhruv',
+    api_key:'key'
 }
 }));
 
   
-
 exports.signup = (req, res, next) =>{
     const error = validationResult(req);
     if(!error.isEmpty()){
