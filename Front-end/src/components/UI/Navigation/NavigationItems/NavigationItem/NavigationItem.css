@@ -1,53 +1,95 @@
-
 .NavigationItem {
-    margin:10px 0;
     box-sizing:border-box;
     display:block;
     width:100%;
+    border-radius: 8px;
+    opacity: 1;
+    font: normal normal 16px/19px Gilroy;
+    letter-spacing: 0.47px;
 
 
 }
 
 .NavigationItem a{
-    color:black;
+    color:white;
     text-decoration: none;
-    width:100%;
     box-sizing: border-box;
     display:block;
-
 }
 
 .NavigationItem a:hover,
 .NavigationItem a:active,
 .NavigationItem a.active {
+    box-sizing: border-box;
     color:#40A4C8;
+    text-decoration: none;
 }
-
 
 
 @media (min-width: 500px) {
     .NavigationItem {
-        margin:0;
-        display: flex;
-        height:100%;
-        width:auto;
-        align-items: center;
+        background: #2D81F7 0% 0% no-repeat padding-box;
+        margin: 5px;
+        display:flex;
+        height:40px;
+        width:90px;
+        
     
     }
     
     .NavigationItem a{
+    
         color:white;
+        text-align: center;
+        width:100%;
         height:100%;
-        padding: 16px 10px;
-        border-bottom: 4px solid transparent;
-
+        padding:10px;
+        
     }
     
     .NavigationItem a:hover,
     .NavigationItem a:active,
     .NavigationItem a.active {
-        /* background-color: #8F5C2C;
-        border-bottom: 4px solid  #40A4C8; */
-        color:black;
+
+    
+       border-radius: 8px; 
+       color:#2674E2;
+       background: #FCFCFC;
+       border: 0.5px solid #2674E2;
     }
+
+
+
+    .NavigationItem-teach{
+        background:rgb(241, 238, 238);
+        margin-right:5px;
+        height:40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 8px;
+        padding:10px;
+    }
+
+
+    .NavigationItem-teach a{
+        color: #566775;
+        text-decoration: none;
+    }
+
+    .NavigationItem-teach a:hover,
+    .NavigationItem-teach a:active,
+    .NavigationItem-teach a.active {
+
+        
+        opacity:0.7;
+        color: #5667757c;
+        text-decoration: none;
+    }
+
+
+
+
+
 }
+

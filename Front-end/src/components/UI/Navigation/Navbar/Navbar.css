@@ -7,9 +7,9 @@
     top: 0;
     left:0;
     display:flex;
-    justify-content: space-between;
+    justify-content:space-between;
     align-items: center;
-    padding:0 20px;
+    /* padding:0 20px; */
     box-sizing: border-box;
     z-index: 90;
 }
@@ -19,9 +19,9 @@
     
 }
 
-.Logo-burger {
-    height:80%; 
 
+.Logo-specs{
+    margin-left:150px;
 }
 
 @media (max-width: 459px){
@@ -29,4 +29,10 @@
     .DesktopOnly {
         display:none;
     }
+
+    .Logo-specs{
+        
+    }
+
+
 }

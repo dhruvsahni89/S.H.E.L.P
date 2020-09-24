@@ -1,6 +1,6 @@
 import React from 'react';
 import googleLogo from '../../../assets/Images/google.png';
-import './google.css';
+import './Logo.css';
 
 const google_logo =()=> (
 
