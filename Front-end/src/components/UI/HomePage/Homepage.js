@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Categories from './Categories';
 import HomeBanner from './HomeBanner';
 import CourseCards from './CourseCards';
+// import Recommendation from './Recommendation';
 import './CSS/Homepage.css';
 
 
@@ -17,6 +18,8 @@ class Homepage extends Component {
                     <Categories/>
                     <CourseCards/>
                 </div>
+
+
             </div>
         );
     }
