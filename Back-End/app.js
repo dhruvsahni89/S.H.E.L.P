@@ -35,6 +35,7 @@ app.use('/',errorController.error404);
 mongoose.connect('mongodb+srv://Abhishek_Srivas:Pagalworld@cluster0.0sntl.mongodb.net/Database?retryWrites=true&w=majority')
 .then(result =>{
     app.listen(port);
+    console.log("server started");
 })
 .catch(err =>{
     console.log(err);

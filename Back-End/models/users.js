@@ -3,6 +3,11 @@ var mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
+
+    isverified:{
+        type:String,
+        require:true
+    },
     email:{
         type: String,
         require:true
@@ -15,5 +20,8 @@ const UserSchema = new Schema({
         type:String,
         require:true
     }
+
 });
+
 module.exports = User = mongoose.model('Users',UserSchema);
+
