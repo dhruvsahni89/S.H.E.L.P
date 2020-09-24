@@ -8,7 +8,7 @@ const loginRoute = require('./routes/login'); //importing signup route
 const errorController = require('./controllers/error')
 
 const app = express();
-const port = 3000 //whatever is in the environment variable PORT or 3000
+const port = 8080 //whatever is in the environment variable PORT or 3000
 
 app.use(bodyParser.json()); // For parsing the incoming json file from the client
 
