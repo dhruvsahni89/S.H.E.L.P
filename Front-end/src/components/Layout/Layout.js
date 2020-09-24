@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Aux from '../../hoc/Aux';
+import Aux from '../../hoc/reactFrag';
 import  './Layout.css';
 import Navbar from '../UI/Navigation/Navbar/Navbar';
 import SideNav from '../UI/SideNav/SideNav';
