@@ -1,3 +1,4 @@
+
 const { validationResult, Result } = require("express-validator/check");
 
 const bcrypt = require("bcryptjs");
@@ -40,7 +41,7 @@ exports.signup = (req, res, next) => {
   
   
       let otp = Math.floor(100000 + Math.random() * 900000);
-      const token1 = jwt.sign(
+      const token = jwt.sign(
         {
           email: email,
         },
@@ -48,21 +49,23 @@ exports.signup = (req, res, next) => {
         { expiresIn: 600 } //600s = 10min
       );
 
+
       const otpdata = new OtpUser({
-        token: token1,
+        token: token,
         Otp: otp,
         email: email,
       });
 
       otpdata.save();
 
-      res.status(201).json({ message: "otp stored in database " , token:token1});
+      res.status(201).json({ message: "otp stored in database " , token:token});
       return transporter.sendMail({
         to: email,
         from: "dhruvsahni.akg@gmail.com",
         subject: "signup successful",
         html: `<h1>thankuh for registering here is your one time pass : ${otp}</h1>`,
       });
+
     })
     .catch((err) => {
       if (!err.statusCode) {
@@ -72,41 +75,40 @@ exports.signup = (req, res, next) => {
     });
 };
 
-exports.login = (req, res, next) => {
-  const email = req.body.email;
-  const password = req.body.password;
-  let loadedUser;
 
-  User.findOne({ email: email })
-    .then((user) => {
-      if (!user) {
-        const error = new Error("sorry user not found");
-        error.statusCode = 401;
-        throw error;
+
+exports.login=(req,res,next)=>{
+    const email=req.body.email;
+    const password=req.body.password;
+    let loadedUser;
+
+    User.findOne({email:email}) //checking email exist or not 
+    .then( user=>{
+        if(!user){
+            const error =new Error('sorry user not found');
+            error.statusCode = 401; // For not authenticated
+            throw error;
+        }
+        loadedUser=user;
+        return bcrypt.compare(password, user.password); // to compare the stored and entered password, returning because this will give us a promise
+
+      })
+  
+    .then(equal=>{  //will get a true or false
+        if(!equal){
+            const error = new Error('wrong password');
+            error.statusCode=401;
+            throw error;
+        }
+        const token=jwt.sign({email:loadedUser.email , //sign creates new signature and packs it in a new json web token
+             userId:loadedUser._id.toString()}, // to string because its a mongodb object id here
+             'supersecret', // passing second argument i.e our private key
+             {expiresIn:'2h'}
+             );
+             res.status(200).json({token:token , userId:loadedUser._id.toString() , message:'User logged in'})
+        })
       }
-      loadedUser = user;
-      return bcrypt.compare(password, user.password);
-    })
-    .then((equal) => {
-      if (!equal) {
-        const error = new Error("wrong password");
-        error.statusCode = 401;
-        throw error;
-      }
-      const token = jwt.sign(
-        { email: loadedUser.email, userId: loadedUser._id.toString() },
-        "supersecret",
-        { expiresIn: "2h" }
-      );
-      res
-        .status(200)
-        .json({
-          token: token,
-          userId: loadedUser._id.toString(),
-          message: "User logged in",
-        });
-    });
-};
+
 
 exports.otpVerification = (req, res, next) => {
   const recievedToken = req.body.token;
@@ -114,6 +116,7 @@ exports.otpVerification = (req, res, next) => {
   // searching for otp in database by token that i stored by token1
   OtpUser.findOne({ token: recievedToken })
     .then((data) => {
+      console.log("found token");
       // if not found
       if (!data) {
         const error = new Error("Validation failed"); // when token not found
@@ -128,11 +131,14 @@ exports.otpVerification = (req, res, next) => {
       }
 
       // check if entered otp is valid
-      if (data.otp == recievedOtp) {
+      if (data.otp === recievedOtp) {
         User.findOne({ email: data.email }).then((user) => {
           user.isverified = "true";
           user.save();
+          console.log(data.email);
+          
         });
+        console.log(data.otp);
 
         data.remove();
 
