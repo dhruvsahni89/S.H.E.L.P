@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import { Redirect } from 'react-router-dom';
+import AuthService from "../../../ApiServices/auth.service";
 import '../Form.css';
 import Input from '../../../components/UI/Input/Input';
 import MainPage from '../../../components/UI/MainPage/MainPage';
 import Google_logo from '../../../components/UI/Logo/google';
-import axios from '../../../axios-shelp/axios-shelp';
 import SpinnerButton from '../../../components/UI/Spinners/SpinnerButton';
 import SumbitButton from '../../../components/UI/Buttons/SumbitButton';
 
@@ -181,21 +181,15 @@ class Signup extends Component {
                     formData[formElement]=this.state.Form[formElement].value;
             }
             
-            axios.put('/signup',formData)
+            AuthService.register(formData).then(
+                ()=>{
+                    // this.setState({ redirect: "/signup/otp" });this.props.history.push("/profile");
+                    this.props.history.push("/signup/otp")
+                    window.location.reload();
 
-            .then(response => {console.log('Success:', response) 
-            this.setState({loading:false});
-
-            if(response.status ===201 || response.status ===200)
-
-                {localStorage.setItem('token', response.data.token) 
-                this.setState({ redirect: "/signup/otp" });}
-               // alert("Account has been made") }
-
-            else alert("Something went wrong")})
-
-
-            .catch(error=>{console.log(error)});
+                  
+                }
+            )
         }
         else alert("Make sure the Validations are correct");
 

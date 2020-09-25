@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import { Redirect } from 'react-router-dom';
+import AuthService from '../../../ApiServices/auth.service';
 import '../Form.css';
 import Input from '../../../components/UI/Input/Input';
 import MainPage from '../../../components/UI/MainPage/MainPage';
-import axios from '../../../axios-shelp/axios-shelp';
 import SpinnerButton from '../../../components/UI/Spinners/SpinnerButton';
 import SumbitButton from '../../../components/UI/Buttons/SumbitButton';
 
@@ -98,23 +98,21 @@ class Otp extends Component {
             }
 
             formData.token = this.state.Signup_token;
-            console.log(formData);
-
             
-            axios.post('/signup/otp',formData)
+            AuthService.otp(formData).then(
+                ()=>{
+                    // this.setState({loading:false});
+                    // this.setState({ redirect: "/login" });
+                    this.props.history.push("/login");
+                    window.location.reload();
+                    this.setState({loading:false})
 
-            .then(response => {console.log('Success:', response) 
-            this.setState({loading:false});
-            
-            if(response.status ===201 || response.status ===200) 
+                }
+            )
+
            
-            {localStorage.removeItem('token', response.data.token) 
-            this.setState({ redirect: "/login" });}
 
-            else alert("Something went wrong")})
-
-
-            .catch(error=>{console.log(error)});
+            
         }
         else alert("Make sure the Validations are correct");
 

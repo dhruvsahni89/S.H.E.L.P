@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
+import AuthService from "../../../ApiServices/auth.service";
 import '../Form.css';
 import Input from '../../../components/UI/Input/Input';
 import SpinnerButton from '../../../components/UI/Spinners/SpinnerButton';
 import MainPage from '../../../components/UI/MainPage/MainPage';
-import axios from '../../../axios-shelp/axios-shelp';
+import axios from '../../../ApiServices/axiosUrl';
 import Google_logo from '../../../components/UI/Logo/google';
 import SumbitButton from '../../../components/UI/Buttons/SumbitButton';
 
@@ -139,25 +140,23 @@ OverallValidity = ()=>{
 
 formHandler = (event)=> {
     event.preventDefault();
+
      if(this.OverallValidity()){
+
         this.setState({loading:true});
         const formData ={};
         for(let formElement in this.state.Form){
                 formData[formElement]=this.state.Form[formElement].value;
         }
         
-        axios.post('/login',formData)
-
-        .then(response => {console.log('Success:', response) 
-        this.setState({loading:false});
-        if(response.status ===201 || response.status ===200) 
-        {alert("You are logged in!")
-        console.log(response.message) }
-        else alert("Something went wrong")})
-
-
-        .catch(error=>{console.log(error)});
+        AuthService.login(formData).then(
+            ()=> {
+                this.setState({loading:false})
+            }
+        );
+        
         }
+        
     else alert("Make sure the validations are correct")
     }
 
