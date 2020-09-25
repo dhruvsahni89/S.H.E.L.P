@@ -80,19 +80,28 @@ exports.signup = (req, res, next) => {
 exports.login=(req,res,next)=>{
     const email=req.body.email;
     const password=req.body.password;
-    let loadedUser;
+   
 
     User.findOne({email:email}) //checking email exist or not 
     .then( user=>{
+      
         if(!user){
             const error =new Error('sorry user not found');
             error.statusCode = 401; // For not authenticated
             throw error;
         }
-        loadedUser=user;
-        return bcrypt.compare(password, user.password); // to compare the stored and entered password, returning because this will give us a promise
+       const isverified=user.isverified;
+       console.log(isverified + "dhruvsahni");
+       if(isverified ==="false"){
+         res.status(200).json({
+          message: " you have not verified your otp "
+        });
+       
+       }
+      
+      
+       bcrypt.compare(password, user.password) // to compare the stored and entered password, returning because this will give us a promise
 
-      })
   
     .then(equal=>{  //will get a true or false
         if(!equal){
@@ -100,19 +109,24 @@ exports.login=(req,res,next)=>{
             error.statusCode=401;
             throw error;
         }
-        const token=jwt.sign({email:loadedUser.email , //sign creates new signature and packs it in a new json web token
-             userId:loadedUser._id.toString()}, // to string because its a mongodb object id here
+       
+        
+        const token=jwt.sign({email:user.email , //sign creates new signature and packs it in a new json web token
+             userId:user._id.toString()}, // to string because its a mongodb object id here
              'supersecret', // passing second argument i.e our private key
              {expiresIn:'2h'}
              );
-             res.status(200).json({token:token , userId:loadedUser._id.toString() , message:'User logged in'})
+        
+             res.status(200).json({token:token , userId:user._id.toString() , message:'User logged in'})
         })
-      }
+      })
+    }
 
 
 exports.otpVerification = (req, res, next) => {
   const recievedToken = req.body.token;
   const recievedOtp = req.body.otp;
+ 
   // searching for otp in database by token that i stored by token1
   OtpUser.findOne({ token: recievedToken })
     .then((data) => {
@@ -132,13 +146,25 @@ exports.otpVerification = (req, res, next) => {
 
       // check if entered otp is valid
       if (data.otp === recievedOtp) {
-        User.findOne({ email: data.email }).then((user) => {
+
+        User.findOne({ email: data.email }).then(user => {
           user.isverified = "true";
+          console.log(user);
           user.save();
-          console.log(data.email);
+        })
+        // const email = req.body.email;
+        // const name = req.body.name;
+        // const password = req.body.password;
+        // const user = new User({
           
-        });
-        console.log(data.otp);
+        //   email: email,
+        //   name: name,
+        //   password:password
+        // });
+       
+          
+        // });
+        // console.log(data.otp);
 
         data.remove();
 
@@ -146,6 +172,7 @@ exports.otpVerification = (req, res, next) => {
           message: "otp entered is correct, user added",
         });
       } else {
+
         const error = new Error("Validation Failed");
         error.statusCode = 401;
         error.data = {

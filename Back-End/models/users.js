@@ -4,11 +4,16 @@ const Schema = mongoose.Schema; //to create a new schema i.e db field
 
 
 const UserSchema = new Schema({
-
     isverified:{
         type:String,
         require:true
     },
+
+    email:{
+        type:String,
+        require:true
+    },
+
 
     name:{
         type:String,
