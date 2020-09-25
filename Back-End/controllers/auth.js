@@ -1,95 +1,193 @@
-const bcrypt = require('bcryptjs');  //for encrypting password
-const jwt = require('jsonwebtoken'); //for creating web token 
-const User = require('../models/users'); // importing user schema 
-const nodemailer=require('nodemailer');
-const sendgridTRansport = require('nodemailer-sendgrid-transport'); // for integrating sendgrid with nodemailer
 
-const { validationResult} = require('express-validator/check'); //For checking the result of validator
+const { validationResult, Result } = require("express-validator/check");
 
-const transporter = nodemailer.createTransport(sendgridTRansport({ // tells how the mails should be transported
-auth :{
-    api_key:'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' 
-}
-}));
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const User = require("../models/users");
+const OtpUser = require("../models/otp");
+const nodemailer = require("nodemailer");
+const sendgridTRansport = require("nodemailer-sendgrid-transport");
+const config = require("../config");
+const transporter = nodemailer.createTransport(
+  sendgridTRansport({
+    auth: {
+      api_key: config.api_key,
+    },
+  })
+);
+
+exports.signup = (req, res, next) => {
+  const error = validationResult(req);
+  if (!error.isEmpty()) {
+    const error = new Error("Validation failed");
+    error.statusCode = 422;
+    throw error;
+  }
+  const email = req.body.email;
+  const name = req.body.name;
+  const password = req.body.password;
+
+  bcrypt.hash(password, 12).then((hashedPass) => {
+    console.log("password hashed");
+    const user = new User({
+        isverified: "false",
+        email: email,
+        name: name,
+        password: hashedPass,
+      });
+      user.save();
+
 
   
+  
+      let otp = Math.floor(100000 + Math.random() * 900000);
+      const token = jwt.sign(
+        {
+          email: email,
+        },
+        "otptoken",
+        { expiresIn: 600 } //600s = 10min
+      );
 
-exports.signup = (req, res, next) =>{  
-    const error = validationResult(req);
-    if(!error.isEmpty()){
-        const error = new Error('Validation failed');
-        error.statusCode = 422;
-        throw error;   
-    }
-    // extracting email,name and password form the body 
-    const email = req.body.email;  
-    const name  = req.body.name;
-    const password = req.body.password;
-    bcrypt.hash(password,12)  // 12 is strength 
-    .then(hashedPass => {
-        const user = new User({
-            email: email,
-            name: name,
-            password: hashedPass
-        });
-        return user.save(); // return so that we can add a new then and check whether the save was successful or not
+
+      const otpdata = new OtpUser({
+        token: token,
+        Otp: otp,
+        email: email,
+      });
+
+      otpdata.save();
+
+      res.status(201).json({ message: "otp stored in database " , token:token});
+      return transporter.sendMail({
+        to: email,
+        from: "dhruvsahni.akg@gmail.com",
+        subject: "signup successful",
+        html: `<h1>thankuh for registering here is your one time pass : ${otp}</h1>`,
+      });
+
     })
-    .then(result => {
-        let otp =  Math.random() * 900000;
-        res.status(201).json({message:'User Created'});
-        return transporter.sendMail({
-            to:email,
-            from:'dhruvsahni89@gmail.com',
-            subject:'signup successful',
-            html:`<h1>thankuh for registering here is your one time pass </h1> <h1>:${otp}</h1>`
-        });
-    })
-    .catch(err =>{
-        if(!err.statusCode){
-            err.statusCode = 500;
-        }
-        next(err); 
-    })  
+    .catch((err) => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
 };
+
+
 
 exports.login=(req,res,next)=>{
     const email=req.body.email;
     const password=req.body.password;
-    let loadedUser;
+   
 
     User.findOne({email:email}) //checking email exist or not 
     .then( user=>{
+      
         if(!user){
             const error =new Error('sorry user not found');
             error.statusCode = 401; // For not authenticated
             throw error;
         }
-        loadedUser=user;
-        return bcrypt.compare(password, user.password); // to compare the stored and entered password, returning because this will give us a promise
+       const isverified=user.isverified;
+       console.log(isverified + "dhruvsahni");
+       if(isverified ==="false"){
+         res.status(200).json({
+          message: " you have not verified your otp "
+        });
+       
+       }
+      
+      
+       bcrypt.compare(password, user.password) // to compare the stored and entered password, returning because this will give us a promise
 
-    })
+  
     .then(equal=>{  //will get a true or false
         if(!equal){
             const error = new Error('wrong password');
             error.statusCode=401;
             throw error;
         }
-        const token=jwt.sign({email:loadedUser.email , //sign creates new signature and packs it in a new json web token
-             userId:loadedUser._id.toString()}, // to string because its a mongodb object id here
+       
+        
+        const token=jwt.sign({email:user.email , //sign creates new signature and packs it in a new json web token
+             userId:user._id.toString()}, // to string because its a mongodb object id here
              'supersecret', // passing second argument i.e our private key
              {expiresIn:'2h'}
              );
-             res.status(200).json({token:token , userId:loadedUser._id.toString() , message:'User logged in'})
+        
+             res.status(200).json({token:token , userId:user._id.toString() , message:'User logged in'})
+        })
+      })
+    }
 
+
+exports.otpVerification = (req, res, next) => {
+  const recievedToken = req.body.token;
+  const recievedOtp = req.body.otp;
+ 
+  // searching for otp in database by token that i stored by token1
+  OtpUser.findOne({ token: recievedToken })
+    .then((data) => {
+      console.log("found token");
+      // if not found
+      if (!data) {
+        const error = new Error("Validation failed"); // when token not found
+        error.statusCode = 403;
+        error.data = {
+          value: recievedOtp,
+          msg: "invalid token",
+          param: "otp",
+          location: "otp",
+        };
+        throw error;
+      }
+
+      // check if entered otp is valid
+      if (data.otp === recievedOtp) {
+
+        User.findOne({ email: data.email }).then(user => {
+          user.isverified = "true";
+          console.log(user);
+          user.save();
+        })
+        // const email = req.body.email;
+        // const name = req.body.name;
+        // const password = req.body.password;
+        // const user = new User({
+          
+        //   email: email,
+        //   name: name,
+        //   password:password
+        // });
+       
+          
+        // });
+        // console.log(data.otp);
+
+        data.remove();
+
+        return res.status(200).json({
+          message: "otp entered is correct, user added",
+        });
+      } else {
+
+        const error = new Error("Validation Failed");
+        error.statusCode = 401;
+        error.data = {
+          value: recievedOtp,
+          msg: "Otp incorrect",
+          param: "otp",
+          location: "otp",
+        };
+        throw error;
+      }
     })
-    
-    .catch(err=>{
-        if(!err.statusCode){
-            err.statusCode = 500;
-        }
-        next(err);
-
-
+    .catch((err) => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
     });
-
 };
