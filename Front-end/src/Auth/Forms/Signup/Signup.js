@@ -4,6 +4,8 @@ import Input from '../../../components/UI/Input/Input';
 import MainPage from '../../../components/UI/MainPage/MainPage';
 import Google_logo from '../../../components/UI/Logo/google';
 import axios from '../../../axios-shelp/axios-shelp';
+import SpinnerButton from '../../../components/UI/Spinners/SpinnerButton';
+import SumbitButton from '../../../components/UI/Buttons/SumbitButton';
 
 class Signup extends Component {
 
@@ -64,7 +66,9 @@ class Signup extends Component {
                 
             },
 
-        }
+        },
+        loading:false,
+       
     }
 
 
@@ -96,6 +100,7 @@ class Signup extends Component {
 
 //   runs whenever there is any change in the input field
     inputchangeHandler = (event,inputIdentifier)=> {
+
         const updatedForm = {
             ...this.state.Form
         }
@@ -150,24 +155,41 @@ class Signup extends Component {
 
     }
    
+    OverallValidity = ()=>{
+
+        for(let validate in this.state.Form){
+            if(!this.state.Form[validate].valid){
+                return false;
+            }
+        }
+        return true;
+    }
+
 
     formHandler = (event)=> {
         event.preventDefault();
-        const formData ={};
-        for(let formElement in this.state.Form){
-                formData[formElement]=this.state.Form[formElement].value;
-         }
+         
+        if(this.OverallValidity()){
+            this.setState({loading:true});
         
-        axios.put('/signup',formData)
+            const formData ={};
+            for(let formElement in this.state.Form){
+                    formData[formElement]=this.state.Form[formElement].value;
+            }
+            
+            axios.put('/signup',formData)
 
-        .then(response => {console.log('Success:', response) 
-        
-        if(response.status ===201 || response.status ===200) 
-        alert("Account has been made") 
-        else alert("Something went wrong")})
+            .then(response => {console.log('Success:', response) 
+            this.setState({loading:false});
+            
+            if(response.status ===201 || response.status ===200) 
+            alert("Account has been made") 
+            else alert("Something went wrong")})
 
 
-        .catch(error=>{console.log(error)});
+            .catch(error=>{console.log(error)});
+        }
+        else alert("Make sure the Validations are correct");
 
     }
 
@@ -183,6 +205,12 @@ class Signup extends Component {
             });
 
         };
+
+        let SigninSumbitButton= <SumbitButton className={"Sumbit-btn"} Label={"Create Account"}/>;
+   
+        if(this.state.loading){
+            SigninSumbitButton= <SpinnerButton spinnerclass={"Sumbit-btn"}/>;
+    }
 
         let form = (
           <div className="login-form">
@@ -206,11 +234,12 @@ class Signup extends Component {
 
                     ))
                 }
-                <button className="Sumbit-btn" type="sumbit" >Create account</button>
+               
+                {SigninSumbitButton}
                 <p className="account-login"> Already have an account? <a href="/">Login</a></p>
                  <hr/>
 
-                 <p class="Link-teach">Teach on S-help</p>          
+                 <p className="Link-teach">Teach on S-help</p>          
             </form> 
             </div>
         );
