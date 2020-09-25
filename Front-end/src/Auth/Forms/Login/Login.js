@@ -151,7 +151,8 @@ formHandler = (event)=> {
         .then(response => {console.log('Success:', response) 
         this.setState({loading:false});
         if(response.status ===201 || response.status ===200) 
-        alert("You are logged in!") 
+        {alert("You are logged in!")
+        console.log(response.message) }
         else alert("Something went wrong")})
 
 
@@ -216,6 +217,7 @@ render() {
         return (
             <div className="SideContent">
                 <MainPage
+                shelp={true}
                 heading1={"Resume your"}
                 heading2={"learning with"}/>
                     {form}
