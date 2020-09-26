@@ -35,11 +35,9 @@ exports.signup = (req, res, next) => {
         name: name,
         password: hashedPass,
       });
+
+
       user.save();
-
-
-  
-  
       let otp = Math.floor(100000 + Math.random() * 900000);
       const token = jwt.sign(
         {
@@ -93,7 +91,7 @@ exports.login=(req,res,next)=>{
        const isverified=user.isverified;
        console.log(isverified + "dhruvsahni");
        if(isverified ==="false"){
-
+      
         let otp = Math.floor(100000 + Math.random() * 900000);
         
         OtpUser.findOne({ email: email })
