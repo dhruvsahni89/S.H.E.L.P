@@ -1,8 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose'); // importing mongoose
+const multer = require('multer');
 
-var User = require('./models/users'); //importing schema 
 const signupRoute = require('./routes/signup'); //importing signup route
 const errorController = require('./controllers/error')
 
