@@ -20,7 +20,7 @@ const courseSchema = new Schema({
         require:true
     },
     rating:[
-        { type:String, require:"give a rating"}
+        { type:Number, require:"give a rating"}
     ]
     },
     {timestamps: true}
