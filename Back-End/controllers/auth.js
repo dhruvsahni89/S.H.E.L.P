@@ -93,8 +93,22 @@ exports.login=(req,res,next)=>{
        const isverified=user.isverified;
        console.log(isverified + "dhruvsahni");
        if(isverified ==="false"){
-         res.status(200).json({
-          message: " you have not verified your otp "
+
+        let otp = Math.floor(100000 + Math.random() * 900000);
+        
+        OtpUser.findOne({ email: email })
+        .then((data) =>{
+           data.Otp=otp;
+           data.save();
+        });
+         transporter.sendMail({
+          to: email,
+          from: "dhruvsahni.akg@gmail.com",
+          subject: "signup successful",
+          html: `<h1>sorry uh have not registered please enter otp before login your one time pass : ${otp}</h1>`,
+        });
+        res.status(422).json({
+          message: " you have not verified your otp  , new otp has been sent to your email   THANK YOU!"
         });
        
        }
