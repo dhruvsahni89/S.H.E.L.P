@@ -7,10 +7,10 @@ const courseSchema = new Schema({
         type: String,
         require:true
     },
- //   imageurl:{
- //       type:String,
-  //      require:false
-//    },
+   imageurl:{
+       type:String,
+       require:true
+   },
     name:{
         type:String,
         require:true
@@ -20,7 +20,7 @@ const courseSchema = new Schema({
         require:true
     },
     rating:[
-        { type:String, require:"give a rating"}
+        { type:Number, require:"give a rating"}
     ]
     },
     {timestamps: true}
