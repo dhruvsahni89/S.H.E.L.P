@@ -218,7 +218,7 @@ exports.resendOTP = (req, res, next) =>{ // extra measure's taken if, password v
         data.Otp = otp ;
         data.save();
 
-        res.status(201).json({ message: "otp stored in database " , token:token});
+      res.status(201).json({ message: "otp stored in database " , token:token});
 
       return transporter.sendMail({
         to: email,
