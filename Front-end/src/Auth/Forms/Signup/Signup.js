@@ -1,9 +1,14 @@
 import React, {Component} from 'react';
+import { Redirect } from 'react-router-dom';
+import AuthService from "../../../ApiServices/auth.service";
 import '../Form.css';
 import Input from '../../../components/UI/Input/Input';
 import MainPage from '../../../components/UI/MainPage/MainPage';
 import Google_logo from '../../../components/UI/Logo/google';
-import axios from '../../../axios-shelp/axios-shelp';
+import SpinnerButton from '../../../components/UI/Spinners/SpinnerButton';
+import SumbitButton from '../../../components/UI/Buttons/SumbitButton';
+
+
 
 class Signup extends Component {
 
@@ -64,7 +69,10 @@ class Signup extends Component {
                 
             },
 
-        }
+        },
+        loading:false,
+        redirect:null
+       
     }
 
 
@@ -96,6 +104,7 @@ class Signup extends Component {
 
 //   runs whenever there is any change in the input field
     inputchangeHandler = (event,inputIdentifier)=> {
+
         const updatedForm = {
             ...this.state.Form
         }
@@ -150,30 +159,49 @@ class Signup extends Component {
 
     }
    
+    OverallValidity = ()=>{
+
+        for(let validate in this.state.Form){
+            if(!this.state.Form[validate].valid){
+                return false;
+            }
+        }
+        return true;
+    }
+
 
     formHandler = (event)=> {
         event.preventDefault();
-        const formData ={};
-        for(let formElement in this.state.Form){
-                formData[formElement]=this.state.Form[formElement].value;
-         }
+         
+        if(this.OverallValidity()){
+            this.setState({loading:true});
         
-        axios.put('/signup',formData)
+            const formData ={};
+            for(let formElement in this.state.Form){
+                    formData[formElement]=this.state.Form[formElement].value;
+            }
+            
+            AuthService.register(formData).then(
+                ()=>{
+                    // this.setState({ redirect: "/signup/otp" });this.props.history.push("/profile");
+                    this.props.history.push("/signup/otp")
+                    window.location.reload();
 
-        .then(response => {console.log('Success:', response) 
-        
-        if(response.status ===201 || response.status ===200) 
-        alert("Account has been made") 
-        else alert("Something went wrong")})
-
-
-        .catch(error=>{console.log(error)});
+                  
+                }
+            )
+        }
+        else alert("Make sure the Validations are correct");
 
     }
 
 
 
     render() {
+
+        if (this.state.redirect) {
+            return <Redirect to={this.state.redirect} />
+          }
 
         const formElementsArray =[];
         for(let key in this.state.Form ){
@@ -183,6 +211,12 @@ class Signup extends Component {
             });
 
         };
+
+        let SigninSumbitButton= <SumbitButton className={"Sumbit-btn"} Label={"Create Account"}/>;
+   
+        if(this.state.loading){
+            SigninSumbitButton= <SpinnerButton spinnerclass={"Sumbit-btn"}/>;
+    }
 
         let form = (
           <div className="login-form">
@@ -206,11 +240,12 @@ class Signup extends Component {
 
                     ))
                 }
-                <button className="Sumbit-btn" type="sumbit" >Create account</button>
+               
+                {SigninSumbitButton}
                 <p className="account-login"> Already have an account? <a href="/">Login</a></p>
                  <hr/>
 
-                 <p class="Link-teach">Teach on S-help</p>          
+                 <p className="Link-teach">Teach on S-help</p>          
             </form> 
             </div>
         );
@@ -219,6 +254,7 @@ class Signup extends Component {
             <div className="SideContent">
                 
                 <MainPage 
+                shelp={true}
                 heading1={"Start your"}
                 heading2={"learning with"}/>
 

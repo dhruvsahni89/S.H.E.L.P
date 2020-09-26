@@ -1,6 +1,6 @@
 import React from 'react';
 import './SideNav.css';
-//import Logo from '../../../Logo/Logo';
+import Logo from '../Logo/Logo';
 import NavigationItems from '../Navigation/NavigationItems/NavigationItems';
 import Backdrop from '../Backdrop/Backdrop';
 import Aux from '../../../hoc/reactFrag';
@@ -20,8 +20,8 @@ const sideNav = (props)=> {
         <div className={drawer.join(' ')} >
 
             <div className="LogO" >
-                {/* //<Logo /> */}
-                <p>logo</p>
+                <Logo /> 
+              
             </div>
             
 

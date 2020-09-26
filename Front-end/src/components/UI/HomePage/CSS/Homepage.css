@@ -1,0 +1,42 @@
+.Course-Content{
+    display:flex;
+    
+}
+
+.Interest-banner{
+    margin-top:50px;
+    position: relative;
+    
+}
+
+.Interest-banner img{
+ 
+    background: transparent linear-gradient(270deg, #00000000 0%, #000000 100%) 0% 0% no-repeat padding-box;
+    height:145px;
+    width:900px;
+    object-fit: cover;
+    margin-bottom:50px;
+    opacity:0.9;
+    z-index: 2;
+}
+
+.Interest-banner p{
+    position:absolute;
+    top:20%;
+    left:10%;
+    color:white;
+    font: normal normal 800 32px/31px Gilroy;
+    opacity:1;
+    z-index: 10;
+}
+
+
+.Interest-banner span{
+    position:absolute;
+    top:20%;
+    left:80%;
+    padding:10px;
+    border-radius: 2px;
+    background:white;
+   
+}

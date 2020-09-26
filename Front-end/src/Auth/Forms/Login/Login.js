@@ -1,9 +1,12 @@
 import React, {Component} from 'react';
+import AuthService from "../../../ApiServices/auth.service";
 import '../Form.css';
 import Input from '../../../components/UI/Input/Input';
+import SpinnerButton from '../../../components/UI/Spinners/SpinnerButton';
 import MainPage from '../../../components/UI/MainPage/MainPage';
-import axios from '../../../axios-shelp/axios-shelp';
+import axios from '../../../ApiServices/axiosUrl';
 import Google_logo from '../../../components/UI/Logo/google';
+import SumbitButton from '../../../components/UI/Buttons/SumbitButton';
 
 
 class Login extends Component {
@@ -47,7 +50,8 @@ class Login extends Component {
             
         },
 
-    }
+    },
+    loading:false,
 }
 
 
@@ -123,26 +127,38 @@ inputchangeHandler = (event,inputIdentifier)=> {
 
 }
 
+OverallValidity = ()=>{
+
+    for(let validate in this.state.Form){
+        if(!this.state.Form[validate].valid){
+            return false;
+        }
+    }
+    return true;
+}
+
 
 formHandler = (event)=> {
     event.preventDefault();
-    const formData ={};
-    for(let formElement in this.state.Form){
-            formData[formElement]=this.state.Form[formElement].value;
-     }
-    
-    axios.post('/login',formData)
 
-    .then(response => {console.log('Success:', response) 
-    
-    if(response.status ===201 || response.status ===200) 
-    alert("Account has been made") 
-    else alert("Something went wrong")})
+     if(this.OverallValidity()){
 
-
-    .catch(error=>{console.log(error)});
-
-}
+        this.setState({loading:true});
+        const formData ={};
+        for(let formElement in this.state.Form){
+                formData[formElement]=this.state.Form[formElement].value;
+        }
+        
+        AuthService.login(formData).then(
+            ()=> {
+                this.setState({loading:false})
+            }
+        );
+        
+        }
+        
+    else alert("Make sure the validations are correct")
+    }
 
 
 
@@ -156,6 +172,12 @@ render() {
         });
 
     };
+
+    let LoginSumbitButton= <SumbitButton className={"Sumbit-btn"} Label={"Login"}/>;
+   
+    if(this.state.loading){
+        LoginSumbitButton= <SpinnerButton spinnerclass={"Sumbit-btn"}/>;
+    }
 
     let form = (
       <div className="login-form">
@@ -180,7 +202,7 @@ render() {
                 ))
             }
             <p className="forgot-password"> Forgot Password?</p>
-            <button className="Sumbit-btn" type="sumbit" >Login</button>
+            {LoginSumbitButton}
             <p className="account-login"> New User? <a href="/">Sign up</a></p>
          
 
@@ -188,11 +210,13 @@ render() {
         </form> 
         </div>
     );
+        
 
 
         return (
             <div className="SideContent">
                 <MainPage
+                shelp={true}
                 heading1={"Resume your"}
                 heading2={"learning with"}/>
                     {form}
