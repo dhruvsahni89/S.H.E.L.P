@@ -28,6 +28,8 @@ router.put('/signup',[  // put because we create a user once so doesn't matter i
 ],authController.signup
 );
 
+//router.post('/resend-otp',) //if
+
 router.post('/login',authController.login);
 
 module.exports = router; //For exporting router to app.js
