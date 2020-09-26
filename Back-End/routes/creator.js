@@ -5,7 +5,7 @@ const courseController = require('../controllers/courses');
 const router = express.Router();
 
 
-router.post('/create-course',[
+router.post('/creator/create-course',[
     body('title').trim().isLength({min:5}),
     body('name').trim().isLength({min:5}) 
 ],courseController.createcourse);

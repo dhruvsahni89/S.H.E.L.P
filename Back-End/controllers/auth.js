@@ -203,3 +203,33 @@ exports.otpVerification = (req, res, next) => {
       next(err);
     });
 };
+
+exports.resendOTP = (req, res, next) =>{ // extra measure's taken if, password valnerability occurs.........
+
+  const token = req.body.token;
+  const email = req.body.email;
+  
+      let otp = Math.floor(100000 + Math.random() * 900000);
+
+      OtpUser.findOne({ email: email })
+      .then((data) =>{
+        data.Otp = otp ;
+        data.save();
+
+        res.status(201).json({ message: "otp stored in database " , token:token});
+
+      return transporter.sendMail({
+        to: email,
+        from: "dhruvsahni.akg@gmail.com",
+        subject: "Otp resend",
+        html: `<h1>Your New OTP is : ${otp}</h1>`,
+      });
+
+
+    }).catch(err => {
+      res.json("error while resending otp");
+    })
+
+  
+  
+}

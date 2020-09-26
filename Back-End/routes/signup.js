@@ -5,6 +5,7 @@ const authController = require('../controllers/auth');
 
 const router = express.Router();
 router.post("/signup/otp", authController.otpVerification); //otp verification after signup
+router.post("/signup/otp-resend", authController.resendOTP); //resend-otp verification 
 
 router.put('/signup',[  // put because we create a user once so doesn't matter if its new or we overwrite existing data
     body('email')
@@ -16,7 +17,7 @@ router.put('/signup',[  // put because we create a user once so doesn't matter i
                     return Promise.reject('E-mail Adress already Exist');
                 }
             })
-        }).normalizeEmail(), // check for  .. or + - in the email and remove it 
+        })/* .normalizeEmail() */, // check for  .. or + - in the email and remove it 
 
     body('password')
         .trim()
@@ -28,6 +29,20 @@ router.put('/signup',[  // put because we create a user once so doesn't matter i
 ],authController.signup
 );
 
+//router.post('/resend-otp',) //if
+
 router.post('/login',authController.login);
 
+
 module.exports = router; //For exporting router to app.js
+
+
+
+        // at 204 invalid eamil or password
+        // at 203 please add email or password
+        // at 423 email doesnt exist
+        // at 424 now verify your email
+        // at 205 user already exists
+        // at 422 confirm your password
+        // at 401 please add all the fields
+        // at 400 error is password must contain 5 characters

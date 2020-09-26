@@ -8,8 +8,8 @@ const courseSchema = new Schema({
         require:true
     },
    imageurl:{
-       type:String,
-       require:true
+        type:String,
+        require:true
    },
     name:{
         type:String,
@@ -26,4 +26,4 @@ const courseSchema = new Schema({
     {timestamps: true}
 );
 
-module.exports = mongoose.model('Courses',courseSchema); //stored in users collection  and uses user schema
+module.exports = courses =mongoose.model('Courses',courseSchema); //stored in users collection  and uses user schema
