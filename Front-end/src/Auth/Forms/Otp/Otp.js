@@ -33,6 +33,7 @@ class Otp extends Component {
         },
         loading:false,
         Signup_token:localStorage.getItem('token'),
+        email:localStorage.getItem('email'),
         redirect:null
        
     }
@@ -98,26 +99,37 @@ class Otp extends Component {
             }
 
             formData.token = this.state.Signup_token;
+           
             
             AuthService.otp(formData).then(
                 ()=>{
                     // this.setState({loading:false});
                     // this.setState({ redirect: "/login" });
-                    this.props.history.push("/login");
-                    window.location.reload();
+                    this.setState({redirect:'/login'})
+                    //window.location.reload();
                     this.setState({loading:false})
 
                 }
             )
-
-           
-
-            
         }
         else alert("Make sure the Validations are correct");
 
     }
 
+    resendotp = ()=>{
+        let formData ={};
+        formData.token=this.state.Signup_token;
+        formData.email=this.state.email;
+       
+        console.log(formData);
+
+        AuthService.otpResend(formData).then(
+            ()=>{
+                //
+
+            }
+        )
+    }
 
 
     render() {
@@ -163,7 +175,7 @@ class Otp extends Component {
 
                     ))
                 }
-               <p className="forgot-password"> Resend Otp?</p>
+               <p className="forgot-password" onClick={this.resendotp}> Resend Otp?</p>
                 {SigninSumbitButton}
                 <p className="account-login"> Already have an account? <a href="/">Login</a></p>
                  <hr/>
@@ -177,7 +189,7 @@ class Otp extends Component {
                 
                 <MainPage 
                 heading1={"Please Confirm "}
-                heading2={"your Email Adress"}/>
+                heading2={"your Email Address"}/>
 
                     {form}
             </div>

@@ -1,0 +1,123 @@
+.CartTitle{
+    margin-top:100px;
+    font: normal normal 30px/58px Gilroy;
+    letter-spacing: 0px;
+    color: #566775;
+    line-height:normal;
+    margin-left:3px;
+}
+
+.CartSubTitle{
+    font: normal normal medium 22px/26px Gilroy;
+    letter-spacing: 0px;
+    margin-left:3px;
+    color: #566775;
+    opacity: 0.5;
+    line-height:normal;
+}
+
+
+.CartContent{
+    margin-top:10px;
+    display:flex;
+    flex-wrap:wrap;
+    
+}
+
+.CardMain{
+    display:flex;
+   
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #70707033;
+    border-radius: 12px;
+    margin:5px;
+    padding:2px;
+    
+}
+
+.CardImageParent{
+    margin-right:8px;
+}
+
+.CardImageParent img{
+    object-fit: cover;
+    width: 200px;
+    height: 190px;
+    border-radius:8px;
+
+}
+
+.CardSideContent{
+    margin-top:3px;
+    margin-right:10px;
+    width:330px;
+    max-width:310px;
+
+
+}
+
+.CourseTitle,.CourseTeacher{
+
+    font: normal normal bold 18px/24px Gilroy;
+    letter-spacing: 0px;
+    color: #3C4852;
+    opacity: 1;
+    line-height: normal;
+}
+
+.CourseTeacher{
+    font: normal normal normal 13px/20px Gilroy;
+    letter-spacing: 0px;
+    color: #3C4852;
+}
+
+.CardParent1,.CardParent2,.CardParent3{
+    display:flex;
+    line-height:0px;
+
+}
+
+.CoursePrice{
+    font: normal normal bold 20px/25px Gilroy;
+    letter-spacing: 0px;
+    color: #3C4852;
+    line-height:normal;
+
+}
+
+.CourseRating,.Coursestar{
+    font: normal normal normal 13px/20px Gilroy;
+    letter-spacing: 0px;
+    color: #3C4852;
+    line-height:normal;
+}
+
+.CourseRemove,.CourseWhishlist,.CourseSave{
+    flex-grow:1;
+    text-align:right;
+    font: normal normal 15px/21px Gilroy;
+    letter-spacing: 0px;
+    color: #566775;
+    line-height:normal;
+    
+}
+
+.CourseBuy{
+    text-align:right;
+    font: normal normal medium 18px/21px Gilroy;
+    letter-spacing: 0px;
+    line-height:0px;
+    color: #08BD80;
+}
+
+
+
+
+
+
+@media (max-width:500px){
+    .CardImageParent img{
+        width: 100px;
+        height: 100px;
+    }
+}

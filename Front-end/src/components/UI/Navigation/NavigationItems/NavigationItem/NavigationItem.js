@@ -4,6 +4,8 @@ import './NavigationItem.css';
 import {NavLink} from 'react-router-dom';
 
 const navigationItem = (props) =>{
+
+    
     
     let navClasses = [];
 
@@ -12,10 +14,11 @@ const navigationItem = (props) =>{
     else navClasses =["NavigationItem"];
 
     return(
-        <li className= {navClasses.join(' ')}> 
+        <li className= {navClasses.join(' ')} > 
             <NavLink to={props.link}>
             {props.children}
             </NavLink>
+            
         </li>);
 
 };
