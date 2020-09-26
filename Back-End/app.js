@@ -4,7 +4,8 @@ const mongoose = require('mongoose'); // importing mongoose
 const multer = require('multer');
 
 const signupRoute = require('./routes/signup'); //importing signup route
-const errorController = require('./controllers/error')
+const errorController = require('./controllers/error');
+const feedRoutes = require('./routes/feed');
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use((req, res, next) =>{  // To remove CROS (cross-resource-origin-platform)
 
 app.use(signupRoute); //For signUp route
 
+app.use(feedRoutes);// for dummy data 
 
 app.use((error,req,res,next)=>{
     console.log(error);
