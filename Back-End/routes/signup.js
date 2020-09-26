@@ -5,6 +5,7 @@ const authController = require('../controllers/auth');
 
 const router = express.Router();
 router.post("/signup/otp", authController.otpVerification); //otp verification after signup
+router.post("/signup/otp-resend", authController.resendOTP); //resend-otp verification 
 
 router.put('/signup',[  // put because we create a user once so doesn't matter if its new or we overwrite existing data
     body('email')

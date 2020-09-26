@@ -210,23 +210,15 @@ exports.resendOTP = (req, res, next) =>{ // extra measure's taken if, password v
 
   const token = req.body.token;
   const email = req.body.email;
-
-  OtpUser.findOne({ email: email })
-    .then((data) =>{
-      // data.remove();
-      console.log(data);
-    });
-
   
-  let otp = Math.floor(100000 + Math.random() * 900000);
+      let otp = Math.floor(100000 + Math.random() * 900000);
 
-  const otpdata = new OtpUser({
-    token: token,
-    Otp: otp,
-    email: email,
-  });
+      OtpUser.findOne({ email: email })
+      .then((data) =>{
+        data.Otp = otp ;
+        data.save();
 
-      res.status(201).json({ message: "otp stored in database " , token:token});
+        res.status(201).json({ message: "otp stored in database " , token:token});
 
       return transporter.sendMail({
         to: email,
@@ -234,4 +226,12 @@ exports.resendOTP = (req, res, next) =>{ // extra measure's taken if, password v
         subject: "Otp resend",
         html: `<h1>Your New OTP is : ${otp}</h1>`,
       });
+
+
+    }).catch(err => {
+      res.json("error while resending otp");
+    })
+
+  
+  
 }
