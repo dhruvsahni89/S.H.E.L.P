@@ -129,7 +129,7 @@ exports.login=(req,res,next)=>{
              {expiresIn:'6h'}
              );
         
-             res.status(200).json({token:token , userId:user._id.toString() , message:'User logged in'})
+             res.status(200).json({token:token , userId:user._id.toString() , message:'User logged in', username:user.name})
         })
       })
     }
