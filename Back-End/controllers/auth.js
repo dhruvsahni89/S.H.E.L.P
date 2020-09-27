@@ -126,7 +126,7 @@ exports.login=(req,res,next)=>{
         const token=jwt.sign({email:user.email , //sign creates new signature and packs it in a new json web token
              userId:user._id.toString()}, // to string because its a mongodb object id here
              'supersecret', // passing second argument i.e our private key
-             {expiresIn:'2h'}
+             {expiresIn:'6h'}
              );
         
              res.status(200).json({token:token , userId:user._id.toString() , message:'User logged in'})
@@ -166,6 +166,13 @@ exports.otpVerification = (req, res, next) => {
           console.log(user);
           user.save();
         })
+        const token = jwt.sign(
+          {
+            email: email,userId:user._id.toString()
+          },
+          "otpverifiedtoken",
+          { expiresIn:'6h' } //600s = 10min
+        );
         // const email = req.body.email;
         // const name = req.body.name;
         // const password = req.body.password;
