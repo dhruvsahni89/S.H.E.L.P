@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose'); // importing mongoose
 const multer = require('multer');
@@ -16,14 +17,14 @@ const port = 8080 //whatever is in the environment variable PORT or 3000
 const fileStorage = multer.diskStorage({ //for multer storage
     //these are two functions which are called by multer for incoming file
     destination: (req, file, cb)=> {
-        cb(null,'images'); // null tells the call backs that its ok to store the file because that place is for error
+        cb(null,'uploads'); // null tells the call backs that its ok to store the file because that place is for error
     },
     filename:(req, file, cb)=> {
         cb(null,new Date().toDateString() + "-" + file.originalname);
     }
 });
 const fileFilter = (req, file, cb) => {
-    if(file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg'){
+    if(file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'video/mp4'){
         cb(null,true);  //if we want to store that file
     }
     else{
@@ -33,32 +34,29 @@ const fileFilter = (req, file, cb) => {
 };
 
 
-const fileStoragevideo = multer.diskStorage({ //for multer storage
-    //these are two functions which are called by multer for incoming file
-    destination: (req, file, cb)=> {
-        cb(null,'videos'); // null tells the call backs that its ok to store the file because that place is for error
-    },
-    filename:(req, file, cb)=> {
-        cb(null,new Date().toDateString() + "-" + file.originalname);
-    }
-});
-const fileFiltervideo = (req, file, cb) => {
-    if(file.mimetype === 'video/mp4'){
-        cb(null,true);  //if we want to store that file
-    }
-    else{
-        cb(null,false); //if we dont want to store that file
-        console.log("wrong file type");
-    }
-};
-
+// const fileStoragevideo = multer.diskStorage({ //for multer storage
+//     //these are two functions which are called by multer for incoming file
+//     destination: (req, file, cb)=> {
+//         cb(null,'videos'); // null tells the call backs that its ok to store the file because that place is for error
+//     },
+//     filename:(req, file, cb)=> {
+//         cb(null,new Date().toDateString() + "-" + file.originalname);
+//     }
+// });
+// const fileFiltervideo = (req, file, cb) => {
+//     if(file.mimetype === 'video/mp4'){
+//         cb(null,true);  //if we want to store that file
+//     }
+//     else{
+//         cb(null,false); //if we dont want to store that file
+//         console.log("wrong file type");
+//     }
+// };
 
 
 app.use(bodyParser.json()); // For parsing the incoming json file from the client
 app.use(multer({storage:fileStorage,fileFilter:fileFilter}).single('file'));
-
-
-
+app.use(express.static(path.join(__dirname,'images')));
 
 app.use((req, res, next) =>{  // To remove CROS (cross-resource-origin-platform) problem 
     res.setHeader('Access-Control-Allow-Origin',"*"); // to allow all client we use *

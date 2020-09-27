@@ -38,11 +38,11 @@ module.exports = router; //For exporting router to app.js
 
 
 
-        // at 204 invalid eamil or password
-        // at 203 please add email or password
-        // at 423 email doesnt exist
-        // at 424 now verify your email
-        // at 205 user already exists
-        // at 422 confirm your password
-        // at 401 please add all the fields
-        // at 400 error is password must contain 5 characters
+// at 204 invalid eamil or password
+// at 203 please add email or password
+// at 423 email doesnt exist
+// at 424 now verify your email
+// at 205 user already exists
+// at 422 confirm your password
+// at 401 please add all the fields
+// at 400 error is password must contain 5 characters
