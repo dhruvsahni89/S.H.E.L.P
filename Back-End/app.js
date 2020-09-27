@@ -34,6 +34,7 @@ const fileFilter = (req, file, cb) => {
 };
 
 
+
 // const fileStoragevideo = multer.diskStorage({ //for multer storage
 //     //these are two functions which are called by multer for incoming file
 //     destination: (req, file, cb)=> {
@@ -60,14 +61,14 @@ app.use(express.static(path.join(__dirname,'images')));
 
 app.use((req, res, next) =>{  // To remove CROS (cross-resource-origin-platform) problem 
     res.setHeader('Access-Control-Allow-Origin',"*"); // to allow all client we use *
-    res.setHeader('Access-Control-Allow-Methods',"OPTIONS,GET,POST,PUT,PATCH,DELETE"); //these are the allowed methods 
+    res.setHeader('Accces-Control-Allow-Methods',"OPTIONS,GET,POST,PUT,PATCH,DELETE"); //these are the allowed methods 
     res.setHeader('Access-Control-Allow-Headers', "*"); // allowed headers (Auth for extra data related to authoriaztiom)
     next();
 })
 
 app.use(signupRoute); //For signUp route
 app.use(createCourse);
-//app.use(resendOtp);
+// app.use(resend-Otp);
 app.use(feedRoutes);// for dummy data 
 
 app.use((error,req,res,next)=>{

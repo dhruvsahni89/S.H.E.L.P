@@ -22,16 +22,16 @@ const input = (props)=> {
         if(index>-1) inputclasses.splice(index,1);
           inputclasses.push("Valid"); }
 
-    let error ="";
+    let error = <p>s</p>;
 
     if(props.msg!=="" && props.touched)  
         error = <p className="text-success error-msg">{props.msg}</p>;
 
     if(props.errors!=="" && props.touched)
-        error= <p className="text-danger error-msg">{props.errors}</p>;
+        error= <p className=" text-danger error-msg">{props.errors}</p>;
     
     else if(!props.touched) 
-        error=<p></p>;
+        error=<p style={{opacity:"0"}}>a</p>;
 
 
     inputElement = <input 

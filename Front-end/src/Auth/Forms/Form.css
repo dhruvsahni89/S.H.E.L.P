@@ -55,6 +55,7 @@
     color: #2D81F7;
     text-align: center;
     margin-top:20px;
+    cursor:pointer;
 
 }
 
@@ -66,4 +67,5 @@
     color: #707070;
     font:normal normal normal 15px/12px Gilroy;
     margin-left:3px;
+    cursor:pointer;
 }

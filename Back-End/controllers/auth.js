@@ -125,10 +125,10 @@ exports.login=(req,res,next)=>{
         const token=jwt.sign({email:user.email , //sign creates new signature and packs it in a new json web token
              userId:user._id.toString()}, // to string because its a mongodb object id here
              'supersecret', // passing second argument i.e our private key
-             {expiresIn:'2h'}
+             {expiresIn:'6h'}
              );
         
-             res.status(200).json({token:token , userId:user._id.toString() , message:'User logged in'})
+             res.status(200).json({token:token , userId:user._id.toString() , message:'User logged in', username:user.name})
         })
       })
     }
@@ -164,7 +164,20 @@ exports.otpVerification = (req, res, next) => {
           user.isverified = "true";
           console.log(user);
           user.save();
-        })
+          const token = jwt.sign(
+            {
+              email: user.email,userId:user._id.toString()
+            },
+            "otpverifiedtoken",
+            { expiresIn:'6h' } //600s = 10min
+          );
+          data.remove();
+
+          return res.status(200).json({
+            message: "otp entered is correct, user added", token:token, userId:user._id.toString() , username:user.name
+          });
+        });
+       
         // const email = req.body.email;
         // const name = req.body.name;
         // const password = req.body.password;
@@ -179,11 +192,7 @@ exports.otpVerification = (req, res, next) => {
         // });
         // console.log(data.otp);
 
-        data.remove();
-
-        return res.status(200).json({
-          message: "otp entered is correct, user added",
-        });
+       
       } else {
 
         const error = new Error("Validation Failed");

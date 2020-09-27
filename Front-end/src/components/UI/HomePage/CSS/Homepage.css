@@ -1,23 +1,40 @@
-.Course-Content{
+
+
+.Course-Content, .Course-Content-wrap{
     display:flex;
+    
+
+}
+.Course-Content-wrap{
+    flex-wrap:wrap;
+}
+.Course-Content-col{
+    display:flex;
+    flex-direction:column;
+    margin-left:30px;
     
 }
 
+
+
 .Interest-banner{
     margin-top:50px;
+    margin-left:30px;
     position: relative;
     
 }
 
 .Interest-banner img{
- 
-    background: transparent linear-gradient(270deg, #00000000 0%, #000000 100%) 0% 0% no-repeat padding-box;
+    display:flex;
+    background: transparent linear-gradient(270deg, #00000000 0%, #000000 100%)
+     0% 0% no-repeat padding-box;
     height:145px;
-    width:900px;
+    width:100%;
     object-fit: cover;
     margin-bottom:50px;
     opacity:0.9;
     z-index: 2;
+    border-radius:6px;
 }
 
 .Interest-banner p{
@@ -25,18 +42,88 @@
     top:20%;
     left:10%;
     color:white;
-    font: normal normal 800 32px/31px Gilroy;
+    font: normal normal 600 29px/31px Gilroy;
     opacity:1;
     z-index: 10;
 }
 
 
-.Interest-banner span{
+.Interest-banner button{
     position:absolute;
     top:20%;
     left:80%;
-    padding:10px;
     border-radius: 2px;
-    background:white;
+    width: 150px;
+    height: 40px;
+    margin-left:auto;
+    margin-right:auto;
+    text-align:center;
+    font: normal normal 15px/22px Gilroy;
+    letter-spacing: 0.72px;
+    color: #08BD80;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border-radius: 8px;
    
+}
+
+
+@media (max-width:991px){
+
+
+    .Interest-banner button{
+       
+        left:65%;
+        top:30%;
+
+       
+    
+    }
+    .Interest-banner p{
+        font: normal normal 600 19px/31px Gilroy;
+        
+    }
+
+}
+
+@media (max-width:767px){
+
+
+    .Interest-banner button{
+       
+        left:100px;
+        top:100px;
+        margin-top:10px;
+        font: normal normal 12px/22px Gilroy;
+        width: 150px;
+        height: 30px;
+
+       
+    
+    }
+
+}
+
+
+
+@media (max-width:467px){
+
+
+    .Interest-banner button{
+       
+        left:60px;
+        top:90px;
+        margin-top:0px;
+       
+
+       
+    
+    }
+
+    .Interest-banner p{
+        font: normal normal 600 15px/31px Gilroy;
+        top:10%;
+        left:10%;
+        
+    }
+
 }
