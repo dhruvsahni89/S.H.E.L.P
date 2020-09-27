@@ -1,4 +1,3 @@
-
 const { validationResult, Result } = require("express-validator/check");
 
 const bcrypt = require("bcryptjs");

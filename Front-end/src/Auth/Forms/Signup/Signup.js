@@ -7,7 +7,7 @@ import MainPage from '../../../components/UI/MainPage/MainPage';
 import Google_logo from '../../../components/UI/Logo/google';
 import SpinnerButton from '../../../components/UI/Spinners/SpinnerButton';
 import SumbitButton from '../../../components/UI/Buttons/SumbitButton';
-
+import ProductApi from "../../../ApiServices/ProductApi";
 
 
 class Signup extends Component {
@@ -199,9 +199,9 @@ class Signup extends Component {
 
     }
 
-    logout=() => {
-        AuthService.logout();
-        console.log(localStorage.getItem('user'))
+    product=() => {
+        ProductApi.Product();
+        
     }
 
 
@@ -254,7 +254,7 @@ class Signup extends Component {
                 <p className="account-login"> Already have an account? <a href="/">Login</a></p>
                  <hr/>
 
-                 <p className="Link-teach" onClick={this.logout} >Teach on S-help</p>          
+                 <p className="Link-teach" onClick={this.product} >Teach on S-help</p>          
             </form> 
             </div>
         );

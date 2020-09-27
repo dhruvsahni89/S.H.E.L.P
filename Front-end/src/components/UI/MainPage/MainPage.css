@@ -21,6 +21,23 @@
     color: #08BD80;
 }
 
+.circle1,.circle2{
+    position:absolute;
+
+}
+
+.circle1{
+    width:100px;
+    left:120px;
+    bottom:40px;
+
+}
+.circle2{
+    width:240px;
+    bottom:-150px;
+    left:-120px;
+}
+
 @media (max-width:700px){
     .Content-text{
         display:none;

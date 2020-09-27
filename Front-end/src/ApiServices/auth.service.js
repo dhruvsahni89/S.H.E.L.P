@@ -14,19 +14,21 @@ class AuthServices {
                 else 
                     alert("Something went wrong")})
 
-            .catch(error=>{console.log(error)});
+            .catch(error=>{console.log(error); alert("Something went wrong")} );
     }
 
     otp(data){
         return axios.post("/signup/otp",data)
         .then(response => {console.log('Response:', response) 
             if(response.status ===201 || response.status ===200) 
-                {localStorage.removeItem('token') 
+              
+                {  alert(response.data.message);
+                    localStorage.removeItem('token') 
                  localStorage.removeItem('email') 
             
                 }
             else alert("Something went wrong")})
-            .catch(error=>{console.log(error)});
+            .catch(error=>{console.log(error); alert("Something went wrong")});
 
         }
 
@@ -34,14 +36,14 @@ class AuthServices {
     otpResend(data){
         return axios.post('/signup/otp-resend',data)
         .then(response => {console.log('Response:',response)
-        alert("abhishek tu pitega"); 
+        alert("OTP has been Re-sent!"); 
         if(response.status ===201 || response.status ===200) 
             {localStorage.removeItem('token') 
              localStorage.removeItem('email') 
            
             }
         else alert("Something went wrong")})
-        .catch(error=>{console.log(error)});
+        .catch(error=>{console.log(error); alert("Something went wrong")});
 
     }
 
@@ -49,6 +51,7 @@ class AuthServices {
     login(data) {
         return axios.post('/login',data)
         .then(response => {
+          
             console.log('Response:', response)
             if(response.status ===201 || response.status ===200) 
                 {alert(response.data.message);
@@ -56,7 +59,8 @@ class AuthServices {
             else 
                 alert("Something went wrong")})
 
-        .catch(error=>{console.log(error.response)});
+        .catch(error=>{console.log(error); 
+            alert("Something went wrong");});
     }
 
 

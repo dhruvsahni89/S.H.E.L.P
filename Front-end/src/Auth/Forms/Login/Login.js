@@ -4,7 +4,7 @@ import '../Form.css';
 import Input from '../../../components/UI/Input/Input';
 import SpinnerButton from '../../../components/UI/Spinners/SpinnerButton';
 import MainPage from '../../../components/UI/MainPage/MainPage';
-import axios from '../../../ApiServices/axiosUrl';
+//import axios from '../../../ApiServices/axiosUrl';
 import Google_logo from '../../../components/UI/Logo/google';
 import SumbitButton from '../../../components/UI/Buttons/SumbitButton';
 
@@ -25,7 +25,7 @@ class Login extends Component {
 
                 validation: {
                     required: true,
-                    regex:/^([a-z\d\.-]+)@([a-z\d-]+)\.([a-z]{2,8})(\.[a-z]{2,8})?$/
+                    regex:/^([a-z\d\.-]+)@([a-z\d-]+)\.([a-z]{2,8})(\.[a-z]{2,8})?$/,
                    
                 },
                 touched: false,
@@ -152,12 +152,23 @@ formHandler = (event)=> {
         AuthService.login(formData).then(
             ()=> {
                 this.setState({loading:false})
+                
+                window.location.reload();
+                
             }
         );
         
         }
         
     else alert("Make sure the validations are correct")
+    }
+
+
+    logout=() => {
+        AuthService.logout();
+        console.log(localStorage.getItem('user'));
+        window.location.reload();
+
     }
 
 
@@ -201,7 +212,7 @@ render() {
 
                 ))
             }
-            <p className="forgot-password"> Forgot Password?</p>
+            <p className="forgot-password"  onClick={this.logout}> logout</p>
             {LoginSumbitButton}
             <p className="account-login"> New User? <a href="/">Sign up</a></p>
          

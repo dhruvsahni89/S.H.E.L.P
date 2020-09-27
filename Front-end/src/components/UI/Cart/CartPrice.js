@@ -1,5 +1,5 @@
 import React from 'react';
-import Webdev from '../../../assets/Images/webdev.png';
+//import Webdev from '../../../assets/Images/webdev.png';
 import './CSS/CartPrice.css';
 
 const CartPrice =(props)=> {

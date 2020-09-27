@@ -19,6 +19,15 @@ const courseSchema = new Schema({
         type: String,
         require:true
     },
+    category:{
+        type:String,
+        require:true
+    },
+    creator:{
+        type: Schema.Types.ObjectId,   //for refrencing the person who created it 
+        required:true,
+        ref:'User'
+    },
     rating:[
         { type:Number, require:"give a rating"}
     ]

@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+const courses = require('./courses');
 
 const Schema = mongoose.Schema; //to create a new schema i.e db field 
 
@@ -22,7 +23,14 @@ const UserSchema = new Schema({
     password:{
         type:String,
         require:true
-    }
+    },
+    courses:[
+        {
+            type:Schema.Types.ObjectId,
+            ref:courses,
+            require:false
+        }
+    ]
 
 });
 

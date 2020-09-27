@@ -12,14 +12,17 @@ class Navbar extends Component {
     }
 
     componentDidMount(){
-         let userToken = AuthServices.getCurrentUser();
-         if(userToken!==null){
-             this.setState({isLoggedIn:true});
-         }
+        let userToken = AuthServices.getCurrentUser();
+        if(userToken!==null){
+            this.setState({isLoggedIn:true});
+        }
+        
      }
 
 
     render(){
+
+       
     return(<header className="Navbar">
     <SideToggler clicked= {this.props.drawerTogglerClicked} />
     
