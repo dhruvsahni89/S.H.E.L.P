@@ -165,14 +165,20 @@ exports.otpVerification = (req, res, next) => {
           user.isverified = "true";
           console.log(user);
           user.save();
-        })
-        const token = jwt.sign(
-          {
-            email: email,userId:user._id.toString()
-          },
-          "otpverifiedtoken",
-          { expiresIn:'6h' } //600s = 10min
-        );
+          const token = jwt.sign(
+            {
+              email: user.email,userId:user._id.toString()
+            },
+            "otpverifiedtoken",
+            { expiresIn:'6h' } //600s = 10min
+          );
+          data.remove();
+
+          return res.status(200).json({
+            message: "otp entered is correct, user added", token:token, userId:user._id.toString() 
+          });
+        });
+       
         // const email = req.body.email;
         // const name = req.body.name;
         // const password = req.body.password;
@@ -187,11 +193,7 @@ exports.otpVerification = (req, res, next) => {
         // });
         // console.log(data.otp);
 
-        data.remove();
-
-        return res.status(200).json({
-          message: "otp entered is correct, user added",
-        });
+       
       } else {
 
         const error = new Error("Validation Failed");
