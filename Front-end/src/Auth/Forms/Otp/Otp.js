@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { Redirect } from 'react-router-dom';
 import AuthService from '../../../ApiServices/auth.service';
 import '../Form.css';
+import Alert from '../alert';
 import Input from '../../../components/UI/Input/Input';
 import MainPage from '../../../components/UI/MainPage/MainPage';
 import SpinnerButton from '../../../components/UI/Spinners/SpinnerButton';
@@ -34,11 +35,26 @@ class Otp extends Component {
         loading:false,
         Signup_token:localStorage.getItem('token'),
         email:localStorage.getItem('email'),
-        redirect:null
+        redirect:null,
+
+        alert: {
+            valid:localStorage.getItem('valid'),
+            msg:localStorage.getItem('msg'),
+            alertType:localStorage.getItem('type'),
+        }
        
     }
     
 
+    AlertError(alertmsg, alertType) {
+        const AlertArray = {...this.state.alert};
+        AlertArray.msg = alertmsg;
+        AlertArray.valid=true;
+        AlertArray.alertType=alertType;
+        this.setState({alert:AlertArray});
+    
+    }
+    
     checkValidity(value,rules){
         let isValid = true;
         if(rules.required){
@@ -101,18 +117,34 @@ class Otp extends Component {
             formData.token = this.state.Signup_token;
            
             
-            AuthService.otp(formData).then(
-                ()=>{
-                    // this.setState({loading:false});
-                    // this.setState({ redirect: "/login" });
-                    this.setState({redirect:'/login'})
-                    //window.location.reload();
-                    this.setState({loading:false})
+            AuthService.otp(formData)
+            .then(response => {console.log('Response:', response) 
+            if(response.status ===201 || response.status ===200) 
+              
+                { 
+                 
+                 this.setState({loading:false})    
 
+
+                 localStorage.removeItem('token') 
+                 localStorage.removeItem('email') 
+                 localStorage.removeItem('valid') 
+                 localStorage.removeItem('msg') 
+                 localStorage.removeItem('type') 
+
+                 localStorage.setItem('user',response.data.token); 
+                 this.setState({redirect:'/HomePage'})
+                 window.location.reload();
+            
                 }
-            )
+            else alert("Something went wrong")})
+            .catch(error=>{console.log(error); this.setState({loading:false}); this.AlertError("Make sure the Validations are correct", "danger");});
+
+            
+            
+           
         }
-        else alert("Make sure the Validations are correct");
+        else this.AlertError("Make sure the Validations are correct", "warning");
 
     }
 
@@ -123,18 +155,32 @@ class Otp extends Component {
        
         console.log(formData);
 
-        AuthService.otpResend(formData).then(
-            ()=>{
-                //
+        AuthService.otpResend(formData)
+            .then(response => {console.log('Response:',response)
+            this.AlertError("Please Check Your Email, Otp has been Re-sent to your Email Address", "success");
+            if(response.status ===201 || response.status ===200) 
+                {localStorage.removeItem('token') 
+                 localStorage.removeItem('email') 
+               
+                }
+            else alert("Something went wrong")})
 
-            }
-        )
+            .catch(error=>{console.log(error); this.AlertError("Make sure the Validations are correct", "warning")});
+        
     }
 
 
     render() {
        
     
+        let alertContent = null;
+
+
+        if(this.state.alert.valid){
+            alertContent = ( <Alert alertMsg ={this.state.alert.msg} alertType={this.state.alert.alertType} /> )
+        }
+
+        
         if (this.state.redirect) {
             return <Redirect to={this.state.redirect} />
           }
@@ -184,7 +230,9 @@ class Otp extends Component {
             </div>
         );
 
-        return (
+        return (<div>
+            {alertContent}
+      
             <div className="SideContent">
                 
                 <MainPage 
@@ -193,6 +241,7 @@ class Otp extends Component {
 
                     {form}
             </div>
+              </div>
         );
     }
   

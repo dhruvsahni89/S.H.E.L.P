@@ -1,12 +1,13 @@
 .SideContent {
-    height:100vh;
     box-sizing: border-box;
     display: flex;
     justify-content: space-around;
-    align-items: center;
-    
+    align-items:center;
+    justify-items: center;
+
     
 }
+
 
 .Sumbit-btn{
     height:42px;
@@ -60,7 +61,7 @@
 }
 
 .login-form{
-    margin-top:140px;
+    margin-top:90px;
 }
 
 .forgot-password{

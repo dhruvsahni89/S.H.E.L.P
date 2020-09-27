@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
 import AuthService from "../../../ApiServices/auth.service";
 import '../Form.css';
+import { Redirect } from 'react-router-dom';
 import Input from '../../../components/UI/Input/Input';
 import SpinnerButton from '../../../components/UI/Spinners/SpinnerButton';
 import MainPage from '../../../components/UI/MainPage/MainPage';
 //import axios from '../../../ApiServices/axiosUrl';
 import Google_logo from '../../../components/UI/Logo/google';
 import SumbitButton from '../../../components/UI/Buttons/SumbitButton';
-
+import Alert from '../alert';
 
 class Login extends Component {
 
@@ -52,6 +53,25 @@ class Login extends Component {
 
     },
     loading:false,
+      
+    alert: {
+        valid:false,
+        msg:"",
+        alertType:"",
+    }
+    
+   
+     
+}
+
+
+AlertError(alertmsg, alertType) {
+    const AlertArray = {...this.state.alert};
+    AlertArray.msg = alertmsg;
+    AlertArray.valid=true;
+    AlertArray.alertType=alertType;
+    this.setState({alert:AlertArray});
+
 }
 
 
@@ -149,18 +169,30 @@ formHandler = (event)=> {
                 formData[formElement]=this.state.Form[formElement].value;
         }
         
-        AuthService.login(formData).then(
-            ()=> {
+        AuthService.login(formData)
+        .then(response => {
+          
+            console.log('Response:', response)
+            if(response.status ===201 || response.status ===200) 
+                {
+                
+                alert(response.data.message);
+                localStorage.setItem('user',response.data.token);
                 this.setState({loading:false})
-                
+                this.setState({redirect:'/HomePage'})
                 window.location.reload();
-                
+           
             }
-        );
-        
+            else 
+                alert("Something went wrong")})
+
+        .catch(error=>{console.log(error); 
+            this.setState({loading:false});
+            this.AlertError("Make sure the Validations are correct", "danger");});
+  
         }
         
-    else alert("Make sure the validations are correct")
+        else this.AlertError("Make sure the Validations are correct", "warning");
     }
 
 
@@ -174,6 +206,19 @@ formHandler = (event)=> {
 
 
 render() {
+
+ 
+    let alertContent = null;
+
+
+    if(this.state.alert.valid){
+        alertContent = ( <Alert alertMsg ={this.state.alert.msg} alertType={this.state.alert.alertType} /> )
+    }
+
+   
+    if (this.state.redirect) {
+        return <Redirect to={this.state.redirect} />
+      }
 
     const formElementsArray =[];
     for(let key in this.state.Form ){
@@ -224,13 +269,17 @@ render() {
         
 
 
-        return (
-            <div className="SideContent">
-                <MainPage
-                shelp={true}
-                heading1={"Resume your"}
-                heading2={"learning with"}/>
-                    {form}
+        return (<div>
+                    {alertContent}
+                    <div className="SideContent">
+                        
+                        <MainPage
+                        shelp={true}
+                        heading1={"Resume your"}
+                        heading2={"learning with"}/>
+
+                            {form}
+                    </div>
             </div>
         );
     }
