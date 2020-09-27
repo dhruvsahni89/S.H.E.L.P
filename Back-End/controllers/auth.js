@@ -175,7 +175,7 @@ exports.otpVerification = (req, res, next) => {
           data.remove();
 
           return res.status(200).json({
-            message: "otp entered is correct, user added", token:token, userId:user._id.toString() 
+            message: "otp entered is correct, user added", token:token, userId:user._id.toString() , username:user.name
           });
         });
        
