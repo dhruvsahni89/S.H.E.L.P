@@ -137,7 +137,7 @@ exports.login=(req,res,next)=>{
 
 exports.otpVerification = (req, res, next) => {
   const recievedToken = req.body.token;
-  const recievedOtp = req.body.otp;
+  const recievedOtp = req.body.Otp;
 
   console.log()
  

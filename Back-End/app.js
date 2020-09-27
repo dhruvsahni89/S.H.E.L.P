@@ -55,8 +55,8 @@ const fileFiltervideo = (req, file, cb) => {
 
 
 app.use(bodyParser.json()); // For parsing the incoming json file from the client
-app.use(multer({storage:fileStorage,fileFilter:fileFilter}).single('image'));
-app.use(multer({storage:fileStoragevideo,fileFilter:fileFiltervideo}).single('video'));
+app.use(multer({storage:fileStorage,fileFilter:fileFilter}).single('file'));
+
 
 
 
