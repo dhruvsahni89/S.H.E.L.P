@@ -4,7 +4,7 @@ import '../Form.css';
 import Input from '../../../components/UI/Input/Input';
 import SpinnerButton from '../../../components/UI/Spinners/SpinnerButton';
 import MainPage from '../../../components/UI/MainPage/MainPage';
-import axios from '../../../ApiServices/axiosUrl';
+//import axios from '../../../ApiServices/axiosUrl';
 import Google_logo from '../../../components/UI/Logo/google';
 import SumbitButton from '../../../components/UI/Buttons/SumbitButton';
 
@@ -25,7 +25,7 @@ class Login extends Component {
 
                 validation: {
                     required: true,
-                    regex:/^([a-z\d\.-]+)@([a-z\d-]+)\.([a-z]{2,8})(\.[a-z]{2,8})?$/
+                    regex:/^([a-z\d\.-]+)@([a-z\d-]+)\.([a-z]{2,8})(\.[a-z]{2,8})?$/,
                    
                 },
                 touched: false,

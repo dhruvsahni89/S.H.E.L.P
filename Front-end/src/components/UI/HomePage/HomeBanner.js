@@ -7,7 +7,7 @@ const HomepageBanner=(props)=>{
 
 
     return(
-        <div>
+        <div className="BannerSection">
            
            <img className="BannerImage" src={Banner1} alt="banner1"/>
            <p className="Banner-text">Best place to <br/>learn new things</p> 

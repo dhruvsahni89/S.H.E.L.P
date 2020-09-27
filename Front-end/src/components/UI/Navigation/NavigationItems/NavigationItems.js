@@ -2,7 +2,7 @@ import React from  'react';
 import './NavigationItems.css';
 import NavigationItem from './NavigationItem/NavigationItem';
 import Aux from '../../../../hoc/ReactFrag';
-import AuthServices from '../../../../ApiServices/auth.service';
+//import AuthServices from '../../../../ApiServices/auth.service';
 
 
 const navigationItems = (props)=> {
@@ -15,7 +15,7 @@ const navigationItems = (props)=> {
             </Aux>);
 
     
-    if(props.login==true){
+    if(props.login===true){
        login = <NavigationItem link="/login">Logout</NavigationItem>
     }
 

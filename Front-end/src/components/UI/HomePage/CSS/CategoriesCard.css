@@ -7,6 +7,10 @@
     opacity: 1;
 }
 
+.Categories-main{
+ 
+}
+
 .Categories-main p{
     font: normal normal normal 18px/26px Gilroy;
     letter-spacing: 0px;
@@ -32,18 +36,26 @@
 
 
 /* Cards section */
-
-.Cards-section{
+.CategoryDevider{
     display:flex;
-    margin-left:30px;
 }
+
+
 .Course-Cards{
     display:flex;
+    flex-wrap:wrap;
+    margin-left:0px;
     
 }
 
-.my-card,.CategoriesTitle{
+.CategoriesTitle{
     margin-left:30px;
+}
+
+.my-card{
+    margin-left:20px;
+    display:flex;
+    flex-direction: column;
 }
 
 .CategoriesTitle{
@@ -54,17 +66,17 @@
 }
 
 .my-card img{
-    width:270px;
+    width:290px;
     height:160px;
     border-radius:8px;
 
 }
 
 .Course-Devider{
-   height:270px;
+   height:100vh;
    border: 1px solid #707070;
    opacity: 0.5;
-   
+   margin-left:20px;
 }
 
 .Course-Title,.Course-Teacher,.Course-info{

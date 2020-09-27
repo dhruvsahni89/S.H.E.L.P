@@ -2,7 +2,7 @@ import React from 'react';
 import CartCard from './CartCard';
 import './CSS/Cart.css';
 import CartPrice from './CartPrice';
-import EmptyCart from './EmptyCart';
+//import EmptyCart from './EmptyCart';
 const Cart =(props)=> {
 
 
