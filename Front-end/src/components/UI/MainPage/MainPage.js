@@ -1,5 +1,5 @@
 import React from 'react';
-import Aux from '../../../hoc/reactFrag';
+import Aux from '../../../hoc/ReactFrag';
 import './MainPage.css';
 
 const mainPage = (props)=> {

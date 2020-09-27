@@ -3,7 +3,7 @@ import './SideNav.css';
 import Logo from '../Logo/Logo';
 import NavigationItems from '../Navigation/NavigationItems/NavigationItems';
 import Backdrop from '../Backdrop/Backdrop';
-import Aux from '../../../hoc/reactFrag';
+import Aux from '../../../hoc/ReactFrag';
 
 const sideNav = (props)=> {
 

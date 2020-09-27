@@ -175,17 +175,21 @@ class Signup extends Component {
          
         if(this.OverallValidity()){
             this.setState({loading:true});
-        
+           
+            localStorage.setItem('email',this.state.Form["email"].value);
+         
             const formData ={};
             for(let formElement in this.state.Form){
                     formData[formElement]=this.state.Form[formElement].value;
             }
+            console.log(formData);
             
             AuthService.register(formData).then(
-                ()=>{
+                ()=>{ 
                     // this.setState({ redirect: "/signup/otp" });this.props.history.push("/profile");
-                    this.props.history.push("/signup/otp")
-                    window.location.reload();
+                    this.props.history.push("/signup/otp");
+
+                  //  window.location.reload();
 
                   
                 }
@@ -193,6 +197,11 @@ class Signup extends Component {
         }
         else alert("Make sure the Validations are correct");
 
+    }
+
+    logout=() => {
+        AuthService.logout();
+        console.log(localStorage.getItem('user'))
     }
 
 
@@ -245,7 +254,7 @@ class Signup extends Component {
                 <p className="account-login"> Already have an account? <a href="/">Login</a></p>
                  <hr/>
 
-                 <p className="Link-teach">Teach on S-help</p>          
+                 <p className="Link-teach" onClick={this.logout} >Teach on S-help</p>          
             </form> 
             </div>
         );
