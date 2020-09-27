@@ -32,44 +32,19 @@ const fileFilter = (req, file, cb) => {
     }
 };
 
-
-const fileStoragevideo = multer.diskStorage({ //for multer storage
-    //these are two functions which are called by multer for incoming file
-    destination: (req, file, cb)=> {
-        cb(null,'videos'); // null tells the call backs that its ok to store the file because that place is for error
-    },
-    filename:(req, file, cb)=> {
-        cb(null,new Date().toDateString() + "-" + file.originalname);
-    }
-});
-const fileFiltervideo = (req, file, cb) => {
-    if(file.mimetype === 'video/mp4'){
-        cb(null,true);  //if we want to store that file
-    }
-    else{
-        cb(null,false); //if we dont want to store that file
-        console.log("wrong file type");
-    }
-};
-
-
-
 app.use(bodyParser.json()); // For parsing the incoming json file from the client
-app.use(multer({storage:fileStorage,fileFilter:fileFilter}).single('file'));
-
-
-
+app.use(multer({storage:fileStorage,fileFilter:fileFilter}).single('image'))
 
 app.use((req, res, next) =>{  // To remove CROS (cross-resource-origin-platform) problem 
     res.setHeader('Access-Control-Allow-Origin',"*"); // to allow all client we use *
-    res.setHeader('Access-Control-Allow-Methods',"OPTIONS,GET,POST,PUT,PATCH,DELETE"); //these are the allowed methods 
+    res.setHeader('Accces-Control-Allow-Methods',"OPTIONS,GET,POST,PUT,PATCH,DELETE"); //these are the allowed methods 
     res.setHeader('Access-Control-Allow-Headers', "*"); // allowed headers (Auth for extra data related to authoriaztiom)
     next();
 })
 
 app.use(signupRoute); //For signUp route
 app.use(createCourse);
-//app.use(resendOtp);
+// app.use(resend-Otp);
 app.use(feedRoutes);// for dummy data 
 
 app.use((error,req,res,next)=>{
