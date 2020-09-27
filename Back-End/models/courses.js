@@ -26,4 +26,4 @@ const courseSchema = new Schema({
     {timestamps: true}
 );
 
-module.exports = courses =mongoose.model('Courses',courseSchema); //stored in users collection  and uses user schema
+module.exports = courses = mongoose.model('Courses',courseSchema); //stored in users collection  and uses user schema

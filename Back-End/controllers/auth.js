@@ -138,6 +138,8 @@ exports.login=(req,res,next)=>{
 exports.otpVerification = (req, res, next) => {
   const recievedToken = req.body.token;
   const recievedOtp = req.body.otp;
+
+  console.log()
  
   // searching for otp in database by token that i stored by token1
   OtpUser.findOne({ token: recievedToken })
@@ -157,7 +159,7 @@ exports.otpVerification = (req, res, next) => {
       }
 
       // check if entered otp is valid
-      if (data.otp === recievedOtp) {
+      if (data.Otp === recievedOtp) {
 
         User.findOne({ email: data.email }).then(user => {
           user.isverified = "true";
