@@ -152,12 +152,23 @@ formHandler = (event)=> {
         AuthService.login(formData).then(
             ()=> {
                 this.setState({loading:false})
+                
+                window.location.reload();
+                
             }
         );
         
         }
         
     else alert("Make sure the validations are correct")
+    }
+
+
+    logout=() => {
+        AuthService.logout();
+        console.log(localStorage.getItem('user'));
+        window.location.reload();
+
     }
 
 
@@ -201,7 +212,7 @@ render() {
 
                 ))
             }
-            <p className="forgot-password"> Forgot Password?</p>
+            <p className="forgot-password"  onClick={this.logout}> logout</p>
             {LoginSumbitButton}
             <p className="account-login"> New User? <a href="/">Sign up</a></p>
          

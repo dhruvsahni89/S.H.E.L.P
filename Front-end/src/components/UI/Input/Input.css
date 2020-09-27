@@ -30,14 +30,15 @@
 
 .Invalid{
     border:1px solid red;
-    background: rgba(250, 128, 114, 0.815);
+    /* color: rgb(155, 34, 34); */
+    /* background: rgba(250, 128, 114, 0.815); */
   
 }
 
 .Valid{
     border: 1px solid rgb(77, 212, 23);
-    background:rgba(41, 201, 41, 0.432);
-    color:black;
+    /* background:rgba(41, 201, 41, 0.432); */
+    color: black;
 }
 
 .error-msg{
