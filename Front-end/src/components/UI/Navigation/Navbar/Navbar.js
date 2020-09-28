@@ -28,22 +28,22 @@ class Navbar extends Component {
         let LoginLinks = ( <ul className="navbar-nav ml-auto">
         <li className="nav-item active">
           
-          <NavLink to="/signup" className="nav-link">Teach on Shelp</NavLink>
+          <NavLink to="/signup" className="nav-link teachLink">Teach on Shelp</NavLink>
         </li>
         <li className="nav-item">
           
-          <NavLink to="/" className="nav-link">Profile</NavLink>
+          <NavLink to="/"  className="nav-link profilelink">Profile</NavLink>
           
         </li>
        
         <li className="nav-item">
-          <NavLink to="/" className="nav-link">WhishList</NavLink>
+          <NavLink to="/"  className="nav-link wishlistlink">WhishList</NavLink>
          
         </li>
 
          
         <li className="nav-item">
-          <NavLink to="/" className="nav-link">Logout</NavLink>
+          <NavLink to="/" className="nav-link logoutlink">Logout</NavLink>
          
         </li>
       </ul>
@@ -53,17 +53,17 @@ class Navbar extends Component {
         LoginLinks =( <ul className="navbar-nav ml-auto">
 
                 <li className="nav-item active">
-                <NavLink to="/" className="nav-link">Teach on Shelp</NavLink>
+                <NavLink to="/" className="nav-link teachLink" >Teach on Shelp</NavLink>
                 </li>
 
                 <li className="nav-item">
                 
-                <NavLink to="/" className="nav-link">Signup</NavLink>
+                <NavLink to="/signup" activeClassName="btnactive" className="nav-link Signupbtn">Signup</NavLink>
                 
                 </li>
             
                 <li className="nav-item">
-                <NavLink to="/" className="nav-link">Login</NavLink>
+                <NavLink to="/login" activeClassName="btnactive" className="nav-link Loginbtn">Login</NavLink>
                 
                 </li>
 
@@ -76,7 +76,7 @@ class Navbar extends Component {
     return(
   
 
-<nav className="navbar navbar-expand-lg navbar-light sticky-top ">
+<nav className="container navbar navbar-expand-lg sticky-top ">
 
   <NavLink to="/signup" className="navbar-brand"><Logo/></NavLink>
   <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

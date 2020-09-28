@@ -19,15 +19,79 @@
     margin-left:150px;
 }
 
-@media (max-width: 459px){
+.teachLink{
+    font: normal normal 200 17px/23px Gilroy;
+    letter-spacing: 0.47px;
+    color: #566775;
+    opacity: 0.6;
+    margin-right:30p;
+  
+}
 
-    .DesktopOnly {
-        display:none;
-    }
+.Signupbtn,.Loginbtn,.logoutlink{
+    font: normal normal 400 17px/20px Gilroy;
+    letter-spacing: 0.47px;
+    color: #FFFFFF;
+    background: #2D81F7 0% 0% no-repeat padding-box;
+    border-radius: 8px;
+    opacity: 1;
+    margin-left:10px;
+}
 
-    .Logo-specs{
-        
-    }
+
+.Loginbtn:hover,
+.Signupbtn:hover{
+    opacity:0.7;
+}
 
 
+
+.btnactive{
+    background: #FCFCFC 0% 0% no-repeat padding-box;
+    border: 0.5px solid #2674E2;
+    border-radius: 8px;
+    font: normal normal 400 17px/20px Gilroy;
+    letter-spacing: 0.47px;
+    color: #2D81F7;
+    margin-left:10px;
+}
+
+.dropdown-toggle{
+    color:grey;
+}
+
+
+
+.dropdown-item{
+   
+    font: normal normal  17px/20px Gilroy;
+    letter-spacing: 0.47px;
+    color: rgb(56, 59, 63);
+    opacity:0.7;
+   
+}
+
+
+.dropdown-item:hover{
+   background: #2D81F7!important;
+   
+}
+
+
+
+
+.wishlistlink,.profilelink{
+    color:grey;
+}
+
+.linkactive{
+    color:#2D81F7;
+}
+
+
+
+.wishlistlink:hover,
+.profilelink:hover{
+
+    opacity: 0.8;;
 }

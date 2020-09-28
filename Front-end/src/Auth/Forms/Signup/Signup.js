@@ -201,7 +201,7 @@ class Signup extends Component {
             for(let formElement in this.state.Form){
                     formData[formElement]=this.state.Form[formElement].value;
             }
-            console.log(formData);
+           
 
 
             
