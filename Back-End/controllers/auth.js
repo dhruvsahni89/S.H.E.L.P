@@ -241,8 +241,5 @@ exports.resendOTP = (req, res, next) =>{ // extra measure's taken if, password v
 
     }).catch(err => {
       res.json("error while resending otp");
-    })
-
-  
-  
+    })  
 }

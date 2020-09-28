@@ -42,3 +42,19 @@ exports.createcourse = (req, res, next) => {
 }
 
 
+exports.bookmarkCourse = (req, res, next) =>{
+
+    const courseID = req.body._id;
+    const email = req.body.email;
+    Users.findOneAndUpdate({email:email},{
+        $push:{courses:courseID}
+    },{new:true}).then(data => {
+        console.log(data);
+        res.json(data);
+    }).catch(err => {
+        res.json("Not Updated");
+    }) //1st argument is what to find 2nd is what are changes
+
+}
+
+
