@@ -1,22 +1,17 @@
-.Navbar {
-    height: 60px;
-    background: #FFFFFF 0% 0% no-repeat padding-box;
-    box-shadow: 0px 3px 11px #BAD8FD40;
-    width:100%;
-    position:fixed;
-    top: 0;
-    left:0;
-    display:flex;
-    justify-content:space-between;
-    align-items: center;
-    /* padding:0 20px; */
-    box-sizing: border-box;
-    z-index: 90;
+.navbar-collapse{
+    justify-content: space-around !important;
 }
 
-.Navbar nav {
+
+.navbar{
+    background: #FFFFFF 0% 0% no-repeat padding-box !important; 
+    box-shadow: 0px 3px 11px #BAD8FD40 !important;
+    margin-bottom:-40px!important;
+}
+
+
+.Navbar nav{
     height:100%;
-    
 }
 
 
