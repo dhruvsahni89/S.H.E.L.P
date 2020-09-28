@@ -21,11 +21,12 @@ class Homepage extends Component {
 
 
     componentDidMount(){
-        axios.post('/home')
+      
+        axios.post(`/home/${this.state.CourseLink}` )
         .then(response => {
             console.log("Courses Response",response);
        
-            this.setState({Courses: response.data});
+            this.setState({Courses: response.data.course});
             console.log('courses state chaged, courses fetched')
             this.setState({loading:false});
             console.log(this.state);

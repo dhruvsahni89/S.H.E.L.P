@@ -15,10 +15,10 @@ exports.createcourse = (req, res, next) => {
 //        error.statusCode = 422;
 //        throw error;
 //    }
-    const email = req.body.email;
     const title = req.body.title;
     const imageUrl = req.file.path;
     const name = req.body.name;
+    const category = req.body.category;
     const discription = req.body.discription;
     console.log(imageUrl);
     const userID = req.body._id;
@@ -28,7 +28,8 @@ exports.createcourse = (req, res, next) => {
         name: name,
         discription: discription,
         imageurl: imageUrl,
-        creator: userID
+        creator: userID,
+        category:category
     });
 
     course.save().then(result =>{

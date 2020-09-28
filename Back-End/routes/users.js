@@ -4,5 +4,5 @@ const UserController = require('../controllers/users');
 const isAuth=require('../middleware/is-auth');
 const router = express.Router();
 
-router.post('/home',UserController.homepage);
+router.post('/home/:category',UserController.homepage);
 module.exports = router;

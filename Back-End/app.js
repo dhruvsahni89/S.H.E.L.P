@@ -68,7 +68,7 @@ app.use((error, req, res, next) => {
 
 app.use(bodyParser.json()); // For parsing the incoming json file from the client
 app.use(multer({storage:fileStorage,fileFilter:fileFilter}).single('file'));
-app.use(express.static(path.join(__dirname,'images')));
+app.use(express.static(path.join(__dirname,'uploads')));
 
 app.use((req, res, next) =>{  // To remove CROS (cross-resource-origin-platform) problem 
     res.setHeader('Access-Control-Allow-Origin',"*"); // to allow all client we use *
