@@ -1,10 +1,12 @@
 .BannerSection{
+    position: relative;
     display:flex;
 }
 
 .BannerImage{
+    
     width: 100%;
-    height:280px;
+    height:240px;
     background: transparent linear-gradient(270deg, #00000000 0%, #000000 100%) 
     0% 0% no-repeat padding-box;
     border-radius: 16px;
@@ -16,7 +18,7 @@
 
 .Banner-text{
     position: absolute;
-    top:15%;
+    top:10%;
     left:15%;
     text-align: left;
     font: normal normal 600 55px/76px Gilroy;

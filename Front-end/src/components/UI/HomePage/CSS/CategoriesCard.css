@@ -10,13 +10,15 @@
 .Categories-main{
  
 }
-
-.Categories-main p{
+.ListOfCourses > *{
     font: normal normal normal 18px/26px Gilroy;
     letter-spacing: 0px;
     color: #3C4852;
-
+    display:block;
+    margin-bottom: 20px;
 }
+
+
 
 .active-category{
     width:100%;
@@ -30,6 +32,9 @@
     color: white;
     opacity: 1;
 
+}
+.ListOfCourses a:hover{
+    text-decoration:none;
 }
 
 
@@ -59,7 +64,7 @@
 }
 
 .CategoriesTitle{
-    font: normal normal normal 30px/38px Gilroy;
+    font: normal normal  30px/38px Gilroy;
     letter-spacing: 0px;
     color: #3C4852;
     opacity: 1;
@@ -79,11 +84,19 @@
    margin-left:20px;
 }
 
-.Course-Title,.Course-Teacher,.Course-info{
-    font:Gilroy;
-    font-size:15px;
+.Course-Title{
+    padding-top:12px;
+    font: normal normal normal 18px/14px Gilroy;
+    letter-spacing: 0px;
     color: #3C4852;
-    margin-top:3px;
+}
+
+
+.Course-Teacher,.Course-info{
+    color: #3C4852;
+    font: normal normal 17px/12px Gilroy;
+    letter-spacing: 0px;
+    color: #3C4852;
 }
 
 .Course-Teacher{
