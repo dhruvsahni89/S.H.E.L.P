@@ -19,6 +19,7 @@ exports.signup = (req, res, next) => {
   const error = validationResult(req);
   if (!error.isEmpty()) {
     const error = new Error("Validation failed");
+    res.status(201).json({ message: "validation failed  "});
     error.statusCode = 422;
     throw error;
   }
@@ -84,6 +85,7 @@ exports.login=(req,res,next)=>{
       
         if(!user){
             const error =new Error('sorry user not found');
+            res.status(401).json({ message: "sorry user not found" });
             error.statusCode = 401; // For not authenticated
             throw error;
         }
@@ -197,6 +199,7 @@ exports.otpVerification = (req, res, next) => {
 
         const error = new Error("Validation Failed");
         error.statusCode = 401;
+        res.status(401).json({ message: "wrong otp entered " });
         error.data = {
           value: recievedOtp,
           msg: "Otp incorrect",
