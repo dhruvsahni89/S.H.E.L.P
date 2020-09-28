@@ -9,7 +9,7 @@ const router = express.Router();
 router.post('/creator/create-course',[
     body('title').trim().isLength({min:5}),
     body('name').trim().isLength({min:5}) 
-],isAuth,courseController.createcourse);
+],courseController.createcourse);
 
 
 module.exports = router;
