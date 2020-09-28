@@ -119,6 +119,7 @@ class Otp extends Component {
             
             AuthService.otp(formData)
             .then(response => {console.log('Response:', response) 
+
             if(response.status ===201 || response.status ===200) 
               
                 { 
@@ -137,8 +138,11 @@ class Otp extends Component {
                  window.location.reload();
             
                 }
-            else alert("Something went wrong")})
-            .catch(error=>{console.log(error); this.setState({loading:false}); this.AlertError("Make sure the Validations are correct", "danger");});
+               
+            else if(response.status===401) alert("Something went wrong")})
+            
+            .catch(error=>{console.log(error); this.setState({loading:false});
+             this.AlertError("Make sure the Validations are correct", "danger");});
 
             
             
@@ -153,7 +157,7 @@ class Otp extends Component {
         formData.token=this.state.Signup_token;
         formData.email=this.state.email;
        
-        console.log(formData);
+        
 
         AuthService.otpResend(formData)
             .then(response => {console.log('Response:',response)
@@ -165,7 +169,8 @@ class Otp extends Component {
                 }
             else alert("Something went wrong")})
 
-            .catch(error=>{console.log(error); this.AlertError("Make sure the Validations are correct", "warning")});
+            .catch(error=>{console.log(error); 
+                this.AlertError("Make sure the Validations are correct", "warning")});
         
     }
 

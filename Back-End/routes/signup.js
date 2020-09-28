@@ -15,6 +15,8 @@ router.put('/signup',[  // put because we create a user once so doesn't matter i
             return User.findOne({email: value}).then(UserDoc => {
                 if(UserDoc){ // return a promise if validation done a async task
                     return Promise.reject('E-mail Adress already Exist');
+                    //  res.status(201).json({ message: " E-mail Adress already Exist" });
+                     
                 }
             })
         })/* .normalizeEmail() */, // check for  .. or + - in the email and remove it 
@@ -31,7 +33,20 @@ router.put('/signup',[  // put because we create a user once so doesn't matter i
 
 //router.post('/resend-otp',) //if
 
-router.post('/login',authController.login);
+router.post('/login',[
+    body("email")
+      .isEmail()
+      .withMessage("Invalid email")
+      .normalizeEmail()
+      .custom((value, { req }) => {
+        return User.findOne({ email: value }).then((userexist) => {
+          if (!userexist) {
+            return Promise.reject("user does not exist");
+          }
+        });
+      }),
+    body("password").trim().isLength({ min: 5 }),
+  ],authController.login);
 
 
 module.exports = router; //For exporting router to app.js

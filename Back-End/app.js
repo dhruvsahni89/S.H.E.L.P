@@ -33,7 +33,17 @@ const fileFilter = (req, file, cb) => { //For filtering the type of file
         console.log("wrong file type");
     }
 };
-
+// app.use('/',errorController.error404);
+app.use((error, req, res, next) => {
+    const status = error.statusCode||500;
+    const data = error.data;
+    const message = error.message;
+  
+    res.status(status).json({
+      message: message,
+      data: data,
+    });
+  });
 
 
 // const fileStoragevideo = multer.diskStorage({ //for multer storage
@@ -78,7 +88,7 @@ app.use((error,req,res,next)=>{
     const message = error.message;
     res.status(status).json({message:message});
 }) 
-app.use('/',errorController.error404);
+
 
 
 mongoose.connect('mongodb+srv://Abhishek_Srivas:Pagalworld@cluster0.0sntl.mongodb.net/Database?retryWrites=true&w=majority')

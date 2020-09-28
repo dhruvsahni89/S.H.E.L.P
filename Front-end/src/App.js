@@ -19,7 +19,8 @@ class App extends Component {
       <Switch>
 
        <Route path="/" exact component={Homepage}/> 
-       <Route path="/home/:CourseName"  component={Homepage}/> 
+       <Route path="/home/:CourseName" exact    render={props => 
+       <Homepage key={props.location.pathname} {...props}/>}/>
        <Route path="/signup" exact component={Signup}/>
        <Route path="/login" component={Login}/>
        <Route path="/signup/otp"  component={Otp}/>

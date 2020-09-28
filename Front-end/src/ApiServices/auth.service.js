@@ -55,6 +55,7 @@ class AuthServices {
 
     logout(){
         localStorage.removeItem("user");
+        localStorage.removeItem("userName");
     }
 
 
@@ -62,7 +63,9 @@ class AuthServices {
         return localStorage.getItem('user');
     }
 
-
+    getUserName(){
+        return localStorage.getItem('userName');
+    }
 
 }
 

@@ -173,11 +173,13 @@ formHandler = (event)=> {
         .then(response => {
           
             console.log('Response:', response)
-            if(response.status ===201 || response.status ===200) 
+            if(response.status ===201 || response.status ===200)
+
                 {
                 
                 alert(response.data.message);
                 localStorage.setItem('user',response.data.token);
+                localStorage.setItem('userName',response.data.username);
                 this.setState({loading:false})
                 this.setState({redirect:'/HomePage'})
                 window.location.reload();
@@ -196,13 +198,7 @@ formHandler = (event)=> {
     }
 
 
-    logout=() => {
-        AuthService.logout();
-        console.log(localStorage.getItem('user'));
-        window.location.reload();
-
-    }
-
+   
 
 
 render() {
