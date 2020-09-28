@@ -21,16 +21,20 @@
     color: #08BD80;
 }
 
+.MainPageback{
+    
+}
+
 .circle1,.circle2{
     position:absolute;
-
+    
 }
 
 .circle1{
-    width:100px;
-    left:120px;
-    bottom:40px;
-
+    width:150px;
+    left:0px;
+    bottom:0px;
+   
 }
 .circle2{
     width:240px;

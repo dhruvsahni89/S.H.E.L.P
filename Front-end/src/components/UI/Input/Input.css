@@ -19,6 +19,7 @@
     border-radius: 8px;
     padding: 8px;
     box-sizing: border-box;
+    
 
 }
 
@@ -43,6 +44,7 @@
 
 .error-msg{
 
+    line-height:normal;
     padding:6px;
-
+    
 }

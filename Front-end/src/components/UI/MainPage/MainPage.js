@@ -3,6 +3,7 @@ import Aux from '../../../hoc/ReactFrag';
 import './MainPage.css';
 import circle1 from "../../../assets/Images/circle1.png";
 import circle2 from "../../../assets/Images/circle2.png";
+import circle from '../../../assets/Images/circle12.svg';
 
 
 const mainPage = (props)=> {
@@ -26,11 +27,12 @@ const mainPage = (props)=> {
 
                {shelp} 
 
-               <div className="MainPageback">
-                <img className="circle1" src={circle1} alt="circle1"/>
-                <img className="circle2" src={circle2} alt="circle2"/>
-               </div>
-
+                <div className="MainPageback">
+                        {/* <img className="circle1" src={circle1} alt="circle1"/>
+                        <img className="circle2" src={circle2} alt="circle2"/> */}
+                     <img className="circle1" src={circle} alt="circle2"/> 
+                </div>
+            
                </h1>
             </Aux>
 

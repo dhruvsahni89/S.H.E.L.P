@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { Redirect } from 'react-router-dom';
+import Login from '../Login/Login';
 import AuthService from "../../../ApiServices/auth.service";
 import '../Form.css';
 import Input from '../../../components/UI/Input/Input';
@@ -7,7 +8,7 @@ import MainPage from '../../../components/UI/MainPage/MainPage';
 import Google_logo from '../../../components/UI/Logo/google';
 import SpinnerButton from '../../../components/UI/Spinners/SpinnerButton';
 import SumbitButton from '../../../components/UI/Buttons/SumbitButton';
-import ProductApi from "../../../ApiServices/ProductApi";
+import Alert from '../alert';
 
 
 class Signup extends Component {
@@ -71,9 +72,25 @@ class Signup extends Component {
 
         },
         loading:false,
-        redirect:null
+        redirect:null,
+        
+        alert: {
+            valid:false,
+            msg:"",
+            alertType:" ",
+        }
        
     }
+
+    AlertError(alertmsg, alertType) {
+        const AlertArray = {...this.state.alert};
+        AlertArray.msg = alertmsg;
+        AlertArray.valid=true;
+        AlertArray.alertType=alertType;
+        this.setState({alert:AlertArray});
+
+    }
+
 
 
     checkValidity(value,rules){
@@ -170,6 +187,8 @@ class Signup extends Component {
     }
 
 
+
+
     formHandler = (event)=> {
         event.preventDefault();
          
@@ -183,30 +202,66 @@ class Signup extends Component {
                     formData[formElement]=this.state.Form[formElement].value;
             }
             console.log(formData);
-            
-            AuthService.register(formData).then(
-                ()=>{ 
-                    // this.setState({ redirect: "/signup/otp" });this.props.history.push("/profile");
-                    this.props.history.push("/signup/otp");
 
-                  //  window.location.reload();
+
+            
+            AuthService.register(formData) 
+            .then(response => {console.log('Response:', response)
+
+                if(response.status ===201 || response.status ===200){
+                     localStorage.setItem('token', response.data.token) 
+
+                     localStorage.setItem("valid",true);
+                     localStorage.setItem("type","success");
+                     localStorage.setItem("msg",response.data.message);
+                   
+                     this.setState({ redirect: "/signup/otp" });
+                }
+                 
+
+                else 
+                    this.AlertError("Something went wrong", "danger")})
+                  //  alert("Something went wrong")})
+
+            .catch(error=>{console.log(error);
+                 this.setState({loading:false})
+                 this.AlertError("Something went wrong", "danger")} );
+            
+            
+            // .then(
+            //     ()=>{ 
+            //         // this.setState({ redirect: "/signup/otp" });this.props.history.push("/profile");
+            //         this.props.history.push("/signup/otp");
+
+            //       //  window.location.reload();
 
                   
-                }
-            )
+            //     }
+            // )
+
         }
-        else alert("Make sure the Validations are correct");
-
-    }
-
-    product=() => {
-        ProductApi.Product();
         
+        else{ 
+         this.AlertError("Make sure the Validations are correct", "warning");
+       
+
+        }
+
     }
 
-
+    
 
     render() {
+        
+
+        let alertContent = null;
+
+
+        if(this.state.alert.valid){
+            alertContent = ( <Alert alertMsg ={this.state.alert.msg} alertType={this.state.alert.alertType} /> )
+        }
+        
+        
 
         if (this.state.redirect) {
             return <Redirect to={this.state.redirect} />
@@ -252,23 +307,25 @@ class Signup extends Component {
                
                 {SigninSumbitButton}
                 <p className="account-login"> Already have an account? <a href="/">Login</a></p>
-                 <hr/>
+                 {/* <hr/>
 
-                 <p className="Link-teach" onClick={this.product} >Teach on S-help</p>          
+                 <p className="Link-teach" onClick={this.product} >Teach on S-help</p>           */}
             </form> 
             </div>
         );
 
         return (
-            <div className="SideContent">
-                
-                <MainPage 
-                shelp={true}
-                heading1={"Start your"}
-                heading2={"learning with"}/>
+           <div>
+                {alertContent}
+                <div className="SideContent">
+                        <MainPage 
+                        shelp={true}
+                        heading1={"Start your"}
+                        heading2={"learning with"}/>
 
-                    {form}
-            </div>
+                            {form}
+                    </div>
+        </div>
         );
     }
   
