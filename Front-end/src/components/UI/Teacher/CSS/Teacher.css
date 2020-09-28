@@ -1,0 +1,117 @@
+/* @media (min-width:1200px){
+
+    .container-fluid{ max-width:700px !important ;}
+} */
+
+
+.container-fluid-main{
+    display: flex;
+    align-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+   
+}
+
+
+
+.Teacher-Head-Class{
+    display:flex;
+    justify-content: flex-start;
+    
+    text-align: left;
+ 
+}
+
+
+.Teacher-Courses-Buttons-head{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+
+.Teacher-Courses-Buttons{
+
+    display:flex;
+    flex-wrap:wrap;
+    justify-content: center;
+
+   
+}
+
+.Teacher-Courses-Buttons button{
+    margin-top:10px;
+    font: normal normal 17px/24px Gilroy;
+    letter-spacing: 0px;
+    margin-right: 7px;
+    color: #566775;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #70707042;
+    border-radius: 8px;
+    width: 119px;
+    height: 38px;
+}
+.Teacher-Courses-Buttons button:hover{
+    background: #2D81F7 0% 0% no-repeat padding-box;
+    color:white;
+    opacity:1;
+}
+
+.Teacher-Courses-Buttons button:focus{
+    background: #2D81F7 0% 0% no-repeat padding-box;
+    color:white;
+}
+
+
+
+.CourseCategoryTitle {
+    margin-top: 70px;
+    font: normal normal 22px/29px Gilroy;
+    letter-spacing: 0px;
+    color: #566775;
+}
+
+.NextBtn{
+    margin-top:50px;
+    margin-bottom:120px;
+    background: #2D81F7 0% 0% no-repeat padding-box;
+    border-radius: 8px;
+    font: normal normal  19px/29px Gilroy;
+    letter-spacing:0.96px;
+    color: #FFFFFF;
+    width: 114px;
+    height: 44px;
+
+}
+
+.Teacher-Head-Class img{
+    width: 80px;
+    height: 57px;
+}
+
+.cloudpng{
+
+    font: normal normal  30px/58px Gilroy;
+    letter-spacing: 0.96px;
+    color: #566775;
+    opacity: 0.5;
+
+    margin-bottom:70px;
+}
+
+.Teacher-Head-Class button{
+    width: 175px;
+    height: 49px;
+    background: #2D81F7 0% 0% no-repeat padding-box;
+    border-radius: 8px;
+    opacity: 1;
+    font: normal normal 100 19px/29px Gilroy;
+    letter-spacing: 0.96px;
+    color: #FFFFFF;
+    margin-right:20px;
+    
+    margin-bottom:100px;
+}
