@@ -11,39 +11,53 @@ class Navbar extends Component {
     
     state = {
         isLoggedIn:false,
+        userName:"Profile"
     }
 
     componentDidMount(){
         let userToken = AuthServices.getCurrentUser();
+        let userName= AuthServices.getUserName();
         if(userToken!==null){
-            this.setState({isLoggedIn:true});
+            this.setState({isLoggedIn:true,userName:userName});
         }
 
         
+        
      }
+
+     logout=() => {
+        AuthServices.logout();
+        window.location.reload();
+
+    }
+
 
 
     render(){
 
         let LoginLinks = ( <ul className="navbar-nav ml-auto">
+
+
         <li className="nav-item active">
           
           <NavLink to="/signup" className="nav-link teachLink">Teach on Shelp</NavLink>
         </li>
-        <li className="nav-item">
-          
-          <NavLink to="/"  className="nav-link profilelink">Profile</NavLink>
-          
-        </li>
+      
        
         <li className="nav-item">
           <NavLink to="/"  className="nav-link wishlistlink">WhishList</NavLink>
          
         </li>
 
+
+        <li className="nav-item">
+          
+          <NavLink to="/"  className="nav-link profilelink">{this.state.userName}</NavLink>
+          
+        </li>
          
         <li className="nav-item">
-          <NavLink to="/" className="nav-link logoutlink">Logout</NavLink>
+          <NavLink to="/" className="nav-link logoutlink" onClick={this.logout}>Logout</NavLink>
          
         </li>
       </ul>
