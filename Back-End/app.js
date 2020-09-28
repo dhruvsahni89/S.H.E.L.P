@@ -7,8 +7,8 @@ const multer = require('multer');
 const signupRoute = require('./routes/signup'); //importing signup route
 const errorController = require('./controllers/error');
 const feedRoutes = require('./routes/feed');
-const createCourse = require('./routes/creator')
-//const resendOtp = require()
+const createCourse = require('./routes/creator');
+const homeRoute = require('./routes/users');
 
 const app = express();
 
@@ -23,7 +23,8 @@ const fileStorage = multer.diskStorage({ //for multer storage
         cb(null,new Date().toDateString() + "-" + file.originalname);
     }
 });
-const fileFilter = (req, file, cb) => {
+
+const fileFilter = (req, file, cb) => { //For filtering the type of file
     if(file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'video/mp4'){
         cb(null,true);  //if we want to store that file
     }
@@ -68,7 +69,7 @@ app.use((req, res, next) =>{  // To remove CROS (cross-resource-origin-platform)
 
 app.use(signupRoute); //For signUp route
 app.use(createCourse);
-// app.use(resend-Otp);
+app.use(homeRoute);
 app.use(feedRoutes);// for dummy data 
 
 app.use((error,req,res,next)=>{
