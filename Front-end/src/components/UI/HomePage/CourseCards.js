@@ -39,7 +39,7 @@ const CourseCards =(props)=>{
 
       }
 
-      export default CourseCards;
+export default CourseCards;
 
 
              
