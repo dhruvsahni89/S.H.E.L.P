@@ -15,8 +15,8 @@ const CourseCards =(props)=>{
               <div className="Course-Cards">
                 
                       <div className="my-card">
-                        
-                          <img src={Webdev} alt="course"/>
+                        {/* <img src="http://localhost:8080/uploads//Tue%20Sep%2029%202020-test1uplaod.jpg" alt="img"/> */}
+                         <img src={Webdev} alt="course"/> 
                           <p className="Course-Title">{props.title}</p>
                           <p className="Course-Teacher">{props.teacher}</p>
 

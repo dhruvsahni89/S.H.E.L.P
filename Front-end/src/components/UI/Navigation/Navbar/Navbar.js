@@ -40,7 +40,7 @@ class Navbar extends Component {
 
         <li className="nav-item active">
           
-          <NavLink to="/signup" className="nav-link teachLink">Teach on Shelp</NavLink>
+          <NavLink to="/teacher" className="nav-link teachLink">Teach on Shelp</NavLink>
         </li>
       
        
@@ -67,7 +67,7 @@ class Navbar extends Component {
         LoginLinks =( <ul className="navbar-nav ml-auto">
 
                 <li className="nav-item active">
-                <NavLink to="/" className="nav-link teachLink" >Teach on Shelp</NavLink>
+                <NavLink to="/teacher" className="nav-link teachLink" >Teach on Shelp</NavLink>
                 </li>
 
                 <li className="nav-item">
