@@ -102,7 +102,7 @@
     margin-bottom:70px;
 }
 
-.Teacher-Head-Class button{
+.Welcome-msg button{
     width: 175px;
     height: 49px;
     background: #2D81F7 0% 0% no-repeat padding-box;
@@ -114,4 +114,39 @@
     margin-right:20px;
     
     margin-bottom:100px;
+}
+
+
+.Welcome-msg{
+    display: flex;
+    justify-content: center;
+}
+
+.Welcome-msg p{
+
+    margin-top:20px;
+    color: #566775;
+    font: normal normal 300 37px/24px Gilroy;
+    letter-spacing: 0px;
+    margin-bottom: 60px;
+}
+
+input[type="file"] {
+    display:none;
+}
+
+.custom-image-upload{
+
+    width: 175px;
+    height: 49px;
+    background: #2D81F7 0% 0% no-repeat padding-box;
+    border-radius: 8px;
+    opacity: 1;
+    font: normal normal 100 19px/29px Gilroy;
+    letter-spacing: 0.96px;
+    color: #FFFFFF;
+    margin-right:20px;
+    margin-bottom:100px;
+    text-align:center;
+    padding-top:10px;
 }

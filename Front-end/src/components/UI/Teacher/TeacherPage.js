@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom';
 import Cloud from '../../../assets/Images/cloud.png';
 import './CSS/Teacher.css';
 import axios from '../../../ApiServices/axiosUrl';
+import AuthServices from '../../../ApiServices/auth.service';
 
 
 class TeacherPage extends Component{
@@ -61,16 +62,39 @@ class TeacherPage extends Component{
             },
 
             name:{
-                value: "AyushVerma"
+                label: "Enter your Name",
+                rows: "1",
+                cols: "50",
+                placeholder: 'Your Name',
+                value: "",
+                touched: false,
             },
 
             _id: {
-                value: "5f716768dd36971ffce3fdaf",
-            }
+                value: localStorage.getItem('userId'),
+            },
+
+        
+
+            
             
     },
+
+    isLoggedIn:false,
+    userName:"",
     
 }
+
+    componentDidMount(){
+        let userToken = AuthServices.getCurrentUser();
+        let userName= AuthServices.getUserName();
+        if(userToken!==null){
+            this.setState({isLoggedIn:true,userName:userName});
+        }
+    }
+
+    
+    
 
 
     inputchangeHandler = (event,inputIdentifier)=> {
@@ -144,7 +168,12 @@ class TeacherPage extends Component{
 
 
     render(){
+        
+        let Welcome = null;
 
+        if(this.state.isLoggedIn) {
+            Welcome = <p > Welcome {this.state.userName}!</p>;
+        }
           
       
 
@@ -153,6 +182,13 @@ class TeacherPage extends Component{
           
 
         <div className="container-fluid-main">
+
+            <div className="Welcome-msg">
+                
+                    {Welcome}
+
+            </div>
+
           
         <div className="Teacher-Head-Class">
         
@@ -224,15 +260,27 @@ class TeacherPage extends Component{
 
 
         <div className="Teacher-Head-Class">
-           <button onClick={this.sumbitButton} >Choose File</button>
-           <button>Choose Video</button>
+           
+           
+           <label className="custom-image-upload">
+                    <input type="file" name='file' key="file" onChange={this.fileSelectorHandler}/>
+                    Upload Video
+           </label>
 
-
-           <input type="file" name='file' key="file" onChange={this.fileSelectorHandler}/>
+            <label className="custom-image-upload">
+                <input type="file" name='file' key="file" onChange={this.fileSelectorHandler}/>
+                Upload Image
+           </label>
+        
         </div>
-     
+
+        <div className="Welcome-msg">
+            <button onClick={this.sumbitButton} >Sumbit </button>
+        </div>
           
         </div>
+
+        
 
 
         );

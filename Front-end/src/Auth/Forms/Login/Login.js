@@ -179,8 +179,8 @@ formHandler = (event)=> {
                 
                 alert(response.data.message);
                 localStorage.setItem('user',response.data.token);
-                localStorage.setItem('userName',response.data.username);
                 localStorage.setItem('userId',response.data.userId);
+                localStorage.setItem('userName',response.data.username);
                 this.setState({loading:false})
                 this.setState({redirect:'/HomePage'})
                 console.log(response.data)
