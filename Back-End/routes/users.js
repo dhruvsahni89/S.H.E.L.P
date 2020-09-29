@@ -7,6 +7,6 @@ const router = express.Router();
 
 router.get('/home/:category',UserController.homepage);
 
-router.post('/home/:category/:courseTitle',courseController.courseController);
+router.post('/home/:category/:courseTitle',courseController.bookmarkCourse);
 
 module.exports = router;
