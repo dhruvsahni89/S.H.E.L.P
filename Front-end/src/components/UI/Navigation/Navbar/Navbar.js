@@ -40,7 +40,7 @@ class Navbar extends Component {
 
         <li className="nav-item active">
           
-          <NavLink to="/signup" className="nav-link teachLink">Teach on Shelp</NavLink>
+          <NavLink to="/teacher" className="nav-link teachLink">Teach on Shelp</NavLink>
         </li>
       
        
@@ -67,7 +67,7 @@ class Navbar extends Component {
         LoginLinks =( <ul className="navbar-nav ml-auto">
 
                 <li className="nav-item active">
-                <NavLink to="/" className="nav-link teachLink" >Teach on Shelp</NavLink>
+                <NavLink to="/teacher" className="nav-link teachLink" >Teach on Shelp</NavLink>
                 </li>
 
                 <li className="nav-item">
@@ -90,11 +90,11 @@ class Navbar extends Component {
     return(
   
 
-<nav className="container navbar navbar-expand-lg sticky-top ">
+<nav className=" navbar navbar-expand-lg sticky-top ">
 
   <NavLink to="/signup" className="navbar-brand"><Logo/></NavLink>
   <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span className="navbar-toggler-icon"></span>
+  <i class="fa fa-bars" aria-hidden="true"></i>
   </button>
 
   <div className="collapse navbar-collapse" id="navbarSupportedContent">
@@ -107,7 +107,7 @@ class Navbar extends Component {
             </a>
             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
 
-                    <NavLink className="dropdown-item" to='/home/AllCourses' activeClassName="active-category" >All Courses</NavLink>
+                    <NavLink className="dropdown-item" to='/home/all' activeClassName="active-category" >All Courses</NavLink>
                    
                    <NavLink className="dropdown-item" to='/home/WebDevelopment' activeClassName="active-category">Web Development </NavLink>
                    <NavLink className="dropdown-item" to='/home/WebDesigning' activeClassName="active-category" >Web Designing </NavLink>

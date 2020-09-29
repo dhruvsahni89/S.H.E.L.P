@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import AuthService from '../../../ApiServices/auth.service';
 import '../Form.css';
 import Alert from '../alert';
-import Input from '../../../components/UI/Input/Input';
+import Input from '../../../components/UI/Input/FormInput';
 import MainPage from '../../../components/UI/MainPage/MainPage';
 import SpinnerButton from '../../../components/UI/Spinners/SpinnerButton';
 import SumbitButton from '../../../components/UI/Buttons/SumbitButton';

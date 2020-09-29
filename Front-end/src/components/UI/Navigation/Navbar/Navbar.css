@@ -4,6 +4,7 @@
 
 
 .navbar{
+    
     background: #FFFFFF 0% 0% no-repeat padding-box !important; 
     box-shadow: 0px 3px 11px #BAD8FD40 !important;
     margin-bottom:-40px!important;
@@ -94,4 +95,38 @@
 .profilelink:hover{
 
     opacity: 0.8;;
+}
+
+
+
+.fa-bars{
+    color:#2D81F7;
+}
+
+
+@media (max-width:998px){
+
+    .Signupbtn,.Loginbtn,.logoutlink{
+        font: normal normal 400 17px/20px Gilroy;
+        letter-spacing: 0.47px;
+        color: grey;
+        background: none;
+        border-radius: 8px;
+        opacity: 1;
+        margin-left:0px;
+        border:none;
+    }
+
+    .btnactive{
+        background:none;       
+        border-radius: 8px;
+        font: normal normal 400 17px/20px Gilroy;
+        letter-spacing: 0.47px;
+        color: #2D81F7;
+        margin-left:0px;
+        border:none;
+    }
+    
+    
+
 }

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import AuthService from "../../../ApiServices/auth.service";
 import '../Form.css';
 import { Redirect } from 'react-router-dom';
-import Input from '../../../components/UI/Input/Input';
+import Input from '../../../components/UI/Input/FormInput';
 import SpinnerButton from '../../../components/UI/Spinners/SpinnerButton';
 import MainPage from '../../../components/UI/MainPage/MainPage';
 //import axios from '../../../ApiServices/axiosUrl';
@@ -179,10 +179,12 @@ formHandler = (event)=> {
                 
                 alert(response.data.message);
                 localStorage.setItem('user',response.data.token);
+                localStorage.setItem('userId',response.data.userId);
                 localStorage.setItem('userName',response.data.username);
                 this.setState({loading:false})
                 this.setState({redirect:'/HomePage'})
-                window.location.reload();
+                console.log(response.data)
+               // window.location.reload();
            
             }
             else 
