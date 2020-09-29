@@ -179,10 +179,12 @@ formHandler = (event)=> {
                 
                 alert(response.data.message);
                 localStorage.setItem('user',response.data.token);
+                localStorage.setItem('userId',response.data.userId);
                 localStorage.setItem('userName',response.data.username);
                 this.setState({loading:false})
                 this.setState({redirect:'/HomePage'})
-                window.location.reload();
+                console.log(response.data)
+               // window.location.reload();
            
             }
             else 

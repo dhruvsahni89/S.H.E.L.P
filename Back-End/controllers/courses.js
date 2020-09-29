@@ -16,7 +16,7 @@ exports.createcourse = (req, res, next) => {
 //        throw error;
 //    }
     const title = req.body.title;
-    const imageUrl = req.file.path;
+    const imageUrl = req.file.path.split('\\')[1];
     const name = req.body.name;
     const category = req.body.category;
     const discription = req.body.discription;

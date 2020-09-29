@@ -22,7 +22,7 @@ class Homepage extends Component {
 
     componentDidMount(){
       
-        axios.post(`/home/${this.state.CourseLink}` )
+        axios.get(`/home/${this.state.CourseLink}` )
         .then(response => {
             console.log("Courses Response",response);
        

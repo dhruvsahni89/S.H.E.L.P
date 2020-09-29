@@ -5,7 +5,8 @@ import TeacherTittle from './TeacherTittle';
 import {Link} from 'react-router-dom';
 import Cloud from '../../../assets/Images/cloud.png';
 import './CSS/Teacher.css';
-
+import axios from '../../../ApiServices/axiosUrl';
+import AuthServices from '../../../ApiServices/auth.service';
 
 
 class TeacherPage extends Component{
@@ -13,7 +14,7 @@ class TeacherPage extends Component{
 
     state = { 
         Form:{
-             Title: {
+             title: {
                 label: "Title",
                 rows: "1",
                 cols: "50",
@@ -25,7 +26,7 @@ class TeacherPage extends Component{
                 
                 touched: false,
             },
-            Learning: {
+            discription: {
                 label: "What will Students learn from your course",
                 rows: "4",
                 cols: "50",
@@ -37,27 +38,63 @@ class TeacherPage extends Component{
                 
                 touched: false,
             },
+            
             Description: {
-                label: "Description of your course",
-                rows: "6",
-                cols: "50",
+                 label: "Description of your course",
+                 rows: "6",
+                 cols: "50",
                 placeholder: 'Entereg: In this course you will learn how to build professional website from scratch and how to make it responsive. Course Title',
-                value: "",
-                //valid: false,
-                //type: 'text',
-                //error: " ",
+                 value: "",
+                 //valid: false,
+                 //type: 'text',
+                 //error: " ",
                 
+                 touched: false,
+             },
+
+            category: {
+                value: "",
+            
+            },
+
+            file:{
+                value:'',
+            },
+
+            name:{
+                label: "Enter your Name",
+                rows: "1",
+                cols: "50",
+                placeholder: 'Your Name',
+                value: "",
                 touched: false,
             },
 
-            Category: {
-                value: "",
+            _id: {
+                value: localStorage.getItem('userId'),
+            },
+
+        
+
             
-            }
             
     },
+
+    isLoggedIn:false,
+    userName:"",
     
 }
+
+    componentDidMount(){
+        let userToken = AuthServices.getCurrentUser();
+        let userName= AuthServices.getUserName();
+        if(userToken!==null){
+            this.setState({isLoggedIn:true,userName:userName});
+        }
+    }
+
+    
+    
 
 
     inputchangeHandler = (event,inputIdentifier)=> {
@@ -76,45 +113,92 @@ class TeacherPage extends Component{
 
     }
 
-    CategoryHandler = (event, CourseName)=>{
-        const CourseCategory = {...this.state.Form};
-        // const CourseElement = {...CourseCategory.Category};
+    categoryHandler = (event, CourseName)=>{
+        const Coursecategory = {...this.state.Form};
+        // const CourseElement = {...Coursecategory.category};
 
         // console.log((CourseElement))
         
         // CourseElement.value = CourseName;
 
-        CourseCategory.Category.value = CourseName;
+        Coursecategory.category.value = CourseName;
         
         
-        this.setState({Form:CourseCategory});
+        this.setState({Form:Coursecategory});
         
-        
-      
        
-        
     }
 
+    fileSelectorHandler = event =>{
+    
+        const selectedfile= {...this.state.Form};
 
+        selectedfile.file.value = event.target.files[0];
+       
+        this.setState({Form:selectedfile })
+
+    }
+
+    sumbitButton =()=> {
+        const formData ={};
+        const fd = new FormData();
+
+        
+        for(let formElement in this.state.Form){
+                formData[formElement]=this.state.Form[formElement].value;
+                fd.append(formElement,this.state.Form[formElement].value);
+        }
+
+
+
+        axios.post('creator/create-course',fd, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+                "Access-Control-Allow-Origin": '*',
+            }
+        }).
+        then( res=> { console.log(res)})
+
+       
+
+        .catch(error => { console.log(error)});
+        
+        console.log(formData);
+    }
 
 
     render(){
         
-        console.log(this.state.Form)
+        let Welcome = null;
+
+        if(this.state.isLoggedIn) {
+            Welcome = <p > Welcome {this.state.userName}!</p>;
+        }
+          
+      
 
         return(
 
+          
+
         <div className="container-fluid-main">
+
+            <div className="Welcome-msg">
+                
+                    {Welcome}
+
+            </div>
+
           
         <div className="Teacher-Head-Class">
         
             
             <Tinput
-            label={this.state.Form.Title.label}
-            rows={this.state.Form.Title.rows}
-            cols={this.state.Form.Title.cols}
-            placeholder={this.state.Form.Title.placeholder}
-            changed={(event)=> this.inputchangeHandler(event,"Title")}
+            label={this.state.Form.title.label}
+            rows={this.state.Form.title.rows}
+            cols={this.state.Form.title.cols}
+            placeholder={this.state.Form.title.placeholder}
+            changed={(event)=> this.inputchangeHandler(event,"title")}
             />
 
 
@@ -125,12 +209,12 @@ class TeacherPage extends Component{
             <p className="CourseCategoryTitle">Course Category</p>
 
             <div className="Teacher-Courses-Buttons">
-                <button onClick={(event)=> this.CategoryHandler(event,"Web Development")}> Development</button>
-                <button onClick={(event)=> this.CategoryHandler(event,"Web Desginign")}> Designing</button>
-                <button onClick={()=> this.CategoryHandler("React")}> React</button>
-                <button onClick={()=> this.CategoryHandler("ML")}> ML</button>
-                <button onClick={()=> this.CategoryHandler("Photography")}> Photography</button>
-                <button onClick={()=> this.CategoryHandler("NodeJs")}> Node JS</button>
+                <button onClick={()=> this.categoryHandler("Web Development")}> Development</button>
+                <button onClick={()=> this.categoryHandler("Web Desginign")}> Designing</button>
+                <button onClick={()=> this.categoryHandler("React")}> React</button>
+                <button onClick={()=> this.categoryHandler("ML")}> ML</button>
+                <button onClick={()=> this.categoryHandler("Photography")}> Photography</button>
+                <button onClick={()=> this.categoryHandler("NodeJs")}> Node JS</button>
                 
             </div>
 
@@ -144,11 +228,11 @@ class TeacherPage extends Component{
             
         <div className="Teacher-Head-Class">
             <Tinput
-            label={this.state.Form.Learning.label}
-            rows={this.state.Form.Learning.rows}
-            cols={this.state.Form.Learning.cols}
-            placeholder={this.state.Form.Learning.placeholder}
-            changed={(event)=> this.inputchangeHandler(event,"Learning")}
+            label={this.state.Form.discription.label}
+            rows={this.state.Form.discription.rows}
+            cols={this.state.Form.discription.cols}
+            placeholder={this.state.Form.discription.placeholder}
+            changed={(event)=> this.inputchangeHandler(event,"discription")}
             />
 
         </div>
@@ -176,12 +260,27 @@ class TeacherPage extends Component{
 
 
         <div className="Teacher-Head-Class">
-           <button>Choose File</button>
-           <button>Choose Video</button>
-        </div>
+           
+           
+           <label className="custom-image-upload">
+                    <input type="file" name='file' key="file" onChange={this.fileSelectorHandler}/>
+                    Upload Video
+           </label>
+
+            <label className="custom-image-upload">
+                <input type="file" name='file' key="file" onChange={this.fileSelectorHandler}/>
+                Upload Image
+           </label>
         
+        </div>
+
+        <div className="Welcome-msg">
+            <button onClick={this.sumbitButton} >Sumbit </button>
+        </div>
           
         </div>
+
+        
 
 
         );
