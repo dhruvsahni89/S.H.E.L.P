@@ -28,6 +28,10 @@ const courseSchema = new Schema({
         required:true,
         ref:'User'
     },
+    videourl:{
+        type:String,
+        required:true
+    },
     rating:
         { 
             type:Number, 

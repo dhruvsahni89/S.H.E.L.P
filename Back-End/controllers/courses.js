@@ -4,8 +4,8 @@ const Users = require('../models/users');
 
 exports.createcourse = (req, res, next) => {
     console.log("hello");
-    console.log(req.file);
-    console.log(req.file.path)
+    console.log(req.files);
+    console.log(req.files[0].path)
   //  const errors = validationResult(req);
   //  if(!errors.isEmpty()){
    //     return res.status(422).json({message:'Validation Failed',errors: errors.array()});
@@ -17,7 +17,8 @@ exports.createcourse = (req, res, next) => {
 //        throw error;
 //    }
     const title = req.body.title;
-    const imageUrl = req.file.path.split('/')[1];
+    const imageUrl = req.files[0].filename;
+    const videoUrl = req.files[1].filename;
     const name = req.body.name;
     const category = req.body.category;
     const discription = req.body.discription;
@@ -30,7 +31,8 @@ exports.createcourse = (req, res, next) => {
         discription: discription,
         imageurl: imageUrl,
         creator: userID,
-        category:category
+        category:category,
+        videourl:videoUrl
     });
 
     course.save().then(result =>{
@@ -77,7 +79,7 @@ exports.rating = (req,res,next) => {
     console.log(courseId);
     console.log(rating);
 
-    courses.findById( {_id:courseId} ).then(course =>{
+    courses.findById({_id:courseId}).then(course =>{
 
         let newRating = (rating + course.rating)/2;
         course.rating = newRating;

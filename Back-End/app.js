@@ -67,7 +67,7 @@ app.use((error, req, res, next) => {
 
 
 app.use(bodyParser.json()); // For parsing the incoming json file from the client
-app.use(multer({storage:fileStorage,fileFilter:fileFilter}).single('file'));
+app.use(multer({storage:fileStorage,fileFilter:fileFilter}).any());
 app.use(express.static(path.join(__dirname,'uploads')));
 
 app.use((req, res, next) =>{  // To remove CROS (cross-resource-origin-platform) problem 
