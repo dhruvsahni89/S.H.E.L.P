@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+// const { stringAt } = require('pdfkit/js/data');
 const courses = require('./courses');
 
 const Schema = mongoose.Schema; //to create a new schema i.e db field 
@@ -24,6 +25,13 @@ const UserSchema = new Schema({
         type:String,
         require:true
     },
+    interest:[
+        {
+            type:String,
+            require:false
+        }
+
+    ],
     courses:[
         {
             type:Schema.Types.ObjectId,
