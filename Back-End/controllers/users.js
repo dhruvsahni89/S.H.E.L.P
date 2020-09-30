@@ -5,6 +5,7 @@ const PDFDocument=require('pdfkit');
 const courses = require('../models/courses');
 const users = require('../models/users');
 
+
 exports.homepage = (req, res, next) => {
 
     const category = req.params.category;
@@ -30,6 +31,10 @@ exports.homepage = (req, res, next) => {
     }
     
 }
+
+
+
+//----------------------------------------------------------------------------------------------------------------------------
 
 exports.getinvoice =(req,res,next) =>{
     const userId=req.params.userId;
@@ -64,7 +69,6 @@ exports.getinvoice =(req,res,next) =>{
     pdfdoc.text('4. Create a regular study space and stay organized.');
     pdfdoc.text('--------------------------------------------');
     pdfdoc.text('5. Eliminate distractions.');
-    
     pdfdoc.end();
 })
 .catch(err =>{

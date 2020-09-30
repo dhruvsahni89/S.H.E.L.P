@@ -70,3 +70,27 @@ exports.showCourse = (req, res, next) =>{
 }
 
 
+exports.rating = (req,res,next) => {
+    const rating  = req.body.rating;
+    const courseId = req.body._id;
+
+    console.log(courseId);
+    console.log(rating);
+
+    courses.findById( {_id:courseId} ).then(course =>{
+
+        let newRating = (rating + course.rating)/2;
+        course.rating = newRating;
+        
+        courses.save().then(result => {
+            res.json({message:"course saved",result:result});
+        }).catch(err=>{
+            res.json(err);
+        })
+    }).catch(err => {
+        console.log(courseId+" :- this is id");
+        res.json("course not found!!!!!!!!!!!!");
+    })
+}
+
+

@@ -6,9 +6,12 @@ const isAuth=require('../middleware/is-auth');
 const router = express.Router();
 
 router.get('/home/:category',UserController.homepage);
-router.get('/course/:courseID',courseController.showCourse)
+
+router.get('/course/:course/:courseID',courseController.showCourse);
+
 
 router.post('/home/:category/:courseTitle',courseController.bookmarkCourse);
+
 router.get('/home/download/:userId',UserController.getinvoice );
 router.post('/home/interests',UserController.suggestion);
 router.post('/home/preferences',UserController.preference);

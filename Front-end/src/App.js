@@ -23,9 +23,13 @@ class App extends Component {
 
        <Route path="/" exact component={Homepage}/> 
        <Route path="/Rating"  component={Rating}/> 
-       <Route path="/Course"  component={CoursePage}/> 
+       
        <Route path="/home/:CourseName" exact    render={props => 
        <Homepage key={props.location.pathname} {...props}/>}/>
+
+      <Route path="/course/:Course/:Courseid" exact    render={props => 
+       <CoursePage key={props.location.pathname} {...props}/>}/>
+ 
 
        <Route path="/signup" exact component={Signup}/>
        <Route path="/login" component={Login}/>
