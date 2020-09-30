@@ -58,3 +58,14 @@ exports.bookmarkCourse = (req, res, next) =>{
 }
 
 
+exports.showCourse = (req, res, next) =>{
+    const courseID = req.params.courseID;
+
+    courses.findById({_id:courseID}).then(course => {
+        res.json({message:"course Found",course:course}); // Returning the course to FrontEnd
+    }).catch(err => {
+        res.json("Course not found in DataBase");
+    })
+}
+
+

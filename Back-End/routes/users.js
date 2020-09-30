@@ -5,8 +5,11 @@ const courseController = require('../controllers/courses')
 const isAuth=require('../middleware/is-auth');
 const router = express.Router();
 
-router.get('/home/:category',UserController.homepage);
 
+router.get('/:courseName/:courseID',courseController.showCourse)
+router.get('/home/:category',UserController.homepage);
 router.post('/home/:category/:courseTitle',courseController.bookmarkCourse);
+
+
 
 module.exports = router;
