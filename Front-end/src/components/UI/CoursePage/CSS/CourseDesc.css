@@ -15,7 +15,7 @@
 .Course-title-main{
     font: normal normal 500 28px/34px Gilroy;
     letter-spacing: -0.04px;
-    color: #566775;
+    color:#0e3c5f;
     
 }
 
@@ -23,7 +23,7 @@
 .Course-Rating-section p{
     font: normal normal 600 14px/19px Gilroy;
     letter-spacing: 0px;
-    color: #566775;
+    color:#0e3c5f;
     
 }
 
@@ -38,7 +38,7 @@
 .Short-Description{
     font: normal normal 15px/18px Gilroy;
     letter-spacing: 1.75px;
-    color: #566775;
+    color:#0e3c5f;
 
 }
 
@@ -53,14 +53,14 @@
     
     font: normal normal normal 13px/10px Gilroy;
     letter-spacing: 1.19px;
-    color: #566775;
+    color:#0e3c5f;
     opacity: 0.7;
 }
 
 .Course-teacher-name h2{
     font: normal normal 400 20px/29px Gilroy;
     letter-spacing: 1.68px;
-    color: #566775;
+    color:#0e3c5f;
 }
 
 .play-btn img{
@@ -74,7 +74,7 @@
 .fa-bookmark-o{
     margin-top:8px;
     font-size:22px;
-    color:#566775;
+    color:#0e3c5f;
     
 }
 

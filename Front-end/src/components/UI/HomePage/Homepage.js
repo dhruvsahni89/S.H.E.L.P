@@ -3,7 +3,8 @@ import Categories from './Categories';
 import HomeBanner from './HomeBanner';
 import CourseCards from './CourseCards';
 import CourseTitle from './CourseTitle';
-import {NavLink} from 'react-router-dom'
+import {NavLink} from 'react-router-dom';
+ import Loader from 'react-loader-spinner';
 //import ProductApi from './../../../ApiServices/ProductApi';
 import axios from "../../../ApiServices/axiosUrl";
 import Recommendation from './Recommendation';
@@ -49,7 +50,16 @@ class Homepage extends Component {
     render(){
         
 
-        let data = (<p>Loading...</p>);
+        let data = (<Loader
+            type="Puff"
+            color="#08BD80"
+            height={50}
+            width={50}
+            className="loader"
+
+             //3 secs
+    
+         />);
 
         if(!this.state.loading){
            
