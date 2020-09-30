@@ -1,0 +1,43 @@
+.Course-Video{
+    width:400px;
+    height:300px;
+}
+
+.Main-Section{
+   
+    display:flex;
+    justify-content: space-between;
+    flex-wrap:wrap;
+
+}
+
+.Small-nav-section{
+    display: flex;
+    margin-top:35px;
+}
+
+.Small-nav-section p{
+    font: normal normal 600 18px/29px Gilroy;
+    letter-spacing: 0.48px;
+    color: #3C4852;
+    margin-right:40px;
+    border-bottom: 2px solid #3C4852;
+}
+
+.flex-col-requirement{
+    display:flex;
+    flex-direction: column;
+    margin-top:50px;
+}
+.flex-col-requirement h1{
+    font: normal normal bold 24px/30px Gilroy;
+    letter-spacing: 0.84px;
+    color: #566775;
+}
+
+.flex-col-requirement p{
+    font: normal normal  17px/20px Gilroy;
+    letter-spacing: 0px;
+    color: #566775;
+
+}

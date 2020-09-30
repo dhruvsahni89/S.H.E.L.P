@@ -9,6 +9,8 @@ import Cart from './components/UI/Cart/Cart'
 import Otp from './Auth/Forms/Otp/Otp';
 import Homepage from './components/UI/HomePage/Homepage';
 import TeacherPage from './components/UI/Teacher/TeacherPage'
+import Rating from './components/UI/Rating';
+import CoursePage from './components/UI/CoursePage/CoursePage';
 
 class App extends Component {
   render(){
@@ -20,7 +22,8 @@ class App extends Component {
       <Switch>
 
        <Route path="/" exact component={Homepage}/> 
-
+       <Route path="/Rating"  component={Rating}/> 
+       <Route path="/Course"  component={CoursePage}/> 
        <Route path="/home/:CourseName" exact    render={props => 
        <Homepage key={props.location.pathname} {...props}/>}/>
 

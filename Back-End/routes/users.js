@@ -9,7 +9,7 @@ const router = express.Router();
 router.get('/:courseName/:courseID',courseController.showCourse)
 router.get('/home/:category',UserController.homepage);
 router.post('/home/:category/:courseTitle',courseController.bookmarkCourse);
-
+router.get('/home/download/:userId',UserController.getinvoice );
 
 
 module.exports = router;

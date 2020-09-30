@@ -94,31 +94,39 @@
 
 .Course-Teacher,.Course-info{
     color: #3C4852;
-    font: normal normal 17px/12px Gilroy;
+    font: normal normal 17px/19px Gilroy;
     letter-spacing: 0px;
     color: #3C4852;
+    
 }
 
 .Course-Teacher{
     font-size:14px;
     opacity:0.9;
-    line-height:0;
+    line-height:0px;
+    
 }
 
 .Course-info{
     font-size:14px;
     display: flex;
-   
+    
     
 }
 
-
-
 .Course-rating{
-    flex-grow:1;
+   
     text-align:left;
+    
 }
 
+.Course-star{
+ 
+    flex-grow:1;
+    text-align:left;
+  
+    margin-left:4px;
+}
 
 .Course-Price{
 

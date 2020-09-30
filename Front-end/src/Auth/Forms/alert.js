@@ -1,7 +1,10 @@
 import React from 'react';
-import './alert.css';
 
 const alert =(props)=>  {
+
+
+  
+
 
    let AlertColors = ["alertbox","alert", "alert-dismissible", "fade", "show"];
 
@@ -21,13 +24,13 @@ const alert =(props)=>  {
 
     return(
 
-    <div className=" " className={AlertColors.join(' ')} role="alert">
+    <div style={{position:"fixed"}} className={AlertColors.join(' ')} role="alert">
 
     {props.alertMsg}
-
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-  
-    </button>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        
+  </button>
 
   </div>
 

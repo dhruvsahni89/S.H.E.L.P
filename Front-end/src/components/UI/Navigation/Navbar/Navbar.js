@@ -45,14 +45,14 @@ class Navbar extends Component {
       
        
         <li className="nav-item">
-          <NavLink to="/"  className="nav-link wishlistlink">WhishList</NavLink>
+          <NavLink to="/Cart"  className="nav-link wishlistlink">WhishList</NavLink>
          
         </li>
 
 
         <li className="nav-item">
           
-          <NavLink to="/"  className="nav-link profilelink">{this.state.userName}</NavLink>
+          <NavLink to="/course"  className="nav-link profilelink">{this.state.userName}</NavLink>
           
         </li>
          

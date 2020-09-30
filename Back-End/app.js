@@ -8,7 +8,7 @@ const signupRoute = require('./routes/signup'); //importing signup route
 const errorController = require('./controllers/error');
 const feedRoutes = require('./routes/feed');
 const createCourse = require('./routes/creator');
-const homeRoute = require('./routes/users');
+ const homeRoute = require('./routes/users');
 
 const app = express();
 
@@ -33,7 +33,7 @@ const fileFilter = (req, file, cb) => { //For filtering the type of file
         console.log("wrong file type");
     }
 };
-// app.use('/',errorController.error404);
+//  app.use('/',errorController.error404);
 app.use((error, req, res, next) => {
     const status = error.statusCode||500;
     const data = error.data;
@@ -79,7 +79,7 @@ app.use((req, res, next) =>{  // To remove CROS (cross-resource-origin-platform)
 
 app.use(signupRoute); //For signUp route
 app.use(createCourse);
-app.use(homeRoute);
+ app.use(homeRoute);
 app.use(feedRoutes);// for dummy data 
 
 app.use((error,req,res,next)=>{

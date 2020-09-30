@@ -17,6 +17,7 @@ class Homepage extends Component {
         CourseLink: this.props.match.params.CourseName,
         Courses: null,
         loading: true,
+        img: "",
     }
 
 
@@ -27,9 +28,11 @@ class Homepage extends Component {
             console.log("Courses Response",response);
        
             this.setState({Courses: response.data.course});
-            console.log('courses state chaged, courses fetched')
+           
             this.setState({loading:false});
             console.log(this.state);
+
+          
 
         })
         .catch(error => {
@@ -38,18 +41,19 @@ class Homepage extends Component {
        
     }
 
+   
     
     
 
 
     render(){
-        console.log(this.state.CourseLink)
+        
 
         let data = (<p>Loading...</p>);
 
         if(!this.state.loading){
            
-            let CourseArray= this.state.Courses.slice(0,8);
+            let CourseArray= this.state.Courses.slice(0);
 
             data = (
               CourseArray.map(item =>  
@@ -58,6 +62,7 @@ class Homepage extends Component {
                 key={item.id}
                 title={item.title}
                 teacher={item.name}
+                img={"http://localhost:8080/" + item.imageurl}
                 />)
     
             );
