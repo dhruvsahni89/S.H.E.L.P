@@ -94,42 +94,66 @@ exports.preference=(req,res,next)=>{
     const userId=req.body.userId;
     users.findOne({_id:userId})
     .then(user=>{
-        const category1=user.interest[0];
-        const category3=user.interest[2];
-        const category2=user.interest[1];
-        console.log(category1);
-        const coursesarray=[];
+    //    var category1=user.interest[0];
+    //    var category2=user.interest[1];
+    //    var category3=user.interest[2];
+        // console.log(category1);
+        var coursesarray=[];
+        user.interest.forEach(interest => {
+            console.log(interest)
+            courses.find({category:interest})
+            .then(result=>{
+
+                coursesarray.push(result);
+                if(coursesarray.length===user.interest.length){
+                    res.json(coursesarray)
+                }
+                // console.log(coursesarray);
+            })
+            
+        });
+    //   console.log(coursesarray);
         // coursesarray.push("abhishek srivastav");
         // coursesarray.push("himnashu");
        
-        courses.findOne({category:category1})
-        .then(found=>{
-            coursesarray.push(found);
+        // courses.find({category:category1})
+        // .then(found=>{
+            // coursesarray=found;
+            // coursesarray.push(found);
             // res.json(coursesarray);
-            
-            console.log(found);
+            // coursesarray=[...coursesarray,found];
+            // console.log(found);
+
            
         })
        
-        courses.findOne({category:category2})
-        .then(found1=>{
-            coursesarray.push(found1);
+    //     courses.find({category:category2})
+    //     .then(found1=>{
+            
+    //         coursesarray.push(found1);
+    //         // console.log(found1);
+    //         // coursesarray1=found1;
            
            
-        })
+    //     })
         
-        courses.findOne({category:category3})
-        .then(found2=>{
-            coursesarray.push(found2);
-            res.json(coursesarray);
+    //     courses.find({category:category3})
+    //     .then(found2=>{
+    //         coursesarray.push(found2);
+    //         // console.log(found2);
+    //         // coursesarray=[...coursesarray,found2];
+    //         // coursesarray2=found2;
+    //         res.json(coursesarray);
+           
           
            
-        })
-        console.log(coursesarray);
-        // coursesarray.push(one);
-        // coursesarray.push(two);
-        // coursesarray.push(two);
-        // res.json(coursesarray);
-    })
-           
+    //     })
+    // //   var interest1=coursesarray.concat(coursesarray1);
+    //     // console.log(interest1);
+       
+    //     // coursesarray.push(one);
+    //     // coursesarray.push(two);
+    //     // coursesarray.push(two);
+
+     
 }
