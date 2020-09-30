@@ -82,9 +82,9 @@ exports.rating = (req,res,next) => {
     courses.findById({_id:courseId}).then(course =>{
 
         let newRating = (rating + course.rating)/2;
-        course.rating = newRating;
+        course.rating = newRating.toPrecision(2);;
         
-        courses.save().then(result => {
+        course.save().then(result => {
             res.json({message:"course saved",result:result});
         }).catch(err=>{
             res.json(err);
@@ -95,4 +95,14 @@ exports.rating = (req,res,next) => {
     })
 }
 
+exports.videoUrl = (req,res,next) => {
 
+    const courseId = req.params.courseId;
+
+    courses.findById({_id:courseId}).then(course =>{
+        const videourl = course.videourl;
+        res.json({message:"video Found",videourl:videourl })
+    }).catch(err => {
+        res.json(err);
+    })
+}

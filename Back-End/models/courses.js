@@ -35,7 +35,8 @@ const courseSchema = new Schema({
     rating:
         { 
             type:Number, 
-            require:false
+            require:false,
+            default:0
         }
     },
 
