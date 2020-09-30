@@ -21,7 +21,7 @@ class App extends Component {
     <Layout>
       <Switch>
 
-       <Route path="/" exact component={Homepage}/> 
+       <Route path="/home/All" exact component={Homepage}/> 
        <Route path="/Rating"  component={Rating}/> 
        
        <Route path="/home/:CourseName" exact    render={props => 
@@ -37,7 +37,7 @@ class App extends Component {
        <Route path="/Cart" component={Cart}/>
 
        <Route path="/Teacher" component={TeacherPage}/>
-       <Redirect to="/"/>
+       <Redirect to="/home/All"/>
 
 
        </Switch>

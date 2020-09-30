@@ -66,6 +66,9 @@ class CoursePage extends Component {
                                     short_description={short_description}
                                     teacher={teacher}
                                     createdat={createdAt}
+                                    CourseId={this.state.CourseId}
+                                    
+                                    CourseName={this.state.CourseName}
                         />
                     </div>
 

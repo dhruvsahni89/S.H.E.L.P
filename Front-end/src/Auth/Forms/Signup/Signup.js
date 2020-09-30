@@ -255,10 +255,12 @@ class Signup extends Component {
         
 
         let alertContent = null;
-
+        
+        let value=0;
+        value= !value;
 
         if(this.state.alert.valid){
-            alertContent = ( <Alert alertMsg ={this.state.alert.msg} alertType={this.state.alert.alertType} /> )
+            alertContent = ( <Alert value={value} alertMsg ={this.state.alert.msg} alertType={this.state.alert.alertType} /> )
         }
         
         
