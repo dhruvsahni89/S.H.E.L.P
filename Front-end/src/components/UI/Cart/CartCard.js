@@ -1,6 +1,7 @@
 import React from 'react';
 import Webdev from '../../../assets/Images/webdev.png';
 import './CSS/Cart.css';
+import Rating from '../Rating';
 
 const CartCard =(props)=> {
 
@@ -28,7 +29,7 @@ const CartCard =(props)=> {
                                 <div className="CardParent2"> 
                                     <div>
                                         <span className="CourseRating">4.5</span>  
-                                        <span className="Coursestar"> STARS</span> 
+                                        <span className="Coursestar"> <Rating/></span> 
                                     </div>
 
                                     <p className="CourseSave">Save for Later</p>
