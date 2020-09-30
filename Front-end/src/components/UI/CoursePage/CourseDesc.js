@@ -26,11 +26,13 @@ class CourseDesc extends Component {
                 fd.append('_userID',user);
                 fd.append('_id',this.props.CourseId);
                 axios.post(`/bookmark/${this.props.CourseId}/${this.props.CourseName}`,fd )
+
                 .then(response => {
                     console.log("BookMarked",response);
                     if(response.status ===201 || response.status ===200){
                         this.setState({bookmark:true})
                     }
+                    
                     
                     this.setState({loading:false});
                 

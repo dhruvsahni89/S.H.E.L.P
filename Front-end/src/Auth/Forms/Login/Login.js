@@ -110,6 +110,18 @@ inputchangeHandler = (event,inputIdentifier)=> {
 
     updatedElement.value = event.target.value;
 
+    updatedForm[inputIdentifier] = updatedElement;
+    this.setState({Form: updatedForm});
+
+}
+
+inputBlurHandler = (event,inputIdentifier)=> {
+    const updatedForm = {
+        ...this.state.Form
+    }
+    const updatedElement = {...updatedForm[inputIdentifier]}
+    
+
     if(updatedElement.value.length>0) 
         updatedElement.touched=true;
 
@@ -138,9 +150,6 @@ inputchangeHandler = (event,inputIdentifier)=> {
         updatedElement.error="";
         updatedElement.msg="All good!";
     }
-
-    
-
 
     updatedForm[inputIdentifier] = updatedElement;
     this.setState({Form: updatedForm});
@@ -251,6 +260,7 @@ render() {
                     touched={x.config.touched}
                     errors={x.config.error}
                     msg={x.config.msg}
+                    blur={(event)=> this.inputBlurHandler(event,x.id)}
                     changed={(event)=> this.inputchangeHandler(event,x.id)}/>
 
                 ))

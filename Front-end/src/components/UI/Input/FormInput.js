@@ -39,6 +39,7 @@ const input = (props)=> {
     placeholder={props.placeholder}
     className={inputclasses.join(' ')}
     value={props.value}
+    onBlur={props.blur}
     onChange={props.changed}/>
     
 

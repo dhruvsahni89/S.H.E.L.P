@@ -65,7 +65,10 @@ class AuthServices {
     }
 
     getUserName(){
-        return localStorage.getItem('userName');
+       let userName=localStorage.getItem('userName');
+       if(userName!=null)
+        userName= userName.charAt(0).toUpperCase() + userName.slice(1);
+        return userName;
     }
 
 }
