@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const Courses = require('../models/courses')
 const PDFDocument=require('pdfkit');
-const courses = require('../models/courses');
+
 
 exports.homepage = (req, res, next) => {
 
@@ -29,6 +29,10 @@ exports.homepage = (req, res, next) => {
     }
     
 }
+
+
+
+//----------------------------------------------------------------------------------------------------------------------------
 
 exports.getinvoice =(req,res,next) =>{
     const userId=req.params.userId;
@@ -63,7 +67,6 @@ exports.getinvoice =(req,res,next) =>{
     pdfdoc.text('4. Create a regular study space and stay organized.');
     pdfdoc.text('--------------------------------------------');
     pdfdoc.text('5. Eliminate distractions.');
-    
     pdfdoc.end();
 })
 .catch(err =>{

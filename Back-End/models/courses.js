@@ -28,10 +28,10 @@ const courseSchema = new Schema({
         required:true,
         ref:'User'
     },
-    rating:[
+    rating:
         { type:Number, require:"give a rating"}
-    ]
-    },
+    
+   },
     {timestamps: true}
 );
 
