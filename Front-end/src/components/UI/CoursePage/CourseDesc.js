@@ -14,11 +14,11 @@ const CourseDesc =(props)=> {
 
             <div className="Description-main">
 
-                <p className="Course-title-main">Complete Web Development Course: Beginner to advance</p>
+                <p className="Course-title-main">{props.title}</p>
                 
                 <div className="Course-Rating-section">
                     
-                    <Rating/>
+                    <Rating value="4"/>
                 </div>
 
                 <div className="break1">
@@ -26,9 +26,7 @@ const CourseDesc =(props)=> {
                 </div>
 
                 <div className="Short-Description">
-                    <p>You will need to have React in your project in order 
-                        to use the component, I didn't bundle React in the build, 
-                        because it seemed like a crazy idea.</p>
+                    <p>{props.short_description}</p>
                 </div>
 
                 <div className="break2">
@@ -38,8 +36,8 @@ const CourseDesc =(props)=> {
 
                 <div className="Course-Teacher-bookmark">
                     <div className="Course-teacher-name">
-                        <p>Created by</p>
-                        <h2>Teacher name</h2>
+                    <p>Created at {props.createdat}</p>
+                        <h2>By {props.teacher}</h2>
                     </div>
 
                 <div className="flex-row">

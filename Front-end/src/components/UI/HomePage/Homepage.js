@@ -4,7 +4,8 @@ import HomeBanner from './HomeBanner';
 import CourseCards from './CourseCards';
 import CourseTitle from './CourseTitle';
 import {NavLink} from 'react-router-dom';
- import Loader from 'react-loader-spinner';
+import Loader from 'react-loader-spinner';
+import CoursePage from '../CoursePage/CoursePage';
 //import ProductApi from './../../../ApiServices/ProductApi';
 import axios from "../../../ApiServices/axiosUrl";
 import Recommendation from './Recommendation';
@@ -68,12 +69,12 @@ class Homepage extends Component {
             data = (
               CourseArray.map(item =>  
               
-              <CourseCards   
+              <NavLink exact to={`/course/${this.state.CourseLink}/${item._id}`}><CourseCards   
                 key={item.id}
                 title={item.title}
                 teacher={item.name}
                 img={"http://localhost:8080/" + item.imageurl}
-                />)
+                /></NavLink>)
     
             );
             

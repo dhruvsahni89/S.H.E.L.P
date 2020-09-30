@@ -25,7 +25,7 @@ class TeacherPage extends Component{
                 validation: {
                     required: true,
                     minLength:0,
-                    maxLength:18
+                    
                 },
                 
           
@@ -90,7 +90,7 @@ class TeacherPage extends Component{
                 validation: {
                     required: true,
                     minLength:1,
-                    maxLength:18
+                    
                 },
                  valid:false,
             },
