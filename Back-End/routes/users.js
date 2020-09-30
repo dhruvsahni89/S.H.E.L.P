@@ -13,6 +13,8 @@ router.get('/course/:course/:courseID',courseController.showCourse);
 router.post('/home/:category/:courseTitle',courseController.bookmarkCourse);
 
 router.get('/home/download/:userId',UserController.getinvoice );
+router.post('/home/interests',UserController.suggestion);
+router.post('/home/preferences',UserController.preference);
 
 
 module.exports = router;
