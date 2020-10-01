@@ -45,6 +45,8 @@ class CoursePage extends Component {
         let short_description=null;
         let teacher=null;
         let createdAt=null;
+        let videoUrl=null;
+        let rating=null;
 
         if(this.state.loading ===false){
                 title = (this.state.CoursesInfo.title);
@@ -52,6 +54,8 @@ class CoursePage extends Component {
                 teacher=(this.state.CoursesInfo.name)
                 createdAt=(this.state.CoursesInfo.createdAt);
                 createdAt =createdAt.split("T")[0];
+                videoUrl=(this.state.CoursesInfo.videourl);
+                rating=(this.state.CoursesInfo.rating)
 
         }
         
@@ -67,13 +71,13 @@ class CoursePage extends Component {
                                         teacher={teacher}
                                         createdat={createdAt}
                                         CourseId={this.state.CourseId}
-                                        
+                                        rating={rating}
                                         CourseName={this.state.CourseName}
                             />
                         </div>
 
                             <div className="Course-Video">
-                                <CourseVideo/>
+                                <CourseVideo videoUrl={"http://localhost:8080/" + videoUrl} />
                             </div>
 
 

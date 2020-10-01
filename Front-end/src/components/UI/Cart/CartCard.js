@@ -1,5 +1,5 @@
 import React from 'react';
-import Webdev from '../../../assets/Images/webdev.png';
+//import Webdev from '../../../assets/Images/webdev.png';
 import './CSS/Cart.css';
 import Rating from '../Rating';
 
@@ -15,25 +15,25 @@ const CartCard =(props)=> {
 
 
                     <div className="CardImageParent">
-                        <img src={Webdev} alt="course"/>
+                        <img src={props.img} alt="course"/>
                     </div>
 
                     <div className="CardSideContent">
 
-                            <p class="CourseTitle">Compelete web development:<br/>Beginner to advance</p>
+                            <p class="CourseTitle">{props.title}</p>
 
                             <div className="CardParent1">
-                                <p className="CourseTeacher">Teacher name</p>
+                                <p className="CourseTeacher">By {props.teacher}</p>
                                 <p className="CourseRemove">Remove</p>
                             </div>
 
                                 <div className="CardParent2"> 
-                                    <div>
-                                        <span className="CourseRating">4.5</span>  
-                                        <span className="Coursestar"> <Rating/></span> 
-                                    </div>
+                                  
+                                        <span className="CourseRating">{props.rating}</span>  
+                                        <span className="Coursestar"><Rating/></span> 
+                                   
 
-                                    <p className="CourseSave">Save for Later</p>
+                                        <p className="CourseSave">Save for Later</p>
 
                                 </div>
 

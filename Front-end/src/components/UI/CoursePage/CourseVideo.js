@@ -12,7 +12,7 @@ class CourseVideo extends Component {
         width='100%'
          height='100%'
          controls={true}
-          url='http://localhost:8080/Wed Sep 30 2020-sampleVideo.mp4' />
+          url={this.props.videoUrl} />
 
        
       )

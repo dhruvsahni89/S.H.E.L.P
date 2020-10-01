@@ -12,7 +12,7 @@ class Rating extends Component {
             const fd =new FormData();
           
 
-            fd.append('_id','5f7592d1452b724dfcd65c87');
+            fd.append('_id','5f7629d4c0f20359d3314867');
             fd.append('rating',newRating);
 
             axios.put("/Rating",fd )
@@ -37,13 +37,15 @@ class Rating extends Component {
         return(
             
             <ReactStars
+            style={{display:"inline-block"}}
             count={5}
             initialRating={3}
             onChange={ratingChanged}
             size={24}
             isHalf={true}
-            value={2}
+            value={this.props.value}
             activeColor="#ffd700"/>
+
 
         );
     }

@@ -47,7 +47,7 @@ class Homepage extends Component {
         })
        
        }
-       else{
+       else{ console.log(this.state.CourseLink)
                 axios.get(`/home/${this.state.CourseLink}`)
                 .then(response => {
                     console.log("Courses Response",response);
@@ -64,6 +64,27 @@ class Homepage extends Component {
                     console.log(error);
                 })
         }
+
+         axios.get(`/home/download/${this.state.CourseLink}`)
+                
+                    .then(async res => {
+                        if (res.status === 200 || res.status ===201) {
+                          const blob = await res.blob();
+
+                          const file = new Blob(
+                            [blob], 
+                            {type: 'application/pdf'}
+                          );
+                          //Build a URL from the file
+                          const fileURL = URL.createObjectURL(file);
+                          //Open the URL on new Window
+                          window.open(fileURL);  
+                }})
+                .catch(error => {
+                    console.log(error);
+                })
+
+
     }
 
    
