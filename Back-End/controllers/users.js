@@ -79,10 +79,10 @@ exports.getinvoice =(req,res,next) =>{
 
 exports.suggestion=(req,res,next)=>{
     const userId=req.body.userId;
-    const interest=req.body.interest;
-    console.log(userId);
+    const interest=req.body.interest;  //taking array from front end consisting of interests of users
+    console.log(userId);              
     console.log(interest);
-    users.findOne({_id:userId})
+    users.findOne({_id:userId})           //finding that user by his/her id and saving that array in the database
     .then(user=>{
     user.interest=interest;
     user.save();
@@ -93,19 +93,19 @@ exports.suggestion=(req,res,next)=>{
 exports.preference=(req,res,next)=>{
     const userId=req.body.userId;
     users.findOne({_id:userId})
-    .then(user=>{
-    //    var category1=user.interest[0];
+    .then(user=>{                                //display preferences made earlier
+    //    var category1=user.interest[0];          //display courses of category which were chosen by user as his/her preference
     //    var category2=user.interest[1];
-    //    var category3=user.interest[2];
+    //    var category3=user.interest[2];    
         // console.log(category1);
-        var coursesarray=[];
-        var x=0;
-        user.interest.forEach(interest => {
+        var coursesarray=[];                   //making an empty array
+        var x=0;                
+        user.interest.forEach(interest => {         //for every category user has chosen , finding courses of that category from his/her database
             console.log(interest)
             courses.find({category:interest})
             .then(result=>{
                 x++;
-                result.forEach(all=>{
+                result.forEach(all=>{                  //adding all the data of courses array into a single array
                     coursesarray.push(all);
 
                 })
@@ -168,8 +168,8 @@ exports.preference=(req,res,next)=>{
 exports.uploads=(req,res,next)=>{
 
        const userId=req.body.userId;
-       courses.find({creator:userId})
-       .then(data=>{
+       courses.find({creator:userId})    //finding user by his creator id which was generated when he uploaded
+       .then(data=>{                     //some courses and  , displaying all the courses he uploaded
            console.log(data)
            console.log("dhruvji")
            res.json({data:data});
