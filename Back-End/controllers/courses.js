@@ -41,7 +41,6 @@ exports.createcourse = (req, res, next) => {
     }).catch(err => {
         console.log(err);
     });
-
 }
 
 
@@ -50,7 +49,7 @@ exports.bookmarkCourse = (req, res, next) =>{
     const courseID = req.body._id;
     const email = req.body.email;
     Users.findOneAndUpdate({email:email},{
-        $push:{courses:courseID}
+        $push:{ bookmarked:courseID}
     },{new:true}).then(data => {
         console.log(data);
         res.json(data);

@@ -2,7 +2,6 @@ const fs = require('fs');
 const path = require('path');
 const Courses = require('../models/courses')
 const PDFDocument=require('pdfkit');
-const courses = require('../models/courses');
 const users = require('../models/users');
 
 
@@ -30,6 +29,28 @@ exports.homepage = (req, res, next) => {
 
     }
     
+}
+
+exports.userPage =  (req, res, next) => {
+    const userId = req.params.userId;
+    
+    users.findById({_id:userId}).populate('bookmarked').exec().then(course => {
+        
+        res.json({message:"Bookmarked Course",course:course});
+
+
+ //---------------------------------------------------------------------------       
+        // for(i in courseArray){
+        //     //  console.log(courseArray[i] +"   "+ i);
+        //     Courses.findById({_id:courseArray[i]}).then(course => {
+        //         console.log("i am here " + i);
+        //        courses.push(course);
+        //     }).catch(err => {
+        //         res.json(err);
+        //     })
+        // }
+//----------------------------------------------------------------------        
+    }).catch(err =>{res.status(400).json(err)})
 }
 
 
@@ -102,7 +123,7 @@ exports.preference=(req,res,next)=>{
         // coursesarray.push("abhishek srivastav");
         // coursesarray.push("himnashu");
        
-        courses.findOne({category:category1})
+        Courses.findOne({category:category1})
         .then(found=>{
             coursesarray.push(found);
             // res.json(coursesarray);
@@ -111,14 +132,14 @@ exports.preference=(req,res,next)=>{
            
         })
        
-        courses.findOne({category:category2})
+        Courses.findOne({category:category2})
         .then(found1=>{
             coursesarray.push(found1);
            
            
         })
         
-        courses.findOne({category:category3})
+        Courses.findOne({category:category3})
         .then(found2=>{
             coursesarray.push(found2);
             res.json(coursesarray);

@@ -24,7 +24,7 @@ const courseSchema = new Schema({
         require:true
     },
     creator:{
-        type: Schema.Types.ObjectId,   //for refrencing the person who created it 
+        type: Schema.Types.ObjectId, //for refrencing the person who created it 
         required:true,
         ref:'User'
     },
