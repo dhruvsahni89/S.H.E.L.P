@@ -71,7 +71,7 @@
     
 }
 
-.fa-bookmark-o{
+.fa-bookmark, .fa-bookmark-o{
     margin-top:8px;
     font-size:22px;
     color:#0e3c5f;
@@ -91,4 +91,9 @@
     height:2px;
     background-color: grey;
     opacity: 0.4;
+}
+
+
+.bookmarked-color{
+    color:rgb(253, 216, 5);
 }

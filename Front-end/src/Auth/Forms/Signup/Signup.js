@@ -120,61 +120,73 @@ class Signup extends Component {
 
 
 //   runs whenever there is any change in the input field
-    inputchangeHandler = (event,inputIdentifier)=> {
+inputchangeHandler = (event,inputIdentifier)=> {
+    const updatedForm = {
+        ...this.state.Form
+    }
+    const updatedElement = {...updatedForm[inputIdentifier]}
+    
 
-        const updatedForm = {
-            ...this.state.Form
-        }
-        const updatedElement = {...updatedForm[inputIdentifier]}
-     
-        updatedElement.value = event.target.value;
+    updatedElement.value = event.target.value;
 
-        if(updatedElement.value.length>0) 
-            updatedElement.touched=true;
+    updatedForm[inputIdentifier] = updatedElement;
+    this.setState({Form: updatedForm});
 
-        else {updatedElement.touched=false;
-              updatedElement.error="";  
-        }
-        
-        updatedElement.valid = this.checkValidity(updatedElement.value,
-            updatedElement.validation);
-            
+
+    updatedElement.valid = this.checkValidity(updatedElement.value,
+        updatedElement.validation);
+
+}
+
+inputBlurHandler = (event,inputIdentifier)=> {
+    const updatedForm = {
+        ...this.state.Form
+    }
+    const updatedElement = {...updatedForm[inputIdentifier]}
+    
+
+    if(updatedElement.value.length>0) 
+        updatedElement.touched=true;
+
+    else {updatedElement.touched=false;
+          updatedElement.error="";  
+    }
+    
+
         // msg errrors for username
 
-        if(inputIdentifier ==='name' && !updatedElement.valid){
-            updatedElement.error = "At least 5 characters and at most 15";
-            updatedElement.msg="";
-        }
-        if(inputIdentifier ==='name' && updatedElement.valid){
-            updatedElement.error="";
-            updatedElement.msg="All good!";
-        }
-
-        //msg errors for password
-
-        if(inputIdentifier === "password" && !updatedElement.valid){
-            updatedElement.error = "At least 5 characters and at most 18";
-            updatedElement.msg="";
-        }
-        if(inputIdentifier === "password" && updatedElement.valid){
-            updatedElement.error="";
-            updatedElement.msg="All good!";
-        }
-
-        // msg errors for email
-        if(inputIdentifier === "email" && !updatedElement.valid){
-            updatedElement.error = "check format";
-            updatedElement.msg="";
-        }
-        if(inputIdentifier === "email" && updatedElement.valid){
-            updatedElement.error="";
-            updatedElement.msg="All good!";
-        }
-    
-        updatedForm[inputIdentifier] = updatedElement;
-        this.setState({Form: updatedForm});
-
+    if(inputIdentifier ==='name' && !updatedElement.valid){
+        updatedElement.error = "At least 5 characters and at most 15";
+        updatedElement.msg="";
     }
+    if(inputIdentifier ==='name' && updatedElement.valid){
+        updatedElement.error="";
+        updatedElement.msg="All good!";
+    }
+        
+    // msg error for password
+    if(inputIdentifier === "password" && !updatedElement.valid){
+        updatedElement.error = "At least 5 characters and at most 18";
+        updatedElement.msg="";
+    }
+    if(inputIdentifier === "password" && updatedElement.valid){
+        updatedElement.error="";
+        updatedElement.msg="All good!";
+    }
+    // msg errors for email
+    if(inputIdentifier === "email" && !updatedElement.valid){
+        updatedElement.error = "check format";
+        updatedElement.msg="";
+    }
+    if(inputIdentifier === "email" && updatedElement.valid){
+        updatedElement.error="";
+        updatedElement.msg="All good!";
+    }
+
+    updatedForm[inputIdentifier] = updatedElement;
+    this.setState({Form: updatedForm});
+
+}
    
     OverallValidity = ()=>{
 
@@ -255,10 +267,12 @@ class Signup extends Component {
         
 
         let alertContent = null;
-
+        
+        let value=0;
+        value= !value;
 
         if(this.state.alert.valid){
-            alertContent = ( <Alert alertMsg ={this.state.alert.msg} alertType={this.state.alert.alertType} /> )
+            alertContent = ( <Alert value={value} alertMsg ={this.state.alert.msg} alertType={this.state.alert.alertType} /> )
         }
         
         
@@ -300,6 +314,7 @@ class Signup extends Component {
                         touched={x.config.touched}
                         errors={x.config.error}
                         msg={x.config.msg}
+                        blur={(event)=> this.inputBlurHandler(event,x.id)}
                         changed={(event)=> this.inputchangeHandler(event,x.id)}/>
 
                     ))

@@ -133,7 +133,9 @@ class Otp extends Component {
                  localStorage.removeItem('msg') 
                  localStorage.removeItem('type') 
 
-                 localStorage.setItem('user',response.data.token); 
+                 localStorage.setItem('user',response.data.token);
+                 localStorage.setItem('userId',response.data.userId);
+                 localStorage.setItem('userName',response.data.username); 
                  this.setState({redirect:'/HomePage'})
                  window.location.reload();
             
@@ -179,10 +181,12 @@ class Otp extends Component {
        
     
         let alertContent = null;
-
+        
+        let value=0;
+        value= !value;
 
         if(this.state.alert.valid){
-            alertContent = ( <Alert alertMsg ={this.state.alert.msg} alertType={this.state.alert.alertType} /> )
+            alertContent = ( <Alert value={value} alertMsg ={this.state.alert.msg} alertType={this.state.alert.alertType} /> )
         }
 
         

@@ -1,24 +1,87 @@
-import React from 'react';
+import React,{Component} from 'react';
 import './CSS/CourseDesc.css';
 import Rating from '../Rating';
 import Play from '../../../assets/Images/play.png';
+import axios from '../../../ApiServices/axiosUrl';
 
 
 
-const CourseDesc =(props)=> {
+
+class CourseDesc extends Component {
 
 
-     
+    state ={
+        bookmarked:false,
+        CourseId:this.props.CourseId,
+    }
+
+    bookmark=()=> {
+
+        let user = localStorage.getItem('userId');
+        
+
+        if(!this.state.bookmarked){
+
+                
+            const fd =new FormData();
+                fd.append('_userID',user);
+                fd.append('_id',this.state.CourseId);
+                
+                axios.post(`/bookmark/${this.state.CourseId}/${this.props.CourseName}`,fd )
+
+                .then(response => {
+                    console.log("BookMarked",response);
+                    if(response.status ===201 || response.status ===200){
+                        this.setState({bookmark:true})
+                    }
+                    
+                    
+                    this.setState({loading:false});
+                
+                
+
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+
+                    
+
+                
+        }   
+        else{
+                
+                this.setState({bookmarked:false})
+
+            }
+
+
+        }   
+
+    
+
+
+     render(){
+
+            let classArray = [""];
+
+            if(this.state.bookmarked) {
+                classArray = ["bookmarked-color","fa fa-bookmark"]
+            }
+            else{
+                classArray= ["fa fa-bookmark-o"]
+            }
 
         return(
 
             <div className="Description-main">
 
-                <p className="Course-title-main">{props.title}</p>
+                <p className="Course-title-main">{this.props.title}</p>
                 
                 <div className="Course-Rating-section">
                     
-                    <Rating value="4"/>
+                    <Rating CourseId={this.state.CourseId} />
+
                 </div>
 
                 <div className="break1">
@@ -26,7 +89,7 @@ const CourseDesc =(props)=> {
                 </div>
 
                 <div className="Short-Description">
-                    <p>{props.short_description}</p>
+                    <p>{this.props.short_description}</p>
                 </div>
 
                 <div className="break2">
@@ -36,8 +99,8 @@ const CourseDesc =(props)=> {
 
                 <div className="Course-Teacher-bookmark">
                     <div className="Course-teacher-name">
-                    <p>Created at {props.createdat}</p>
-                        <h2>By {props.teacher}</h2>
+                    <p>Created at {this.props.createdat}</p>
+                        <h2>By {this.props.teacher}</h2>
                     </div>
 
                 <div className="flex-row">
@@ -47,7 +110,7 @@ const CourseDesc =(props)=> {
                         </div>
 
                         <div className="Bookmarkbtn">
-                            <i class="fa fa-bookmark-o" aria-hidden="true"></i> 
+                        <i onClick={this.bookmark}  className={classArray.join(' ')} aria-hidden="true"></i>
                             <p>BookMark</p>                     
                         </div>
                 </div>
@@ -59,6 +122,6 @@ const CourseDesc =(props)=> {
             </div>
         );
     
-}
+  }}
 
 export default CourseDesc;

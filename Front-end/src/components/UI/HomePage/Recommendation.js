@@ -1,6 +1,7 @@
 import React from "react";
 import './CSS/Homepage.css';
 import InterestBanner from '../../../assets/Images/GreenBanner.png';
+import {NavLink} from 'react-router-dom';
 
 
 const Recommendation =(props)=>{
@@ -11,7 +12,7 @@ const Recommendation =(props)=>{
         <div className="Interest-banner">
             <img src={InterestBanner} alt="interestbanner"/>
             <p>Get Course Recommendation <br/>according to your Interest    </p>
-            <button>Choose Interest</button>
+            <NavLink to="/home/Interest/Preference"><button>Choose Interest</button></NavLink>
         </div>
      
 

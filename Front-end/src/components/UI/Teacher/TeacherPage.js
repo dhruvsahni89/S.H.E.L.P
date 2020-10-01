@@ -219,7 +219,7 @@ class TeacherPage extends Component{
 
     sumbitButton =()=> {
         
-       
+        var touched=true;
         const fd = new FormData();
 
         
@@ -247,7 +247,7 @@ class TeacherPage extends Component{
 
                     if(res.status ===201 || res.status ===200){
 
-                    this.AlertError("Your Course has been savaed!", "success");
+                    this.AlertError("Your Course has been saved!", "success");
                 }})
 
 
@@ -257,20 +257,25 @@ class TeacherPage extends Component{
         
         }
         else
-            alert();
+        this.AlertError("Validation Errors!", "warning");
        
     }
-
+ 
+    
 
     render(){
         
         let Welcome = null;
         let alertContent = null;
+        let value=0;
+        var touched;
+        
         
 
         if(this.state.alert.valid){
             alertContent = ( <Alert alertMsg ={this.state.alert.msg} 
-                                    alertType={this.state.alert.alertType} /> )
+                                    alertType={this.state.alert.alertType} 
+                                    value={touched}/> )
         }
         
         if(this.state.isLoggedIn) {

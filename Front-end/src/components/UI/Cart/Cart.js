@@ -1,12 +1,46 @@
-import React from 'react';
+import React, {Component} from 'react';
 import CartCard from './CartCard';
 import './CSS/Cart.css';
 import CartPrice from './CartPrice';
-//import EmptyCart from './EmptyCart';
-const Cart =(props)=> {
+import EmptyCart from './EmptyCart';
+import axios from '../../../ApiServices/axiosUrl';
 
 
-    return(
+
+class Cart extends Component{
+
+    state = {
+        CourseLink: this.props.match.params.CourseName,
+        Courses: null,
+        loading: true,
+        img: "",
+    }
+
+
+    componentDidMount(){
+      
+        axios.get(`/home/${this.state.CourseLink}` )
+        .then(response => {
+            console.log("Courses Response",response);
+       
+            this.setState({Courses: response.data.course});
+           
+            this.setState({loading:false});
+            console.log(this.state);
+
+          
+
+        })
+        .catch(error => {
+            console.log(error);
+        })
+       
+    }
+
+   
+    
+    
+    render(){return(
         
         <div className="container">
            
@@ -27,11 +61,11 @@ const Cart =(props)=> {
     
             <CartCard/>
             <CartPrice/> 
-            {/* <EmptyCart/>  */}
+             <EmptyCart/>  
             
         </div>
    
     );
-}
+}}
 
 export default Cart;

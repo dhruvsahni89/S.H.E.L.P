@@ -58,7 +58,9 @@ class Login extends Component {
         valid:false,
         msg:"",
         alertType:"",
-    }
+    },
+
+    redirect:null,
     
    
      
@@ -110,6 +112,21 @@ inputchangeHandler = (event,inputIdentifier)=> {
 
     updatedElement.value = event.target.value;
 
+    updatedForm[inputIdentifier] = updatedElement;
+    this.setState({Form: updatedForm});
+
+    updatedElement.valid = this.checkValidity(updatedElement.value,
+        updatedElement.validation);
+
+}
+
+inputBlurHandler = (event,inputIdentifier)=> {
+    const updatedForm = {
+        ...this.state.Form
+    }
+    const updatedElement = {...updatedForm[inputIdentifier]}
+    
+
     if(updatedElement.value.length>0) 
         updatedElement.touched=true;
 
@@ -117,8 +134,7 @@ inputchangeHandler = (event,inputIdentifier)=> {
           updatedElement.error="";  
     }
     
-    updatedElement.valid = this.checkValidity(updatedElement.value,
-        updatedElement.validation);
+    
         
     // msg error for password
     if(inputIdentifier === "password" && !updatedElement.valid){
@@ -138,9 +154,6 @@ inputchangeHandler = (event,inputIdentifier)=> {
         updatedElement.error="";
         updatedElement.msg="All good!";
     }
-
-    
-
 
     updatedForm[inputIdentifier] = updatedElement;
     this.setState({Form: updatedForm});
@@ -184,7 +197,7 @@ formHandler = (event)=> {
                 this.setState({loading:false})
                 this.setState({redirect:'/HomePage'})
                 console.log(response.data)
-               // window.location.reload();
+                window.location.reload();
            
             }
             else 
@@ -205,12 +218,12 @@ formHandler = (event)=> {
 
 render() {
 
- 
+    let value=0;
+    value= !value;
     let alertContent = null;
 
-
     if(this.state.alert.valid){
-        alertContent = ( <Alert alertMsg ={this.state.alert.msg} alertType={this.state.alert.alertType} /> )
+        alertContent = ( <Alert value={value} alertMsg ={this.state.alert.msg} alertType={this.state.alert.alertType} /> )
     }
 
    
@@ -251,6 +264,7 @@ render() {
                     touched={x.config.touched}
                     errors={x.config.error}
                     msg={x.config.msg}
+                    blur={(event)=> this.inputBlurHandler(event,x.id)}
                     changed={(event)=> this.inputchangeHandler(event,x.id)}/>
 
                 ))

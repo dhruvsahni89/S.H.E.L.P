@@ -11,6 +11,7 @@ import Homepage from './components/UI/HomePage/Homepage';
 import TeacherPage from './components/UI/Teacher/TeacherPage'
 import Rating from './components/UI/Rating';
 import CoursePage from './components/UI/CoursePage/CoursePage';
+import Preference from './components/UI/HomePage/Preference';
 
 class App extends Component {
   render(){
@@ -21,11 +22,12 @@ class App extends Component {
     <Layout>
       <Switch>
 
-       <Route path="/" exact component={Homepage}/> 
+       <Route path="/home/All" exact component={Homepage}/> 
        <Route path="/Rating"  component={Rating}/> 
        
        <Route path="/home/:CourseName" exact    render={props => 
        <Homepage key={props.location.pathname} {...props}/>}/>
+       <Route path="/home/Interest/Preference" exact component={Preference}/>
 
       <Route path="/course/:Course/:Courseid" exact    render={props => 
        <CoursePage key={props.location.pathname} {...props}/>}/>
@@ -37,7 +39,7 @@ class App extends Component {
        <Route path="/Cart" component={Cart}/>
 
        <Route path="/Teacher" component={TeacherPage}/>
-       <Redirect to="/"/>
+       <Redirect to="/home/All"/>
 
 
        </Switch>
