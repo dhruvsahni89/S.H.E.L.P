@@ -79,19 +79,22 @@ exports.showCourse = (req, res, next) =>{
 
 
 exports.rating = (req,res,next) => {
-    const rating  = req.body.rating;
+    let rating  = req.body.rating;
+    rating = Number(rating);
     const courseId = req.body._id;
 
     console.log(courseId);
-    console.log(rating);
+    console.log("original ratingg",rating);
 
     courses.findById({_id:courseId}).then(course =>{
 
+        console.log('prev total',course.rating);
         let newRating = (rating + course.rating)/2;
-        course.rating = newRating.toPrecision(2);;
+        course.rating = newRating.toPrecision(2);
+        console.log("total",course.rating)
         
         course.save().then(result => {
-            res.json({message:"Rating Updated",result:result});
+            res.json({message:"rating updated",result:result});
         }).catch(err=>{
             res.json(err);
         })

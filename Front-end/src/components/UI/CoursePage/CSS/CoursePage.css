@@ -24,10 +24,17 @@
     border-bottom: 2px solid #3C4852;
 }
 
+.section2part1{
+    width:600px;
+  
+}
+
+
 .flex-col-requirement{
     display:flex;
     flex-direction: column;
     margin-top:50px;
+    
 }
 .flex-col-requirement h1{
     font: normal normal bold 24px/30px Gilroy;
@@ -40,4 +47,28 @@
     letter-spacing: 0px;
     color: #566775;
 
+}
+
+.Section2{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content: space-between;
+}
+.flex-center{
+    margin-top:35px;
+    display:flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    height:400px;
+    overflow-y: scroll;
+    
+}
+
+@media (max-width:1200px){
+    .Section2{
+        display:flex;
+        flex-direction: column-reverse;
+        flex-wrap:wrap;
+       
+    }   
 }

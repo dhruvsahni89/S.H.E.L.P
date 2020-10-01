@@ -72,7 +72,7 @@ class TeacherPage extends Component{
             },
 
             file:{
-                value:"",
+                value:'',
                 validation: {
                     required: true,
                     
@@ -211,29 +211,41 @@ class TeacherPage extends Component{
     
         const selectedfile= {...this.state.Form};
 
-        selectedfile.file.value = event.target.files[0];
+        selectedfile.file.value= event.target.files;
        
         this.setState({Form:selectedfile })
-        alert(this.state.Form.file.value);
+        console.log(this.state.Form.file);
+        console.log('length',this.state.Form['file'].value.length);
+        console.log('event=>', event.target.files);
     }
 
     sumbitButton =()=> {
         
         var touched=true;
+        const form={};
         const fd = new FormData();
 
         
         for(let formElement in this.state.Form){
+                console.log('top for++>',formElement)
                 
+            if(!(formElement === 'file')){
+                console.log('niche walal'+ "=pussy")
                 fd.append(formElement, this.state.Form[formElement].value);
-                
-                //form[formElement]=this.state.Form[formElement].value;
+            }
+            else{
+                for(var i =0;i<this.state.Form['file'].value.length; i++){
+                    console.log(this.state.Form['file'].value[i])
+                    fd.append(formElement,this.state.Form['file'].value[i])
+                }
+            }
+                form[formElement]=this.state.Form[formElement].value;
 
                 
         }
 
 
-        console.log(fd);
+       
 
         if(this.OverallValidity()){
                     
@@ -257,7 +269,7 @@ class TeacherPage extends Component{
         
         }
         else
-        this.AlertError("Validation Errors!", "warning");
+            this.AlertError("Validation Errors!", "warning");
        
     }
  
@@ -270,6 +282,7 @@ class TeacherPage extends Component{
         let value=0;
         var touched;
         
+        console.log(this.state.Form);
         
 
         if(this.state.alert.valid){
@@ -393,9 +406,10 @@ class TeacherPage extends Component{
            </label> */}
 
             <label className="custom-image-upload">
-                <input type="file" name='file' onChange={this.fileSelectorHandler}/>
+                <input type="file" name='file' multiple onChange={this.fileSelectorHandler}/>
                 Upload Image
            </label>
+
         
         </div>
 
