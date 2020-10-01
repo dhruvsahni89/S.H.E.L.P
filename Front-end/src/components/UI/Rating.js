@@ -8,12 +8,14 @@ class Rating extends Component {
 
         const ratingChanged = (newRating) => {
             
-            alert()
+            console.log(this.props.CourseId)
             const fd =new FormData();
           
-            fd.append('_id',this.props.CourseId);
-            fd.append('Rating',newRating)
-            axios.post(`/bookmark/${this.props.CourseId}/${this.props.CourseName}`,fd )
+
+            fd.append('_id','5f7592d1452b724dfcd65c87');
+            fd.append('rating',newRating);
+
+            axios.put("/Rating",fd )
             .then(response => {
                 console.log("Rating",response);
         

@@ -69,6 +69,15 @@
    
 }
 
+.productLink{
+    text-decoration: none;
+    
+}
+
+.productLink:hover{
+    opacity:0.9;
+    text-decoration: none;
+}
 
 @media (max-width:991px){
 

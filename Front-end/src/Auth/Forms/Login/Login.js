@@ -58,7 +58,9 @@ class Login extends Component {
         valid:false,
         msg:"",
         alertType:"",
-    }
+    },
+
+    redirect:null,
     
    
      
@@ -113,6 +115,9 @@ inputchangeHandler = (event,inputIdentifier)=> {
     updatedForm[inputIdentifier] = updatedElement;
     this.setState({Form: updatedForm});
 
+    updatedElement.valid = this.checkValidity(updatedElement.value,
+        updatedElement.validation);
+
 }
 
 inputBlurHandler = (event,inputIdentifier)=> {
@@ -129,8 +134,7 @@ inputBlurHandler = (event,inputIdentifier)=> {
           updatedElement.error="";  
     }
     
-    updatedElement.valid = this.checkValidity(updatedElement.value,
-        updatedElement.validation);
+    
         
     // msg error for password
     if(inputIdentifier === "password" && !updatedElement.valid){
@@ -193,7 +197,7 @@ formHandler = (event)=> {
                 this.setState({loading:false})
                 this.setState({redirect:'/HomePage'})
                 console.log(response.data)
-               // window.location.reload();
+                window.location.reload();
            
             }
             else 

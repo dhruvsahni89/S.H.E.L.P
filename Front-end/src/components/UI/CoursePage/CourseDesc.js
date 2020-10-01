@@ -11,7 +11,8 @@ class CourseDesc extends Component {
 
 
     state ={
-        bookmarked:false
+        bookmarked:false,
+        CourseId:this.props.CourseId,
     }
 
     bookmark=()=> {
@@ -24,8 +25,9 @@ class CourseDesc extends Component {
                 
             const fd =new FormData();
                 fd.append('_userID',user);
-                fd.append('_id',this.props.CourseId);
-                axios.post(`/bookmark/${this.props.CourseId}/${this.props.CourseName}`,fd )
+                fd.append('_id',this.state.CourseId);
+                
+                axios.post(`/bookmark/${this.state.CourseId}/${this.props.CourseName}`,fd )
 
                 .then(response => {
                     console.log("BookMarked",response);
@@ -78,7 +80,8 @@ class CourseDesc extends Component {
                 
                 <div className="Course-Rating-section">
                     
-                    <Rating CourseId={this.props.CourseId} />
+                    <Rating CourseId={this.state.CourseId} />
+
                 </div>
 
                 <div className="break1">

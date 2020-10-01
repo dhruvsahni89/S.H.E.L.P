@@ -132,6 +132,10 @@ inputchangeHandler = (event,inputIdentifier)=> {
     updatedForm[inputIdentifier] = updatedElement;
     this.setState({Form: updatedForm});
 
+
+    updatedElement.valid = this.checkValidity(updatedElement.value,
+        updatedElement.validation);
+
 }
 
 inputBlurHandler = (event,inputIdentifier)=> {
@@ -148,8 +152,6 @@ inputBlurHandler = (event,inputIdentifier)=> {
           updatedElement.error="";  
     }
     
-    updatedElement.valid = this.checkValidity(updatedElement.value,
-        updatedElement.validation);
 
         // msg errrors for username
 

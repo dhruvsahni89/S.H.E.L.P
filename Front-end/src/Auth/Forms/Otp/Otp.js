@@ -133,7 +133,9 @@ class Otp extends Component {
                  localStorage.removeItem('msg') 
                  localStorage.removeItem('type') 
 
-                 localStorage.setItem('user',response.data.token); 
+                 localStorage.setItem('user',response.data.token);
+                 localStorage.setItem('userId',response.data.userId);
+                 localStorage.setItem('userName',response.data.username); 
                  this.setState({redirect:'/HomePage'})
                  window.location.reload();
             
