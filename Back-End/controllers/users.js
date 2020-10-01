@@ -99,17 +99,24 @@ exports.preference=(req,res,next)=>{
     //    var category3=user.interest[2];
         // console.log(category1);
         var coursesarray=[];
+        var x=0;
         user.interest.forEach(interest => {
             console.log(interest)
             courses.find({category:interest})
             .then(result=>{
+                x++;
+                result.forEach(all=>{
+                    coursesarray.push(all);
 
-                coursesarray.push(result);
-                if(coursesarray.length===user.interest.length){
-                    res.json(coursesarray)
+                })
+
+                if(user.interest.length===x){
+                    res.json({coursesarray:coursesarray})
                 }
-                // console.log(coursesarray);
+               
+                // console.log({coursesarray:coursesarray});
             })
+           
             
         });
     //   console.log(coursesarray);
@@ -156,4 +163,18 @@ exports.preference=(req,res,next)=>{
     //     // coursesarray.push(two);
 
      
+}
+
+exports.uploads=(req,res,next)=>{
+
+       const userId=req.body.userId;
+       courses.find({creator:userId})
+       .then(data=>{
+           console.log(data)
+           console.log("dhruvji")
+           res.json({data:data});
+
+       })
+
+   
 }

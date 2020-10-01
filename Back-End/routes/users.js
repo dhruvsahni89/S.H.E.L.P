@@ -15,6 +15,7 @@ router.post('/home/:category/:courseTitle',courseController.bookmarkCourse);
 router.get('/home/download/:userId',UserController.getinvoice );
 router.post('/home/interests',UserController.suggestion);
 router.post('/home/preferences',UserController.preference);
+router.post('/teacher/uploads',UserController.uploads);
 
 
 module.exports = router;
