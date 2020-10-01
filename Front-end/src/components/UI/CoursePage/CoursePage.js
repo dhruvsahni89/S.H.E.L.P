@@ -3,7 +3,7 @@ import './CSS/CoursePage.css'
 import CourseDesc from './CourseDesc';
 import CourseVideo from './CourseVideo';
 import axios from '../../../ApiServices/axiosUrl';
-
+import VideoList from './VideoList';
 
 class CoursePage extends Component {
 
@@ -61,59 +61,83 @@ class CoursePage extends Component {
                                 
                     <div className="Main-Section">
 
-                    <div>
-                        <CourseDesc title={title}
-                                    short_description={short_description}
-                                    teacher={teacher}
-                                    createdat={createdAt}
-                                    CourseId={this.state.CourseId}
-                                    
-                                    CourseName={this.state.CourseName}
-                        />
-                    </div>
+                        <div>
+                            <CourseDesc title={title}
+                                        short_description={short_description}
+                                        teacher={teacher}
+                                        createdat={createdAt}
+                                        CourseId={this.state.CourseId}
+                                        
+                                        CourseName={this.state.CourseName}
+                            />
+                        </div>
 
-                    <div className="Course-Video">
-                        <CourseVideo/>
-                    </div>
+                            <div className="Course-Video">
+                                <CourseVideo/>
+                            </div>
 
 
-                </div>
+                     </div>
+
 
             <div className="Breakpoint"></div>
 
-            <div className="Small-nav-section">
+           <div className="Section2">
+                
+                <div className="section2part1">
+                
+                        <div className="Small-nav-section">
 
-                <p>About</p>
-                <p>Instructor</p>
-                <p>About</p>
+                            <p>About</p>
+                            <p>Instructor</p>
+                            <p>About</p>
 
+
+                        </div>
+
+
+                            
+                        <div className="flex-col-requirement">
+                            
+                            <h1>Requirement of this Course</h1>
+                            <p>load the full player once a user has interacted
+                                with the image. Noembed is used to fetch th</p>
+                            <p>load the full player once a user has interacted 
+                                with the image. Noembed is used to fetch th</p>
+                    
+                        </div>
+
+                            
+                        <div className="flex-col-requirement">
+                            
+                            <h1>Descripton</h1>
+                            <p>load the full player once a user has interacted
+                                with the image. Noembed is used to fetch 
+                            load the full player once a user has interacted 
+                                with the image. Noembed is used to fetch th</p>
+                    
+                        </div>
+
+                 </div>
+
+                    <div className="flex-center">
+                        <VideoList/>
+                        <VideoList/>
+                        <VideoList/>
+
+                        <VideoList/>
+                        <VideoList/>
+                        <VideoList/>
+                         <VideoList/>
+                         <VideoList/>
+                         <VideoList/>
+                         <VideoList/>
+                         <VideoList/>
+                        
+                          <VideoList/>
+                    </div>
 
             </div>
-
-
-                
-            <div className="flex-col-requirement">
-                
-                <h1>Requirement of this Course</h1>
-                <p>load the full player once a user has interacted
-                     with the image. Noembed is used to fetch th</p>
-                <p>load the full player once a user has interacted 
-                    with the image. Noembed is used to fetch th</p>
-           
-            </div>
-
-                 
-            <div className="flex-col-requirement">
-                
-                <h1>Descripton</h1>
-                <p>load the full player once a user has interacted
-                     with the image. Noembed is used to fetch 
-                load the full player once a user has interacted 
-                    with the image. Noembed is used to fetch th</p>
-           
-            </div>
-
-
 
 
             </div>

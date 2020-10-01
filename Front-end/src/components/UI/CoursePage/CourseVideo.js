@@ -8,7 +8,11 @@ class CourseVideo extends Component {
       return (
       
        
-        <ReactPlayer width='100%' height='100%' url='https://www.youtube.com/watch?v=ysz5S6PUM-U' />
+        <ReactPlayer 
+        width='100%'
+         height='100%'
+         controls={true}
+          url='http://localhost:8080/Wed Sep 30 2020-sampleVideo.mp4' />
 
        
       )
