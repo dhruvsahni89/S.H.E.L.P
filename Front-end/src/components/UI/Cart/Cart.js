@@ -49,6 +49,8 @@ class Cart extends Component{
     render(){
 
         let noOfCourses = null;
+        let classes=[];
+        let title=null;
         
         let data = (<Loader
             type="Puff"
@@ -68,11 +70,35 @@ class Cart extends Component{
             noOfCourses = CourseArray.length;
 
             if(CourseArray.length ===0){
-                data=<EmptyCart/>
+                
+                data=(<div className="empty-center">
+                    <EmptyCart/>
+                    </div>);
             }
 
+
+
            else{
-             
+
+            title= (<div>
+
+           <div className='row'>
+               <div className="col-12">
+                   <p className="CartTitle" >My Courses</p>
+                </div>
+            </div>
+
+                 
+           <div className='row'>
+               <div className="col-12">
+                   <p className="CartSubTitle" >You have {noOfCourses} Courses!</p>
+                </div>
+            </div>
+            </div>);
+
+
+
+              classes =["flex-row"]
               data = (
               CourseArray.map(item =>  
               
@@ -93,22 +119,10 @@ class Cart extends Component{
         
         <div className="container">
            
-           <div className='row'>
-               <div className="col-12">
-                   <p className="CartTitle" >My Courses</p>
-                </div>
-            </div>
-
-                 
-           <div className='row'>
-               <div className="col-12">
-                   <p className="CartSubTitle" >You have {noOfCourses} Courses!</p>
-                </div>
-            </div>
-               
-
-        <div className="flex-row">
-                {data}
+               {title}
+ 
+        <div className={classes.join(' ')}>
+            {data}
         </div>
 
 

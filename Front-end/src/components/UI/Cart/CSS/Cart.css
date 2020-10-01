@@ -3,6 +3,11 @@
     flex-wrap: wrap;
     
 }
+.empty-center{
+    display: flex;
+    justify-content: center !important;
+    
+}
 
 .CartTitle{
     margin-top:10px;
