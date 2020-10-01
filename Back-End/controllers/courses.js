@@ -47,8 +47,8 @@ exports.createcourse = (req, res, next) => {
 exports.bookmarkCourse = (req, res, next) =>{
 
     const courseID = req.body._id;
-    const email = req.body.email;
-    Users.findOneAndUpdate({email:email},{
+    const userID = req.body._userID;
+    Users.findOneAndUpdate({_id:userID},{
         $push:{ bookmarked:courseID}
     },{new:true}).then(data => {
         console.log(data);
@@ -72,19 +72,22 @@ exports.showCourse = (req, res, next) =>{
 
 
 exports.rating = (req,res,next) => {
-    const rating  = req.body.rating;
+    let rating  = req.body.rating;
+    rating = Number(rating);
     const courseId = req.body._id;
 
     console.log(courseId);
-    console.log(rating);
+    console.log("original ratingg",rating);
 
     courses.findById({_id:courseId}).then(course =>{
 
+        console.log('prev total',course.rating);
         let newRating = (rating + course.rating)/2;
-        course.rating = newRating.toPrecision(2);;
+        course.rating = newRating.toPrecision(2);
+        console.log("total",course.rating)
         
         course.save().then(result => {
-            res.json({message:"course saved",result:result});
+            res.json({message:"rating updated",result:result});
         }).catch(err=>{
             res.json(err);
         })
