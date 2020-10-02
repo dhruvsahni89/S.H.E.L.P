@@ -76,10 +76,13 @@ exports.getinvoice =(req,res,next) =>{
       );
     pdfdoc.pipe(fs.createWriteStream(invoicePath));
     pdfdoc.pipe(res);
-    pdfdoc.text('HERE IS SOME DESCRIPTION AND TIPS ABOUT THE COURSE ! THANKYOU ');
+    pdfdoc.text('HERE IS SOME DESCRIPTION AND TIPS ABOUT THE COURSE , HAVE A GREAT JOURNEY , EXPERIENCE BEST COURSES BY EXPERTIES! THANKYOU ');
+    pdfdoc.text('---------------CREATOR------------------');
+    pdfdoc.text(user.name);
+    pdfdoc.text('------------DESCRIPTION-------------');
     pdfdoc.text(user.discription);
     pdfdoc.text('--------------------------------------------');
-    pdfdoc.text('tips');
+    pdfdoc.text('TIPS');
     pdfdoc.text('--------------------------------------------');
     pdfdoc.text('1. Treat an online course like a “real” course.');
     pdfdoc.text('--------------------------------------------');
@@ -90,6 +93,36 @@ exports.getinvoice =(req,res,next) =>{
     pdfdoc.text('4. Create a regular study space and stay organized.');
     pdfdoc.text('--------------------------------------------');
     pdfdoc.text('5. Eliminate distractions.');
+    pdfdoc.text('--------------------------------------------');
+    pdfdoc.text('SOME TIPS FOR FULL STACK DEVELOPER!!');
+    pdfdoc.text('--------------------------------------------');
+    pdfdoc.text('1 :Server, Network, and Hosting Environment.');
+    pdfdoc.text(' a:This involves understanding what can break and why, taking no resource for granted.');
+    pdfdoc.text('b:Appropriate use of the file system, cloud storage, network resources, and an understanding of data redundancy and availability is necessary.');
+    pdfdoc.text('c:How does the application scale given the hardware constraints?');
+    pdfdoc.text('--------------------------------------------');
+    pdfdoc.text('2 :Data Modeling');
+    pdfdoc.text('a: If the data model is flawed, the business logic and higher layers start to need strange (ugly) code to compensate for corner cases the data model doesn’t cover.');
+    pdfdoc.text('b: Full stack developers know how to create a reasonably normalized relational model, complete with foreign keys, indexes, views, lookup tables, etc.');
+    pdfdoc.text('--------------------------------------------');
+    pdfdoc.text(' 3 :API layer / Action Layer / MVC');
+    pdfdoc.text('a: How the outside world operates against the business logic and data model.');
+    pdfdoc.text('b: Frameworks at this level should be used heavily.');
+    pdfdoc.text('c: Full stack developers have the ability to write clear, consistent, simple to use interfaces. The heights to which some APIs are convoluted repel me.');
+    pdfdoc.text('--------------------------------------------');
+    pdfdoc.text(' 4 :User Interface');
+    pdfdoc.text('a: Full stack developers: i) understand how to create a readable layout, or (ii) acknowledge they need help from artists and graphic designers. Either way, implementing a good visual design is key.');
+    pdfdoc.text('b: Can include mastery of HTML5 / CSS.');
+    pdfdoc.text('--------------------------------------------');
+    pdfdoc.text('5: Understanding what the customer and the business need.');
+    pdfdoc.text('a: Now we are blurring into the line of architect, but that is too much of a hands off role.');
+    pdfdoc.text('b: Full stack developers have a grasp of what is going on in the field when the customer uses the software. They also have a grasp of the business.');
+    pdfdoc.text('--------------------------------------------');
+    pdfdoc.text('IF YOU HAVE ANY QUERY , YOU CAN CONTACT US ON ONE OF MENTIONED MAILS');
+    pdfdoc.text('abhiautar123@gmail.com');
+    pdfdoc.text('dhruvsahni89@gmail.com');
+    pdfdoc.text('ayush.verma8750@gmail.com');
+
     pdfdoc.end();
 })
 .catch(err =>{
