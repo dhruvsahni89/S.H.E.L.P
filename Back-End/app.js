@@ -65,21 +65,24 @@ app.use((error, req, res, next) => {
 //     }
 // };
 
-
-app.use(bodyParser.json()); // For parsing the incoming json file from the client
+// For parsing the incoming json file from the client
+app.use(bodyParser.json()); 
+//Multer for handeling incoming Files
 app.use(multer({storage:fileStorage,fileFilter:fileFilter}).any());
-app.use(express.static(path.join(__dirname,'uploads')));
-app.use(express.static(path.join(__dirname,'data','invoices')));
+
+app.use(express.static(path.join(__dirname,'uploads'))); //Serving images and video
+
+app.use(express.static(path.join(__dirname,'data','invoices'))); //Serving the pdf files
 
 app.use((req, res, next) =>{  // To remove CROS (cross-resource-origin-platform) problem 
     res.setHeader('Access-Control-Allow-Origin',"*"); // to allow all client we use *
     res.setHeader('Access-Control-Allow-Methods',"OPTIONS,GET,POST,PUT,PATCH,DELETE"); //these are the allowed methods 
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type , Authorization ','*'); // allowed headers (Auth for extra data related to authoriaztiom)
+    res.setHeader('Access-Control-Allow-Headers', "*"); // allowed headers (Auth for extra data related to authoriaztiom)
     next();
 })
 
 app.use(signupRoute);  //For signUp route
-app.use(createCourse); //
+app.use(createCourse); //For creating a course by creator
 app.use(homeRoute);    //
 app.use(courseRating); //
 app.use(feedRoutes);   // for dummy data 

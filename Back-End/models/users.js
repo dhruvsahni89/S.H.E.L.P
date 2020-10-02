@@ -37,11 +37,13 @@ const UserSchema = new Schema({
             require:false
         }
     ],
-    bookmarked:[{
+    bookmarked:[
+        {
         type:Schema.Types.ObjectId,
         ref:'Courses',
         require:false
-    }]
+    }
+    ]
 
 });
 

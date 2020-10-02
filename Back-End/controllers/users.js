@@ -8,7 +8,7 @@ const users = require('../models/users');
 exports.homepage = (req, res, next) => {
 
     const category = req.params.category;
-
+    console.log(category)
     if(category === "all"){
 
         Courses.find().then(course => {
