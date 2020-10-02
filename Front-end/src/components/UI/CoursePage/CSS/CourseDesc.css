@@ -15,7 +15,7 @@
 .Course-title-main{
     font: normal normal 500 28px/34px Gilroy;
     letter-spacing: -0.04px;
-    color:#0e3c5f;
+    color: #566775;
     
 }
 
@@ -24,7 +24,7 @@
     font: normal normal 600 14px/19px Gilroy;
     letter-spacing: 0px;
     color:#0e3c5f;
-    
+    padding-top:11px;
 }
 
 .break1,.break2{
@@ -36,10 +36,9 @@
 }
 
 .Short-Description{
-    font: normal normal 15px/18px Gilroy;
-    letter-spacing: 1.75px;
-    color:#0e3c5f;
-
+    font: normal normal 18px/19px Gilroy;
+    letter-spacing: 1.2px;
+    color: #566775;
 }
 
 .break2{
@@ -78,6 +77,9 @@
     
 }
 
+.Bookmarkbtn{
+    
+}
 
 .Bookmarkbtn p{
     font: normal normal 200 14px/29px Gilroy;
@@ -96,4 +98,8 @@
 
 .bookmarked-color{
     color:rgb(253, 216, 5)!important;
+}
+
+.RatingStars{
+padding-left:6px;
 }

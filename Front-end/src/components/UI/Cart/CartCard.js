@@ -1,7 +1,7 @@
 import React from 'react';
 //import Webdev from '../../../assets/Images/webdev.png';
 import './CSS/Cart.css';
-import Rating from '../Rating';
+import Rating from '../CoursePage/Rating';
 
 
 const CartCard =(props)=> {
@@ -30,7 +30,7 @@ const CartCard =(props)=> {
                                 <div className="CardParent2"> 
                                   
                                         <span className="CourseRating">{props.rating}</span>  
-                                        <span className="Coursestar"><Rating/></span> 
+                                        <span className="Coursestar"><Rating rating={props.rating}/></span> 
                                    
 
                                         <p className="CourseSave">Save for Later</p>

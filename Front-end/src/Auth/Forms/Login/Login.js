@@ -61,7 +61,7 @@ class Login extends Component {
     },
 
     redirect:null,
-    
+    alertPressed:false,
    
      
 }
@@ -173,6 +173,8 @@ OverallValidity = ()=>{
 
 formHandler = (event)=> {
     event.preventDefault();
+    this.setState({alertPressed:true})
+    setTimeout( ()=> this.setState({alertPressed:false}) , 3000);
 
      if(this.OverallValidity()){
 
@@ -190,7 +192,7 @@ formHandler = (event)=> {
 
                 {
                 
-                alert(response.data.message);
+                //alert(response.data.message);
                 localStorage.setItem('user',response.data.token);
                 localStorage.setItem('userId',response.data.userId);
                 localStorage.setItem('userName',response.data.username);
@@ -205,7 +207,7 @@ formHandler = (event)=> {
 
         .catch(error=>{console.log(error); 
             this.setState({loading:false});
-            this.AlertError("Make sure the Validations are correct", "danger");});
+            this.AlertError("Password/email incorrect", "danger");});
   
         }
         
@@ -223,7 +225,8 @@ render() {
     let alertContent = null;
 
     if(this.state.alert.valid){
-        alertContent = ( <Alert value={value} alertMsg ={this.state.alert.msg} alertType={this.state.alert.alertType} /> )
+        alertContent = ( <Alert value={this.state.alertPressed} alertMsg ={this.state.alert.msg} 
+                                alertType={this.state.alert.alertType} /> )
     }
 
    
@@ -269,7 +272,7 @@ render() {
 
                 ))
             }
-            <p className="forgot-password"  onClick={this.logout}> logout</p>
+            <p className="forgot-password"  onClick={this.logout}> Forgot Password?</p>
             {LoginSumbitButton}
             <p className="account-login"> New User? <a href="/">Sign up</a></p>
          

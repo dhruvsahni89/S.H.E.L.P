@@ -1,16 +1,16 @@
 import React, {Component} from 'react';
 import {NavLink} from 'react-router-dom';
 import Loader from 'react-loader-spinner';
-import CartCard from './CartCard';
-import './CSS/Cart.css';
-import CartPrice from './CartPrice';
-import EmptyCart from './EmptyCart';
-import axios from '../../../ApiServices/axiosUrl';
+import CartCard from '../../Cart/CartCard';
+import '../../Cart/CSS/Cart.css';
+import CartPrice from '../../Cart/CartPrice';
+import EmptyCart from '../../Cart/EmptyCart';
+import axios from '../../../../ApiServices/axiosUrl';
 
 
 
 
-class Cart extends Component{
+class TeacherProfile extends Component{
 
     state = {
         CourseLink: this.props.match.params.CourseName,
@@ -85,14 +85,14 @@ class Cart extends Component{
 
            <div className='row'>
                <div className="col-12">
-                   <p className="CartTitle" >My Courses</p>
+                   <p className="CartTitle" >Your Uploaded Content</p>
                 </div>
             </div>
 
                  
            <div className='row'>
                <div className="col-12">
-                   <p className="CartSubTitle" >You have {noOfCourses} Courses!</p>
+                   <p className="CartSubTitle" >You have Uploaded {noOfCourses} Courses so far</p>
                 </div>
             </div>
             </div>);
@@ -127,7 +127,7 @@ class Cart extends Component{
         </div>
 
 
-            {/* <CartPrice/>  */}
+           
            
             
         </div>
@@ -135,4 +135,4 @@ class Cart extends Component{
     );
 }}
 
-export default Cart;
+export default TeacherProfile;

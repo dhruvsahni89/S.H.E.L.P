@@ -12,28 +12,28 @@ class alert extends Component{
     
 
   }
-  
-  // componentDidUpdate() {
+    
+  //   componentDidUpdate() {
 
-  //   if(this.props.value===true) {
-     
-  //       setTimeout( ()=> this.setState({unvisible:true}) , 2000);
-  //       console.log("alert2", this.state.unvisible); }
-  
+  //     if(this.props.value===true) {
+
+  //     this.setState({unvisible:false});
+  //     console.log("alert2", this.state.unvisible); }
+    
   // }
 
-  componentDidMount() {
+  // componentDidMount() {
 
   
        
-        setTimeout( ()=> this.setState({unvisible:true}) , 2000);
-        console.log("alert2", this.state.unvisible); 
+  //       setTimeout( ()=> this.setState({unvisible:true}) , 2000);
+  //       console.log("alert2", this.state.unvisible); 
   
-  }
+  // }
 
 
   render(){ 
-    console.log("alert=>", this.state.unvisible,this.props.value); 
+  
  
         let AlertColors = ["alertbox","alert", "alert-dismissible", "fade", "show"];
 
@@ -50,11 +50,11 @@ class alert extends Component{
           AlertColors.push("alert-success");
         }
 
-        if(this.state.unvisible){
+        if(!this.props.value){
           AlertColors.push('unvisible');
         }
 
-        else if(this.state.unvisible!==true){
+        else if(this.props.value===true){
           const index =AlertColors.indexOf('unvisible');
             if(index >-1) AlertColors.splice(index,1);
         }

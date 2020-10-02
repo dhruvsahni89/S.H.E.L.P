@@ -31,7 +31,7 @@ class TeacherPage extends Component{
           
             },
             discription: {
-                label: "What will Students learn from your course",
+                label: "Short Description",
                 rows: "4",
                 cols: "50",
                 placeholder: 'eg: Complete HTML5, CSS3, Basics of Js',
@@ -44,8 +44,8 @@ class TeacherPage extends Component{
                
             },
             
-            Description: {
-                 label: "Description of your course",
+            discriptionLong: {
+                 label: "Long Description",
                  rows: "6",
                  cols: "50",
                  placeholder: 'Entereg: In this course you will learn how to build professional website from scratch and how to make it responsive. Course Title',
@@ -99,6 +99,36 @@ class TeacherPage extends Component{
                 value: localStorage.getItem('userId'),
                 valid:true,
             },
+
+            willLearn:{
+                label: "What will the students learn from this?",
+                rows: "5",
+                cols: "70",
+                placeholder: 'students will learnt to apply react skills...',
+                value: "",
+                validation: {
+                    required: true,
+                    minLength:1,
+                    
+                },
+                 valid:false,
+            },
+
+            requirement:{
+                label: "What are the requirements of this course?",
+                rows: "5",
+                cols: "70",
+                placeholder: 'Must know python etc ',
+                value: "",
+                validation: {
+                    required: true,
+                    minLength:1,
+                    
+                },
+                 valid:false,
+            },
+
+            
      
     },
      
@@ -106,11 +136,12 @@ class TeacherPage extends Component{
         valid:false,
         msg:"",
         alertType:" ",
+        
     },
 
     isLoggedIn:false,
     userName:"",
-    
+    alertPressed:false,
 }
 
     componentDidMount(){
@@ -192,17 +223,12 @@ class TeacherPage extends Component{
 
     categoryHandler = (CourseName)=>{
         const Coursecategory = {...this.state.Form};
-        // const CourseElement = {...Coursecategory.category};
-
-        // console.log((CourseElement))
-        
-        // CourseElement.value = CourseName;
 
         Coursecategory.category.value = CourseName;
         
         
         this.setState({Form:Coursecategory});
-        alert(this.state.Form.category.value)
+      
         
        
     }
@@ -221,7 +247,8 @@ class TeacherPage extends Component{
 
     sumbitButton =()=> {
         
-        var touched=true;
+        this.setState({alertPressed:true})
+        setTimeout( ()=> this.setState({alertPressed:false}) , 2000);
         const form={};
         const fd = new FormData();
 
@@ -279,8 +306,7 @@ class TeacherPage extends Component{
         
         let Welcome = null;
         let alertContent = null;
-        let value=0;
-        var touched;
+       
         
         console.log(this.state.Form);
         
@@ -288,7 +314,7 @@ class TeacherPage extends Component{
         if(this.state.alert.valid){
             alertContent = ( <Alert alertMsg ={this.state.alert.msg} 
                                     alertType={this.state.alert.alertType} 
-                                    value={touched}/> )
+                                    value={this.state.alertPressed}/> )
         }
         
         if(this.state.isLoggedIn) {
@@ -375,15 +401,39 @@ class TeacherPage extends Component{
 
         </div>
 
+        <div className="Teacher-Head-Class">
+            <Tinput
+            label={this.state.Form.discriptionLong.label}
+            rows={this.state.Form.discriptionLong.rows}
+            cols={this.state.Form.discriptionLong.cols}
+            placeholder={this.state.Form.discriptionLong.placeholder}
+            changed={(event)=> this.inputchangeHandler(event,"discriptionLong")}
+            />
+
+        </div>
+
+
         <div  className="Teacher-Head-Class">
 
                 <Tinput
-                    label={this.state.Form.Description.label}
-                    rows={this.state.Form.Description.rows}
-                    cols={this.state.Form.Description.cols}
-                    placeholder={this.state.Form.Description.placeholder}
+                    label={this.state.Form.willLearn.label}
+                    rows={this.state.Form.willLearn.rows}
+                    cols={this.state.Form.willLearn.cols}
+                    placeholder={this.state.Form.willLearn.placeholder}
                    
-                    changed={(event)=> this.inputchangeHandler(event,"Description")}/>
+                    changed={(event)=> this.inputchangeHandler(event,"willLearn")}/>
+        
+        </div>
+
+        <div  className="Teacher-Head-Class">
+
+                <Tinput
+                    label={this.state.Form.requirement.label}
+                    rows={this.state.Form.requirement.rows}
+                    cols={this.state.Form.requirement.cols}
+                    placeholder={this.state.Form.requirement.placeholder}
+                   
+                    changed={(event)=> this.inputchangeHandler(event,"requirement")}/>
         
         </div>
         

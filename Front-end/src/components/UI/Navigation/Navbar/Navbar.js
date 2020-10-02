@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './Navbar.css';
-import {NavLink} from 'react-router-dom';
+import {NavLink,Redirect} from 'react-router-dom';
 
 import Logo from '../../../UI/Logo/Logo';
 //import ProfileLogo from '../../../UI/Logo/profileLogo';
@@ -11,7 +11,8 @@ class Navbar extends Component {
     
     state = {
         isLoggedIn:false,
-        userName:"Profile"
+        userName:"Profile",
+        redirect:null,
     }
 
     componentDidMount(){
@@ -26,7 +27,9 @@ class Navbar extends Component {
      }
 
      logout=() => {
+       this.setState({redirect:"/login"})
         AuthServices.logout();
+        
         window.location.reload();
 
     }
@@ -34,13 +37,16 @@ class Navbar extends Component {
 
 
     render(){
+       if (this.state.redirect) {
+            return <Redirect to={this.state.redirect} />
+        }
 
         let LoginLinks = ( <ul className="navbar-nav ml-auto">
 
 
-        <li className="nav-item active">
+        <li className="nav-item">
           
-          <NavLink to="/teacher" className="nav-link teachLink">Teach on Shelp</NavLink>
+          <NavLink to="/teacherhome" activeClassName="teacherActive" className="nav-link teachLink">Teach on Shelp</NavLink>
         </li>
       
        
@@ -52,23 +58,24 @@ class Navbar extends Component {
             </a>
             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
 
-                  <NavLink className="dropdown-item" to='/home/all'  >Profile</NavLink>
-                  <NavLink className="dropdown-item" to='/Teacher' >Upload Content</NavLink>
+                  <NavLink activeClassName="active-category" className="dropdown-item" to='/home/all'>Profile</NavLink>
+                  <NavLink activeClassName="active-category" className="dropdown-item" to='/Teacher' >Upload Content</NavLink>
                   
 
            
             </div>
         </li>
 
-        <li className="nav-item dropdown">
+        <li className="nav-item dropdown usere">
             <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" 
             role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-           Student
+          <i class="fa fa-user" aria-hidden="true"></i>
             </a>
             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
 
-            <NavLink to="/course"  className="nav-link profilelink">{this.state.userName}</NavLink>
-            <NavLink to="/Cart"  className="nav-link wishlistlink">Your Courses</NavLink>
+            <NavLink to="/course"  activeClassName="active-category" className="dropdown-item profilelink">{this.state.userName}</NavLink>
+            <NavLink to="/Cart" activeClassName="active-category" className="dropdown-item wishlistlink">
+             Bookmarked</NavLink>
                   
 
            
@@ -84,10 +91,11 @@ class Navbar extends Component {
       );
 
       if(!this.state.isLoggedIn){
+
         LoginLinks =( <ul className="navbar-nav ml-auto">
 
-                <li className="nav-item active">
-                <NavLink to="/teacher" className="nav-link teachLink" >Teach on Shelp</NavLink>
+                <li className="nav-item">
+                <NavLink to="/teacherhome" activeClassName="teacherActive" className="nav-link teachLink"  >Teach on Shelp</NavLink>
                 </li>
 
                 <li className="nav-item">
@@ -112,7 +120,7 @@ class Navbar extends Component {
 
 <nav className=" navbar navbar-expand-lg sticky-top ">
 
-  <NavLink to="/signup" className="navbar-brand"><Logo/></NavLink>
+  <NavLink to="/home/all" className="navbar-brand"><Logo/></NavLink>
   <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
   <i class="fa fa-bars" aria-hidden="true"></i>
   </button>
@@ -127,9 +135,11 @@ class Navbar extends Component {
             </a>
             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
 
-                  <NavLink className="dropdown-item" to='/home/all' activeClassName="active-category" >All Courses</NavLink>
+                  <NavLink  className="dropdown-item" to='/home/all' activeClassName="active-category" >All Courses</NavLink>
                    <NavLink className="dropdown-item" to='/home/Web Development' activeClassName="active-category">Web Development </NavLink>
                    <NavLink className="dropdown-item" to='/home/Web Designing' activeClassName="active-category" >Web Designing </NavLink>
+                   <NavLink className="dropdown-item" to='/home/React' activeClassName="active-category">React</NavLink>
+                    <NavLink className="dropdown-item" to='/home/NodeJs' activeClassName="active-category">NodeJs</NavLink>
                    <NavLink className="dropdown-item" to='/home/ML' activeClassName="active-category">Machine Learning </NavLink>
                    <NavLink className="dropdown-item" to='/home/Photography' activeClassName="active-category">Photography</NavLink>
                    <NavLink className="dropdown-item" to='/home/IOT' activeClassName="active-category">IOT </NavLink>

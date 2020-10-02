@@ -65,28 +65,7 @@ class Homepage extends Component {
                 })
         }
 
-         axios.get(`/home/download/${this.state.CourseLink}`)
-                
-                    .then(async res => {
-                        if (res.status === 200 || res.status ===201) {
-                          const blob = await res.blob();
-
-                          const file = new Blob(
-                            [blob], 
-                            {type: 'application/pdf'}
-                          );
-                          //Build a URL from the file
-                          const fileURL = URL.createObjectURL(file);
-                          //Open the URL on new Window
-                          window.open(fileURL);  
-                }})
-                .catch(error => {
-                    console.log(error);
-                })
-
-
     }
-
    
     
     
@@ -121,6 +100,7 @@ class Homepage extends Component {
                 title={item.title}
                 teacher={item.name}
                 img={"http://localhost:8080/" + item.imageurl}
+                rating={item.rating}
                 /></NavLink>)
     
             );
