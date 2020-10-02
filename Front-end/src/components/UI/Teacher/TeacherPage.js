@@ -227,10 +227,10 @@ class TeacherPage extends Component{
 
         
         for(let formElement in this.state.Form){
-                console.log('top for++>',formElement)
+                
                 
             if(!(formElement === 'file')){
-                console.log('niche walal'+ "=pussy")
+               
                 fd.append(formElement, this.state.Form[formElement].value);
             }
             else{

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import './CSS/CoursePage.css'
+import {NavLink} from 'react-router-dom';
 import CourseDesc from './CourseDesc';
 import CourseVideo from './CourseVideo';
 import axios from '../../../ApiServices/axiosUrl';
@@ -45,6 +46,8 @@ class CoursePage extends Component {
         let short_description=null;
         let teacher=null;
         let createdAt=null;
+        let videoUrl=null;
+        let rating=null;
 
         if(this.state.loading ===false){
                 title = (this.state.CoursesInfo.title);
@@ -52,6 +55,8 @@ class CoursePage extends Component {
                 teacher=(this.state.CoursesInfo.name)
                 createdAt=(this.state.CoursesInfo.createdAt);
                 createdAt =createdAt.split("T")[0];
+                videoUrl=(this.state.CoursesInfo.videourl);
+                rating=(this.state.CoursesInfo.rating)
 
         }
         
@@ -59,7 +64,38 @@ class CoursePage extends Component {
           
             <div className="container">
                                 
+                <nav aria-label="breadcrumb">
+
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <NavLink to='/home'>
+                                    Home
+                                </NavLink></li>
+
+                            <li class="breadcrumb-item">
+                                <NavLink to={`/Home/${this.state.CourseName}`}
+
+                                >
+                                    {this.state.CourseName}
+                                </NavLink>
+                            </li>
+
+
+                            <li class="breadcrumb-item">
+                                <NavLink to={`/course/${this.state.CourseName}/${this.state.CourseId}`}
+
+                                activeStyle={{textDecoration:'underline'}}>
+                                    {title}
+                                </NavLink>
+                            </li>
+
+                        </ol>
+                
+                </nav>
+
                     <div className="Main-Section">
+                    
+                        
 
                         <div>
                             <CourseDesc title={title}
@@ -67,13 +103,13 @@ class CoursePage extends Component {
                                         teacher={teacher}
                                         createdat={createdAt}
                                         CourseId={this.state.CourseId}
-                                        
+                                        rating={rating}
                                         CourseName={this.state.CourseName}
                             />
                         </div>
 
                             <div className="Course-Video">
-                                <CourseVideo/>
+                                <CourseVideo videoUrl={"http://localhost:8080/" + videoUrl} />
                             </div>
 
 

@@ -74,7 +74,7 @@ app.use(express.static(path.join(__dirname,'data','invoices')));
 app.use((req, res, next) =>{  // To remove CROS (cross-resource-origin-platform) problem 
     res.setHeader('Access-Control-Allow-Origin',"*"); // to allow all client we use *
     res.setHeader('Access-Control-Allow-Methods',"OPTIONS,GET,POST,PUT,PATCH,DELETE"); //these are the allowed methods 
-    res.setHeader('Access-Control-Allow-Headers', "*"); // allowed headers (Auth for extra data related to authoriaztiom)
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type , Authorization ','*'); // allowed headers (Auth for extra data related to authoriaztiom)
     next();
 })
 
