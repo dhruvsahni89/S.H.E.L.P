@@ -332,6 +332,7 @@ inputBlurHandler = (event,inputIdentifier)=> {
         return (
            <div>
                 {alertContent}
+                
                 <div className="SideContent">
                         <MainPage 
                         shelp={true}

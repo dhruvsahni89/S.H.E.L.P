@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import './CSS/CoursePage.css'
+import {NavLink} from 'react-router-dom';
 import CourseDesc from './CourseDesc';
 import CourseVideo from './CourseVideo';
 import axios from '../../../ApiServices/axiosUrl';
@@ -63,7 +64,38 @@ class CoursePage extends Component {
           
             <div className="container">
                                 
+                <nav aria-label="breadcrumb">
+
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <NavLink to='/home'>
+                                    Home
+                                </NavLink></li>
+
+                            <li class="breadcrumb-item">
+                                <NavLink to={`/Home/${this.state.CourseName}`}
+
+                                >
+                                    {this.state.CourseName}
+                                </NavLink>
+                            </li>
+
+
+                            <li class="breadcrumb-item">
+                                <NavLink to={`/course/${this.state.CourseName}/${this.state.CourseId}`}
+
+                                activeStyle={{textDecoration:'underline'}}>
+                                    {title}
+                                </NavLink>
+                            </li>
+
+                        </ol>
+                
+                </nav>
+
                     <div className="Main-Section">
+                    
+                        
 
                         <div>
                             <CourseDesc title={title}

@@ -93,6 +93,8 @@ class Homepage extends Component {
 
 
     render(){
+
+        let BannerImage ;
         
 
         let data = (<Loader
@@ -123,6 +125,8 @@ class Homepage extends Component {
     
             );
             
+            BannerImage =   this.state.CourseLink 
+            
 
 
             };
@@ -134,7 +138,7 @@ class Homepage extends Component {
                 <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <NavLink strict to='/home'>
+                                <NavLink  to='/home'>
                                     Home
                                 </NavLink></li>
 
@@ -147,7 +151,7 @@ class Homepage extends Component {
                 
                 </nav>
 
-                <HomeBanner/>
+                <HomeBanner img={BannerImage}/>
 
                 <div className="mt-5 Course-Content"> 
                     <Categories/>
