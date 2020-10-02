@@ -66,12 +66,27 @@ exports.bookmarkCourse = (req, res, next) =>{
 
 }
 
+exports.unbookmarkCourse = (req, res, next) =>{
 
-exports.showCourse = (req, res, next) =>{
+    const courseID = req.body._id;
+    const userID = req.body._userID;
+    Users.findOneAndUpdate({_id:userID},{
+        $pull:{ bookmarked:courseID}
+    },{new:true}).then(data => {
+        console.log(data);
+        res.json(data);
+    }).catch(err => {
+        res.json("Unbookmark fail");
+    }) //1st argument is what to find 2nd is what are changes
+
+}
+
+
+exports.showCourse = (req, res, next) =>{ //Route For showing a single course
     const courseID = req.params.courseID;
 
     courses.findById({_id:courseID}).then(course => {
-        res.json({message:"course Found",course:course}); // Returning the course to FrontEnd
+        res.json({message:"Course Found",course:course}); // Returning the course to FrontEnd
     }).catch(err => {
         res.json("Course not found in DataBase");
     })
