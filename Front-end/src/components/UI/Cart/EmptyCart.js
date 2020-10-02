@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import Empty from '../../../assets/Images/EmptyCart.png';
 import './CSS/EmptyCart.css';
 
@@ -7,17 +8,20 @@ const EmptyCart =(props)=> {
 
     return(
 
+        
+
    <div className="EmptyCartMain">
+
         <div className="EmptyCartLogo" >
             <img  src={Empty} alt="emptyCart"/>
         </div>
 
         <div className="EmptyCartDesc">
-            <p>Nothing in Whishlist</p>
+            <p>No Courses found</p>
         </div>
 
         <div>
-            <button className="HomeButton">Go Home</button>
+          <Link to="/home/all">  <button className="HomeButton">Go Home</button></Link>
         </div>
 
    </div>

@@ -2,7 +2,6 @@ const fs = require('fs');
 const path = require('path');
 const Courses = require('../models/courses')
 const PDFDocument=require('pdfkit');
-const courses = require('../models/courses');
 const users = require('../models/users');
 
 
@@ -30,6 +29,28 @@ exports.homepage = (req, res, next) => {
 
     }
     
+}
+
+exports.userPage =  (req, res, next) => {
+    const userId = req.params.userId;
+    
+    users.findById({_id:userId}).populate('bookmarked').exec().then(course => {
+        
+        res.json({message:"Bookmarked Course",course:course});
+
+
+ //---------------------------------------------------------------------------       
+        // for(i in courseArray){
+        //     //  console.log(courseArray[i] +"   "+ i);
+        //     Courses.findById({_id:courseArray[i]}).then(course => {
+        //         console.log("i am here " + i);
+        //        courses.push(course);
+        //     }).catch(err => {
+        //         res.json(err);
+        //     })
+        // }
+//----------------------------------------------------------------------        
+    }).catch(err =>{res.status(400).json(err)})
 }
 
 
@@ -90,7 +111,7 @@ exports.suggestion=(req,res,next)=>{
         })
 }
 
-exports.preference=(req,res,next)=>{
+exports.preference=(req, res, next) => {
     const userId=req.body.userId;
     users.findOne({_id:userId})
     .then(user=>{                                //display preferences made earlier
@@ -123,10 +144,16 @@ exports.preference=(req,res,next)=>{
         // coursesarray.push("abhishek srivastav");
         // coursesarray.push("himnashu");
        
+
+        Courses.findOne({category:category1})
+        .then(found=>{
+            coursesarray.push(found);
+
         // courses.find({category:category1})
         // .then(found=>{
             // coursesarray=found;
             // coursesarray.push(found);
+
             // res.json(coursesarray);
             // coursesarray=[...coursesarray,found];
             // console.log(found);
@@ -134,16 +161,29 @@ exports.preference=(req,res,next)=>{
            
         })
        
+
+        Courses.findOne({category:category2})
+        .then(found1=>{
+            coursesarray.push(found1);
+
     //     courses.find({category:category2})
     //     .then(found1=>{
             
     //         coursesarray.push(found1);
     //         // console.log(found1);
     //         // coursesarray1=found1;
+
            
            
-    //     })
+        })
         
+
+        Courses.findOne({category:category3})
+        .then(found2=>{
+            coursesarray.push(found2);
+            res.json(coursesarray);
+        })
+
     //     courses.find({category:category3})
     //     .then(found2=>{
     //         coursesarray.push(found2);
@@ -151,6 +191,7 @@ exports.preference=(req,res,next)=>{
     //         // coursesarray=[...coursesarray,found2];
     //         // coursesarray2=found2;
     //         res.json(coursesarray);
+
            
           
            
@@ -163,9 +204,10 @@ exports.preference=(req,res,next)=>{
     //     // coursesarray.push(two);
 
      
+})
 }
 
-exports.uploads=(req,res,next)=>{
+exports.uploads = (req,res,next) => {
 
        const userId=req.body.userId;
        courses.find({creator:userId})    //finding user by his creator id which was generated when he uploaded

@@ -32,7 +32,7 @@ class CourseTitle extends Component {
 
         if(this.state.userName!==""){
            
-            WelcomeMsg = ("Welcome " + this.state.userName + " !");
+            WelcomeMsg = (this.props.welcomeMessage+ " " + this.state.userName + " !");
         }
 
     return(

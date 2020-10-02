@@ -13,14 +13,14 @@ class alert extends Component{
 
   }
   
-  componentDidUpdate() {
+  // componentDidUpdate() {
 
-    if(this.props.value===true) {
+  //   if(this.props.value===true) {
      
-        setTimeout( ()=> this.setState({unvisible:true}) , 2000);
-        console.log("alert2", this.state.unvisible); }
+  //       setTimeout( ()=> this.setState({unvisible:true}) , 2000);
+  //       console.log("alert2", this.state.unvisible); }
   
-  }
+  // }
 
   componentDidMount() {
 

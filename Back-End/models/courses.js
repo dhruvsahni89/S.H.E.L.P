@@ -7,6 +7,10 @@ const courseSchema = new Schema({
         type: String,
         require:true
     },
+    category:{
+        type:String,
+        require:true
+    },
    imageurl:{
         type:String,
         require:true
@@ -15,16 +19,20 @@ const courseSchema = new Schema({
         type:String,
         require:true
     },
+    willLearn:{
+        type: String,
+        require:false
+    },
     discription:{
         type: String,
         require:true
     },
-    category:{
-        type:String,
-        require:true
+    discriptionLong:{
+        type: String,
+        require:false
     },
     creator:{
-        type: Schema.Types.ObjectId,   //for refrencing the person who created it 
+        type: Schema.Types.ObjectId, //for refrencing the person who created it 
         required:true,
         ref:'User'
     },

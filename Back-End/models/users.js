@@ -15,8 +15,6 @@ const UserSchema = new Schema({
         type:String,
         require:true
     },
-
-
     name:{
         type:String,
         require:true
@@ -32,13 +30,18 @@ const UserSchema = new Schema({
         }
 
     ],
-    courses:[
+    uploadCourses:[
         {
             type:Schema.Types.ObjectId,
-            ref:courses,
+            ref:'Courses',
             require:false
         }
-    ]
+    ],
+    bookmarked:[{
+        type:Schema.Types.ObjectId,
+        ref:'Courses',
+        require:false
+    }]
 
 });
 

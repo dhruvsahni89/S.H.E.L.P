@@ -44,17 +44,37 @@ class Navbar extends Component {
         </li>
       
        
-        <li className="nav-item">
-          <NavLink to="/Cart"  className="nav-link wishlistlink">WhishList</NavLink>
-         
+
+        <li className="nav-item dropdown">
+            <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" 
+            role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Teacher
+            </a>
+            <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                  <NavLink className="dropdown-item" to='/home/all'  >Profile</NavLink>
+                  <NavLink className="dropdown-item" to='/Teacher' >Upload Content</NavLink>
+                  
+
+           
+            </div>
         </li>
 
+        <li className="nav-item dropdown">
+            <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" 
+            role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           Student
+            </a>
+            <div className="dropdown-menu" aria-labelledby="navbarDropdown">
 
-        <li className="nav-item">
-          
-          <NavLink to="/course"  className="nav-link profilelink">{this.state.userName}</NavLink>
-          
+            <NavLink to="/course"  className="nav-link profilelink">{this.state.userName}</NavLink>
+            <NavLink to="/Cart"  className="nav-link wishlistlink">Your Courses</NavLink>
+                  
+
+           
+            </div>
         </li>
+
          
         <li className="nav-item">
           <NavLink to="/" className="nav-link logoutlink" onClick={this.logout}>Logout</NavLink>
@@ -107,10 +127,9 @@ class Navbar extends Component {
             </a>
             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
 
-                    <NavLink className="dropdown-item" to='/home/all' activeClassName="active-category" >All Courses</NavLink>
-                   
-                   <NavLink className="dropdown-item" to='/home/WebDevelopment' activeClassName="active-category">Web Development </NavLink>
-                   <NavLink className="dropdown-item" to='/home/WebDesigning' activeClassName="active-category" >Web Designing </NavLink>
+                  <NavLink className="dropdown-item" to='/home/all' activeClassName="active-category" >All Courses</NavLink>
+                   <NavLink className="dropdown-item" to='/home/Web Development' activeClassName="active-category">Web Development </NavLink>
+                   <NavLink className="dropdown-item" to='/home/Web Designing' activeClassName="active-category" >Web Designing </NavLink>
                    <NavLink className="dropdown-item" to='/home/ML' activeClassName="active-category">Machine Learning </NavLink>
                    <NavLink className="dropdown-item" to='/home/Photography' activeClassName="active-category">Photography</NavLink>
                    <NavLink className="dropdown-item" to='/home/IOT' activeClassName="active-category">IOT </NavLink>

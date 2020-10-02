@@ -22,7 +22,7 @@
 
 .active-category{
     width:100%;
-    background: #08BD80 0% 0% no-repeat padding-box;
+    background: #08BD80 0% 0% no-repeat padding-box !important;
     border-radius: 8px;
     opacity: 1;
     padding:4px;
@@ -50,6 +50,7 @@
     display:flex;
     flex-wrap:wrap;
     margin-left:0px;
+    margin-bottom: 40px;
     
 }
 
@@ -132,4 +133,12 @@
 
     flex-grow:1;
     text-align: right;
+}
+
+.recommended{
+
+    border-radius: 8px;
+    padding-left:4px;
+    background:tomato;
+    color:white;
 }

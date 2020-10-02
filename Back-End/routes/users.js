@@ -8,7 +8,7 @@ const router = express.Router();
 router.get('/home/:category',UserController.homepage);
 
 router.get('/course/:course/:courseID',courseController.showCourse);
-
+router.get('/users/:userName/:userId',UserController.userPage);
 
 router.post('/home/:category/:courseTitle',courseController.bookmarkCourse);
 

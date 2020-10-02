@@ -18,10 +18,11 @@ const Categories =(props)=>{
             <div className="ListOfCourses">
                   <NavLink to='/home/all' activeClassName="active-category" >All Courses</NavLink>
                   <NavLink to='/home/Web Development' activeClassName="active-category">Web Development </NavLink>
-                  <NavLink to='/home/WebDesigning' activeClassName="active-category" >Web Designing </NavLink>
+                  <NavLink to='/home/Web Designing' activeClassName="active-category" >Web Designing </NavLink>
                   <NavLink to='/home/React' activeClassName="active-category">React </NavLink>
                   <NavLink to='/home/Photography' activeClassName="active-category">Photography</NavLink>
                   <NavLink to='/home/IOT' activeClassName="active-category">IOT </NavLink>
+                  <NavLink to='/home/preferences' className="recommended" activeClassName="active-category">Recommended Courses!</NavLink>
                 
             </div>
                 </div>
