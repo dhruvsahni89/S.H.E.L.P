@@ -38,8 +38,8 @@ exports.createcourse = (req, res, next) => {
         videourl:videoUrl,
         willLearn:willLearn,
         discriptionLong:discriptionLong,
-        requirement:requirement
-
+        requirement:requirement,
+        rating:0
     });
 
     course.save().then(result =>{

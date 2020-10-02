@@ -34,30 +34,30 @@ exports.signup = (req, res, next) => {
         email: email,
         name: name,
         password: hashedPass,
-      });
+    });
+  user.save();
+
+      
+    let otp = Math.floor(100000 + Math.random() * 900000);
+    const token = jwt.sign(
+      {
+        email: email,
+      },
+      "otptoken",
+      { expiresIn: 600 } //600s = 10min
+    );
 
 
-      user.save();
-      let otp = Math.floor(100000 + Math.random() * 900000);
-      const token = jwt.sign(
-        {
-          email: email,
-        },
-        "otptoken",
-        { expiresIn: 600 } //600s = 10min
-      );
-
-
-      const otpdata = new OtpUser({
+    const otpdata = new OtpUser({
         token: token,
         Otp: otp,
         email: email,
-      });
+    });
 
-      otpdata.save();
+    otpdata.save();
 
-      res.status(201).json({ message: "otp stored in database " , token:token});
-      return transporter.sendMail({
+    res.status(201).json({ message: "otp stored in database " , token:token});
+    return transporter.sendMail({
         to: email,
         from: "dhruvsahni.akg@gmail.com",
         subject: "signup successful",
@@ -103,7 +103,7 @@ exports.login=(req,res,next)=>{
           throw error;
         }
        const isverified=user.isverified;
-       console.log(isverified + "dhruvsahni");
+       console.log(isverified);
        if(isverified ==="false"){
       
         let otp = Math.floor(100000 + Math.random() * 900000);

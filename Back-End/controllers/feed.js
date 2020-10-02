@@ -77,9 +77,7 @@ exports.getPosts = (req, res, next) => {
   //         title: 'Web Development',
   //         name: 'complete web development by angela',
   //         description:'full stack development course',
-  //         rating:'',
-
-          
+  //         rating:'',      
   //       }
   //   ]
 

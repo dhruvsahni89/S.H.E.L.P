@@ -69,6 +69,7 @@ app.use((error, req, res, next) => {
 app.use(bodyParser.json()); // For parsing the incoming json file from the client
 app.use(multer({storage:fileStorage,fileFilter:fileFilter}).any());
 app.use(express.static(path.join(__dirname,'uploads')));
+app.use(express.static(path.join(__dirname,'data','invoices')));
 
 app.use((req, res, next) =>{  // To remove CROS (cross-resource-origin-platform) problem 
     res.setHeader('Access-Control-Allow-Origin',"*"); // to allow all client we use *
@@ -77,11 +78,11 @@ app.use((req, res, next) =>{  // To remove CROS (cross-resource-origin-platform)
     next();
 })
 
-app.use(signupRoute); //For signUp route
-app.use(createCourse);
-app.use(homeRoute);
-app.use(courseRating);
-app.use(feedRoutes);// for dummy data 
+app.use(signupRoute);  //For signUp route
+app.use(createCourse); //
+app.use(homeRoute);    //
+app.use(courseRating); //
+app.use(feedRoutes);   // for dummy data 
 
 
 app.use((error,req,res,next)=>{
