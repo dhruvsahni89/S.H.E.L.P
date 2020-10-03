@@ -27,7 +27,12 @@ class CourseDesc extends Component {
                 fd.append('_userID',user);
                 fd.append('_id',this.state.CourseId);
                 
-                axios.post(`/home/${this.state.CourseId}/${this.props.CourseName}`,fd )
+                axios.post(`/home/${this.state.CourseId}/${this.props.CourseName}`,fd ,{
+                    headers: {
+                       
+                        Authorization: 'Bearer '+ localStorage.getItem('user') 
+                    }
+                })
 
                 .then(response => {
                     console.log("BookMarked",response);
@@ -43,7 +48,7 @@ class CourseDesc extends Component {
 
                 })
                 .catch(error => {
-                    console.log(error);
+                    console.log(error.response);
                 })
 
                     

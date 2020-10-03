@@ -1,8 +1,9 @@
 import React,{Component} from 'react';
 //import Aux from '../../../hoc/ReactFrag';
+
 import Tinput from './TinputFields';
 import TeacherTittle from './TeacherTittle';
-import {Link} from 'react-router-dom';
+import {Link,Redirect} from 'react-router-dom';
 import Cloud from '../../../assets/Images/cloud.png';
 import './CSS/Teacher.css';
 import axios from '../../../ApiServices/axiosUrl';
@@ -142,6 +143,7 @@ class TeacherPage extends Component{
     isLoggedIn:false,
     userName:"",
     alertPressed:false,
+    redirect:null,
 }
 
     componentDidMount(){
@@ -180,7 +182,8 @@ class TeacherPage extends Component{
 
         for(let validate in this.state.Form){
            
-            console.log(validate, this.state.Form[validate].valid);
+            
+
             if(!this.state.Form[validate].valid){
                 return false;
             }
@@ -240,9 +243,7 @@ class TeacherPage extends Component{
         selectedfile.file.value= event.target.files;
        
         this.setState({Form:selectedfile })
-        console.log(this.state.Form.file);
-        console.log('length',this.state.Form['file'].value.length);
-        console.log('event=>', event.target.files);
+       
     }
 
     sumbitButton =()=> {
@@ -262,7 +263,7 @@ class TeacherPage extends Component{
             }
             else{
                 for(var i =0;i<this.state.Form['file'].value.length; i++){
-                    console.log(this.state.Form['file'].value[i])
+                    
                     fd.append(formElement,this.state.Form['file'].value[i])
                 }
             }
@@ -280,6 +281,7 @@ class TeacherPage extends Component{
                     headers: {
                         "Content-Type": "multipart/form-data",
                         "Access-Control-Allow-Origin": '*',
+                        Authorization: 'Bearer '+ localStorage.getItem('user') 
                     }
                 }).
                 then( res=> { console.log(res);
@@ -292,7 +294,11 @@ class TeacherPage extends Component{
 
             
 
-                .catch(error => { console.log(error)});
+                .catch(error => { console.log(error.response)
+                    this.AlertError(error.response.data.message, "danger");
+                    if(error.response.data.message ==="jwt malformed" )
+                        this.setState({redirect:"/login"})
+                });
         
         }
         else
@@ -303,7 +309,13 @@ class TeacherPage extends Component{
     
 
     render(){
-        
+
+        if(this.state.redirect){
+            return <Redirect to="/login"/>
+        }
+
+        console.log(localStorage.getItem('user') )
+        console.log(localStorage.getItem('userId'))
         let Welcome = null;
         let alertContent = null;
        
@@ -385,7 +397,7 @@ class TeacherPage extends Component{
         </div>    
 
 
-            <Link to="#section2"><button className="NextBtn">Next</button></Link>
+             <Link to="#section2"><button className="NextBtn">Next</button></Link> 
 
 
             <TeacherTittle TitleDesc={"Description of your Course"}/>
@@ -437,7 +449,7 @@ class TeacherPage extends Component{
         
         </div>
         
-        <button className="NextBtn">Next</button>
+         <button className="NextBtn">Next</button> 
 
 
 

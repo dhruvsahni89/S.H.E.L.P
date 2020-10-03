@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './CSS/CoursePage.css'
-import {NavLink} from 'react-router-dom';
+import {NavLink,Redirect} from 'react-router-dom';
 import CourseDesc from './CourseDesc';
 import CourseVideo from './CourseVideo';
 import axios from '../../../ApiServices/axiosUrl';
@@ -14,12 +14,18 @@ class CoursePage extends Component {
         CourseName:this.props.match.params.Course,
         CoursesInfo: null,
         loading: true,
-        
+        token:localStorage.getItem('user'),
+        redirect:null,
     }
 
     componentDidMount(){
       
-        axios.get(`/course/${this.state.CourseName}/${this.state.CourseId}` )
+        axios.get(`/course/${this.state.CourseName}/${this.state.CourseId}`,{
+            headers: {
+                
+                Authorization: 'Bearer '+ this.state.token
+            }
+        } )
         .then(response => {
             console.log("Courses Response",response);
        
@@ -32,7 +38,9 @@ class CoursePage extends Component {
 
         })
         .catch(error => {
-            console.log(error);
+            console.log(error.response);
+            if(error.response.data.message ==='jwt malformed')
+            this.setState({redirect:"/login"})
         })
        
     }
@@ -48,6 +56,7 @@ class CoursePage extends Component {
 
                 .catch(error => {
                     console.log(error);
+                    
                 })
 
 
@@ -58,7 +67,10 @@ class CoursePage extends Component {
     
 
     render(){
-        
+        if(this.state.redirect)
+        return <Redirect to="/login"/>;
+
+
         let title = null;
         let short_description=null;
         let teacher=null;
@@ -87,6 +99,8 @@ class CoursePage extends Component {
         }
         
         return(
+
+          
           
             <div className="container">
                                 

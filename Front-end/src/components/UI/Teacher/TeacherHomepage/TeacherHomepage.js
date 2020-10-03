@@ -33,7 +33,12 @@ class TeacherHomePage extends Component {
        
        console.log(this.state.CourseLink)
 
-                axios.post("/teacher/uploads",fd)
+                axios.post("/teacher/uploads",fd,{
+                    headers: {
+                       
+                        Authorization: 'Bearer '+ localStorage.getItem('user') 
+                    }
+                })
                 .then(response => {
                     
                     console.log("Teacher Response",response);
@@ -47,7 +52,7 @@ class TeacherHomePage extends Component {
 
                 })
                 .catch(error => {
-                    console.log(error);
+                    console.log(error.response);
                 })
         
 

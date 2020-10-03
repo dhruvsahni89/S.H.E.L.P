@@ -15,7 +15,12 @@ class Rating extends Component {
             fd.append('_id','5f7629d4c0f20359d3314867');
             fd.append('rating',newRating);
 
-            axios.put("/Rating",fd )
+            axios.put("/Rating",fd, {
+                headers: {
+                    
+                    Authorization: 'Bearer '+ localStorage.getItem('user') 
+                }
+            } )
             .then(response => {
                 console.log("Rating",response);
         

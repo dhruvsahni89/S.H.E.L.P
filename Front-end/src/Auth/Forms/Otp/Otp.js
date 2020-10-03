@@ -143,8 +143,8 @@ class Otp extends Component {
                
             else if(response.status===401) alert("Something went wrong")})
             
-            .catch(error=>{console.log(error); this.setState({loading:false});
-             this.AlertError("Incorrect otp", "danger");});
+            .catch(error=>{console.log(error.response); this.setState({loading:false});
+             this.AlertError(error.response.data.message, "danger");});
 
             
             

@@ -235,13 +235,12 @@ inputBlurHandler = (event,inputIdentifier)=> {
                 }
                  
 
-                else 
-                    this.AlertError("Something went wrong", "danger")})
+                })
                   //  alert("Something went wrong")})
 
-            .catch(error=>{console.log(error);
+            .catch(error=>{console.log(error.response);
                  this.setState({loading:false})
-                 this.AlertError("Something went wrong", "danger")} );
+                 this.AlertError(error.response.data.data[0].msg, "danger")} );
             
             
             // .then(
