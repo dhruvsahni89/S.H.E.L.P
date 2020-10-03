@@ -225,6 +225,7 @@ class TeacherPage extends Component{
     }
 
     categoryHandler = (CourseName)=>{
+
         const Coursecategory = {...this.state.Form};
 
         Coursecategory.category.value = CourseName;
@@ -283,8 +284,8 @@ class TeacherPage extends Component{
                         "Access-Control-Allow-Origin": '*',
                         Authorization: 'Bearer '+ localStorage.getItem('user') 
                     }
-                }).
-                then( res=> { console.log(res);
+                })
+                .then( res=> { console.log(res);
 
                     if(res.status ===201 || res.status ===200){
 
@@ -461,12 +462,7 @@ class TeacherPage extends Component{
 
         <div className="Teacher-Head-Class">
            
-           
-           {/* <label className="custom-image-upload">
-                    <input type="file" name='filel' onChange={this.fileSelectorHandler}/>
-                    Upload Video
-           </label> */}
-
+         
             <label className="custom-image-upload">
                 <input type="file" name='file' multiple onChange={this.fileSelectorHandler}/>
                 Upload Image

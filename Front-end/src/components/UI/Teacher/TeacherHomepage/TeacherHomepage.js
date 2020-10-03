@@ -64,7 +64,7 @@ class TeacherHomePage extends Component {
 
     render(){
 
-        let BannerImage ;
+    //    let BannerImage ;
         
 
         let data = (<Loader
@@ -97,7 +97,7 @@ class TeacherHomePage extends Component {
     
             );
             
-            BannerImage =   this.state.CourseLink 
+           // BannerImage =   this.state.CourseLink 
             
 
 

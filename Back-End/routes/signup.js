@@ -48,7 +48,7 @@ router.post('/login',[
     body("email")
       .isEmail()
       .withMessage("Invalid email")
-      .normalizeEmail()
+     
       .custom((value, { req }) => {
         return User.findOne({ email: value }).then((userexist) => {
           if (!userexist) {

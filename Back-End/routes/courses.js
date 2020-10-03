@@ -4,9 +4,9 @@ const isAuth=require('../middleware/is-auth');
 const courseController = require('../controllers/courses')
 const router = express.Router();
 
-router.put('/Rating',courseController.rating) // For Rating Count 
+router.put('/Rating',isAuth,courseController.rating) // For Rating Count 
 
-router.get('/:courseId',courseController.videoUrl) //For Video playing
+router.get('/:courseId',isAuth,courseController.videoUrl) //For Video playing
 
 
 module.exports = router;

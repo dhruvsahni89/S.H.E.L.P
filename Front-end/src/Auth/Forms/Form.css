@@ -61,7 +61,10 @@
 }
 
 .login-form{
-    margin-top:90px;
+    margin-top:40px;
+}
+.login-form-otp{
+    margin-top:100px;
 }
 
 .forgot-password{

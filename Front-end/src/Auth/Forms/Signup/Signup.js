@@ -69,8 +69,29 @@ class Signup extends Component {
                     touched: false,
                 
             },
+            
+
+
+            ConfirmPassword: {
+
+                placeholder: 'Confirm Password',
+                value: "",
+                valid: false,
+                type: 'password',
+                error: " ",
+                msg: '',
+
+                validation: {
+                    required: true,
+                    match: true,
+                   
+                },
+                touched: false,
+
+            }
 
         },
+
         loading:false,
         redirect:null,
         
@@ -116,6 +137,10 @@ class Signup extends Component {
             isValid = regex.test(value) && isValid;
         }
 
+        if(rules.match){
+            isValid = value === (this.state.Form['password'].value) && isValid;
+        }
+
         return isValid;
         
      }
@@ -158,7 +183,7 @@ inputBlurHandler = (event,inputIdentifier)=> {
         // msg errrors for username
 
     if(inputIdentifier ==='name' && !updatedElement.valid){
-        updatedElement.error = "At least 5 characters and at most 15";
+        updatedElement.error = "Minimum:5 and Maximum:15 characters";
         updatedElement.msg="";
     }
     if(inputIdentifier ==='name' && updatedElement.valid){
@@ -168,13 +193,23 @@ inputBlurHandler = (event,inputIdentifier)=> {
         
     // msg error for password
     if(inputIdentifier === "password" && !updatedElement.valid){
-        updatedElement.error = "At least 5 characters and at most 18";
+        updatedElement.error = "Minimum:5 and Maximum:18 characters";
         updatedElement.msg="";
     }
     if(inputIdentifier === "password" && updatedElement.valid){
         updatedElement.error="";
         updatedElement.msg="All good!";
     }
+    // confirm password
+    if(inputIdentifier === "ConfirmPassword" && !updatedElement.valid){
+        updatedElement.error = "Passwords do not match";
+        updatedElement.msg="";
+    }
+    if(inputIdentifier === "ConfirmPassword" && updatedElement.valid){
+        updatedElement.error="";
+        updatedElement.msg="All good!";
+    }
+
     // msg errors for email
     if(inputIdentifier === "email" && !updatedElement.valid){
         updatedElement.error = "check format";
@@ -243,16 +278,7 @@ inputBlurHandler = (event,inputIdentifier)=> {
                  this.AlertError(error.response.data.data[0].msg, "danger")} );
             
             
-            // .then(
-            //     ()=>{ 
-            //         // this.setState({ redirect: "/signup/otp" });this.props.history.push("/profile");
-            //         this.props.history.push("/signup/otp");
-
-            //       //  window.location.reload();
-
-                  
-            //     }
-            // )
+        
 
         }
         

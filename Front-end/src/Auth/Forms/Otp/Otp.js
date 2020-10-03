@@ -21,11 +21,11 @@ class Otp extends Component {
                     error: " ",
                     msg: '',
 
-                    validation: {
-                        required: true,
-                        minLength:6,
+                    // validation: {
+                    //     required: true,
+                    //     minLength:6,
               
-                    },
+                    // },
 
                     touched: false,
                 
@@ -55,15 +55,15 @@ class Otp extends Component {
     
     }
     
-    checkValidity(value,rules){
-        let isValid = true;
-        if(rules.required){
-            isValid =value.trim()!=='' && isValid;
-        }
+    // checkValidity(value,rules){
+    //     let isValid = true;
+    //     if(rules.required){
+    //         isValid =value.trim()!=='' && isValid;
+    //     }
 
-        return isValid;
+    //     return isValid;
         
-     }
+    //  }
 
 
 //   runs whenever there is any change in the input field
@@ -91,15 +91,15 @@ class Otp extends Component {
 
     }
    
-    OverallValidity = ()=>{
+    // OverallValidity = ()=>{
 
-        for(let validate in this.state.Form){
-            if(!this.state.Form[validate].valid){
-                return false;
-            }
-        }
-        return true;
-    }
+    //     for(let validate in this.state.Form){
+    //         if(!this.state.Form[validate].valid){
+    //             return false;
+    //         }
+    //     }
+    //     return true;
+    // }
 
 
     formHandler = (event)=> {
@@ -186,7 +186,8 @@ class Otp extends Component {
         value= !value;
 
         if(this.state.alert.valid){
-            alertContent = ( <Alert value={value} alertMsg ={this.state.alert.msg} alertType={this.state.alert.alertType} /> )
+            alertContent = ( <Alert value={value} alertMsg ={this.state.alert.msg}
+                                    alertType={this.state.alert.alertType} /> )
         }
 
         
@@ -210,7 +211,7 @@ class Otp extends Component {
     }
 
         let form = (
-          <div className="login-form">
+          <div className="login-form-otp">
               
             <form onSubmit={this.formHandler} >
             
@@ -224,7 +225,7 @@ class Otp extends Component {
                         type={x.config.type}
                         invalid={!x.config.valid}
                      //   touched={x.config.touched}
-                       errors={x.config.error}
+                      // errors={x.config.error}
                      //   msg={x.config.msg}
                         changed={(event)=> this.inputchangeHandler(event,x.id)}/>
 

@@ -146,7 +146,7 @@ exports.login=(req,res,next)=>{
         
         const token=jwt.sign({email:user.email , //sign creates new signature and packs it in a new json web token
              userId:user._id.toString()}, // to string because its a mongodb object id here
-             'supersecret', // passing second argument i.e our private key
+             'otpverifiedtoken', // passing second argument i.e our private key
              {expiresIn:'6h'}
              );
         

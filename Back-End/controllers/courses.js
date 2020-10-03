@@ -17,8 +17,8 @@ exports.createcourse = (req, res, next) => {
 //        throw error;
 //    }
     const title = req.body.title;
-    const imageUrl = req.files[0].filename;
-    const videoUrl = req.files[1].filename;
+    const imageUrl = req.files[1].filename;
+    const videoUrl = req.files[0].filename;
     const name = req.body.name;
     const category = req.body.category;
     const willLearn = req.body.willLearn;
@@ -70,6 +70,7 @@ exports.unbookmarkCourse = (req, res, next) =>{
 
     const courseID = req.body._id;
     const userID = req.body._userID;
+    console.log(courseID+" "+userID);
     Users.findOneAndUpdate({_id:userID},{
         $pull:{ bookmarked:courseID}
     },{new:true}).then(data => {

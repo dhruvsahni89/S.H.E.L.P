@@ -1,7 +1,6 @@
 import React from "react";
 import './CSS/CategoriesCard.css';
 import Rating from '../CoursePage/Rating';
-import Webdev from '../../../assets/Images/webdev.png';
 //import Python from '../../../assets/Images/python.png';
 //import ML from '../../../assets/Images/ml.png';
 
