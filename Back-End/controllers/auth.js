@@ -367,6 +367,8 @@ exports.resetPassword=(req,res,next)=>{
 
 
 
+
+
   //  let loadedUser;
   //  User.findOne({email:email}) //checking email exist or not 
   //    .then( user=>{

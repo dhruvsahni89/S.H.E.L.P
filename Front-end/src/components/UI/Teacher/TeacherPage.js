@@ -1,8 +1,9 @@
 import React,{Component} from 'react';
 //import Aux from '../../../hoc/ReactFrag';
+
 import Tinput from './TinputFields';
 import TeacherTittle from './TeacherTittle';
-import {Link} from 'react-router-dom';
+import {Link,Redirect} from 'react-router-dom';
 import Cloud from '../../../assets/Images/cloud.png';
 import './CSS/Teacher.css';
 import axios from '../../../ApiServices/axiosUrl';
@@ -31,7 +32,7 @@ class TeacherPage extends Component{
           
             },
             discription: {
-                label: "What will Students learn from your course",
+                label: "Short Description",
                 rows: "4",
                 cols: "50",
                 placeholder: 'eg: Complete HTML5, CSS3, Basics of Js',
@@ -44,8 +45,8 @@ class TeacherPage extends Component{
                
             },
             
-            Description: {
-                 label: "Description of your course",
+            discriptionLong: {
+                 label: "Long Description",
                  rows: "6",
                  cols: "50",
                  placeholder: 'Entereg: In this course you will learn how to build professional website from scratch and how to make it responsive. Course Title',
@@ -99,6 +100,36 @@ class TeacherPage extends Component{
                 value: localStorage.getItem('userId'),
                 valid:true,
             },
+
+            willLearn:{
+                label: "What will the students learn from this?",
+                rows: "5",
+                cols: "70",
+                placeholder: 'students will learnt to apply react skills...',
+                value: "",
+                validation: {
+                    required: true,
+                    minLength:1,
+                    
+                },
+                 valid:false,
+            },
+
+            requirement:{
+                label: "What are the requirements of this course?",
+                rows: "5",
+                cols: "70",
+                placeholder: 'Must know python etc ',
+                value: "",
+                validation: {
+                    required: true,
+                    minLength:1,
+                    
+                },
+                 valid:false,
+            },
+
+            
      
     },
      
@@ -106,11 +137,13 @@ class TeacherPage extends Component{
         valid:false,
         msg:"",
         alertType:" ",
+        
     },
 
     isLoggedIn:false,
     userName:"",
-    
+    alertPressed:false,
+    redirect:null,
 }
 
     componentDidMount(){
@@ -149,7 +182,8 @@ class TeacherPage extends Component{
 
         for(let validate in this.state.Form){
            
-            console.log(validate, this.state.Form[validate].valid);
+            
+
             if(!this.state.Form[validate].valid){
                 return false;
             }
@@ -192,17 +226,12 @@ class TeacherPage extends Component{
 
     categoryHandler = (CourseName)=>{
         const Coursecategory = {...this.state.Form};
-        // const CourseElement = {...Coursecategory.category};
-
-        // console.log((CourseElement))
-        
-        // CourseElement.value = CourseName;
 
         Coursecategory.category.value = CourseName;
         
         
         this.setState({Form:Coursecategory});
-        alert(this.state.Form.category.value)
+      
         
        
     }
@@ -214,14 +243,13 @@ class TeacherPage extends Component{
         selectedfile.file.value= event.target.files;
        
         this.setState({Form:selectedfile })
-        console.log(this.state.Form.file);
-        console.log('length',this.state.Form['file'].value.length);
-        console.log('event=>', event.target.files);
+       
     }
 
     sumbitButton =()=> {
         
-        var touched=true;
+        this.setState({alertPressed:true})
+        setTimeout( ()=> this.setState({alertPressed:false}) , 2000);
         const form={};
         const fd = new FormData();
 
@@ -235,7 +263,7 @@ class TeacherPage extends Component{
             }
             else{
                 for(var i =0;i<this.state.Form['file'].value.length; i++){
-                    console.log(this.state.Form['file'].value[i])
+                    
                     fd.append(formElement,this.state.Form['file'].value[i])
                 }
             }
@@ -253,6 +281,7 @@ class TeacherPage extends Component{
                     headers: {
                         "Content-Type": "multipart/form-data",
                         "Access-Control-Allow-Origin": '*',
+                        Authorization: 'Bearer '+ localStorage.getItem('user') 
                     }
                 }).
                 then( res=> { console.log(res);
@@ -265,7 +294,11 @@ class TeacherPage extends Component{
 
             
 
-                .catch(error => { console.log(error)});
+                .catch(error => { console.log(error.response)
+                    this.AlertError(error.response.data.message, "danger");
+                    if(error.response.data.message ==="jwt malformed" )
+                        this.setState({redirect:"/login"})
+                });
         
         }
         else
@@ -276,11 +309,16 @@ class TeacherPage extends Component{
     
 
     render(){
-        
+
+        if(this.state.redirect){
+            return <Redirect to="/login"/>
+        }
+
+        console.log(localStorage.getItem('user') )
+        console.log(localStorage.getItem('userId'))
         let Welcome = null;
         let alertContent = null;
-        let value=0;
-        var touched;
+       
         
         console.log(this.state.Form);
         
@@ -288,7 +326,7 @@ class TeacherPage extends Component{
         if(this.state.alert.valid){
             alertContent = ( <Alert alertMsg ={this.state.alert.msg} 
                                     alertType={this.state.alert.alertType} 
-                                    value={touched}/> )
+                                    value={this.state.alertPressed}/> )
         }
         
         if(this.state.isLoggedIn) {
@@ -359,7 +397,7 @@ class TeacherPage extends Component{
         </div>    
 
 
-            <Link to="#section2"><button className="NextBtn">Next</button></Link>
+             <Link to="#section2"><button className="NextBtn">Next</button></Link> 
 
 
             <TeacherTittle TitleDesc={"Description of your Course"}/>
@@ -375,19 +413,43 @@ class TeacherPage extends Component{
 
         </div>
 
+        <div className="Teacher-Head-Class">
+            <Tinput
+            label={this.state.Form.discriptionLong.label}
+            rows={this.state.Form.discriptionLong.rows}
+            cols={this.state.Form.discriptionLong.cols}
+            placeholder={this.state.Form.discriptionLong.placeholder}
+            changed={(event)=> this.inputchangeHandler(event,"discriptionLong")}
+            />
+
+        </div>
+
+
         <div  className="Teacher-Head-Class">
 
                 <Tinput
-                    label={this.state.Form.Description.label}
-                    rows={this.state.Form.Description.rows}
-                    cols={this.state.Form.Description.cols}
-                    placeholder={this.state.Form.Description.placeholder}
+                    label={this.state.Form.willLearn.label}
+                    rows={this.state.Form.willLearn.rows}
+                    cols={this.state.Form.willLearn.cols}
+                    placeholder={this.state.Form.willLearn.placeholder}
                    
-                    changed={(event)=> this.inputchangeHandler(event,"Description")}/>
+                    changed={(event)=> this.inputchangeHandler(event,"willLearn")}/>
+        
+        </div>
+
+        <div  className="Teacher-Head-Class">
+
+                <Tinput
+                    label={this.state.Form.requirement.label}
+                    rows={this.state.Form.requirement.rows}
+                    cols={this.state.Form.requirement.cols}
+                    placeholder={this.state.Form.requirement.placeholder}
+                   
+                    changed={(event)=> this.inputchangeHandler(event,"requirement")}/>
         
         </div>
         
-        <button className="NextBtn">Next</button>
+         <button className="NextBtn">Next</button> 
 
 
 

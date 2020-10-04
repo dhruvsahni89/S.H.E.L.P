@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import { Redirect } from 'react-router-dom';
-//import Login from '../Login/Login';
 import AuthService from "../../../ApiServices/auth.service";
 import '../Form.css';
 import Input from '../../../components/UI/Input/FormInput';
@@ -11,7 +10,7 @@ import SumbitButton from '../../../components/UI/Buttons/SumbitButton';
 import Alert from '../alert';
 
 
-class Signup extends Component {
+class ResetPassword extends Component {
 
     state = { 
             Form:{
@@ -206,7 +205,7 @@ inputBlurHandler = (event,inputIdentifier)=> {
     formHandler = (event)=> {
         event.preventDefault();
         this.setState({alertPressed:true})
-        setTimeout( ()=> this.setState({alertPressed:false}) , 3000);
+        setTimeout( ()=> this.setState({alertPressed:false}) , 2000);
          
         if(this.OverallValidity()){
             this.setState({loading:true});
@@ -235,12 +234,13 @@ inputBlurHandler = (event,inputIdentifier)=> {
                 }
                  
 
-                })
+                else 
+                    this.AlertError("Something went wrong", "danger")})
                   //  alert("Something went wrong")})
 
-            .catch(error=>{console.log(error.response);
+            .catch(error=>{console.log(error);
                  this.setState({loading:false})
-                 this.AlertError(error.response.data.data[0].msg, "danger")} );
+                 this.AlertError("Something went wrong", "danger")} );
             
             
             // .then(
@@ -340,9 +340,9 @@ inputBlurHandler = (event,inputIdentifier)=> {
                 
                 <div className="SideContent">
                         <MainPage 
-                        shelp={true}
-                        heading1={"Start your"}
-                        heading2={"learning with"}/>
+                        shelp={false}
+                        heading1={"Reset Your"}
+                        heading2={"Password"}/>
 
                             {form}
                     </div>
@@ -353,4 +353,4 @@ inputBlurHandler = (event,inputIdentifier)=> {
 }
 
 
-export default Signup;
+export default ResetPassword;

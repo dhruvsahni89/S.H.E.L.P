@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import {NavLink} from 'react-router-dom';
+import Loader from 'react-loader-spinner';
 import CartCard from './CartCard';
 import './CSS/Cart.css';
 import CartPrice from './CartPrice';
 import EmptyCart from './EmptyCart';
 import axios from '../../../ApiServices/axiosUrl';
-import Loader from 'react-loader-spinner';
+
 
 
 
@@ -18,13 +19,19 @@ class Cart extends Component{
         loading: true,
         img: "",
         userName:localStorage.getItem('userName'),
-        userId:localStorage.getItem('userId')
+        userId:localStorage.getItem('userId'),
+        token:localStorage.getItem('user'),
     }
 
 
     componentDidMount(){
       
-        axios.get(`/users/${this.state.userName}/${this.state.userId}` )
+        axios.get(`/users/${this.state.userName}/${this.state.userId}`,{
+            headers: {
+                
+                Authorization: 'Bearer '+ this.state.token
+            }
+        } )
         .then(response => {
             console.log("Bookmarked Courses",response);
        
@@ -38,7 +45,7 @@ class Cart extends Component{
 
         })
         .catch(error => {
-            console.log(error);
+            console.log(error.response);
         })
        
     }
@@ -102,15 +109,18 @@ class Cart extends Component{
               data = (
               CourseArray.map(item =>  
               
-        <NavLink className="productLink" exact to={`/course/${this.state.CourseLink}/${item._id}`}>
+        // <NavLink className="productLink" exact to={`/course/${this.state.CourseLink}/${item._id}`}>
                <CartCard 
                 key={item.id}
                 title={item.title}
                 teacher={item.name}
                 img={"http://localhost:8080/" + item.imageurl}
                 rating={item.rating}
+                courseId={item._id}
+                userId={this.state.userId}
                 />
-        </NavLink>)
+        // </NavLink>
+        )
     
             );
         }}
@@ -126,7 +136,7 @@ class Cart extends Component{
         </div>
 
 
-            <CartPrice/> 
+            {/* <CartPrice/>  */}
            
             
         </div>

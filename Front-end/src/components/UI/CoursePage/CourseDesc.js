@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import './CSS/CourseDesc.css';
-import Rating from '../Rating';
+import Rating from './Rating';
 import Play from '../../../assets/Images/play.png';
 import axios from '../../../ApiServices/axiosUrl';
 
@@ -27,7 +27,12 @@ class CourseDesc extends Component {
                 fd.append('_userID',user);
                 fd.append('_id',this.state.CourseId);
                 
-                axios.post(`/home/${this.state.CourseId}/${this.props.CourseName}`,fd )
+                axios.post(`/home/${this.state.CourseId}/${this.props.CourseName}`,fd ,{
+                    headers: {
+                       
+                        Authorization: 'Bearer '+ localStorage.getItem('user') 
+                    }
+                })
 
                 .then(response => {
                     console.log("BookMarked",response);
@@ -43,7 +48,7 @@ class CourseDesc extends Component {
 
                 })
                 .catch(error => {
-                    console.log(error);
+                    console.log(error.response);
                 })
 
                     
@@ -64,7 +69,7 @@ class CourseDesc extends Component {
 
 
      render(){
-         console.log(this.state.bookmarked)
+         
 
             let classArray = [""];
 
@@ -82,8 +87,10 @@ class CourseDesc extends Component {
                 <p className="Course-title-main">{this.props.title}</p>
                 
                 <div className="Course-Rating-section">
-                    
-                    <Rating value={this.props.rating} CourseId={this.state.CourseId} />
+                    <p>{this.props.rating}</p>
+                    <div className="RatingStars"><Rating rating={this.props.rating}
+                     specialrating={true} 
+                    CourseId={this.props.CourseId} /></div>
 
                 </div>
 

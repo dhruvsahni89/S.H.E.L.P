@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import './CSS/CoursePage.css'
-import {NavLink} from 'react-router-dom';
+import {NavLink,Redirect} from 'react-router-dom';
 import CourseDesc from './CourseDesc';
 import CourseVideo from './CourseVideo';
 import axios from '../../../ApiServices/axiosUrl';
 import VideoList from './VideoList';
+import { saveAs } from 'file-saver';
 
 class CoursePage extends Component {
 
@@ -13,12 +14,18 @@ class CoursePage extends Component {
         CourseName:this.props.match.params.Course,
         CoursesInfo: null,
         loading: true,
-        
+        token:localStorage.getItem('user'),
+        redirect:null,
     }
 
     componentDidMount(){
       
-        axios.get(`/course/${this.state.CourseName}/${this.state.CourseId}` )
+        axios.get(`/course/${this.state.CourseName}/${this.state.CourseId}`,{
+            headers: {
+                
+                Authorization: 'Bearer '+ this.state.token
+            }
+        } )
         .then(response => {
             console.log("Courses Response",response);
        
@@ -31,23 +38,48 @@ class CoursePage extends Component {
 
         })
         .catch(error => {
-            console.log(error);
+            console.log(error.response);
+            if(error.response.data.message ==='jwt malformed')
+            this.setState({redirect:"/login"})
         })
        
     }
 
+    DownloadPdf=()=>{
+        axios.get(`/home/download/${this.state.CourseId}`, {responseType: 'blob'})
+                
+                .then((res)=>{
+                    const pdfBlob = new Blob([res.data], {type: 'application/pdf'})
 
+                   saveAs(pdfBlob,'newPdf.pdf');
+                })
+
+                .catch(error => {
+                    console.log(error);
+                    
+                })
+
+
+    }
+
+    
 
     
 
     render(){
-        
+        if(this.state.redirect)
+        return <Redirect to="/login"/>;
+
+
         let title = null;
         let short_description=null;
         let teacher=null;
         let createdAt=null;
         let videoUrl=null;
         let rating=null;
+        let requirement=null;
+        let longDescription=null;
+        let willLearn=null;
 
         if(this.state.loading ===false){
                 title = (this.state.CoursesInfo.title);
@@ -56,11 +88,19 @@ class CoursePage extends Component {
                 createdAt=(this.state.CoursesInfo.createdAt);
                 createdAt =createdAt.split("T")[0];
                 videoUrl=(this.state.CoursesInfo.videourl);
-                rating=(this.state.CoursesInfo.rating)
+                rating=(this.state.CoursesInfo.rating);
+                requirement=(this.state.CoursesInfo.requirement);
+                longDescription=(this.state.CoursesInfo.discriptionLong);
+                willLearn=(this.state.CoursesInfo.willLearn);
+
+                if(rating ===0) rating=1;
+                
 
         }
         
         return(
+
+          
           
             <div className="container">
                                 
@@ -106,6 +146,7 @@ class CoursePage extends Component {
                                         rating={rating}
                                         CourseName={this.state.CourseName}
                             />
+
                         </div>
 
                             <div className="Course-Video">
@@ -124,7 +165,7 @@ class CoursePage extends Component {
                 
                         <div className="Small-nav-section">
 
-                            <p>About</p>
+                            <p >About</p>
                             <p>Instructor</p>
                             <p>About</p>
 
@@ -136,10 +177,7 @@ class CoursePage extends Component {
                         <div className="flex-col-requirement">
                             
                             <h1>Requirement of this Course</h1>
-                            <p>load the full player once a user has interacted
-                                with the image. Noembed is used to fetch th</p>
-                            <p>load the full player once a user has interacted 
-                                with the image. Noembed is used to fetch th</p>
+                            <p>{requirement}</p>
                     
                         </div>
 
@@ -147,12 +185,17 @@ class CoursePage extends Component {
                         <div className="flex-col-requirement">
                             
                             <h1>Descripton</h1>
-                            <p>load the full player once a user has interacted
-                                with the image. Noembed is used to fetch 
-                            load the full player once a user has interacted 
-                                with the image. Noembed is used to fetch th</p>
+                            <p>{ longDescription}</p>
                     
                         </div>
+
+                        <div className="flex-col-requirement">
+                            
+                            <h1>What will you learn from this course?</h1>
+                            <p>{willLearn}</p>
+                    
+                        </div>
+
 
                  </div>
 
@@ -167,13 +210,18 @@ class CoursePage extends Component {
                          <VideoList/>
                          <VideoList/>
                          <VideoList/>
-                         <VideoList/>
-                         <VideoList/>
-                        
-                          <VideoList/>
-                    </div>
+                       
+                          
+                     </div>
+
+                    
 
             </div>
+
+            <div className="Download-btn">
+                <p onClick={this.DownloadPdf}>Download PDF</p>
+            </div>
+            
 
 
             </div>
