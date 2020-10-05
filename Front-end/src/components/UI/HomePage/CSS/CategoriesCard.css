@@ -1,5 +1,3 @@
-
-
 .Categories-heading{
     font: normal normal 800 22px/31px Gilroy;
     letter-spacing: 0.5px;
@@ -51,6 +49,7 @@
     flex-wrap:wrap;
     margin-left:0px;
     margin-bottom: 40px;
+
     
 }
 
@@ -62,6 +61,7 @@
     margin-left:20px;
     display:flex;
     flex-direction: column;
+
 }
 
 .CategoriesTitle{
@@ -69,6 +69,7 @@
     letter-spacing: 0px;
     color: #3C4852;
     opacity: 1;
+    
 }
 
 .my-card img{
@@ -141,4 +142,33 @@
     padding-left:4px;
     background:tomato;
     color:white;
+}
+
+@media(max-width:992px){
+    .Categories-main{
+       display:none;
+    }
+    .Course-Devider{
+        display: none;
+    }
+    
+    .CategoriesTitle{
+        text-align: center;
+    }
+
+    .Course-Cards{
+        margin-left:20px;
+        margin-bottom: 40px;
+        
+    }
+}
+
+@media(max-width:440px){
+
+    .my-card img{
+        width:250px;
+        height:120px;
+        border-radius:8px;
+
+    }
 }

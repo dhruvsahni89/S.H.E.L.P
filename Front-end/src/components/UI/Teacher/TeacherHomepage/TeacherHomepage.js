@@ -68,7 +68,7 @@ class TeacherHomePage extends Component {
 
         let data = (<Loader
             type="Puff"
-            color="#08BD80"
+            color="#2D81F7"
             height={50}
             width={50}
             className="loader"

@@ -17,6 +17,7 @@ class CoursePage extends Component {
         token:localStorage.getItem('user'),
         redirect:null,
         playing1:false,
+        PlayButton:'fa fa-play-circle',
     }
 
     componentDidMount(){
@@ -72,9 +73,17 @@ class CoursePage extends Component {
 
     PlayPause=()=> {
 
-        this.state.playing1 ? this.setState({playing1:false})
-        :this.setState({playing1:true})
         
+        
+        if(this.state.playing1){
+            this.setState({playing1:false,PlayButton:'fa fa-play-circle'});
+            
+        }
+
+        else{
+            this.setState({playing1:true,PlayButton:'fa fa-pause-circle'});
+          
+        }
      }
 
     
@@ -93,6 +102,9 @@ class CoursePage extends Component {
         let requirement=null;
         let longDescription=null;
         let willLearn=null;
+
+        
+        
 
         if(this.state.loading ===false){
                 title = (this.state.CoursesInfo.title);
@@ -217,7 +229,8 @@ class CoursePage extends Component {
                  </div>
 
                     <div className="flex-center">
-                        <VideoList playing={this.PlayPause}/>
+                        <VideoList playing={this.PlayPause} 
+                        playButton={this.state.PlayButton}/>
                         <VideoList/>
                         <VideoList/>
 

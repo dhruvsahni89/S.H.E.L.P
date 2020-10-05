@@ -62,3 +62,39 @@
     color: #FFFFFF;
     align-self:center;
 }
+
+@media(max-width:992px){
+
+    .Banner-text{
+        font: normal normal 600 45px/76px Gilroy;
+    }
+
+
+    .BannerImage{ 
+        height:190px;
+    }
+
+}
+
+@media (max-width:646px){
+
+    .BannerImage{
+
+        height:160px;
+    }
+    .Banner-text{
+        font: normal normal 600 40px/56px Gilroy;
+    }
+
+
+}
+
+@media (max-width:400px){
+    .BannerImage{
+        height:130px;
+    }
+    .Banner-text{
+        font: normal normal 600 30px/36px Gilroy;
+    }
+
+}

@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 //import Aux from '../../../hoc/ReactFrag';
-
+//import Scroll from 'react-scroll';
 import Tinput from './TinputFields';
 import TeacherTittle from './TeacherTittle';
 import {Link,Redirect} from 'react-router-dom';
@@ -429,9 +429,9 @@ class TeacherPage extends Component{
         </div>    
 
 
-             <Link to="#section2"><button className="NextBtn">Next</button></Link> 
+            <button className="NextBtn">Next</button>
 
-
+   
             <TeacherTittle TitleDesc={"Description of your Course"}/>
             
         <div className="Teacher-Head-Class">
@@ -445,7 +445,7 @@ class TeacherPage extends Component{
 
         </div>
 
-        <div className="Teacher-Head-Class">
+        <div id="section2" className="Teacher-Head-Class">
             <Tinput
             label={this.state.Form.discriptionLong.label}
             rows={this.state.Form.discriptionLong.rows}

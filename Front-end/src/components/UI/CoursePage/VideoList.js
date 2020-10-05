@@ -3,25 +3,20 @@ import './CSS/VideoList.css';
 
 class VideoList extends Component{
 
-    state={
-        playing:false,
-    }
-
-    playing=()=>{
-        this.setState({playing:!this.state.playing})
-    }
+ 
     
     render(){
-
-
+      
 
             return(
             <div className="video-list">
                 
                 <div className="play-title">
                 
-                <i onClick={this.props.playing} onClick={this.playing} 
-                class="fa fa-play" 
+                <i onClick={this.props.playing} 
+               
+
+                className={this.props.playButton}
                 aria-hidden="true"></i>
                 <span> Title</span>   
                 

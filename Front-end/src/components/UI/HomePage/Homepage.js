@@ -52,6 +52,7 @@ class Homepage extends Component {
         })
        
        }
+       
        else{ console.log(this.state.CourseLink)
                 axios.get(`/home/${this.state.CourseLink}`)
                 .then(response => {
