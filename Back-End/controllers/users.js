@@ -79,9 +79,13 @@ exports.getinvoice =(req,res,next) =>{
     pdfdoc.text('HERE IS SOME DESCRIPTION AND TIPS ABOUT THE COURSE , HAVE A GREAT JOURNEY , EXPERIENCE BEST COURSES BY EXPERTIES! THANKYOU ');
     pdfdoc.text('---------------CREATOR------------------');
     pdfdoc.text(user.name);
-    pdfdoc.text('------------DESCRIPTION-------------');
+    pdfdoc.text('------------SHORT-DESCRIPTION-------------');
     pdfdoc.text(user.discription);
     pdfdoc.text('--------------------------------------------');
+    pdfdoc.text('------------LONG- DESCRIPTION-------------');
+    pdfdoc.text(user.discriptionLong);
+    pdfdoc.text('--------------------------------------------');
+
     pdfdoc.text('TIPS');
     pdfdoc.text('--------------------------------------------');
     pdfdoc.text('1. Treat an online course like a “real” course.');

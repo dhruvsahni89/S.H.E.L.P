@@ -11,7 +11,6 @@ import Otp from './Auth/Forms/Otp/Otp';
 import Homepage from './components/UI/HomePage/Homepage';
 import TeacherPage from './components/UI/Teacher/TeacherPage';
 import TeacherHomePage from './components/UI/Teacher/TeacherHomepage/TeacherHomepage';
-import Rating from './components/UI/CoursePage/Rating';
 import CoursePage from './components/UI/CoursePage/CoursePage';
 import Preference from './components/UI/HomePage/Preference';
 

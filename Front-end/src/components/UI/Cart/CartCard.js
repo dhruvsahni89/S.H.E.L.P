@@ -42,7 +42,7 @@ AlertError(alertmsg, alertType) {
          
            
             this.setState({loading:false});
-            alert("Course Removed,please refresh");
+           // alert("Course Removed,please refresh");
             this.AlertError("Course Removed,please refresh", "success");
             
 

@@ -64,14 +64,23 @@ AlertError(alertmsg, alertType) {
 
             if(this.state.Courses[CourseName].touched)
 
-            {   
-                this.state.Courses[CourseName].touched = false;
+            {   const UpdatedCourses = {...this.state.Courses};
+                UpdatedCourses[CourseName].touched=false;
+                
+
+
+                this.setState({Courses:UpdatedCourses})
                 const index =this.state.interest.indexOf(CourseName);
                 if(index >-1) this.state.interest.splice(index,1);
             }
 
             else
-            {this.state.Courses[CourseName].touched = true;
+            {const UpdatedCourses = {...this.state.Courses};
+            UpdatedCourses[CourseName].touched=true;
+            
+
+
+            this.setState({Courses:UpdatedCourses})
              this.state.interest.push(CourseName);}
 
 
@@ -100,7 +109,12 @@ AlertError(alertmsg, alertType) {
 
        // for(var value of fd.values())console.log(value)
         
-        axios.post("/home/interests",formData)
+        axios.post("/home/interests",formData,{
+            headers: {
+               
+                Authorization: 'Bearer '+ localStorage.getItem('user') 
+            }
+        })
         .then(response => {
             console.log("Preference",response);
             

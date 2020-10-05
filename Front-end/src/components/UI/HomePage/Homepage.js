@@ -5,7 +5,7 @@ import CourseCards from './CourseCards';
 import CourseTitle from './CourseTitle';
 import {NavLink} from 'react-router-dom';
 import Loader from 'react-loader-spinner';
-import CoursePage from '../CoursePage/CoursePage';
+//import CoursePage from '../CoursePage/CoursePage';
 //import ProductApi from './../../../ApiServices/ProductApi';
 import axios from "../../../ApiServices/axiosUrl";
 import Recommendation from './Recommendation';

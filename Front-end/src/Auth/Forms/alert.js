@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import './alert.css';
-import { Alert } from 'reactstrap';
 
 
 
@@ -13,23 +12,6 @@ class alert extends Component{
 
   }
     
-  //   componentDidUpdate() {
-
-  //     if(this.props.value===true) {
-
-  //     this.setState({unvisible:false});
-  //     console.log("alert2", this.state.unvisible); }
-    
-  // }
-
-  // componentDidMount() {
-
-  
-       
-  //       setTimeout( ()=> this.setState({unvisible:true}) , 2000);
-  //       console.log("alert2", this.state.unvisible); 
-  
-  // }
 
 
   render(){ 

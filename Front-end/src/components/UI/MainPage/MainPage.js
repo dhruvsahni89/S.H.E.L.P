@@ -1,8 +1,8 @@
 import React from 'react';
 import Aux from '../../../hoc/ReactFrag';
 import './MainPage.css';
-import circle1 from "../../../assets/Images/circle1.png";
-import circle2 from "../../../assets/Images/circle2.png";
+//import circle1 from "../../../assets/Images/circle1.png";
+//import circle2 from "../../../assets/Images/circle2.png";
 import circle from '../../../assets/Images/circle12.svg';
 
 

@@ -70,6 +70,7 @@ exports.unbookmarkCourse = (req, res, next) =>{
 
     const courseID = req.body._id;
     const userID = req.body._userID;
+    console.log(courseID+" "+userID);
     Users.findOneAndUpdate({_id:userID},{
         $pull:{ bookmarked:courseID}
     },{new:true}).then(data => {
