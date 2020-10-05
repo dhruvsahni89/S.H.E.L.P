@@ -24,10 +24,17 @@
     font: normal normal 200 17px/23px Gilroy;
     letter-spacing: 0.47px;
     color: #566775;
-    opacity: 0.6;
-    margin-right:30p;
+    border-radius:6px;
+    background:rgba(128, 128, 128, 0.192);
+    margin-right:30px;
+    
   
 }
+.teacherActive{
+    background:white;
+    border:1px solid #566775;;
+}
+
 
 .Signupbtn,.Loginbtn,.logoutlink{
     font: normal normal 400 17px/20px Gilroy;
@@ -58,7 +65,7 @@
 }
 
 .dropdown-toggle{
-    color:grey;
+    color: #566775;
 }
 
 
@@ -67,14 +74,18 @@
    
     font: normal normal  17px/20px Gilroy;
     letter-spacing: 0.47px;
-    color: rgb(56, 59, 63);
+    color: #566775;
     opacity:0.7;
    
 }
 
+.dropdown-item:active{
+    background:#08BD80 !important;
+}
+
 
 .dropdown-item:hover{
-   background: #2D81F7!important;
+  font-weight:bolder!important;
    
 }
 
@@ -82,25 +93,32 @@
 
 
 .wishlistlink,.profilelink{
-    color:grey;
+    color: #566775;
 }
 
 .linkactive{
-    color:#2D81F7;
+    font-weight:bolder!important;
 }
 
+.navlink:hover{
+    color:#566775!important;
+}
 
 
 .wishlistlink:hover,
 .profilelink:hover{
 
-    opacity: 0.8;;
+    font-weight:bolder!important;
 }
 
 
 
 .fa-bars{
     color:#2D81F7;
+}
+
+.usere{
+    margin-right:20px;
 }
 
 

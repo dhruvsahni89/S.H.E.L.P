@@ -6,7 +6,7 @@ const isAuth=require('../middleware/is-auth');
 const router = express.Router();
 
 
-router.post('/creator/create-course',[
+router.post('/creator/create-course',isAuth,[
     body('title').trim().isLength({min:5}),
     body('name').trim().isLength({min:5}) 
 ],courseController.createcourse);

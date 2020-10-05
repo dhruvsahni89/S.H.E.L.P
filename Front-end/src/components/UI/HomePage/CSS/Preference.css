@@ -55,3 +55,23 @@
     justify-content: center;
     margin-bottom:50px;
 }
+
+
+@media(max-width:760px){
+
+        .SumbitBtn{
+            margin-top: 40px;
+     
+        }
+
+        .Preference-buttons button{
+            width: 150px;
+            height:80px;
+            border-radius: 10px;
+            margin-right:16px;
+            margin-bottom:16px;
+          
+        }
+
+        
+}

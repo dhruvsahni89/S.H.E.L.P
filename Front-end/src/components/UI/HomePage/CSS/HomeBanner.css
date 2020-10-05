@@ -20,7 +20,7 @@
 
 .Banner-text{
     position: absolute;
-    top:10%;
+    top:25%;
     left:15%;
     text-align: left;
     font: normal normal 600 55px/76px Gilroy;
@@ -28,4 +28,37 @@
     color: #FFFFFF;
     opacity: 1;
     z-index:10;
+}
+
+.Teacher-text{
+
+    font: normal normal 47px/75px Gilroy;
+    letter-spacing: 1.24px;
+    color: #2D81F7;
+    opacity: 1;
+    z-index:10;
+    align-self: center;
+    width:700px;
+    
+}
+
+.Teacher-banner{
+    display: flex;
+    justify-content: space-around;
+    align-items:center;
+    flex-wrap:wrap;
+    margin:50px;
+}
+
+.createCourse{
+    
+    background: #2D81F7 0% 0% no-repeat padding-box;
+    border-radius: 8px;
+    opacity: 1;
+    width: 250px;
+    height: 56px;
+    font: normal normal 300 20px/29px Gilroy;
+    letter-spacing: 0.96px;
+    color: #FFFFFF;
+    align-self:center;
 }

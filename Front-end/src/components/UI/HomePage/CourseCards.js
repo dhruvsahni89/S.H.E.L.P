@@ -1,7 +1,6 @@
 import React from "react";
 import './CSS/CategoriesCard.css';
-import Rating from '../Rating';
-import Webdev from '../../../assets/Images/webdev.png';
+import Rating from '../CoursePage/Rating';
 //import Python from '../../../assets/Images/python.png';
 //import ML from '../../../assets/Images/ml.png';
 
@@ -21,8 +20,9 @@ const CourseCards =(props)=>{
                           <p className="Course-Teacher">{props.teacher}</p>
 
                           <p className="Course-info"> 
-                            <span className="Course-rating">4.5</span>  
-                            <span className="Course-star"> <Rating/></span> 
+
+                            <span className="Course-rating">{props.rating}</span>  
+                            <span className="Course-star"> <Rating rating={props.rating}/></span> 
                             <span className="Course-Price">₹ 500</span>
                           </p>
 

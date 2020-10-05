@@ -17,8 +17,8 @@ exports.createcourse = (req, res, next) => {
 //        throw error;
 //    }
     const title = req.body.title;
-    const imageUrl = req.files[0].filename;
-    const videoUrl = req.files[1].filename;
+    const imageUrl = req.files[1].filename;
+    const videoUrl = req.files[0].filename;
     const name = req.body.name;
     const category = req.body.category;
     const willLearn = req.body.willLearn;
@@ -70,6 +70,7 @@ exports.unbookmarkCourse = (req, res, next) =>{
 
     const courseID = req.body._id;
     const userID = req.body._userID;
+    console.log(courseID+" "+userID);
     Users.findOneAndUpdate({_id:userID},{
         $pull:{ bookmarked:courseID}
     },{new:true}).then(data => {
@@ -98,25 +99,34 @@ exports.rating = (req,res,next) => {
     rating = Number(rating);
     const courseId = req.body._id;
 
-    console.log(courseId);
-    console.log("original ratingg",rating);
 
-    courses.findById({_id:courseId}).then(course =>{
-
-        console.log('prev total',course.rating);
-        let newRating = (rating + course.rating)/2;
-        course.rating = newRating.toPrecision(2);
-        console.log("total",course.rating)
-        
-        course.save().then(result => {
-            res.json({message:"rating updated",result:result});
-        }).catch(err=>{
-            res.json(err);
-        })
+    courses.findOneAndUpdate({_id:courseId},{
+        $push:{rating:rating}
+    },{new:true}).then(data => {
+        console.log(data);
+        res.json(data);
     }).catch(err => {
-        console.log(courseId+" :- this is id");
-        res.json("course not found!!!!!!!!!!!!");
+        res.json("Not Updated");
     })
+
+
+
+    // courses.findById({_id:courseId}).then(course =>{
+
+    //     console.log('prev total',course.rating);
+    //     let newRating = (rating + course.rating)/2;
+    //     course.rating = newRating.toPrecision(2);
+    //     console.log("total",course.rating)
+        
+    //     course.save().then(result => {
+    //         res.json({message:"rating updated",result:result});
+    //     }).catch(err=>{
+    //         res.json(err);
+    //     })
+    // }).catch(err => {
+    //     console.log(courseId+" :- this is id");
+    //     res.json("course not found!!!!!!!!!!!!");
+    // })
 }
 
 exports.videoUrl = (req,res,next) => {

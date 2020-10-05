@@ -3,6 +3,8 @@ import './CSS/Preference.css';
 import axios from '../../../ApiServices/axiosUrl';
 import CourseTitle from './CourseTitle';
 import { Redirect } from 'react-router-dom';
+import Alert from '../../../Auth/Forms/alert'
+
 class Preference extends Component {
 
     state = {
@@ -30,7 +32,26 @@ class Preference extends Component {
             },
         },
         redirect:null,
+        alert: {
+            valid:false,
+            msg:"",
+            alertType:"",
+        },
+
+        alertPressed:false,
     }
+
+
+
+AlertError(alertmsg, alertType) {
+    const AlertArray = {...this.state.alert};
+    AlertArray.msg = alertmsg;
+    AlertArray.valid=true;
+    AlertArray.alertType=alertType;
+    this.setState({alert:AlertArray});
+
+}
+
 
 
     categoryHandler=(CourseName)=>{
@@ -43,14 +64,23 @@ class Preference extends Component {
 
             if(this.state.Courses[CourseName].touched)
 
-            {   
-                this.state.Courses[CourseName].touched = false;
+            {   const UpdatedCourses = {...this.state.Courses};
+                UpdatedCourses[CourseName].touched=false;
+                
+
+
+                this.setState({Courses:UpdatedCourses})
                 const index =this.state.interest.indexOf(CourseName);
                 if(index >-1) this.state.interest.splice(index,1);
             }
 
             else
-            {this.state.Courses[CourseName].touched = true;
+            {const UpdatedCourses = {...this.state.Courses};
+            UpdatedCourses[CourseName].touched=true;
+            
+
+
+            this.setState({Courses:UpdatedCourses})
              this.state.interest.push(CourseName);}
 
 
@@ -69,10 +99,9 @@ class Preference extends Component {
       
         const fd =new FormData();
         const formData = {"interest":this.state.interest, 'userId':this.state.userId};
-        
-        
-
-       
+        this.setState({alertPressed:true})
+        setTimeout( ()=> this.setState({alertPressed:false}) , 3000);
+      
         console.log(formData);
 
         fd.append("userId",this.state.userId);
@@ -80,10 +109,16 @@ class Preference extends Component {
 
        // for(var value of fd.values())console.log(value)
         
-        axios.post("/home/interests",formData)
+        axios.post("/home/interests",formData,{
+            headers: {
+               
+                Authorization: 'Bearer '+ localStorage.getItem('user') 
+            }
+        })
         .then(response => {
             console.log("Preference",response);
-            alert("Preferences added!")
+            
+            this.AlertError("Preferences Added", "success");
             this.setState({redirect:'/home/preferences'})
             
            
@@ -99,6 +134,10 @@ class Preference extends Component {
 
 
     render(){
+
+        let alertContent = null;
+
+
         if (this.state.redirect) {
             return <Redirect to={this.state.redirect} />
         }
@@ -143,12 +182,22 @@ class Preference extends Component {
             else{
                 nodejs=['']
             }
+
+            if(this.state.alert.valid){
+
+                alertContent = ( <Alert value={this.state.alertPressed}         
+                                         alertMsg ={this.state.alert.msg} 
+                                        alertType={this.state.alert.alertType} /> )
+            }
+          
         
         return(
 
 
+       
          
             <div className="container">
+                     {alertContent}
                 <div className="title">
                      <CourseTitle welcomeMessage ={"Choose Your interests,"}/>
                 </div>

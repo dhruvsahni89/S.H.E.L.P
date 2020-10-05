@@ -7,19 +7,19 @@ const router = express.Router();
 
 router.get('/home/:category',UserController.homepage);
 
-router.get('/course/:course/:courseID',courseController.showCourse);
+router.get('/course/:course/:courseID',isAuth,courseController.showCourse);
 
-router.get('/users/:userName/:userId',UserController.userPage);
+router.get('/users/:userName/:userId',isAuth,UserController.userPage);
 
-router.post('/home/:category/:courseTitle',courseController.bookmarkCourse);
+router.post('/home/:category/:courseTitle',isAuth,courseController.bookmarkCourse);
 
 router.post('/unbookmark',courseController.unbookmarkCourse);
 
-router.get('/home/download/:userId',UserController.getinvoice );
+router.get('/home/download/:userId',isAuth,UserController.getinvoice );
 
 router.post('/home/interests',isAuth,UserController.suggestion);
 
-router.post('/home/preferences',isAuth ,UserController.preference);
+router.post('/home/preferences',isAuth,UserController.preference);
 
 router.post('/teacher/uploads',isAuth,UserController.uploads);
 
