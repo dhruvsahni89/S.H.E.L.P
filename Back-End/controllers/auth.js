@@ -7,6 +7,7 @@ const OtpUser = require("../models/otp");
 const nodemailer = require("nodemailer");
 const sendgridTRansport = require("nodemailer-sendgrid-transport");
 const config = require("../config");
+const { json } = require("body-parser");
 const transporter = nodemailer.createTransport(
   sendgridTRansport({
     auth: {
@@ -280,24 +281,31 @@ exports.resendOTP = (req, res, next) =>{ // extra measure's taken if, password v
 
 exports.sendResetOtp= (req, res, next) => {
   
-    const email = req.body.email;
+  const email = req.body.email;
   
-   let otp = Math.floor(100000 + Math.random() * 900000);
-    const token = jwt.sign(
-      {
+  let otp = Math.floor(100000 + Math.random() * 900000);
+  const token = jwt.sign(
+    {
         email: email,
       },
       "otptoken",
       { expiresIn: 600 } //600s = 10min
     );
 
+    console.log(token);
 
     const otpdata = new OtpUser({
-        Token: token,
+        token: token,
         Otp: otp,
         email: email,
     });
-   otpdata.save();
+
+   otpdata.save().then(result => {
+     res.json({result:result,message:"data saved"});
+   }).catch(err =>{
+     res.json(err);
+   });
+
    
    return transporter.sendMail({
     to: email,
@@ -306,30 +314,33 @@ exports.sendResetOtp= (req, res, next) => {
     html: `<h1>Reset OTP : ${otp}</h1>`,
   });
 
+  
 }
 
 exports.checkOtp= (req, res, next) => {
   const otp = req.body.otp;
   const checkToken = req.body.token;
 
-  OtpUser.findOne({Token:checkToken}).then(data => {
+  OtpUser.findOne({token:checkToken}).then(data => {
 
     if(!(data.Otp === otp)){
       res.json("Otp incorrect")
     }
-
+    res.json("Otp verified")
+  }).catch(err => {
+    res.json({error:err,message:"something went wrong"});
   })
 }
 //---------------------------------------------------------
 exports.resetPassword=(req,res,next)=>{
 
-  const errors = validationResult(req);
-   if (!errors.isEmpty()) {
-     const error = new Error("Validation Failed ");
-     error.statusCode = 422;
-     error.data = errors.array();
-     throw error;
-   }
+  // const errors = validationResult(req);
+  //  if (!errors.isEmpty()) {
+  //    const error = new Error("Validation Failed ");
+  //    error.statusCode = 422;
+  //    error.data = errors.array();
+  //    throw error;
+  //  }
   
    const email = req.body.email;
    const newPassword = req.body.newPassword;
@@ -345,17 +356,21 @@ exports.resetPassword=(req,res,next)=>{
      throw error;
    }
 
-    bcrypt.hash(password, 12).then((hashedPass) => {
+    bcrypt.hash(newPassword, 12).then((hashedPass) => {
 
       User.findOne({email:email}).then(user => {
         user.password = hashedPass;
+        user.save().then(result => {
+          res.json({messsage:"new password saved",updatedUser:result})
+        }).catch(err => {
+          res.json(err);
+        });
       }
-      )
-      user.save().then(result => {
-        res.json({messsage:"new password saved",updatedUser:result})
-      }).catch(err => {
-        res.json(err);
+      ).catch(err => {
+        res.json({error:err,message:"password not saved"});
       });
+
+     
           
     });
   }

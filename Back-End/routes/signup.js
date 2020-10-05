@@ -9,9 +9,11 @@ router.post("/signup/otp", authController.otpVerification); //otp verification a
 
 router.post("/signup/otp-resend", authController.resendOTP);//resend-otp verification 
 
-router.post('/resetOtp',authController.sendResetOtp)
+router.post('/signup/resetOtp',authController.sendResetOtp)
 
-router.post('/checkOtp',authController.checkOtp)
+router.post('/signup/checkOtp',authController.checkOtp)
+
+router.post('/signup/resetpassword',authController.resetPassword)
 
 router.post("/reset-password", [
   body('newPassword').trim().isLength({ min: 5 }),
