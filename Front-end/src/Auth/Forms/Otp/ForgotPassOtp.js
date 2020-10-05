@@ -20,13 +20,6 @@ class Otp extends Component {
                     type: 'number',
                     error: " ",
                     msg: '',
-
-                    // validation: {
-                    //     required: true,
-                    //     minLength:6,
-              
-                    // },
-
                     touched: false,
                 
             },
@@ -55,18 +48,11 @@ class Otp extends Component {
     
     }
     
-    // checkValidity(value,rules){
-    //     let isValid = true;
-    //     if(rules.required){
-    //         isValid =value.trim()!=='' && isValid;
-    //     }
-
-    //     return isValid;
-        
-    //  }
+    
 
 
 //   runs whenever there is any change in the input field
+
     inputchangeHandler = (event,inputIdentifier)=> {
 
         const updatedForm = {
@@ -90,16 +76,6 @@ class Otp extends Component {
 
     }
    
-    // OverallValidity = ()=>{
-
-    //     for(let validate in this.state.Form){
-    //         if(!this.state.Form[validate].valid){
-    //             return false;
-    //         }
-    //     }
-    //     return true;
-    // }
-
 
     formHandler = (event)=> {
         event.preventDefault();
@@ -223,9 +199,6 @@ class Otp extends Component {
                         value={x.config.value}
                         type={x.config.type}
                         invalid={!x.config.valid}
-                     //   touched={x.config.touched}
-                      // errors={x.config.error}
-                     //   msg={x.config.msg}
                         changed={(event)=> this.inputchangeHandler(event,x.id)}/>
 
                     ))
@@ -245,7 +218,7 @@ class Otp extends Component {
             <div className="SideContent">
                 
                 <MainPage 
-                heading1={"Please Verify "}
+                heading1={"Please Verify"}
                 heading2={"your Email Address"}/>
 
                     {form}

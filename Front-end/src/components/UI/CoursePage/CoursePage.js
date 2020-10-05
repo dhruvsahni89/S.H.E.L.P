@@ -16,6 +16,7 @@ class CoursePage extends Component {
         loading: true,
         token:localStorage.getItem('user'),
         redirect:null,
+        playing1:false,
     }
 
     componentDidMount(){
@@ -46,7 +47,14 @@ class CoursePage extends Component {
     }
 
     DownloadPdf=()=>{
-        axios.get(`/home/download/${this.state.CourseId}`, {responseType: 'blob'})
+        axios.get(`/home/download/${this.state.CourseId}` ,{
+            headers: {
+                
+                Authorization: 'Bearer '+ this.state.token
+            }
+        },
+        {responseType: 'blob'}
+        )
                 
                 .then((res)=>{
                     const pdfBlob = new Blob([res.data], {type: 'application/pdf'})
@@ -62,7 +70,12 @@ class CoursePage extends Component {
 
     }
 
-    
+    PlayPause=()=> {
+
+        this.state.playing1 ? this.setState({playing1:false})
+        :this.setState({playing1:true})
+        
+     }
 
     
 
@@ -98,6 +111,9 @@ class CoursePage extends Component {
 
         }
         
+       
+
+
         return(
 
           
@@ -150,7 +166,8 @@ class CoursePage extends Component {
                         </div>
 
                             <div className="Course-Video">
-                                <CourseVideo videoUrl={"http://localhost:8080/" + videoUrl} />
+                                <CourseVideo playing={this.state.playing1} videoUrl={"http://localhost:8080/" 
+                                             +videoUrl} />
                             </div>
 
 
@@ -200,7 +217,7 @@ class CoursePage extends Component {
                  </div>
 
                     <div className="flex-center">
-                        <VideoList/>
+                        <VideoList playing={this.PlayPause}/>
                         <VideoList/>
                         <VideoList/>
 

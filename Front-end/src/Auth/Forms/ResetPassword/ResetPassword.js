@@ -14,24 +14,7 @@ class ResetPassword extends Component {
 
     state = { 
             Form:{
-                 name: {
-
-                    placeholder: 'First Name',
-                    value: "",
-                    valid: false,
-                    type: 'text',
-                    error: " ",
-                    msg: '',
-
-                    validation: {
-                        required: true,
-                        minLength:5,
-                        maxLength:15
-                    },
-
-                    touched: false,
-                
-            },
+                 
                 email: {
 
                     placeholder: 'Email',
@@ -53,7 +36,7 @@ class ResetPassword extends Component {
 
                 password: {
 
-                    placeholder: 'Password',
+                    placeholder: 'New Password',
                     value: "",
                     valid: false,
                     type: 'password',
@@ -68,6 +51,23 @@ class ResetPassword extends Component {
                     touched: false,
                 
             },
+
+            ConfirmPassword: {
+
+                placeholder: 'Confirm New Password',
+                value: "",
+                valid: false,
+                type: 'password',
+                error: " ",
+                msg: '',
+
+                validation: {
+                    required: true,
+                    match:true,
+                },
+                touched: false,
+            
+        },
 
         },
         loading:false,
@@ -115,6 +115,10 @@ class ResetPassword extends Component {
             isValid = regex.test(value) && isValid;
         }
 
+        if(rules.match){
+            isValid = value === (this.state.Form['password'].value) && isValid;
+        }
+
         return isValid;
         
      }
@@ -153,17 +157,6 @@ inputBlurHandler = (event,inputIdentifier)=> {
           updatedElement.error="";  
     }
     
-
-        // msg errrors for username
-
-    if(inputIdentifier ==='name' && !updatedElement.valid){
-        updatedElement.error = "At least 5 characters and at most 15";
-        updatedElement.msg="";
-    }
-    if(inputIdentifier ==='name' && updatedElement.valid){
-        updatedElement.error="";
-        updatedElement.msg="All good!";
-    }
         
     // msg error for password
     if(inputIdentifier === "password" && !updatedElement.valid){
@@ -180,6 +173,16 @@ inputBlurHandler = (event,inputIdentifier)=> {
         updatedElement.msg="";
     }
     if(inputIdentifier === "email" && updatedElement.valid){
+        updatedElement.error="";
+        updatedElement.msg="All good!";
+    }
+
+     // confirm password
+     if(inputIdentifier === "ConfirmPassword" && !updatedElement.valid){
+        updatedElement.error = "Passwords do not match";
+        updatedElement.msg="";
+    }
+    if(inputIdentifier === "ConfirmPassword" && updatedElement.valid){
         updatedElement.error="";
         updatedElement.msg="All good!";
     }
@@ -243,16 +246,6 @@ inputBlurHandler = (event,inputIdentifier)=> {
                  this.AlertError("Something went wrong", "danger")} );
             
             
-            // .then(
-            //     ()=>{ 
-            //         // this.setState({ redirect: "/signup/otp" });this.props.history.push("/profile");
-            //         this.props.history.push("/signup/otp");
-
-            //       //  window.location.reload();
-
-                  
-            //     }
-            // )
 
         }
         

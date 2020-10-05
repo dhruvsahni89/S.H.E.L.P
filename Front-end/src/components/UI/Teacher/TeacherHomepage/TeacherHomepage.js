@@ -28,8 +28,7 @@ class TeacherHomePage extends Component {
         const fd =new FormData();
         fd.append("userId",localStorage.getItem('userId'))
 
-       
-     
+
        
        console.log(this.state.CourseLink)
 

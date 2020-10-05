@@ -30,7 +30,12 @@ class Homepage extends Component {
 
        
        if(this.state.CourseLink === "preferences"){
-        axios.post(`/home/${this.state.CourseLink}`,fd)
+        axios.post(`/home/${this.state.CourseLink}`,fd,{
+            headers: {
+               
+                Authorization: 'Bearer '+ localStorage.getItem('user') 
+            }
+        })
         .then(response => {
             console.log("Courses Response",response);
             

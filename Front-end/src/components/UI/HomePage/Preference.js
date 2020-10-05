@@ -39,6 +39,7 @@ class Preference extends Component {
         },
 
         alertPressed:false,
+        token:localStorage.getItem('user'),
     }
 
 
@@ -97,31 +98,34 @@ AlertError(alertmsg, alertType) {
 
     sumbitHandler =()=> {
       
-        const fd =new FormData();
+       // const fd =new FormData();
         const formData = {"interest":this.state.interest, 'userId':this.state.userId};
         this.setState({alertPressed:true})
         setTimeout( ()=> this.setState({alertPressed:false}) , 3000);
       
         console.log(formData);
 
-        fd.append("userId",this.state.userId);
-        fd.append("interest",this.state.interest);
+        //fd.append("userId",this.state.userId);
+       //fd.append("interest",this.state.interest);
 
-       // for(var value of fd.values())console.log(value)
         
-        axios.post("/home/interests",formData,{
+        axios.post("/home/interests",formData, {
             headers: {
-               
-                Authorization: 'Bearer '+ localStorage.getItem('user') 
+                
+                Authorization: 'Bearer '+ this.state.token
+                
             }
         })
         .then(response => {
-            console.log("Preference",response);
             
-            this.AlertError("Preferences Added", "success");
-            this.setState({redirect:'/home/preferences'})
-            
-           
+
+            if(response.status ===201 || response.status ===200) {
+                console.log("Preference Added");
+                
+                this.AlertError("Preferences Added", "success");
+                this.setState({redirect:'/home/preferences'})
+                
+            }
           
 
         })
