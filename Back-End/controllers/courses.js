@@ -116,6 +116,7 @@ exports.deletePost = (req, res, next) => {
           error.statusCode = 404;
           throw error;
         }
+        //deleting post
         
         return courses.findByIdAndRemove(courseId);
       })
