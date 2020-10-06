@@ -280,6 +280,14 @@ exports.resendOTP = (req, res, next) =>{ // extra measure's taken if, password v
 
 
 exports.sendResetOtp= (req, res, next) => {
+
+  const error = validationResult(req);
+  if (!error.isEmpty()) {
+    return res.status(422).json({
+      data:error.array(),
+      msg:"Email Entered is incorrect"
+    })
+  }
   
   const email = req.body.email;
   

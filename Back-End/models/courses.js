@@ -44,12 +44,23 @@ const courseSchema = new Schema({
         type:String,
         required:true
     },
-    rating:[
-        { 
-            type:Number, 
+    rating:{
+        ratingSum:{
+            type:Number,
+            required:false,
+            default:0
+        },
+        timesUpdated:{
+            type:Number,
             require:false,
+            default:0
+        },
+        ratingFinal:{
+            type:Number,
+            require:false,
+            default:0
         }
-    ]
+    }
     },
     {timestamps: true}
 );

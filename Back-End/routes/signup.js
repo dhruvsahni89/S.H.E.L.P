@@ -9,7 +9,18 @@ router.post("/signup/otp", authController.otpVerification); //otp verification a
 
 router.post("/signup/otp-resend", authController.resendOTP);//resend-otp verification 
 
-router.post('/signup/resetOtp',authController.sendResetOtp)
+router.post('/signup/resetOtp',[
+  body('email')
+  .isEmail()
+  .withMessage('Please Enter a Valid Email') //Stored in error object which can be retrived.
+  .custom((value, { req } ) => { //to check whether the email adress already exist or not. 
+    return User.findOne({email: value}).then(UserDoc => {
+        if(!UserDoc){ // return a promise if validation done a async task
+            return Promise.reject('E-mail Does not  Exist');
+        }
+    })
+})/* .normalizeEmail() */, // check for  .. or + - in the email and remove it 
+],authController.sendResetOtp)
 
 router.post('/signup/checkOtp',authController.checkOtp)
 

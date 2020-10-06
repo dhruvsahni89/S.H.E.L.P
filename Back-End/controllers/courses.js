@@ -95,22 +95,20 @@ exports.showCourse = (req, res, next) =>{ //Route For showing a single course
 
 
 exports.rating = (req,res,next) => {
-    let rating  = req.body.rating;
-    rating = Number(rating);
-    const courseId = req.body._id;
+    
+
+    //LOGIC 2
+    // courses.findOneAndUpdate({_id:courseId},{
+    //     $push:{rating:rating}
+    // },{new:true}).then(data => {
+    //     console.log(data);
+    //     res.json(data);
+    // }).catch(err => {
+    //     res.json("Not Updated");
+    // })
 
 
-    courses.findOneAndUpdate({_id:courseId},{
-        $push:{rating:rating}
-    },{new:true}).then(data => {
-        console.log(data);
-        res.json(data);
-    }).catch(err => {
-        res.json("Not Updated");
-    })
-
-
-
+    // LOGIC! 1
     // courses.findById({_id:courseId}).then(course =>{
 
     //     console.log('prev total',course.rating);
@@ -127,6 +125,32 @@ exports.rating = (req,res,next) => {
     //     console.log(courseId+" :- this is id");
     //     res.json("course not found!!!!!!!!!!!!");
     // })
+
+    //LOGIC 3
+    let rating  = req.body.rating;
+    rating = Number(rating);
+    console.log("RAting by user = ",rating)
+    const courseId = req.body._id;
+
+    courses.findById({_id:courseId}).then(course =>{
+
+        console.log('prev total',course.rating.ratingSum);
+        let newRating = (rating + course.rating.ratingSum);
+        course.rating.ratingSum = newRating.toPrecision(2);
+        course.rating.timesUpdated++; 
+        console.log("total",course.rating.ratingSum)
+        course.rating.ratingFinal = (course.rating.ratingSum/course.rating.timesUpdated).toPrecision(2);
+        
+        course.save().then(result => {
+            res.json({message:"rating updated",result:result});
+        }).catch(err=>{
+            res.json(err);
+        })
+    }).catch(err => {
+        console.log(courseId+" :- this is id");
+        res.json("course not found!!!!!!!!!!!!");
+    })
+
 }
 
 exports.videoUrl = (req,res,next) => {
