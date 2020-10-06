@@ -10,6 +10,9 @@ import axios from '../../../ApiServices/axiosUrl';
 import AuthServices from '../../../ApiServices/auth.service';
 import Alert from '../../../Auth/Forms/alert';
 import ProgressBar from 'react-bootstrap/ProgressBar'
+import CKEditorArea from './CKEditor';
+
+
 
 class TeacherPage extends Component{
 
@@ -52,7 +55,7 @@ class TeacherPage extends Component{
                  cols: "50",
                  placeholder: 'Entereg: In this course you will learn how to build professional website from scratch and how to make it responsive. Course Title',
                  value: "",
-                 valid:false,
+                 valid:true,
 
                  validation: {
                     required: true,
@@ -201,6 +204,18 @@ class TeacherPage extends Component{
         AlertArray.valid=true;
         AlertArray.alertType=alertType;
         this.setState({alert:AlertArray});
+
+    }
+
+    CKEditorHandler  =(event,editor,Title)=> {
+
+        const data =editor.getData();
+        const updatedForm = {
+            ...this.state.Form
+        }
+        updatedForm[Title].value=data;
+        updatedForm[Title].valid=this.checkValidity(data, updatedForm[Title].validation)
+        this.setState({Form:updatedForm})
 
     }
 
@@ -446,12 +461,15 @@ class TeacherPage extends Component{
         </div>
 
         <div id="section2" className="Teacher-Head-Class">
-            <Tinput
+            <CKEditorArea
             label={this.state.Form.discriptionLong.label}
             rows={this.state.Form.discriptionLong.rows}
             cols={this.state.Form.discriptionLong.cols}
             placeholder={this.state.Form.discriptionLong.placeholder}
-            changed={(event)=> this.inputchangeHandler(event,"discriptionLong")}
+            changed={(event,editor)=> this.CKEditorHandler(event,editor,"discriptionLong")}
+            
+            
+           // changed={(event)=> this.inputchangeHandler(event,"discriptionLong")}
             />
 
         </div>
@@ -459,25 +477,31 @@ class TeacherPage extends Component{
 
         <div  className="Teacher-Head-Class">
 
-                <Tinput
-                    label={this.state.Form.willLearn.label}
-                    rows={this.state.Form.willLearn.rows}
-                    cols={this.state.Form.willLearn.cols}
-                    placeholder={this.state.Form.willLearn.placeholder}
-                   
-                    changed={(event)=> this.inputchangeHandler(event,"willLearn")}/>
+        <CKEditorArea
+            label={this.state.Form.willLearn.label}
+            rows={this.state.Form.willLearn.rows}
+            cols={this.state.Form.willLearn.cols}
+            placeholder={this.state.Form.willLearn.placeholder}
+            changed={(event,editor)=> this.CKEditorHandler(event,editor,"willLearn")}
+            
+            
+           // changed={(event)=> this.inputchangeHandler(event,"discriptionLong")}
+            />
         
         </div>
 
         <div  className="Teacher-Head-Class">
 
-                <Tinput
-                    label={this.state.Form.requirement.label}
-                    rows={this.state.Form.requirement.rows}
-                    cols={this.state.Form.requirement.cols}
-                    placeholder={this.state.Form.requirement.placeholder}
-                   
-                    changed={(event)=> this.inputchangeHandler(event,"requirement")}/>
+        <CKEditorArea
+            label={this.state.Form.requirement.label}
+            rows={this.state.Form.requirement.rows}
+            cols={this.state.Form.requirement.cols}
+            placeholder={this.state.Form.requirement.placeholder}
+            changed={(event,editor)=> this.CKEditorHandler(event,editor,"requirement")}
+            
+            
+           // changed={(event)=> this.inputchangeHandler(event,"discriptionLong")}
+            />
         
         </div>
         

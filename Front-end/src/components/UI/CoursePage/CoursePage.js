@@ -6,6 +6,7 @@ import CourseVideo from './CourseVideo';
 import axios from '../../../ApiServices/axiosUrl';
 import VideoList from './VideoList';
 import { saveAs } from 'file-saver';
+import parse from 'html-react-parser';
 
 class CoursePage extends Component {
 
@@ -114,9 +115,9 @@ class CoursePage extends Component {
                 createdAt =createdAt.split("T")[0];
                 videoUrl=(this.state.CoursesInfo.videourl);
                 rating=(this.state.CoursesInfo.rating);
-                requirement=(this.state.CoursesInfo.requirement);
-                longDescription=(this.state.CoursesInfo.discriptionLong);
-                willLearn=(this.state.CoursesInfo.willLearn);
+                requirement=parse(this.state.CoursesInfo.requirement);
+                longDescription=parse(this.state.CoursesInfo.discriptionLong);
+                willLearn=parse(this.state.CoursesInfo.willLearn);
 
                 if(rating ===0) rating=1;
                 
