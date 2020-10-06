@@ -50,6 +50,86 @@ exports.createcourse = (req, res, next) => {
     });
 }
 
+exports.edit=(req,res,next)=>{
+    const courseId=req.body.courseId;
+    courses.findById(courseId)
+    .then(data =>{
+        if(!data){
+            const error = new Error('course not found.');
+            error.statusCode = 404;
+            throw error;
+        }
+        res.status(200).json(data)
+    })
+    .catch(err => {
+        console.log(err);
+    });
+
+}
+exports.update=(req,res,next)=>{
+    const courseId = req.body.courseId;
+
+    const title = req.body.title;
+    console.log(title);
+    const imageUrl = req.files[1].filename;
+    const videoUrl = req.files[0].filename;
+    const name = req.body.name;
+    const category = req.body.category;
+    const willLearn = req.body.willLearn;
+    const discription = req.body.discription;
+    const discriptionLong = req.body.discriptionLong;
+    const requirement = req.body.requirement
+    console.log(imageUrl);
+    
+    console.log(courseId);
+
+    courses.findById(courseId)
+    .then(data=>{
+        if(!data)  {
+            const error = new Error('course not found.');
+            error.statusCode = 404;
+            throw error;
+          }
+          data.title=title;
+          data.imageUrl=imageUrl;
+          data.videoUrl=videoUrl;
+          data.name=name;
+          data.category=category;
+          data.willLearn=willLearn;
+          data.discription=discription;
+          data.discriptionLong=discriptionLong;
+          data.requirement=requirement;
+
+
+         return data.save()
+    })
+    .then(result => {
+        res.status(200).json({ message: 'course updated!', result:result });
+      })
+}
+exports.deletePost = (req, res, next) => {
+    const courseId = req.body.courseId;
+    courses.findById(courseId)
+      .then(course => {
+        if (!course) {
+          const error = new Error('Could not find post.');
+          error.statusCode = 404;
+          throw error;
+        }
+        
+        return courses.findByIdAndRemove(courseId);
+      })
+      .then(removed => {
+        console.log(removed);
+        res.status(200).json({ message: 'Deleted course.' });
+      })
+      .catch(err => {
+        if (!err.statusCode) {
+          err.statusCode = 500;
+        }
+        next(err);
+      });
+  };
 
 exports.bookmarkCourse = (req, res, next) =>{
 

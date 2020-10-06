@@ -3,13 +3,22 @@ import './CSS/VideoList.css';
 
 class VideoList extends Component{
 
-        render(){
+ 
+    
+    render(){
+      
+
             return(
             <div className="video-list">
                 
                 <div className="play-title">
                 
-                <i class="fa fa-play" aria-hidden="true"></i><span> Title</span>   
+                <i onClick={this.props.playing} 
+               
+
+                className={this.props.playButton}
+                aria-hidden="true"></i>
+                <span> Title</span>   
                 
                 </div>     
 

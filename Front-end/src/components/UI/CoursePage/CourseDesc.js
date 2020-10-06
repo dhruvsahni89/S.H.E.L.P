@@ -90,7 +90,7 @@ class CourseDesc extends Component {
                     <p>{this.props.rating}</p>
                     <div className="RatingStars"><Rating rating={this.props.rating}
                      specialrating={true} 
-                    CourseId={this.props.CourseId} /></div>
+                    CourseId={this.props.CourseId}/></div>
 
                 </div>
 
@@ -115,7 +115,8 @@ class CourseDesc extends Component {
 
                 <div className="flex-row">
                         <div className="play-btn">
-                            <img src={Play} alt="play"/>
+                        <i className="fa fa-play-circle"></i>
+                            <p>Play</p>
                             
                         </div>
 

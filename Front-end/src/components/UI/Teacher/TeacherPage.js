@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 //import Aux from '../../../hoc/ReactFrag';
-
+//import Scroll from 'react-scroll';
 import Tinput from './TinputFields';
 import TeacherTittle from './TeacherTittle';
 import {Link,Redirect} from 'react-router-dom';
@@ -9,6 +9,7 @@ import './CSS/Teacher.css';
 import axios from '../../../ApiServices/axiosUrl';
 import AuthServices from '../../../ApiServices/auth.service';
 import Alert from '../../../Auth/Forms/alert';
+import ProgressBar from 'react-bootstrap/ProgressBar'
 
 class TeacherPage extends Component{
 
@@ -144,6 +145,7 @@ class TeacherPage extends Component{
     userName:"",
     alertPressed:false,
     redirect:null,
+    uploadedPercentage:0,
 }
 
     componentDidMount(){
@@ -237,6 +239,8 @@ class TeacherPage extends Component{
        
     }
 
+
+
     fileSelectorHandler = event =>{
     
         const selectedfile= {...this.state.Form};
@@ -244,8 +248,16 @@ class TeacherPage extends Component{
         selectedfile.file.value= event.target.files;
        
         this.setState({Form:selectedfile })
+        console.log(selectedfile)
+
+     
+        
        
     }
+
+
+    
+
 
     sumbitButton =()=> {
         
@@ -254,7 +266,7 @@ class TeacherPage extends Component{
         const form={};
         const fd = new FormData();
 
-        
+      
         for(let formElement in this.state.Form){
                 
                 
@@ -277,12 +289,24 @@ class TeacherPage extends Component{
        
 
         if(this.OverallValidity()){
+
+        
                     
-                axios.post('creator/create-course',fd, {
+                axios.post('creator/create-course',fd,{
                     headers: {
                         "Content-Type": "multipart/form-data",
                         "Access-Control-Allow-Origin": '*',
                         Authorization: 'Bearer '+ localStorage.getItem('user') 
+                    }
+                }, {
+                    onUploadProgress: progressEvent => {
+                        console.log("mmmmmm");
+                        const {loaded,total} =progressEvent;
+                        let percent =Math.floor((loaded*100)/total);
+                        console.log("percent" + percent)
+                        if(percent<100){
+                            this.setState({uploadedPercentage:percent})
+                        }
                     }
                 })
                 .then( res=> { console.log(res);
@@ -290,6 +314,7 @@ class TeacherPage extends Component{
                     if(res.status ===201 || res.status ===200){
 
                     this.AlertError("Your Course has been saved!", "success");
+                
                 }})
 
 
@@ -315,13 +340,19 @@ class TeacherPage extends Component{
             return <Redirect to="/login"/>
         }
 
-        console.log(localStorage.getItem('user') )
-        console.log(localStorage.getItem('userId'))
+        const uploadedPercentage = this.state.uploadedPercentage;
+
         let Welcome = null;
         let alertContent = null;
-       
+        let fileName=null;
         
-        console.log(this.state.Form);
+        
+        if(this.state.Form.file.value){
+             fileName=this.state.Form.file.value[1].name;
+             
+        }
+
+      
         
 
         if(this.state.alert.valid){
@@ -398,9 +429,9 @@ class TeacherPage extends Component{
         </div>    
 
 
-             <Link to="#section2"><button className="NextBtn">Next</button></Link> 
+            <button className="NextBtn">Next</button>
 
-
+   
             <TeacherTittle TitleDesc={"Description of your Course"}/>
             
         <div className="Teacher-Head-Class">
@@ -414,7 +445,7 @@ class TeacherPage extends Component{
 
         </div>
 
-        <div className="Teacher-Head-Class">
+        <div id="section2" className="Teacher-Head-Class">
             <Tinput
             label={this.state.Form.discriptionLong.label}
             rows={this.state.Form.discriptionLong.rows}
@@ -460,20 +491,32 @@ class TeacherPage extends Component{
         </div>
 
 
-        <div className="Teacher-Head-Class">
-           
-         
-            <label className="custom-image-upload">
-                <input type="file" name='file' multiple onChange={this.fileSelectorHandler}/>
-                Upload Image
-           </label>
+            <div className="Teacher-Head-Class">
+            
+            
+                <label className="custom-image-upload">
+                    <input type="file" name='file' multiple onChange={this.fileSelectorHandler}/>
+                    Upload Image
+            </label>
+
+            <p className="ImageName">{fileName}</p>
+            <img className="" 
+                src={"http://localhost:8080/" + fileName} alt="banner1"/>
+
+            
+            </div>
 
         
-        </div>
+            <div className="Welcome-msg">
+                <button onClick={this.sumbitButton} >Sumbit </button>
+            </div>
 
-        <div className="Welcome-msg">
-            <button onClick={this.sumbitButton} >Sumbit </button>
-        </div>
+          <div>
+              {uploadedPercentage>0 ? <ProgressBar now={uploadedPercentage}
+                    label={`${uploadedPercentage}%`}/> :null }
+          </div> 
+            
+
           
         </div>
 

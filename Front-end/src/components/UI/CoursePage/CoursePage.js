@@ -16,6 +16,8 @@ class CoursePage extends Component {
         loading: true,
         token:localStorage.getItem('user'),
         redirect:null,
+        playing1:false,
+        PlayButton:'fa fa-play-circle',
     }
 
     componentDidMount(){
@@ -46,7 +48,14 @@ class CoursePage extends Component {
     }
 
     DownloadPdf=()=>{
-        axios.get(`/home/download/${this.state.CourseId}`, {responseType: 'blob'})
+        axios.get(`/home/download/${this.state.CourseId}` ,{
+            headers: {
+                
+                Authorization: 'Bearer '+ this.state.token
+            }
+        },
+        {responseType: 'blob'}
+        )
                 
                 .then((res)=>{
                     const pdfBlob = new Blob([res.data], {type: 'application/pdf'})
@@ -62,7 +71,20 @@ class CoursePage extends Component {
 
     }
 
-    
+    PlayPause=()=> {
+
+        
+        
+        if(this.state.playing1){
+            this.setState({playing1:false,PlayButton:'fa fa-play-circle'});
+            
+        }
+
+        else{
+            this.setState({playing1:true,PlayButton:'fa fa-pause-circle'});
+          
+        }
+     }
 
     
 
@@ -81,6 +103,9 @@ class CoursePage extends Component {
         let longDescription=null;
         let willLearn=null;
 
+        
+        
+
         if(this.state.loading ===false){
                 title = (this.state.CoursesInfo.title);
                 short_description = (this.state.CoursesInfo.discription);
@@ -98,6 +123,9 @@ class CoursePage extends Component {
 
         }
         
+       
+
+
         return(
 
           
@@ -150,7 +178,8 @@ class CoursePage extends Component {
                         </div>
 
                             <div className="Course-Video">
-                                <CourseVideo videoUrl={"http://localhost:8080/" + videoUrl} />
+                                <CourseVideo playing={this.state.playing1} videoUrl={"http://localhost:8080/" 
+                                             +videoUrl} />
                             </div>
 
 
@@ -200,7 +229,8 @@ class CoursePage extends Component {
                  </div>
 
                     <div className="flex-center">
-                        <VideoList/>
+                        <VideoList playing={this.PlayPause} 
+                        playButton={this.state.PlayButton}/>
                         <VideoList/>
                         <VideoList/>
 

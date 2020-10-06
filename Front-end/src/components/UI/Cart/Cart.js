@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {NavLink} from 'react-router-dom';
+import {NavLink,Redirect} from 'react-router-dom';
 import Loader from 'react-loader-spinner';
 import CartCard from './CartCard';
 import './CSS/Cart.css';
@@ -21,6 +21,7 @@ class Cart extends Component{
         userName:localStorage.getItem('userName'),
         userId:localStorage.getItem('userId'),
         token:localStorage.getItem('user'),
+        redirect:null,
     }
 
 
@@ -33,6 +34,8 @@ class Cart extends Component{
             }
         } )
         .then(response => {
+
+            if(response.status ===200 || response.status===201){
             console.log("Bookmarked Courses",response);
        
             this.setState({Courses: response.data.course.bookmarked});
@@ -43,9 +46,13 @@ class Cart extends Component{
 
           
 
-        })
+        }})
         .catch(error => {
             console.log(error.response);
+            if(error.response.status ===500){
+                this.setState({redirect:"/login"})
+            }
+
         })
        
     }
@@ -54,6 +61,10 @@ class Cart extends Component{
     
     
     render(){
+
+        if(this.state.redirect!==null){
+            return <Redirect to={this.state.redirect}/>
+        }
 
         let noOfCourses = null;
         let classes=[];

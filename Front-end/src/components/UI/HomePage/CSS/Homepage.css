@@ -5,7 +5,7 @@
 
 .Course-Content, .Course-Content-wrap{
     display:flex;
-    
+    margin-top:10px;
 
 }
 .Course-Content-wrap{
@@ -69,6 +69,11 @@
    
 }
 
+.loader{
+   margin-top:10%;
+   margin-left:40%;
+}
+
 .productLink{
     text-decoration: none;
     
@@ -79,6 +84,8 @@
     text-decoration: none;
 }
 
+
+
 @media (max-width:991px){
 
 
@@ -86,21 +93,28 @@
        
         left:65%;
         top:30%;
-
-       
     
     }
     .Interest-banner p{
         font: normal normal 600 19px/31px Gilroy;
         
     }
+    .Course-Content-col{
+        margin-left:0px;
+        
+    }
+    .container{ max-width:991px !important;}
+
+    .Course-Content, .Course-Content-wrap{
+        justify-content: center;
+    }
 
 }
-.loader{
-    margin-left:40px;
-    margin-top:50px;
-    margin-bottom:50px;
-}
+
+
+
+
+
 
 @media (max-width:767px){
 
