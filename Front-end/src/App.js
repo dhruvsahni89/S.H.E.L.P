@@ -11,6 +11,7 @@ import Otp from './Auth/Forms/Otp/Otp';
 import Homepage from './components/UI/HomePage/Homepage';
 import TeacherPage from './components/UI/Teacher/TeacherPage';
 import TeacherHomePage from './components/UI/Teacher/TeacherHomepage/TeacherHomepage';
+import TeacherEdit from './components/UI/Teacher/TeacherHomepage/TeacherEdit';
 import CoursePage from './components/UI/CoursePage/CoursePage';
 import Preference from './components/UI/HomePage/Preference';
 
@@ -42,6 +43,7 @@ class App extends Component {
        <Route path="/Teacher" component={TeacherPage}/>
 
        <Route path="/TeacherHome" component={TeacherHomePage}/>
+          <Route path="/TeacherEdit" component={TeacherEdit}/>
        <Redirect to="/home/all"/>
 
 

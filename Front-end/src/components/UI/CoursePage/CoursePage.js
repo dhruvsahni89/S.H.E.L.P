@@ -114,7 +114,7 @@ class CoursePage extends Component {
                 createdAt=(this.state.CoursesInfo.createdAt);
                 createdAt =createdAt.split("T")[0];
                 videoUrl=(this.state.CoursesInfo.videourl);
-                rating=(this.state.CoursesInfo.rating);
+                rating=(this.state.CoursesInfo.rating.ratingFinal);
                 requirement=parse(this.state.CoursesInfo.requirement);
                 longDescription=parse(this.state.CoursesInfo.discriptionLong);
                 willLearn=parse(this.state.CoursesInfo.willLearn);

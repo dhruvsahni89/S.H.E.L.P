@@ -126,7 +126,7 @@ class Cart extends Component{
                 title={item.title}
                 teacher={item.name}
                 img={"http://localhost:8080/" + item.imageurl}
-                rating={item.rating}
+                rating={item.rating.ratingFinal}
                 courseId={item._id}
                 userId={this.state.userId}
                 />
