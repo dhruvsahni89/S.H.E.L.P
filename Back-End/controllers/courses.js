@@ -44,7 +44,7 @@ exports.createcourse = (req, res, next) => {
 
     course.save().then(result =>{
         console.log(result);
-        res.status(201).json({message:'Course Created',post: result})
+        res.status(201).json({message:'Course Created',newCourse: result})
     }).catch(err => {
         console.log(err);
     });
@@ -71,8 +71,8 @@ exports.update=(req,res,next)=>{
 
     const title = req.body.title;
     console.log(title);
-    const imageUrl = req.files[1].filename;
-    const videoUrl = req.files[0].filename;
+    const imageUrl = req.file.filename;
+    // const videoUrl = req.files[0].filename;
     const name = req.body.name;
     const category = req.body.category;
     const willLearn = req.body.willLearn;
@@ -92,15 +92,12 @@ exports.update=(req,res,next)=>{
           }
           data.title=title;
           data.imageUrl=imageUrl;
-          data.videoUrl=videoUrl;
           data.name=name;
           data.category=category;
           data.willLearn=willLearn;
           data.discription=discription;
           data.discriptionLong=discriptionLong;
           data.requirement=requirement;
-
-
          return data.save()
     })
     .then(result => {
