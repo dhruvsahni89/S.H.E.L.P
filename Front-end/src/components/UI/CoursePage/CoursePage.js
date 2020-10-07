@@ -86,9 +86,9 @@ class CoursePage extends Component {
         })
         .catch(error => {
             console.log(error.response);
-            //if(error.response.data.message ==='jwt malformed')
-            //if(error.response.status ===500)
-            //this.setState({redirect:"/login"})
+            if(error.response.data.message ==='jwt malformed')
+            if(error.response.status ===500)
+            this.setState({redirect:"/login"})
         })
        
     }

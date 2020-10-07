@@ -24,10 +24,14 @@ class CourseDesc extends Component {
 
                 
             const fd =new FormData();
+            const form = {};
+
                 fd.append('_userID',user);
                 fd.append('_id',this.state.CourseId);
+                form['_userID']=user;
+                form['_id']=this.state.CourseId;
                 
-                axios.post(`/home/${this.state.CourseId}/${this.props.CourseName}`,fd ,{
+                axios.post(`/home/${this.state.CourseId}/${this.props.CourseName}`,form ,{
                     headers: {
                        
                         Authorization: 'Bearer '+ localStorage.getItem('user') 

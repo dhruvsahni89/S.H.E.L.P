@@ -26,11 +26,13 @@ class Homepage extends Component {
     componentDidMount(){
 
         const fd =new FormData();
+        const form = {};
+        form['userId']=localStorage.getItem('userId');
         fd.append("userId",localStorage.getItem('userId'))
 
        
        if(this.state.CourseLink === "preferences"){
-        axios.post(`/home/${this.state.CourseLink}`,fd,{
+        axios.post(`/home/${this.state.CourseLink}`,form,{
             headers: {
                
                 Authorization: 'Bearer '+ localStorage.getItem('user') 

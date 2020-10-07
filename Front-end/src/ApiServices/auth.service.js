@@ -40,6 +40,9 @@ class AuthServices {
         return axios.post('/signup/reset-password',data);
     }
     
+    UpdatedCourse(data){
+        return axios.put('home/courseUpdate',data);
+    }
 
     logout(){
        localStorage.clear();
