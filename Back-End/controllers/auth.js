@@ -17,13 +17,14 @@ const transporter = nodemailer.createTransport(
 );
 
 exports.signup = (req, res, next) => {
-  const error = validationResult(req);
-  if (!error.isEmpty()) {
-    return res.status(422).json({
-      data:error.array(),
-      msg:"validation failed"
-    })
-  }
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+      const error = new Error('Validation Failed');
+      error.statusCode = 422;
+      error.data = errors.array();
+      throw error;
+    }
+  
   const email = req.body.email;
   const name = req.body.name;
   const password = req.body.password;
@@ -57,7 +58,7 @@ exports.signup = (req, res, next) => {
 
     otpdata.save();
 
-    res.status(201).json({ message: "otp stored in database " , token:token});
+    res.status(201).json({ message: "OTP send to your Email" , token:token});
     return transporter.sendMail({
         to: email,
         from: "dhruvsahni.akg@gmail.com",
@@ -186,9 +187,9 @@ exports.otpVerification = (req, res, next) => {
         error.statusCode = 403;
         error.data = {
           value: recievedOtp,
-          msg: "invalid token",
+          msg: "Invalid token",
           param: "otp",
-          location: "otp",
+          location: "otpVerification",
         };
         throw error;
       }
@@ -281,12 +282,12 @@ exports.resendOTP = (req, res, next) =>{ // extra measure's taken if, password v
 
 exports.sendResetOtp= (req, res, next) => {
 
-  const error = validationResult(req);
-  if (!error.isEmpty()) {
-    return res.status(422).json({
-      data:error.array(),
-      msg:"Email Entered is incorrect"
-    })
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const error = new Error('Validation Failed');
+    error.statusCode = 422;
+    error.data = errors.array();
+    throw error;
   }
   
   const email = req.body.email;
@@ -332,23 +333,15 @@ exports.checkOtp= (req, res, next) => {
   OtpUser.findOne({token:checkToken}).then(data => {
 
     if(!(data.Otp === otp)){
-      res.json("Otp incorrect")
+      res.status(400).json("Otp incorrect")
     }
     res.json("Otp verified")
   }).catch(err => {
     res.json({error:err,message:"something went wrong"});
   })
 }
-//---------------------------------------------------------
-exports.resetPassword=(req,res,next)=>{
 
-  // const errors = validationResult(req);
-  //  if (!errors.isEmpty()) {
-  //    const error = new Error("Validation Failed ");
-  //    error.statusCode = 422;
-  //    error.data = errors.array();
-  //    throw error;
-  //  }
+exports.resetPassword=(req,res,next)=>{
   
    const email = req.body.email;
    const newPassword = req.body.newPassword;
@@ -367,7 +360,9 @@ exports.resetPassword=(req,res,next)=>{
     bcrypt.hash(newPassword, 12).then((hashedPass) => {
 
       User.findOne({email:email}).then(user => {
+        
         user.password = hashedPass;
+
         user.save().then(result => {
           res.json({messsage:"new password saved",updatedUser:result})
         }).catch(err => {

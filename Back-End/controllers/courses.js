@@ -243,6 +243,7 @@ exports.videoUpload = (req,res,next) => {
     console.log(videoPathArray)
     courses.findById({_id:courseId}).then(course =>{
          course.videourl = videoPathArray;
+         course.save();
         res.json({message:"Video Uploaded",updatedCourse:course })
     }).catch(err => {
         res.json({error:err,message:"Course Not found"});
