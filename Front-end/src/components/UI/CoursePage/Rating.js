@@ -20,12 +20,15 @@ class Rating extends Component {
             
                
                 const fd =new FormData();
-              
+                const form ={};
                 
-                fd.append('_id',this.props.CourseId);
-                fd.append('rating',newRating);
+                form['_id']=this.props.CourseId;
+                form['rating']=newRating;
+
+                // fd.append('_id',this.props.CourseId);
+                // fd.append('rating',newRating);
     
-                axios.put("/Rating",fd,{
+                axios.put("/Rating",form,{
                     headers: {
                         
                         Authorization: 'Bearer '+ localStorage.getItem('user')

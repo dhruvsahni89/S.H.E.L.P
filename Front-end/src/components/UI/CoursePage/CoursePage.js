@@ -5,7 +5,7 @@ import CourseDesc from './CourseDesc';
 import CourseVideo from './CourseVideo';
 import axios from '../../../ApiServices/axiosUrl';
 import VideoList from './VideoList';
-import { saveAs } from 'file-saver';
+//import { saveAs } from 'file-saver';
 import parse from 'html-react-parser';
 
 class CoursePage extends Component {
@@ -17,9 +17,53 @@ class CoursePage extends Component {
         loading: true,
         token:localStorage.getItem('user'),
         redirect:null,
-        playing1:false,
+        CurrentVideo:'',
+        playing:false,
         PlayButton:'fa fa-play-circle',
-    }
+
+        // Video0:{
+        //     'video0':false,
+        //     'videoName':'',
+        // }
+
+        // Video1:{
+        //     'video1':false,
+        //     'videoName':'',
+        // }
+
+        // Video2:{
+        //     'video2':false,
+        //     'videoName':'',
+        // }
+
+
+        // Video3:{
+        //     'video3':false,
+        //     'videoName':'',
+        // }
+
+        // Video4:{
+        //     'video4':false,
+        //     'videoName':'',
+        // },
+
+        'video0':true,
+         'video1':false,
+         'video2':false,
+         'video3':false,
+         'video4':false,
+
+         'CurrentVideo0':'',
+         'CurrentVideo1':'',
+         'CurrentVideo2':'',
+         'CurrentVideo3':'',
+         'CurrentVideo4':'',
+
+
+
+
+
+     }
 
     componentDidMount(){
       
@@ -30,10 +74,10 @@ class CoursePage extends Component {
             }
         } )
         .then(response => {
-            console.log("Courses Response",response);
+            console.log("CoursePage Response",response);
        
             this.setState({CoursesInfo: response.data.course});
-           
+            this.setState({CurrentVideo:response.data.course.videourl[0]})
             this.setState({loading:false});
             console.log(this.state.CoursesInfo);
 
@@ -42,11 +86,13 @@ class CoursePage extends Component {
         })
         .catch(error => {
             console.log(error.response);
-            if(error.response.data.message ==='jwt malformed')
-            this.setState({redirect:"/login"})
+            //if(error.response.data.message ==='jwt malformed')
+            //if(error.response.status ===500)
+            //this.setState({redirect:"/login"})
         })
        
     }
+
 
     DownloadPdf=()=>{
         axios.get(`/home/download/${this.state.CourseId}` ,{
@@ -54,73 +100,139 @@ class CoursePage extends Component {
                 
                 Authorization: 'Bearer '+ this.state.token
             }
-        },
-        {responseType: 'blob'}
-        )
+        }).then(response => {
+            let path ='http://localhost:8080/'+'invoice-' + this.state.CourseId + '.pdf';
+
+            //this.setState({redirect:"/login"});
+            window.open(path);
+        
+        })
+     // {responseType: 'blob'}
+        // )
                 
-                .then((res)=>{
-                    const pdfBlob = new Blob([res.data], {type: 'application/pdf'})
+        //         .then((res)=>{
+        //             const pdfBlob = new Blob([res.data], {type: 'application/pdf'})
+       
+        //            let path ='http://localhost:8080/'+'invoice-' + this.state.CourseId + '.pdf';
+        //            saveAs(pdfBlob,path);
+        //         })
 
-                   saveAs(pdfBlob,'newPdf.pdf');
-                })
-
-                .catch(error => {
-                    console.log(error);
+        //         .catch(error => {
+        //             console.log(error);
                     
-                })
+        //         })
 
-
+        
     }
+    
+    VideochangeHandler=(event,video,index,playing)=> {
+       let VideoNumber = 'video' + index;
+       this.setState({CurrentVideo:video})
+       console.log("before=",this.state[VideoNumber]);
+      // this.setState({[VideoNumber]:!this.state[VideoNumber]})
 
-    PlayPause=()=> {
-
-        
-        
-        if(this.state.playing1){
-            this.setState({playing1:false,PlayButton:'fa fa-play-circle'});
-            
+      for(let i=0;i<5;i++){
+        if(i===index){
+            this.setState({[VideoNumber]:true})
         }
-
         else{
-            this.setState({playing1:true,PlayButton:'fa fa-pause-circle'});
-          
+            this.setState({['video'+i]:false})
         }
-     }
+      }
+
+
+       //this.setState(prevState => 
+        //({[VideoNumber]:prevState[VideoNumber]}));
+
+        //console.log("STATE"+index,this.state[VideoNumber])
+        //console.log(this.state)
+
+        if(playing){
+            this.setState({playing:true})
+        }
+        else{
+            this.setState({playing:false})
+        }
+       // console.log("boolean=",playing)
+        //console.log("PLAYING STATE=",this.state.playing);
+    }
+   
 
     
 
     render(){
         if(this.state.redirect)
-        return <Redirect to="/login"/>;
+        return <Redirect to={this.state.redirect}/>;
 
 
         let title = null;
         let short_description=null;
         let teacher=null;
         let createdAt=null;
-        let videoUrl=null;
+        let VideoUrl=null;
         let rating=null;
+        let ratingtimesUpdated=null;
         let requirement=null;
         let longDescription=null;
         let willLearn=null;
-
-        
-        
+        let videourl=null;
+        let CurrentVideo="";
+        let playButton='';
+        let playingVideo=false;
 
         if(this.state.loading ===false){
+                
+
                 title = (this.state.CoursesInfo.title);
                 short_description = (this.state.CoursesInfo.discription);
                 teacher=(this.state.CoursesInfo.name)
                 createdAt=(this.state.CoursesInfo.createdAt);
                 createdAt =createdAt.split("T")[0];
-                videoUrl=(this.state.CoursesInfo.videourl);
+                //videoUrl=(this.state.CoursesInfo.videourl);
                 rating=(this.state.CoursesInfo.rating.ratingFinal);
                 requirement=parse(this.state.CoursesInfo.requirement);
                 longDescription=parse(this.state.CoursesInfo.discriptionLong);
                 willLearn=parse(this.state.CoursesInfo.willLearn);
+                ratingtimesUpdated=(this.state.CoursesInfo.rating.timesUpdated);
+                videourl=(this.state.CoursesInfo.videourl.slice(0));
+               // this.setState({CurrentVideo:videourl[0]});
+                CurrentVideo = "http://localhost:8080/" + this.state.CurrentVideo;
+
+
 
                 if(rating ===0) rating=1;
                 
+                
+                VideoUrl= (
+                    videourl.map((video,index)=>{
+                    let VideoNumber ='video'+index;
+                   
+                    if(this.state[VideoNumber]){
+
+                        playButton='VideoSelected';
+                        playingVideo=true;
+                    
+                    }
+                    else{
+                        playButton='VideoNotSelected';
+                        playingVideo=false;
+                       
+                    }
+                
+               return(
+
+                    <VideoList
+                    key={index}
+                    video={video}
+                    changed={(event)=> this.VideochangeHandler(event,video,index,playingVideo)}
+                    playButton={playButton}
+                    
+                    
+                    />)
+            
+                
+                     } )
+                );
 
         }
         
@@ -135,8 +247,8 @@ class CoursePage extends Component {
                                 
                 <nav aria-label="breadcrumb">
 
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item">
+                        <ol className="breadcrumb">
+                            <li className="breadcrumb-item">
                                 <NavLink to='/home'>
                                     Home
                                 </NavLink></li>
@@ -150,7 +262,7 @@ class CoursePage extends Component {
                             </li>
 
 
-                            <li class="breadcrumb-item">
+                            <li className="breadcrumb-item">
                                 <NavLink to={`/course/${this.state.CourseName}/${this.state.CourseId}`}
 
                                 activeStyle={{textDecoration:'underline'}}>
@@ -173,14 +285,17 @@ class CoursePage extends Component {
                                         createdat={createdAt}
                                         CourseId={this.state.CourseId}
                                         rating={rating}
+                                        ratingtimesUpdated={ratingtimesUpdated}
                                         CourseName={this.state.CourseName}
                             />
 
                         </div>
 
                             <div className="Course-Video">
-                                <CourseVideo playing={this.state.playing1} videoUrl={"http://localhost:8080/" 
-                                             +videoUrl} />
+                           
+                                <CourseVideo playing={this.state.playing} 
+                                    videoUrl={CurrentVideo}
+                                              />
                             </div>
 
 
@@ -196,8 +311,8 @@ class CoursePage extends Component {
                         <div className="Small-nav-section">
 
                             <p >About</p>
-                            <p>Instructor</p>
-                            <p>About</p>
+                            {/* <p>Instructor</p>
+                            <p>About</p> */}
 
 
                         </div>
@@ -230,17 +345,13 @@ class CoursePage extends Component {
                  </div>
 
                     <div className="flex-center">
-                        <VideoList playing={this.PlayPause} 
-                        playButton={this.state.PlayButton}/>
-                        <VideoList/>
-                        <VideoList/>
+                        {/* <VideoList playing={this.PlayPause} 
+                        playButton={this.state.PlayButton}/> */}
 
-                        <VideoList/>
-                        <VideoList/>
-                        <VideoList/>
-                         <VideoList/>
-                         <VideoList/>
-                         <VideoList/>
+                        {VideoUrl}
+    
+                      
+                        
                        
                           
                      </div>

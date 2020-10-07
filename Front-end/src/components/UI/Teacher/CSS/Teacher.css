@@ -60,11 +60,11 @@
     opacity:1;
 }
 
-.Teacher-Courses-Buttons button:focus{
-    background: #2D81F7 0% 0% no-repeat padding-box;
-    color:white;
-}
 
+.ButtonClicked{
+    background: #2D81F7 0% 0% no-repeat padding-box !important;
+    color:white !important;
+}
 
 
 .CourseCategoryTitle {

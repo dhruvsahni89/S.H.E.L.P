@@ -3,7 +3,7 @@ import TeacherCategory from './TeacherCatergory';
 import HomeBanner from '../../HomePage/HomeBanner';
 import CourseCards from '../../HomePage/CourseCards';
 import CourseTitle from '../../HomePage/CourseTitle';
-import {NavLink} from 'react-router-dom';
+import {NavLink,Redirect} from 'react-router-dom';
 import Loader from 'react-loader-spinner';
 import TeacherCard from './TeacherCard';
 //import ProductApi from './../../../ApiServices/ProductApi';
@@ -19,6 +19,7 @@ class TeacherHomePage extends Component {
         // CourseLink: this.props.match.params.CourseName,
          Courses: null,
          loading: true,
+         redirect:null,
         // img: "",
     }
 
@@ -26,13 +27,13 @@ class TeacherHomePage extends Component {
     componentDidMount(){
 
         const fd =new FormData();
+        const form = {};
+        form['userId'] = localStorage.getItem('userId');
+
         fd.append("userId",localStorage.getItem('userId'))
-
-
        
-       console.log(this.state.CourseLink)
 
-                axios.post("/teacher/uploads",fd,{
+                axios.post("/teacher/uploads",form,{
                     headers: {
                        
                         Authorization: 'Bearer '+ localStorage.getItem('user') 
@@ -40,7 +41,7 @@ class TeacherHomePage extends Component {
                 })
                 .then(response => {
                     
-                    console.log("Teacher Response",response);
+                    console.log("Teacher Uploaded Courses",response);
                     
                     this.setState({Courses: response.data.data});
                 

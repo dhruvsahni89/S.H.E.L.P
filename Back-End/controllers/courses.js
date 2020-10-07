@@ -106,27 +106,39 @@ exports.update=(req,res,next)=>{
 }
 exports.deletePost = (req, res, next) => {
     const courseId = req.body.courseId;
-    courses.findById(courseId)
-      .then(course => {
-        if (!course) {
-          const error = new Error('Could not find post.');
-          error.statusCode = 404;
-          throw error;
-        }
-        //deleting post
-        
-        return courses.findByIdAndRemove(courseId);
+    courses.deleteOne({_id:courseId})
+    .then((result) => {
+        res.status(200).json({
+          msg: "course deleted",
+        });
       })
-      .then(removed => {
-        console.log(removed);
-        res.status(200).json({ message: 'Deleted course.' });
-      })
-      .catch(err => {
+      .catch((err) => {
         if (!err.statusCode) {
           err.statusCode = 500;
         }
         next(err);
       });
+    // courses.findById(courseId)
+    //   .then(course => {
+    //     if (!course) {
+    //       const error = new Error('Could not find post.');
+    //       error.statusCode = 404;
+    //       throw error;
+    //     }
+    //     //deleting post
+        
+    //     return courses.findByIdAndRemove(courseId);
+    //   })
+    //   .then(removed => {
+    //     console.log(removed);
+    //     res.status(200).json({ message: 'Deleted course.' });
+    //   })
+    //   .catch(err => {
+    //     if (!err.statusCode) {
+    //       err.statusCode = 500;
+    //     }
+    //     next(err);
+    //   });
   };
 
 exports.bookmarkCourse = (req, res, next) =>{

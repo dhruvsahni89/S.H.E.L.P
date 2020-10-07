@@ -3,6 +3,7 @@ const { validationResult, Result } = require("express-validator/check");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/users");
+const Emailsender=require("../utils/email");
 const OtpUser = require("../models/otp");
 const nodemailer = require("nodemailer");
 const sendgridTRansport = require("nodemailer-sendgrid-transport");
@@ -59,12 +60,13 @@ exports.signup = (req, res, next) => {
     otpdata.save();
 
     res.status(201).json({ message: "OTP send to your Email" , token:token});
-    return transporter.sendMail({
-        to: email,
-        from: "dhruvsahni.akg@gmail.com",
-        subject: "signup successful",
-        html: `<h1>thankuh for registering here is your one time pass : ${otp}</h1>`,
-      });
+    // return transporter.sendMail({
+    //     to: email,
+    //     from: "dhruvsahni.akg@gmail.com",
+    //     subject: "signup successful",
+    //     html: `<h1>thankuh for registering here is your one time pass : ${otp}</h1>`,
+    //   });
+    return Emailsender.sendemail(email,otp);
 
     })
     .catch((err) => {
@@ -115,12 +117,13 @@ exports.login=(req,res,next)=>{
            data.Otp=otp;
            data.save();
         });
-         transporter.sendMail({
-          to: email,
-          from: "dhruvsahni.akg@gmail.com",
-          subject: "Verify Otp",
-          html: `<h1>sorry uh have not registered please enter otp before login your one time pass : ${otp}</h1>`,
-        });
+        //  transporter.sendMail({
+        //   to: email,
+        //   from: "dhruvsahni.akg@gmail.com",
+        //   subject: "Verify Otp",
+        //   html: `<h1>sorry uh have not registered please enter otp before login your one time pass : ${otp}</h1>`,
+        // });
+        Emailsender.sendemail(email,otp);
         res.status(422).json({
           message: " you have not verified your otp  , new otp has been sent to your email THANK YOU!"
         });
@@ -266,12 +269,13 @@ exports.resendOTP = (req, res, next) =>{ // extra measure's taken if, password v
 
       res.status(201).json({ message: "otp stored in database " , token:token});
 
-      return transporter.sendMail({
-        to: email,
-        from: "dhruvsahni.akg@gmail.com",
-        subject: "Otp resend",
-        html: `<h1>Your New OTP is : ${otp}</h1>`,
-      });
+      // return transporter.sendMail({
+      //   to: email,
+      //   from: "dhruvsahni.akg@gmail.com",
+      //   subject: "Otp resend",
+      //   html: `<h1>Your New OTP is : ${otp}</h1>`,
+      // });
+     return Emailsender.sendemail(email,otp);
 
 
     }).catch(err => {
@@ -282,6 +286,7 @@ exports.resendOTP = (req, res, next) =>{ // extra measure's taken if, password v
 
 exports.sendResetOtp= (req, res, next) => {
 
+
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     const error = new Error('Validation Failed');
@@ -289,102 +294,86 @@ exports.sendResetOtp= (req, res, next) => {
     error.data = errors.array();
     throw error;
   }
+
   
-  const email = req.body.email;
+    const email = req.body.email;
   
-  let otp = Math.floor(100000 + Math.random() * 900000);
-  const token = jwt.sign(
-    {
+   let otp = Math.floor(100000 + Math.random() * 900000);
+    const token = jwt.sign(
+      {
         email: email,
       },
       "otptoken",
       { expiresIn: 600 } //600s = 10min
     );
 
-    console.log(token);
 
     const otpdata = new OtpUser({
-        token: token,
+        Token: token,
         Otp: otp,
         email: email,
     });
-
-   otpdata.save().then(result => {
-     res.json({result:result,message:"data saved"});
-   }).catch(err =>{
-     res.json(err);
-   });
-
+   otpdata.save();
    
-   return transporter.sendMail({
-    to: email,
-    from: "dhruvsahni.akg@gmail.com",
-    subject: "Reset Password Otp",
-    html: `<h1>Reset OTP : ${otp}</h1>`,
-  });
+  //  return transporter.sendMail({
+  //   to: email,
+  //   from: "dhruvsahni.akg@gmail.com",
+  //   subject: "Reset Password Otp",
+  //   html: `<h1>Reset OTP : ${otp}</h1>`,
+  // });
+  return Emailsender.sendemail(email,otp);
 
-  
 }
 
 exports.checkOtp= (req, res, next) => {
   const otp = req.body.otp;
   const checkToken = req.body.token;
 
-  OtpUser.findOne({token:checkToken}).then(data => {
+  OtpUser.findOne({Token:checkToken}).then(data => {
 
     if(!(data.Otp === otp)){
       res.status(400).json("Otp incorrect")
     }
-    res.json("Otp verified")
-  }).catch(err => {
-    res.json({error:err,message:"something went wrong"});
+
   })
 }
 
 exports.resetPassword=(req,res,next)=>{
   
-   const email = req.body.email;
-   const newPassword = req.body.newPassword;
-   const confirmPassword = req.body.confirmPassword;
- 
-   if (newPassword != confirmPassword) {
-     const error = new Error("reset failed,fields do no match");
-     error.statusCode = 422;
-     error.data = {
-       msg: "Confirm password and new password do not match",
-       param: "confirmPassword",
-     };
-     throw error;
-   }
+  const email = req.body.email;
+  const newPassword = req.body.newPassword;
+  const confirmPassword = req.body.confirmPassword;
 
-    bcrypt.hash(newPassword, 12).then((hashedPass) => {
-
-      User.findOne({email:email}).then(user => {
-        
-        user.password = hashedPass;
-
-        user.save().then(result => {
-          res.json({messsage:"new password saved",updatedUser:result})
-        }).catch(err => {
-          res.json(err);
-        });
-      }
-      ).catch(err => {
-        res.json({error:err,message:"password not saved"});
-      });
-
-     
-          
-    });
+  if (newPassword != confirmPassword) {
+    const error = new Error("reset failed,fields do no match");
+    error.statusCode = 422;
+    error.data = {
+      msg: "Confirm password and new password do not match",
+      param: "confirmPassword",
+    };
+    throw error;
   }
 
+   bcrypt.hash(newPassword, 12).then((hashedPass) => {
 
+     User.findOne({email:email}).then(user => {
+       
+       user.password = hashedPass;
 
+       user.save().then(result => {
+         res.json({messsage:"new password saved",updatedUser:result})
+       }).catch(err => {
+         res.json(err);
+       });
+     }
+     ).catch(err => {
+       res.json({error:err,message:"password not saved"});
+     });
 
-
-
-
-
+    
+         
+   });
+ }
 
 
   //  let loadedUser;
@@ -439,4 +428,3 @@ exports.resetPassword=(req,res,next)=>{
   //        }
   //        next(err);
   //      });
- 

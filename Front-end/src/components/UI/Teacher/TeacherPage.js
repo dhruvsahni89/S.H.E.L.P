@@ -65,18 +65,25 @@ class TeacherPage extends Component{
                
              },
 
-            category: {
+             category: {
                 value: "",
                 valid:true,
                 validation: {
                     required: true,
                   
                 },
+                "Web Development":false,
+                "React" : false,
+                "ML": false,
+                "Web Designing": false,
+                "NodeJs":false,
+                "Photography":false,
+
                 
             
             },
 
-            file:{
+            image:{
                 value:'',
                 validation: {
                     required: true,
@@ -143,12 +150,16 @@ class TeacherPage extends Component{
         alertType:" ",
         
     },
-
+    CourseNames:["Web Development","React", "ML","Web Designing","NodeJs",
+                "Photography"],
     isLoggedIn:false,
     userName:"",
     alertPressed:false,
     redirect:null,
     uploadedPercentage:0,
+    CourseId:"",
+    redirect:false,
+    
 }
 
     componentDidMount(){
@@ -244,13 +255,22 @@ class TeacherPage extends Component{
     categoryHandler = (CourseName)=>{
 
         const Coursecategory = {...this.state.Form};
-
+       
         Coursecategory.category.value = CourseName;
-        
+     
+
+        for(let x in this.state.CourseNames){
+
+            if(this.state.CourseNames[x]!==CourseName){
+                Coursecategory.category[this.state.CourseNames[x]]=false;
+               // console.log(this.state.CourseNames[x])
+            }
+        }
+
+        Coursecategory.category[CourseName]=true;
         
         this.setState({Form:Coursecategory});
       
-        
        
     }
 
@@ -260,7 +280,7 @@ class TeacherPage extends Component{
     
         const selectedfile= {...this.state.Form};
 
-        selectedfile.file.value= event.target.files;
+        selectedfile.image.value= event.target.files[0];
        
         this.setState({Form:selectedfile })
         console.log(selectedfile)
@@ -283,20 +303,9 @@ class TeacherPage extends Component{
 
       
         for(let formElement in this.state.Form){
-                
-                
-            if(!(formElement === 'file')){
-               
+             
                 fd.append(formElement, this.state.Form[formElement].value);
-            }
-            else{
-                for(var i =0;i<this.state.Form['file'].value.length; i++){
-                    
-                    fd.append(formElement,this.state.Form['file'].value[i])
-                }
-            }
-                form[formElement]=this.state.Form[formElement].value;
-
+         
                 
         }
 
@@ -327,7 +336,8 @@ class TeacherPage extends Component{
                 .then( res=> { console.log(res);
 
                     if(res.status ===201 || res.status ===200){
-
+                    this.setState({CourseId:res.data.newCourse._id})
+                    this.setState({redirect:true})
                     this.AlertError("Your Course has been saved!", "success");
                 
                 }})
@@ -351,19 +361,68 @@ class TeacherPage extends Component{
 
     render(){
 
-        if(this.state.redirect){
-            return <Redirect to="/login"/>
-        }
+    
+        let classWeb=[];
+        let classWebDesign=[];
+        let classReact=[];
+        let classML=[];
+        let classNodeJs=[];
+        let classPhotography=[];
 
-        const uploadedPercentage = this.state.uploadedPercentage;
 
         let Welcome = null;
         let alertContent = null;
         let fileName=null;
+       
+        if(this.state.redirect){
+            return <Redirect 
+                    to={{
+                        pathname: "/TeacherVideos",
+                        state: {CourseId:this.state.CourseId }
+                    }}
+            />
+        }
         
+
+        if(this.state.Form.category['Web Development']){
+            classWeb=['ButtonClicked']
+            //console.log("clicked11",classWeb.join(' '),this.state.Form.category['Web Development'])
+        }
+        else classWeb=[];
+
+         if(this.state.Form.category['Web Designing']){
+            classWebDesign=['ButtonClicked']
+            
+        }
+        else classWebDesign=[];
+    
+        if(this.state.Form.category['ML']){
+            classML=['ButtonClicked']
+        }
+        else classML=[];
+
+
+         if(this.state.Form.category['React']){
+            classReact=['ButtonClicked']
+        }
+        else classReact=[];
+
+         if(this.state.Form.category['Photography']){
+            classPhotography=['ButtonClicked']
+        }
+        else classPhotography=[];
+
+
+        if(this.state.Form.category['NodeJs']){
+            classNodeJs=['ButtonClicked']
+        }
+        else classNodeJs=[];
+
+        const uploadedPercentage = this.state.uploadedPercentage;
+
         
-        if(this.state.Form.file.value){
-             fileName=this.state.Form.file.value[1].name;
+        if(this.state.Form.image.value){
+             fileName=this.state.Form.image.value.name;
              
         }
 
@@ -432,19 +491,20 @@ class TeacherPage extends Component{
             <p className="CourseCategoryTitle">Course Category</p>
 
             <div className="Teacher-Courses-Buttons">
-                <button onClick={()=> this.categoryHandler("Web Development")}> Development</button>
-                <button onClick={()=> this.categoryHandler("Web Designing")}> Designing</button>
-                <button onClick={()=> this.categoryHandler("React")}> React</button>
-                <button onClick={()=> this.categoryHandler("ML")}> ML</button>
-                <button onClick={()=> this.categoryHandler("Photography")}> Photography</button>
-                <button onClick={()=> this.categoryHandler("NodeJs")}> Node JS</button>
+               
+            <button onClick={()=> this.categoryHandler("Web Development")} className={classWeb.join(' ')} > Development</button>
+                <button className={classWebDesign.join(' ')} onClick={()=> this.categoryHandler("Web Designing")}> Designing</button>
+                <button className={classReact.join(' ')} onClick={()=> this.categoryHandler("React")}> React</button>
+                <button className={classML.join(' ')} onClick={()=> this.categoryHandler("ML")}> ML</button>
+                <button className={classPhotography.join(' ')} onClick={()=> this.categoryHandler("Photography")}> Photography</button>
+                <button className={classNodeJs.join(' ')} onClick={()=> this.categoryHandler("NodeJs")}> Node JS</button>
                 
             </div>
 
         </div>    
 
 
-            <button className="NextBtn">Next</button>
+           
 
    
             <TeacherTittle TitleDesc={"Description of your Course"}/>
@@ -505,7 +565,7 @@ class TeacherPage extends Component{
         
         </div>
         
-         <button className="NextBtn">Next</button> 
+         {/* <button className="NextBtn">Next</button>  */}
 
 
 
@@ -519,7 +579,7 @@ class TeacherPage extends Component{
             
             
                 <label className="custom-image-upload">
-                    <input type="file" name='file' multiple onChange={this.fileSelectorHandler}/>
+                    <input type="file" name='file'  onChange={this.fileSelectorHandler}/>
                     Upload Image
             </label>
 

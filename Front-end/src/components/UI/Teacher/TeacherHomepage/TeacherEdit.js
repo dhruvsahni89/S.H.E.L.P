@@ -170,10 +170,12 @@ class TeacherPage extends Component{
         }
 
         const fd = new FormData();
-        console.log(this.props.location.aboutProps.CourseId)
+        const form={};
+        //console.log(this.props.location.aboutProps.CourseId)
+        form['courseId']=this.props.location.aboutProps.CourseId;
         fd.append('courseId',this.props.location.aboutProps.CourseId);
 
-        axios.put("/home/edit",fd,{
+        axios.put("/home/edit",form,{
             headers: {
                 Authorization: 'Bearer '+ localStorage.getItem('user') 
             }
@@ -259,14 +261,9 @@ class TeacherPage extends Component{
         const updatedForm = {
             ...this.state.CourseDetails
         }
-       
-        
+  
 
         updatedForm[inputIdentifier] = event.target.value;
-
-
-       
-
         //updatedElement.valid = this.checkValidity(updatedElement.value,
           //  updatedElement.validation);
 
@@ -278,8 +275,10 @@ class TeacherPage extends Component{
     categoryHandler = (CourseName)=>{
 
         const Coursecategory = {...this.state.Form};
+        const updatedcategory ={...this.state.CourseDetails};
 
         Coursecategory.category.value = CourseName;
+        updatedcategory.category=CourseName;
 
         for(let x in this.state.CourseNames){
 
@@ -395,8 +394,24 @@ class TeacherPage extends Component{
     render(){
 
         let title = null;
+        let discription=null;
+        let discriptionLong=null;
+        let name=null;
+        let category=null;
+        let willLearn=null;
+        let requirement=null;
+        let file= null;
+
         if(!this.state.loading){
             title=this.state.CourseDetails.title;
+            discription=this.state.CourseDetails.discription;
+            discriptionLong=this.state.CourseDetails.discriptionLong;
+            name=this.state.CourseDetails.name;
+            this.state.Form.category[this.state.CourseDetails.category]=true;
+            //category=this.state.CourseDetails.category;
+            requirement=this.state.CourseDetails.requirement;
+            willLearn=this.state.CourseDetails.willLearn;
+            file=this.state.CourseDetails.file;
         }
 
         
@@ -475,8 +490,6 @@ class TeacherPage extends Component{
             Welcome = <p> Edit your Course </p>;
         }
         
-     //   if(this.state.Form)
-      
 
         return(
 
@@ -500,7 +513,7 @@ class TeacherPage extends Component{
                 label={this.state.Form.name.label}
                 rows={this.state.Form.name.rows}
                 cols={this.state.Form.name.cols}
-                value={title}
+                value={name}
                 changed={(event)=> this.inputchangeHandler(event,"name")}
                 />
 
@@ -551,18 +564,19 @@ class TeacherPage extends Component{
             label={this.state.Form.discription.label}
             rows={this.state.Form.discription.rows}
             cols={this.state.Form.discription.cols}
-            placeholder={this.state.Form.discription.placeholder}
+            value={discription}
             changed={(event)=> this.inputchangeHandler(event,"discription")}
             />
 
         </div>
 
         <div id="section2" className="Teacher-Head-Class">
+
             <CKEditorArea
             label={this.state.Form.discriptionLong.label}
             rows={this.state.Form.discriptionLong.rows}
             cols={this.state.Form.discriptionLong.cols}
-            placeholder={this.state.Form.discriptionLong.placeholder}
+            value={discriptionLong}            
             changed={(event,editor)=> this.CKEditorHandler(event,editor,"discriptionLong")}
             
             
@@ -579,6 +593,7 @@ class TeacherPage extends Component{
             rows={this.state.Form.willLearn.rows}
             cols={this.state.Form.willLearn.cols}
             placeholder={this.state.Form.willLearn.placeholder}
+            value={willLearn}   
             changed={(event,editor)=> this.CKEditorHandler(event,editor,"willLearn")}
             
             
@@ -593,7 +608,7 @@ class TeacherPage extends Component{
             label={this.state.Form.requirement.label}
             rows={this.state.Form.requirement.rows}
             cols={this.state.Form.requirement.cols}
-            placeholder={this.state.Form.requirement.placeholder}
+            value={requirement}   
             changed={(event,editor)=> this.CKEditorHandler(event,editor,"requirement")}
             
             
@@ -616,7 +631,7 @@ class TeacherPage extends Component{
             
             
                 <label className="custom-image-upload">
-                    <input type="file" name='file' multiple onChange={this.fileSelectorHandler}/>
+                    <input type="file" name='file' value={file} multiple onChange={this.fileSelectorHandler}/>
                     Upload Image
             </label>
 
