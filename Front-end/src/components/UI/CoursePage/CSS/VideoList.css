@@ -27,9 +27,17 @@
 
 }
 
-.fa-play{
+.fa-play-circle,.fa-pause-circle{
     color:rgb(85, 84, 84) !important;
-    
+    font-size:18px !important;
+}
+
+.VideoSelected{
+    background:rgba(145, 145, 219, 0.507);
+}
+
+.VideoNotSelected{
+    background: #e8f0fe;
 }
 
 .video-duration{

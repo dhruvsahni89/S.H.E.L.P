@@ -69,7 +69,7 @@ class Navbar extends Component {
         <li className="nav-item dropdown usere">
             <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" 
             role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fa fa-user" aria-hidden="true"></i>
+          <i className="fa fa-user" aria-hidden="true"></i>
             </a>
             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
 
@@ -121,8 +121,10 @@ class Navbar extends Component {
 <nav className=" navbar navbar-expand-lg sticky-top ">
 
   <NavLink to="/home/all" className="navbar-brand"><Logo/></NavLink>
-  <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-  <i class="fa fa-bars" aria-hidden="true"></i>
+  <button className="navbar-toggler" type="button" data-toggle="collapse" 
+  data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+   aria-label="Toggle navigation">
+  <i className="fa fa-bars" aria-hidden="true"></i>
   </button>
 
   <div className="collapse navbar-collapse" id="navbarSupportedContent">

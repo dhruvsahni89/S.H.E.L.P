@@ -57,11 +57,6 @@ AlertError(alertmsg, alertType) {
 
     categoryHandler=(CourseName)=>{
 
-        
-       
-       
-        
-       
 
             if(this.state.Courses[CourseName].touched)
 

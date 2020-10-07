@@ -6,18 +6,24 @@ class VideoList extends Component{
  
     
     render(){
+        let className=[];
+
+        if(this.props.playButton){
+            className=['video-list',this.props.playButton];
+        }
       
 
             return(
-            <div className="video-list">
+            <div className={className.join(' ')}>
                 
                 <div className="play-title">
                 
-                <i onClick={this.props.playing} 
+                <i onClick={this.props.changed} 
                
-
-                className={this.props.playButton}
+                className="fa fa-pause-circle"
                 aria-hidden="true"></i>
+
+
                 <span> Title</span>   
                 
                 </div>     

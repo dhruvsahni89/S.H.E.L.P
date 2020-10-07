@@ -91,6 +91,7 @@ class CourseDesc extends Component {
                     <div className="RatingStars"><Rating rating={this.props.rating}
                      specialrating={true} 
                     CourseId={this.props.CourseId}/></div>
+                    <p className="ratingtimesUpdated"> ( {this.props.ratingtimesUpdated} )</p>
 
                 </div>
 

@@ -17,7 +17,7 @@ const CKEditorArea = (props)=> {
                         className="CKEditor"
                         rows={props.rows} cols={props.cols} 
                         placeholder={props.placeholder}
-                        value={props.value}
+                       
                         onChange={props.changed}
                         />
        

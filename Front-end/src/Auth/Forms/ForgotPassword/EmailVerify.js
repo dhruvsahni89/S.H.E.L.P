@@ -10,7 +10,7 @@ import Google_logo from '../../../components/UI/Logo/google';
 import SumbitButton from '../../../components/UI/Buttons/SumbitButton';
 import Alert from '../alert';
 
-class Login extends Component {
+class EmailVerify extends Component {
 
     state = { 
         Form:{
@@ -33,24 +33,7 @@ class Login extends Component {
             
         },
 
-            password: {
-
-                placeholder: 'Password',
-                value: "",
-                valid: false,
-                type: 'password',
-                error: " ",
-                msg: '',
-
-                validation: {
-                    required: true,
-                    minLength:5,
-                    maxLength:18
-                },
-                touched: false,
             
-        },
-
     },
     loading:false,
       
@@ -135,16 +118,6 @@ inputBlurHandler = (event,inputIdentifier)=> {
     }
     
     
-        
-    // msg error for password
-    if(inputIdentifier === "password" && !updatedElement.valid){
-        updatedElement.error = "At least 5 characters and at most 18";
-        updatedElement.msg="";
-    }
-    if(inputIdentifier === "password" && updatedElement.valid){
-        updatedElement.error="";
-        updatedElement.msg="All good!";
-    }
     // msg errors for email
     if(inputIdentifier === "email" && !updatedElement.valid){
         updatedElement.error = "check format";
@@ -172,6 +145,7 @@ OverallValidity = ()=>{
 
 
 formHandler = (event)=> {
+
     event.preventDefault();
     this.setState({alertPressed:true})
     setTimeout( ()=> this.setState({alertPressed:false}) , 3000);
@@ -184,22 +158,22 @@ formHandler = (event)=> {
                 formData[formElement]=this.state.Form[formElement].value;
         }
         
-        AuthService.login(formData)
+        AuthService. VerifyEmail(formData)
         .then(response => {
           
-            console.log('Response:', response)
+            console.log('VerifyEmail:', response)
             if(response.status ===201 || response.status ===200)
 
                 {
                 
-                //alert(response.data.message);
-                localStorage.setItem('user',response.data.token);
-                localStorage.setItem('userId',response.data.userId);
-                localStorage.setItem('userName',response.data.username);
+                // alert(response.data.message);
+                   localStorage.setItem('userToken',response.data.result.token);
+                //    localStorage.setItem('userId',response.data.userId);
+                //    localStorage.setItem('userName',response.data.username);
                 this.setState({loading:false})
-                this.setState({redirect:'/HomePage'})
+                this.setState({redirect:'/ForgotPasswordotp'})
                 console.log(response.data)
-                window.location.reload();
+            
            
             }
             else 
@@ -207,7 +181,7 @@ formHandler = (event)=> {
 
         .catch(error=>{console.log(error.response); 
             this.setState({loading:false});
-            this.AlertError(error.response.data.data[0].msg, "danger");});
+            this.AlertError(error.response.data.message, "danger");});
   
         }
         
@@ -243,16 +217,15 @@ render() {
 
     };
 
-    let LoginSumbitButton= <SumbitButton className={"Sumbit-btn"} Label={"Login"}/>;
+    let LoginSumbitButton= <SumbitButton className={"Sumbit-btn"} Label={"Sumbit"}/>;
    
     if(this.state.loading){
         LoginSumbitButton= <SpinnerButton spinnerclass={"Sumbit-btn"}/>;
     }
 
     let form = (
-      <div className="login-form">
-          <button className="google-btn"> <Google_logo/>  Continue using google</button>
-          <p className="devider-or">OR</p>
+      <div className="login-form-otp ">
+          
         <form onSubmit={this.formHandler} >
         
             {
@@ -272,8 +245,8 @@ render() {
 
                 ))
             }
-            <Link to="/forgotpasswordemail"> 
-            <p className="forgot-password"  > Forgot Password?</p></Link>
+            <Link to="/login"> 
+            <p className="forgot-password"  >Back to Login</p></Link>
 
             {LoginSumbitButton}
             <p className="account-login"> New User? <a href="/">Sign up</a></p>
@@ -291,9 +264,9 @@ render() {
                     <div className="SideContent">
                         
                         <MainPage
-                        shelp={true}
-                        heading1={"Resume your"}
-                        heading2={"learning with"}/>
+                        shelp={false}
+                        heading1={"Reset Password,"}
+                        heading2={"Enter your Email"}/>
 
                             {form}
                     </div>
@@ -303,4 +276,4 @@ render() {
   
 }
 
-export default Login;
+export default EmailVerify;

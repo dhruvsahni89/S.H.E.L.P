@@ -23,6 +23,7 @@ const CourseCards =(props)=>{
 
                             <span className="Course-rating">{props.rating}</span>  
                             <span className="Course-star"> <Rating rating={props.rating}/></span> 
+                   
                             <span className="Course-Price">₹ 500</span>
                           </p>
 

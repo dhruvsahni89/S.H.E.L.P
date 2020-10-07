@@ -34,7 +34,7 @@ class ResetPassword extends Component {
                 
             },
 
-                password: {
+            newPassword: {
 
                     placeholder: 'New Password',
                     value: "",
@@ -52,7 +52,7 @@ class ResetPassword extends Component {
                 
             },
 
-            ConfirmPassword: {
+            confirmPassword: {
 
                 placeholder: 'Confirm New Password',
                 value: "",
@@ -116,7 +116,7 @@ class ResetPassword extends Component {
         }
 
         if(rules.match){
-            isValid = value === (this.state.Form['password'].value) && isValid;
+            isValid = value === (this.state.Form['newPassword'].value) && isValid;
         }
 
         return isValid;
@@ -163,7 +163,7 @@ inputBlurHandler = (event,inputIdentifier)=> {
         updatedElement.error = "At least 5 characters and at most 18";
         updatedElement.msg="";
     }
-    if(inputIdentifier === "password" && updatedElement.valid){
+    if(inputIdentifier === "newPassword" && updatedElement.valid){
         updatedElement.error="";
         updatedElement.msg="All good!";
     }
@@ -178,11 +178,11 @@ inputBlurHandler = (event,inputIdentifier)=> {
     }
 
      // confirm password
-     if(inputIdentifier === "ConfirmPassword" && !updatedElement.valid){
+     if(inputIdentifier === "confirmPassword" && !updatedElement.valid){
         updatedElement.error = "Passwords do not match";
         updatedElement.msg="";
     }
-    if(inputIdentifier === "ConfirmPassword" && updatedElement.valid){
+    if(inputIdentifier === "confirmPassword" && updatedElement.valid){
         updatedElement.error="";
         updatedElement.msg="All good!";
     }
@@ -213,7 +213,7 @@ inputBlurHandler = (event,inputIdentifier)=> {
         if(this.OverallValidity()){
             this.setState({loading:true});
            
-            localStorage.setItem('email',this.state.Form["email"].value);
+           // localStorage.setItem('email',this.state.Form["email"].value);
          
             const formData ={};
             for(let formElement in this.state.Form){
@@ -223,17 +223,17 @@ inputBlurHandler = (event,inputIdentifier)=> {
 
 
             
-            AuthService.register(formData) 
+            AuthService.ResetPassword(formData) 
             .then(response => {console.log('Response:', response)
 
                 if(response.status ===201 || response.status ===200){
-                     localStorage.setItem('token', response.data.token) 
+                    //  localStorage.setItem('token', response.data.token) 
 
-                     localStorage.setItem("valid",true);
-                     localStorage.setItem("type","success");
-                     localStorage.setItem("msg",response.data.message);
+                    //  localStorage.setItem("valid",true);
+                    //  localStorage.setItem("type","success");
+                    //  localStorage.setItem("msg",response.data.message);
                    
-                     this.setState({ redirect: "/signup/otp" });
+                     this.setState({ redirect: "/login" });
                 }
                  
 
@@ -296,8 +296,7 @@ inputBlurHandler = (event,inputIdentifier)=> {
 
         let form = (
           <div className="login-form">
-              <button className="google-btn"> <Google_logo/>  Continue using google</button>
-              <p className="devider-or">OR</p>
+            
             <form onSubmit={this.formHandler} >
             
                 {
