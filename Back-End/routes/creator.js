@@ -30,7 +30,7 @@ const imageFilter = (req, file, cb) => { //For filtering the type of file
 const videoStorage = multer.diskStorage({ //for multer storage
     //these are two functions which are called by multer for incoming file
     destination: (req, file, cb)=> {
-        cb(null,'uploads'); // null tells the call backs that its ok to store the file because that place is for error
+        cb(null,'videos'); // null tells the call backs that its ok to store the file because that place is for error
     },
     filename:(req, file, cb)=> {
         cb(null,new Date().toDateString() + "-" + file.originalname);
