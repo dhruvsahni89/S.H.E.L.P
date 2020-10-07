@@ -106,7 +106,7 @@ class Homepage extends Component {
                 title={item.title}
                 teacher={item.name}
                 img={"http://localhost:8080/" + item.imageurl}
-                rating={item.rating}
+                rating={item.rating.ratingFinal}
                 /></NavLink>)
     
             );

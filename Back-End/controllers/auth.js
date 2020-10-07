@@ -18,13 +18,14 @@ const transporter = nodemailer.createTransport(
 );
 
 exports.signup = (req, res, next) => {
-  const error = validationResult(req);
-  if (!error.isEmpty()) {
-    return res.status(422).json({
-      data:error.array(),
-      msg:"validation failed"
-    })
-  }
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+      const error = new Error('Validation Failed');
+      error.statusCode = 422;
+      error.data = errors.array();
+      throw error;
+    }
+  
   const email = req.body.email;
   const name = req.body.name;
   const password = req.body.password;
@@ -58,14 +59,14 @@ exports.signup = (req, res, next) => {
 
     otpdata.save();
 
-    res.status(201).json({ message: "otp stored in database " , token:token});
-    return  Emailsender.sendemail(email,otp);
+    res.status(201).json({ message: "OTP send to your Email" , token:token});
     // return transporter.sendMail({
     //     to: email,
     //     from: "dhruvsahni.akg@gmail.com",
     //     subject: "signup successful",
     //     html: `<h1>thankuh for registering here is your one time pass : ${otp}</h1>`,
     //   });
+    return Emailsender.sendemail(email,otp);
 
     })
     .catch((err) => {
@@ -189,9 +190,9 @@ exports.otpVerification = (req, res, next) => {
         error.statusCode = 403;
         error.data = {
           value: recievedOtp,
-          msg: "invalid token",
+          msg: "Invalid token",
           param: "otp",
-          location: "otp",
+          location: "otpVerification",
         };
         throw error;
       }
@@ -284,6 +285,16 @@ exports.resendOTP = (req, res, next) =>{ // extra measure's taken if, password v
 
 
 exports.sendResetOtp= (req, res, next) => {
+
+
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const error = new Error('Validation Failed');
+    error.statusCode = 422;
+    error.data = errors.array();
+    throw error;
+  }
+
   
     const email = req.body.email;
   
@@ -321,58 +332,48 @@ exports.checkOtp= (req, res, next) => {
   OtpUser.findOne({Token:checkToken}).then(data => {
 
     if(!(data.Otp === otp)){
-      res.json("Otp incorrect")
+      res.status(400).json("Otp incorrect")
     }
 
   })
 }
-//---------------------------------------------------------
+
 exports.resetPassword=(req,res,next)=>{
-
-  const errors = validationResult(req);
-   if (!errors.isEmpty()) {
-     const error = new Error("Validation Failed ");
-     error.statusCode = 422;
-     error.data = errors.array();
-     throw error;
-   }
   
-   const email = req.body.email;
-   const newPassword = req.body.newPassword;
-   const confirmPassword = req.body.confirmPassword;
- 
-   if (newPassword != confirmPassword) {
-     const error = new Error("reset failed,fields do no match");
-     error.statusCode = 422;
-     error.data = {
-       msg: "Confirm password and new password do not match",
-       param: "confirmPassword",
-     };
-     throw error;
-   }
+  const email = req.body.email;
+  const newPassword = req.body.newPassword;
+  const confirmPassword = req.body.confirmPassword;
 
-    bcrypt.hash(password, 12).then((hashedPass) => {
-
-      User.findOne({email:email}).then(user => {
-        user.password = hashedPass;
-      }
-      )
-      user.save().then(result => {
-        res.json({messsage:"new password saved",updatedUser:result})
-      }).catch(err => {
-        res.json(err);
-      });
-          
-    });
+  if (newPassword != confirmPassword) {
+    const error = new Error("reset failed,fields do no match");
+    error.statusCode = 422;
+    error.data = {
+      msg: "Confirm password and new password do not match",
+      param: "confirmPassword",
+    };
+    throw error;
   }
 
+   bcrypt.hash(newPassword, 12).then((hashedPass) => {
 
+     User.findOne({email:email}).then(user => {
+       
+       user.password = hashedPass;
 
+       user.save().then(result => {
+         res.json({messsage:"new password saved",updatedUser:result})
+       }).catch(err => {
+         res.json(err);
+       });
+     }
+     ).catch(err => {
+       res.json({error:err,message:"password not saved"});
+     });
 
-
-
-
-
+    
+         
+   });
+ }
 
 
   //  let loadedUser;
@@ -427,4 +428,3 @@ exports.resetPassword=(req,res,next)=>{
   //        }
   //        next(err);
   //      });
- 
