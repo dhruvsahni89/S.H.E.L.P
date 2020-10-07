@@ -2,7 +2,6 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose'); // importing mongoose
-const multer = require('multer');
 
 const signupRoute = require('./routes/signup'); //importing signup route
 const errorController = require('./controllers/error');
@@ -14,25 +13,7 @@ const app = express();
 
 const port = 8080 //whatever is in the environment variable PORT or 3000
 
-const fileStorage = multer.diskStorage({ //for multer storage
-    //these are two functions which are called by multer for incoming file
-    destination: (req, file, cb)=> {
-        cb(null,'uploads'); // null tells the call backs that its ok to store the file because that place is for error
-    },
-    filename:(req, file, cb)=> {
-        cb(null,new Date().toDateString() + "-" + file.originalname);
-    }
-});
 
-const fileFilter = (req, file, cb) => { //For filtering the type of file
-    if(file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'video/mp4'){
-        cb(null,true);  //if we want to store that file
-    }
-    else{
-        cb(null,false); //if we dont want to store that file
-        console.log("wrong file type");
-    }
-};
 //  app.use('/',errorController.error404);
 app.use((error, req, res, next) => {
     const status = error.statusCode||500;
@@ -67,8 +48,6 @@ app.use((error, req, res, next) => {
 
 // For parsing the incoming json file from the client
 app.use(bodyParser.json()); 
-//Multer for handeling incoming Files
-app.use(multer({storage:fileStorage,fileFilter:fileFilter}).any());
 
 app.use(express.static(path.join(__dirname,'uploads'))); //Serving images and video
 

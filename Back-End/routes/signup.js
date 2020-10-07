@@ -24,9 +24,7 @@ router.post('/signup/resetOtp',[
 
 router.post('/signup/checkOtp',authController.checkOtp)
 
-router.post('/signup/resetpassword',authController.resetPassword)
-
-router.post("/reset-password", [
+router.post("/signup/reset-password", [
   body('newPassword').trim().isLength({ min: 5 }),
   body('confirmPassword').trim().isLength({ min: 5 }),
 ],authController.resetPassword);

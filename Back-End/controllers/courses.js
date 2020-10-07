@@ -4,8 +4,8 @@ const Users = require('../models/users');
 
 exports.createcourse = (req, res, next) => {
     console.log("hello");
-    console.log(req.files);
-    console.log(req.files[0].path)
+    console.log(req.file);
+    // console.log(req.files[0].path)
   //  const errors = validationResult(req);
   //  if(!errors.isEmpty()){
    //     return res.status(422).json({message:'Validation Failed',errors: errors.array()});
@@ -17,8 +17,8 @@ exports.createcourse = (req, res, next) => {
 //        throw error;
 //    }
     const title = req.body.title;
-    const imageUrl = req.files[1].filename;
-    const videoUrl = req.files[0].filename;
+    const imageUrl = req.file.filename;
+    // const videoUrl = req.files[0].filename;
     const name = req.body.name;
     const category = req.body.category;
     const willLearn = req.body.willLearn;
@@ -35,7 +35,7 @@ exports.createcourse = (req, res, next) => {
         imageurl: imageUrl,
         creator: userID,
         category:category,
-        videourl:videoUrl,
+        // videourl:videoUrl,
         willLearn:willLearn,
         discriptionLong:discriptionLong,
         requirement:requirement,
@@ -234,14 +234,20 @@ exports.rating = (req,res,next) => {
 
 }
 
-exports.videoUrl = (req,res,next) => {
+exports.videoUpload = (req,res,next) => {
+    console.log("hi");
+    const courseId = req.params.videocourseID;
+    const file = req.files
+    const videoPathArray = [];
 
-    const courseId = req.params.courseId;
-
+    for(i in file){
+        videoPathArray.push(file[i].filename);
+    }
+    console.log(videoPathArray)
     courses.findById({_id:courseId}).then(course =>{
-        const videourl = course.videourl;
-        res.json({message:"video Found",videourl:videourl })
+         course.videourl = videoPathArray;
+        res.json({message:"Video Uploaded",updatedCourse:course })
     }).catch(err => {
-        res.json(err);
+        res.json({error:err,message:"Course Not found"});
     })
 }
