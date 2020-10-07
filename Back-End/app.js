@@ -50,7 +50,7 @@ app.use((error, req, res, next) => {
 app.use(bodyParser.json()); 
 
 app.use(express.static(path.join(__dirname,'uploads'))); //Serving images and video
-
+app.use(express.static(path.join(__dirname,'videos'))); //Serving the video files
 app.use(express.static(path.join(__dirname,'data','invoices'))); //Serving the pdf files
 
 app.use((req, res, next) =>{  // To remove CROS (cross-resource-origin-platform) problem 
