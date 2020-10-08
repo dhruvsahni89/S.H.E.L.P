@@ -23,11 +23,16 @@ class TeacherPage extends Component{
           
             file:{
                 value:[],
+                
                 validation: {
                     required: true,
                     
                 },
-                valid:true,
+                valid1:false,
+                valid2:false,
+                valid3:false,
+                valid4:false,
+                valid5:false,
 
             },
 
@@ -61,30 +66,15 @@ class TeacherPage extends Component{
         
     }
 
-    checkValidity(value,rules){
-        let isValid = true;
-      
-
-        if(rules.required){
-            isValid =value.trim()!=='' && isValid;
-        }
-
-        return isValid;
-        
-     }
+ 
 
      OverallValidity = ()=>{
 
-        for(let validate in this.state.Form){
-           
-            
-
-            if(!this.state.Form[validate].valid){
-                return false;
-            }
-         
-        }
+      if(this.state.Form.file.valid1 ||  this.state.Form.file.valid2 ||  this.state.Form.file.valid3 ||  
+        this.state.Form.file.valid4 ||  this.state.Form.file.valid5)
         return true;
+
+      else return false;
     }
     
     
@@ -102,12 +92,14 @@ class TeacherPage extends Component{
 
 
 
-    fileSelectorHandler = event =>{
+    fileSelectorHandler = (event,index) =>{
     
         const selectedfile= {...this.state.Form};
 
         selectedfile.file.value.push( event.target.files[0]);
-       
+        selectedfile.file.name= URL.createObjectURL(event.target.files[0]);
+        selectedfile.file['valid'+index]=true;
+
         this.setState({Form:selectedfile })
         console.log(selectedfile)
 
@@ -252,7 +244,7 @@ class TeacherPage extends Component{
 
           
 
-        <div className="container-fluid-main">
+        <div className="">
 
                  {alertContent}
 
@@ -263,90 +255,93 @@ class TeacherPage extends Component{
             </div>
 
 
-        {/* <div className="Teacher-Head-Class">
+        {/* <div className="Teacher-Head-Class-Video">
            <img src={Cloud} alt="cloud"/>
             <p className="cloudpng">Upload your content</p>
         </div> */}
 
-            <div className="Teacher-Head-Class">
+            <div className="Teacher-Head-ClassVideo">
             
             
-                <label className="custom-image-upload">
-                    <input type="file" name='file'  onChange={this.fileSelectorHandler}/>
+                <label className="videoUpload">
+                    <input type="file" name='file'
+                    
+                    onChange={(event)=> this.fileSelectorHandler(event,1)}/>
                     Upload Video1
                 </label>
 
-            <p className="ImageName">{fileName1}</p>
-            <img className="" 
-                src={"http://localhost:8080/" + fileName1} alt="banner1"/>
-
+                <p className="VideoName">{fileName1}</p>
             
             </div>
+            
+
+           
+            
 
 
 
-            <div className="Teacher-Head-Class">
+            <div className="Teacher-Head-ClassVideo">
             
             
-                <label className="custom-image-upload">
-                    <input type="file" name='file' onChange={this.fileSelectorHandler}/>
+                <label className="videoUpload">
+                    <input type="file" name='file' 
+                    onChange={(event)=> this.fileSelectorHandler(event,2)}/>
                     Upload Video2
             </label>
 
-            <p className="ImageName">{fileName2}</p>
-            <img className="" 
-                src={"http://localhost:8080/" + fileName2} alt="banner1"/>
+            <p className="VideoName">{fileName2}</p>
+           
 
             
             </div>
 
 
 
-            <div className="Teacher-Head-Class">
+            <div className="Teacher-Head-ClassVideo">
             
             
-                <label className="custom-image-upload">
-                    <input type="file" name='file' onChange={this.fileSelectorHandler}/>
+                <label className="videoUpload">
+                    <input type="file" name='file' 
+                    onChange={(event)=> this.fileSelectorHandler(event,3)}/>
                     Upload Video3
             </label>
 
-            <p className="ImageName">{fileName3}</p>
-            <img className="" 
-                src={"http://localhost:8080/" + fileName3} alt="banner1"/>
+            <p className="VideoName">{fileName3}</p>
+            
 
             
             </div>
 
 
 
-            <div className="Teacher-Head-Class">
+            <div className="Teacher-Head-ClassVideo">
             
             
-                <label className="custom-image-upload">
-                    <input type="file" name='file' onChange={this.fileSelectorHandler}/>
+                <label className="videoUpload">
+                    <input type="file" name='file' 
+                    onChange={(event)=> this.fileSelectorHandler(event,4)}/>
                     Upload Video4
             </label>
 
-            <p className="ImageName">{fileName4}</p>
-            <img className="" 
-                src={"http://localhost:8080/" + fileName4} alt="banner1"/>
+            <p className="VideoName">{fileName4}</p>
+            
 
             
             </div>
 
 
 
-            <div className="Teacher-Head-Class">
+            <div className="Teacher-Head-ClassVideo">
             
             
-                <label className="custom-image-upload">
-                    <input type="file" name='file'  onChange={this.fileSelectorHandler}/>
+                <label className="videoUpload">
+                    <input type="file" name='file' 
+                   onChange={(event)=> this.fileSelectorHandler(event,5)}/>
                     Upload Video5
-            </label>
+                </label>
 
-            <p className="ImageName">{fileName5}</p>
-            <img className="" 
-                src={"http://localhost:8080/" + fileName5} alt="banner1"/>
+            <p className="VideoName">{fileName5}</p>
+           
 
             
             </div>

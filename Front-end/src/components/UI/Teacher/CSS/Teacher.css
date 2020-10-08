@@ -28,7 +28,15 @@
     background: #FFFFFF 0% 0% no-repeat padding-box;
 
 }
+.Teacher-Head-ClassVideo{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top:0px;
 
+
+}
 
 
 
@@ -136,7 +144,7 @@
 
     margin-top:20px;
     color: #566775;
-    font: normal normal 300 37px/24px Gilroy;
+    font: normal normal 300 37px/54px Gilroy;
     letter-spacing: 0px;
     margin-bottom: 60px;
 }
@@ -160,6 +168,22 @@ input[type="file"] {
     text-align:center;
     padding-top:10px;
 }
+.videoUpload{
+
+    width: 175px;
+    height: 49px;
+    background: #2D81F7 0% 0% no-repeat padding-box;
+    border-radius: 8px;
+    opacity: 1;
+    font: normal normal 100 19px/29px Gilroy;
+    letter-spacing: 0.96px;
+    color: #FFFFFF;
+    margin-right:0px;
+    margin-top: 30px;
+    margin-bottom:5px;
+    text-align:center;
+    padding-top:10px;
+}
 
 .progressBar{
     text-align:center;
@@ -167,12 +191,28 @@ input[type="file"] {
     width:80%;
 }
 
-.sumbitVideoBtn{
+.sumbitVideoBtn button{
     margin-top:30px;
-    width:700px !important;
-    text-align:center!important;
+ 
+    box-shadow: 1px 1px 5px rgba(140, 161, 190, 0.6), 
+    -1px -1px 5px  
+    rgba(255, 255, 255, 0.342);
+    
 }
 
 .TeacherEdit{
     margin-top:10%;
+}
+
+
+.VideoName{
+    font: normal normal 100 19px/29px Gilroy;
+    margin-top:10px;
+    margin-right:10px;
+    margin-left: 10px;
+    color:#08BD80;
+    box-shadow: 1px 1px 5px rgba(140, 161, 190, 0.6), 
+    -1px -1px 5px  
+    rgba(255, 255, 255, 0.342);
+    
 }
