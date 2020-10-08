@@ -207,7 +207,7 @@ formHandler = (event)=> {
 
         .catch(error=>{console.log(error.response); 
             this.setState({loading:false});
-            this.AlertError(error.response.data.data[0].msg, "danger");});
+            this.AlertError(error.response.data.message, "danger");});
   
         }
         

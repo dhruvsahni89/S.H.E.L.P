@@ -29,7 +29,7 @@ const imageFilter = (req, file, cb) => { //For filtering the type of file
 const imageMulter = multer({storage:imageStorage,fileFilter:imageFilter}).single('imageurl');
 
 router.put('/Rating',courseController.rating) // For Rating Count 
-router.put('/home/courseUpdate',isAuth,imageMulter,courseController.update) //for updating courses
+router.put('/home/courseUpdate',imageMulter,courseController.update) //for updating courses
 router.put('/home/edit',isAuth,courseController.edit)  // for editing , showing old data
 router.post('/Course/delete',isAuth,courseController.deletePost) // for deleting post
 

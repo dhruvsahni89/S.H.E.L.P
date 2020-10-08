@@ -36,7 +36,7 @@ router.put('/signup',[  // put because we create a user once so doesn't matter i
         .custom((value, { req } ) => { //to check whether the email adress already exist or not. 
             return User.findOne({email: value}).then(UserDoc => {
                 if(UserDoc){ // return a promise if validation done a async task
-                    return Promise.reject('E-mail Adress already Exist');
+                    return Promise.reject('E-mail Address already Exist');
                     //  res.status(201).json({ message: " E-mail Adress already Exist" });
                      
                 }

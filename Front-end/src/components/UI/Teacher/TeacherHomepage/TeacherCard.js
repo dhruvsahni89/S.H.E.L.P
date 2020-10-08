@@ -9,9 +9,12 @@ class TeacherCard extends Component{
     DeleteCourse=()=>{
 
         const fd = new FormData();
+        const form ={};
+        form['courseId']=this.props.CourseId;
+
         fd.append('courseId',this.props.CourseId);
 
-        axios.post("/Course/delete",fd,{
+        axios.post("/Course/delete",form,{
             headers: {
                 Authorization: 'Bearer '+ localStorage.getItem('user') 
             }

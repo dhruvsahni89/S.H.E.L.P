@@ -168,12 +168,13 @@ class TeacherPage extends Component{
         if(userToken!==null){
             this.setState({isLoggedIn:true,userName:userName});
         }
-
+        localStorage.setItem('courseId',this.props.location.aboutProps.CourseId);
         const fd = new FormData();
         const form={};
         //console.log(this.props.location.aboutProps.CourseId)
-        form['courseId']=this.props.location.aboutProps.CourseId;
+        form['courseId']=localStorage.getItem('courseId');
         fd.append('courseId',this.props.location.aboutProps.CourseId);
+
 
         axios.put("/home/edit",form,{
             headers: {
@@ -184,8 +185,8 @@ class TeacherPage extends Component{
             console.log("Edit details",response);
 
             this.setState({CourseDetails:response.data});
-            this.setState({loading:false})
-            alert("Course Edit details,please refresh");
+            this.setState({loading:false});
+           // alert("Course Edit details,please refresh");
             
 
         })
@@ -221,7 +222,7 @@ class TeacherPage extends Component{
 
      OverallValidity = ()=>{
 
-        for(let validate in this.state.Form){
+        for(let validate in this.state.CourseDetails){
            
             
 
@@ -249,9 +250,13 @@ class TeacherPage extends Component{
         const updatedForm = {
             ...this.state.Form
         }
+        const UpdatedForm= {...this.state.CourseDetails}
+
+        UpdatedForm[Title]=data;
         updatedForm[Title].value=data;
-        updatedForm[Title].valid=this.checkValidity(data, updatedForm[Title].validation)
+      //  updatedForm[Title].valid=this.checkValidity(data, updatedForm[Title].validation)
         this.setState({Form:updatedForm})
+        this.setState({CourseDetails:UpdatedForm})
 
     }
 
@@ -275,6 +280,7 @@ class TeacherPage extends Component{
     categoryHandler = (CourseName)=>{
 
         const Coursecategory = {...this.state.Form};
+
         const updatedcategory ={...this.state.CourseDetails};
 
         Coursecategory.category.value = CourseName;
@@ -284,14 +290,17 @@ class TeacherPage extends Component{
 
             if(this.state.CourseNames[x]!==CourseName){
                 Coursecategory.category[this.state.CourseNames[x]]=false;
+               // updatedcategory.category[this.state.CourseNames[x]]=false;
+
                // console.log(this.state.CourseNames[x])
             }
         }
 
         Coursecategory.category[CourseName]=true;
-        
+        //updatedcategory.category[]=true;
+
         this.setState({Form:Coursecategory});
-      
+        this.setState({CourseDetails:updatedcategory})
         
        
     }
@@ -301,11 +310,14 @@ class TeacherPage extends Component{
     fileSelectorHandler = event =>{
     
         const selectedfile= {...this.state.Form};
+        const UpdatedSelectedFile={...this.state.CourseDetails}
 
-        selectedfile.file.value= event.target.files;
-       
+        selectedfile.file.value= event.target.files[0];
+        UpdatedSelectedFile.imageurl=event.target.files[0];
+
         this.setState({Form:selectedfile })
-        console.log(selectedfile)
+        this.setState({CourseDetails:UpdatedSelectedFile})
+
 
      
         
@@ -322,34 +334,24 @@ class TeacherPage extends Component{
         setTimeout( ()=> this.setState({alertPressed:false}) , 2000);
         const form={};
         const fd = new FormData();
-
-      
-        for(let formElement in this.state.Form){
-                
-                
-            if(!(formElement === 'file')){
-               
-                fd.append(formElement, this.state.Form[formElement].value);
-            }
-            else{
-                for(var i =0;i<this.state.Form['file'].value.length; i++){
-                    
-                    fd.append(formElement,this.state.Form['file'].value[i])
-                }
-            }
-                form[formElement]=this.state.Form[formElement].value;
-
-                
-        }
+        fd.append('courseId',localStorage.getItem('courseId'));
+        for(let formElement in this.state.CourseDetails){
+             
+            fd.append(formElement, this.state.CourseDetails[formElement]);
+            console.log(this.state.CourseDetails[formElement])
+            
+                                                }
 
 
        
 
-        if(this.OverallValidity()){
+      //  if(this.OverallValidity()){
 
         
-                    
-                axios.post('creator/create-course',fd,{
+              
+
+
+             AuthServices.UpdatedCourse(fd,{
                     headers: {
                         "Content-Type": "multipart/form-data",
                         "Access-Control-Allow-Origin": '*',
@@ -371,7 +373,7 @@ class TeacherPage extends Component{
                     if(res.status ===201 || res.status ===200){
 
                     this.AlertError("Your Course has been saved!", "success");
-                
+                    this.setState({redirect:"/home"})
                 }})
 
 
@@ -383,9 +385,9 @@ class TeacherPage extends Component{
                         this.setState({redirect:"/login"})
                 });
         
-        }
-        else
-            this.AlertError("Validation Errors!", "warning");
+       // }
+       ///// else
+      //      this.AlertError("Validation Errors!", "warning");
        
     }
  
@@ -411,7 +413,7 @@ class TeacherPage extends Component{
             //category=this.state.CourseDetails.category;
             requirement=this.state.CourseDetails.requirement;
             willLearn=this.state.CourseDetails.willLearn;
-            file=this.state.CourseDetails.file;
+           // file=this.state.CourseDetails.imageurl;
         }
 
         
@@ -428,7 +430,7 @@ class TeacherPage extends Component{
         let fileName=null;
        
         if(this.state.redirect){
-            return <Redirect to="/login"/>
+            return <Redirect to={this.state.redirect}/>
         }
         
 
@@ -471,11 +473,11 @@ class TeacherPage extends Component{
         const uploadedPercentage = this.state.uploadedPercentage;
 
         
-        
-        if(this.state.Form.file.value){
-             fileName=this.state.Form.file.value[1].name;
-             
-        }
+         
+        // if(this.state.CourseDetails.file){
+        //     fileName=this.state.CourseDetails.file.value.name;
+            
+        // }
 
       
         
@@ -631,7 +633,8 @@ class TeacherPage extends Component{
             
             
                 <label className="custom-image-upload">
-                    <input type="file" name='file' value={file} multiple onChange={this.fileSelectorHandler}/>
+                    <input type="file" name='imageurl' value={file} 
+                     onChange={this.fileSelectorHandler}/>
                     Upload Image
             </label>
 

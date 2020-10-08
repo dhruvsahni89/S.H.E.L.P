@@ -30,11 +30,16 @@ AlertError(alertmsg, alertType) {
      remove =()=> {
         this.setState({alertPressed:true})
         setTimeout( ()=> this.setState({alertPressed:false}) , 3000);
+
         const fd = new FormData();
+        const form ={};
+        form['_userID']=this.props.userId;
+        form['_id']=this.props.courseId;
+
         fd.append('_userID',this.props.userId);
         fd.append("_id",this.props.courseId);
 
-        axios.post("/unbookmark",fd )
+        axios.post("/unbookmark",form )
         .then(response => {
             console.log("Removed",response);
        

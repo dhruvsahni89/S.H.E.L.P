@@ -217,7 +217,7 @@ render() {
 
     };
 
-    let LoginSumbitButton= <SumbitButton className={"Sumbit-btn"} Label={"Sumbit"}/>;
+    let LoginSumbitButton= <SumbitButton className={"Sumbit-btn"} Label={"Submit"}/>;
    
     if(this.state.loading){
         LoginSumbitButton= <SpinnerButton spinnerclass={"Sumbit-btn"}/>;

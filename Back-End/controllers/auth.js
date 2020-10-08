@@ -59,7 +59,7 @@ exports.signup = (req, res, next) => {
 
     otpdata.save();
 
-    res.status(201).json({ message: "OTP send to your Email" , token:token});
+    res.status(201).json({ message: "OTP sent to your Email" , token:token});
     // return transporter.sendMail({
     //     to: email,
     //     from: "dhruvsahni.akg@gmail.com",
@@ -85,7 +85,7 @@ exports.login=(req,res,next)=>{
   if (!errors.isEmpty()) {
     return res.status(422).json({
       data:errors.array(),
-      msg:"validation failed"
+      message:"Invalid credentials"
     })
   }
     const email=req.body.email;
@@ -100,7 +100,7 @@ exports.login=(req,res,next)=>{
           error.statusCode = 422;
           error.data = {
             value: email,
-            msg: "User not found ",
+            message: "User not found ",
             param: "email",
             location: "login",
           };
@@ -130,7 +130,7 @@ exports.login=(req,res,next)=>{
         const error = new Error("Login failed, user not verified");
         error.statusCode = 403;
         error.data = {
-          msg: "otp sent please verify yourself",
+          message: "otp sent please verify yourself",
           location: "login",
           id: otp._id,
         };
@@ -190,7 +190,7 @@ exports.otpVerification = (req, res, next) => {
         error.statusCode = 403;
         error.data = {
           value: recievedOtp,
-          msg: "Invalid token",
+          message: "Invalid token",
           param: "otp",
           location: "otpVerification",
         };
@@ -240,7 +240,7 @@ exports.otpVerification = (req, res, next) => {
         res.status(401).json({ message: "wrong otp entered " });
         error.data = {
           value: recievedOtp,
-          msg: "Otp incorrect",
+          message: "Otp incorrect",
           param: "otp",
           location: "otp",
         };
@@ -287,17 +287,19 @@ exports.resendOTP = (req, res, next) =>{ // extra measure's taken if, password v
 exports.sendResetOtp= (req, res, next) => {
 
 
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    const error = new Error('Validation Failed');
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+    const error = new Error('Email not registered');
     error.statusCode = 422;
-    error.data = errors.array();
+    error.data = {
+      message:"Email not registered"
+    }
     throw error;
   }
 
   
     const email = req.body.email;
-  
+   console.log(email);
    let otp = Math.floor(100000 + Math.random() * 900000);
     const token = jwt.sign(
       {
@@ -313,11 +315,11 @@ exports.sendResetOtp= (req, res, next) => {
         Otp: otp,
         email: email,
     });
-   otpdata.save().then(result => {
-     res.json({message:"OTP Saved",result:result})
-   }).catch(err => {
-     res.json({message:"Otp not saved ",error:err})
-   })
+    otpdata.save().then(result => {
+      res.json({message:"OTP Saved",result:result})
+    }).catch(err => {
+      res.json({message:"Otp not saved ",error:err})
+    })
    
   //  return transporter.sendMail({
   //   to: email,
@@ -327,13 +329,16 @@ exports.sendResetOtp= (req, res, next) => {
   // });
   return Emailsender.sendemail(email,otp);
 
+
+
 }
 
 exports.checkOtp= (req, res, next) => {
   const otp = req.body.otp;
   const checkToken = req.body.token;
-
-  OtpUser.findOne({Token:checkToken}).then(data => {
+  console.log(otp);
+  console.log(checkToken)
+  OtpUser.findOne({token:checkToken}).then(data => {
 
     if(!(data.Otp === otp)){
       res.status(400).json("Otp incorrect")
@@ -355,7 +360,7 @@ exports.resetPassword=(req,res,next)=>{
     const error = new Error("reset failed,fields do no match");
     error.statusCode = 422;
     error.data = {
-      msg: "Confirm password and new password do not match",
+      message: "Confirm password and new password do not match",
       param: "confirmPassword",
     };
     throw error;
@@ -392,7 +397,7 @@ exports.resetPassword=(req,res,next)=>{
   //          error.statusCode = 422;
   //          error.data = {
   //            value: email,
-  //            msg: "User not found ",
+  //            message: "User not found ",
   //            param: "email",
   //            location: "login",
   //          };
@@ -408,7 +413,7 @@ exports.resetPassword=(req,res,next)=>{
   //          const error = new Error("Password reset failed");
   //          error.statusCode = 401;
   //          error.data = {
-  //            msg: "password incorrect",
+  //            message: "password incorrect",
   //            param: "oldPassword",
   //            location: "password reset",
   //          };

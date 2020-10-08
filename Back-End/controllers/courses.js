@@ -91,7 +91,7 @@ exports.update=(req,res,next)=>{
             throw error;
           }
           data.title=title;
-          data.imageUrl=imageUrl;
+          data.imageurl=imageUrl;
           data.name=name;
           data.category=category;
           data.willLearn=willLearn;
