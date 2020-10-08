@@ -26,7 +26,7 @@ const imageFilter = (req, file, cb) => { //For filtering the type of file
     }
 };
 
-const imageMulter = multer({storage:imageStorage,fileFilter:imageFilter}).single('image');
+const imageMulter = multer({storage:imageStorage,fileFilter:imageFilter}).single('imageurl');
 
 router.put('/Rating',courseController.rating) // For Rating Count 
 router.put('/home/courseUpdate',isAuth,imageMulter,courseController.update) //for updating courses

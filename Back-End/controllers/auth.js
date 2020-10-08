@@ -309,11 +309,15 @@ exports.sendResetOtp= (req, res, next) => {
 
 
     const otpdata = new OtpUser({
-        Token: token,
+        token: token,
         Otp: otp,
         email: email,
     });
-   otpdata.save();
+   otpdata.save().then(result => {
+     res.json({message:"OTP Saved",result:result})
+   }).catch(err => {
+     res.json({message:"Otp not saved ",error:err})
+   })
    
   //  return transporter.sendMail({
   //   to: email,
@@ -333,6 +337,9 @@ exports.checkOtp= (req, res, next) => {
 
     if(!(data.Otp === otp)){
       res.status(400).json("Otp incorrect")
+    }
+    else{
+      res.status(200).json("Otp correct")
     }
 
   })
