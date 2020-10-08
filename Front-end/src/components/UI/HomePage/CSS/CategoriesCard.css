@@ -119,15 +119,22 @@
 .Course-rating{
    
     text-align:left;
-    
 }
 
 .Course-star{
  
+    
+    flex-grow:0!important;
+ 
+    margin-left:4px;
+}
+
+.CourseTimesUpdated{
     flex-grow:1;
     text-align:left;
-  
-    margin-left:4px;
+    font-size:14px;
+    opacity:0.9;
+
 }
 
 .Course-Price{

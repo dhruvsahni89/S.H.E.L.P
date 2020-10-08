@@ -104,7 +104,7 @@ exports.update=(req,res,next)=>{
         res.status(200).json({ message: 'course updated!', result:result });
       })
 }
-exports.deletePost = (req, res, next) => {
+exports.deleteCourse = (req, res, next) => {
     const courseId = req.body.courseId;
     courses.deleteOne({_id:courseId})
     .then((result) => {

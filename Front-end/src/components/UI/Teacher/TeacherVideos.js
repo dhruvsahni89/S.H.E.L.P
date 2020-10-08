@@ -27,7 +27,7 @@ class TeacherPage extends Component{
                     required: true,
                     
                 },
-                valid:false,
+                valid:true,
 
             },
 

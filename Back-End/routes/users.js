@@ -15,7 +15,7 @@ router.post('/home/:category/:courseTitle',isAuth,courseController.bookmarkCours
 
 router.post('/unbookmark',courseController.unbookmarkCourse);
 
-router.get('/home/download/:userId',isAuth,UserController.getinvoice );
+router.get('/home/download/:userId',UserController.getinvoice );
 
 router.post('/home/interests',isAuth,UserController.suggestion);
 

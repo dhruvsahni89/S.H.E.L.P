@@ -103,7 +103,7 @@
         margin-left:0px;
         
     }
-    .container{ max-width:991px !important;}
+    /* .container{ max-width:991px !important;} */
 
     .Course-Content, .Course-Content-wrap{
         justify-content: center;

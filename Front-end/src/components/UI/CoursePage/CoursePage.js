@@ -94,36 +94,6 @@ class CoursePage extends Component {
     }
 
 
-    DownloadPdf=()=>{
-        axios.get(`/home/download/${this.state.CourseId}` ,{
-            headers: {
-                
-                Authorization: 'Bearer '+ this.state.token
-            }
-        }).then(response => {
-            let path ='http://localhost:8080/'+'invoice-' + this.state.CourseId + '.pdf';
-
-            //this.setState({redirect:"/login"});
-            window.open(path);
-        
-        })
-     // {responseType: 'blob'}
-        // )
-                
-        //         .then((res)=>{
-        //             const pdfBlob = new Blob([res.data], {type: 'application/pdf'})
-       
-        //            let path ='http://localhost:8080/'+'invoice-' + this.state.CourseId + '.pdf';
-        //            saveAs(pdfBlob,path);
-        //         })
-
-        //         .catch(error => {
-        //             console.log(error);
-                    
-        //         })
-
-        
-    }
     
     VideochangeHandler=(event,video,index,playing)=> {
        let VideoNumber = 'video' + index;
@@ -278,7 +248,7 @@ class CoursePage extends Component {
                     
                         
 
-                        <div>
+                        <div className="Description-main">
                             <CourseDesc title={title}
                                         short_description={short_description}
                                         teacher={teacher}
@@ -360,13 +330,11 @@ class CoursePage extends Component {
 
             </div>
 
-            <div className="Download-btn">
-                <p onClick={this.DownloadPdf}>Download PDF</p>
-            </div>
+       
             
 
 
-            </div>
+        </div>
 
         );
     }

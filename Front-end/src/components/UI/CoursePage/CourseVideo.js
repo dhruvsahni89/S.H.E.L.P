@@ -38,10 +38,10 @@ class CourseVideo extends Component {
          playing={this.props.playing}
         url={this.props.videoUrl} />
        
-        <div className="mt-5">
+        {/* <div className="mt-5">
         <ProgressBar now={this.state.progress} />
         </div>
-        
+         */}
         </div>
        
       )

@@ -63,6 +63,29 @@
     align-self:center;
 }
 
+
+@media(max-width:1200px){
+    .createCourse{
+        
+        width: 200px;
+        height: 55px;
+        font: normal normal 300 18px/20px Gilroy;
+
+    }
+    .Teacher-text{
+
+        font: normal normal 27px/55px Gilroy;
+        letter-spacing: 1.24px;
+        color: #2D81F7;
+        opacity: 1;
+        z-index:10;
+        align-self: center;
+        width:520px;
+        
+    }
+    
+}
+
 @media(max-width:992px){
 
     .Banner-text{
@@ -73,8 +96,32 @@
     .BannerImage{ 
         height:190px;
     }
+    .createCourse{
+        
+        width: 200px;
+        height: 48px;
+        font: normal normal 300 18px/20px Gilroy;
+
+    }
+    .Teacher-text{
+
+        font: normal normal 27px/55px Gilroy;
+        letter-spacing: 1.24px;
+        color: #2D81F7;
+        opacity: 1;
+        z-index:10;
+        align-self: center;
+        width:400px;
+        
+    }
     
 
+}
+
+@media (max-width: 690px){
+    .Teacher-text{
+        display:none;
+    }
 }
 
 @media (max-width:646px){
@@ -86,8 +133,24 @@
     .Banner-text{
         font: normal normal 600 40px/56px Gilroy;
     }
-    
+    .createCourse{
+        
+        width: 200px;
+        height: 48px;
+        font: normal normal 300 18px/20px Gilroy;
 
+    }
+    .Teacher-text{
+
+        font: normal normal 27px/55px Gilroy;
+        letter-spacing: 1.24px;
+        color: #2D81F7;
+        opacity: 1;
+        z-index:10;
+        align-self: center;
+        width:320px;
+        
+    }
 
 }
 
