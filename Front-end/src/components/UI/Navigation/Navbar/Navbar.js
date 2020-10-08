@@ -29,14 +29,17 @@ class Navbar extends Component {
      logout=() => {
        this.setState({redirect:"/login"})
         AuthServices.logout();
+       // alert(localStorage.getItem('user'))
         
-        window.location.reload();
+      window.location.reload();
 
     }
 
 
 
     render(){
+     // console.log(localStorage.getItem('user'));
+
        if (this.state.redirect) {
             return <Redirect to="/login" />
         }
@@ -90,7 +93,7 @@ class Navbar extends Component {
       </ul>
       );
 
-      if(!this.state.isLoggedIn){
+      if(localStorage.getItem('user') === null){
 
         LoginLinks =( <ul className="navbar-nav ml-auto">
 

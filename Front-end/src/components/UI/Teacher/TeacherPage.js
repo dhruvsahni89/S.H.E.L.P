@@ -317,14 +317,8 @@ class TeacherPage extends Component{
         
                     
                 axios.post('creator/create-course',fd,{
-                    headers: {
-                        "Content-Type": "multipart/form-data",
-                        "Access-Control-Allow-Origin": '*',
-                        Authorization: 'Bearer '+ localStorage.getItem('user') 
-                    }
-                }, {
                     onUploadProgress: progressEvent => {
-                        console.log("mmmmmm");
+                        console.log("Progress bar");
                         const {loaded,total} =progressEvent;
                         let percent =Math.floor((loaded*100)/total);
                         console.log("percent" + percent)
@@ -332,13 +326,21 @@ class TeacherPage extends Component{
                             this.setState({uploadedPercentage:percent})
                         }
                     }
+                },{
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                        "Access-Control-Allow-Origin": '*',
+                        Authorization: 'Bearer '+ localStorage.getItem('user') 
+                    }
                 })
                 .then( res=> { console.log(res);
 
                     if(res.status ===201 || res.status ===200){
                     this.setState({CourseId:res.data.newCourse._id})
-                    this.setState({redirect:true})
                     this.AlertError("Your Course has been saved!", "success");
+                    setTimeout( ()=> this.setState({redirect:true}) , 2000);
+                    
+                   
                 
                 }})
 
@@ -418,7 +420,7 @@ class TeacherPage extends Component{
         }
         else classNodeJs=[];
 
-        const uploadedPercentage = this.state.uploadedPercentage;
+        let uploadedPercentage = this.state.uploadedPercentage;
 
         
         if(this.state.Form.image.value){

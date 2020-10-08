@@ -8,8 +8,8 @@ import Cloud from '../../../assets/Images/cloud.png';
 import './CSS/Teacher.css';
 import axios from '../../../ApiServices/axiosUrl';
 import AuthServices from '../../../ApiServices/auth.service';
-//import Alert from '../../../Auth/Forms/alert';
-//import ProgressBar from 'react-bootstrap/ProgressBar'
+import Alert from '../../../Auth/Forms/alert';
+import ProgressBar from 'react-bootstrap/ProgressBar'
 
 
 
@@ -27,7 +27,7 @@ class TeacherPage extends Component{
                     required: true,
                     
                 },
-                valid:true,
+                valid:false,
 
             },
 
@@ -68,17 +68,6 @@ class TeacherPage extends Component{
         if(rules.required){
             isValid =value.trim()!=='' && isValid;
         }
-
-        if(rules.minLength){
-            isValid = value.length >= rules.minLength  && isValid;
-        }
-     
-        
-        if(rules.maxLength){
-            isValid = value.length <= rules.maxLength  && isValid;
-        }
-
-       
 
         return isValid;
         
@@ -154,12 +143,6 @@ class TeacherPage extends Component{
         
                     
                 axios.post(`/creator/videoUpload/${this.props.location.state.CourseId}`,fd,{
-                    headers: {
-                        "Content-Type": "multipart/form-data",
-                        "Access-Control-Allow-Origin": '*',
-                        Authorization: 'Bearer '+ localStorage.getItem('user') 
-                    }
-                }, {
                     onUploadProgress: progressEvent => {
                         console.log("mmmmmm");
                         const {loaded,total} =progressEvent;
@@ -169,12 +152,20 @@ class TeacherPage extends Component{
                             this.setState({uploadedPercentage:percent})
                         }
                     }
+                },{
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                        "Access-Control-Allow-Origin": '*',
+                        Authorization: 'Bearer '+ localStorage.getItem('user') 
+                    }
                 })
                 .then( res=> { console.log(res);
 
                     if(res.status ===201 || res.status ===200){
 
+
                     this.AlertError("Your Course has been saved!", "success");
+                     setTimeout( ()=> this.setState({redirect:'/home'}) , 2000);
                 
                 }})
 
@@ -189,7 +180,7 @@ class TeacherPage extends Component{
         
         }
         else
-            this.AlertError("Validation Errors!", "warning");
+            this.AlertError("Validation Error,Upload atleast one video!", "warning");
        
     }
  
@@ -197,33 +188,62 @@ class TeacherPage extends Component{
 
     render(){
 
-console.log(this.props.location.state.CourseId)
-        let fileName=null;
+//console.log(this.props.location.state.CourseId)
+        let fileName1=null;
+        let fileName2=null;
+        let fileName3=null;
+        let fileName4=null;
+        let fileName5=null;
+
         let alertContent=null;
         let Welcome=null;
-        
+        let uploadedPercentage = this.state.uploadedPercentage;
+
         if(this.state.redirect){
-            return <Redirect to="/login"/>
+            return <Redirect to={this.state.redirect}/>
         }
        
        
         
         if(this.state.Form.file.value[0]){
-            fileName=this.state.Form.file.value[0].name;
+            fileName1=this.state.Form.file.value[0].name;
             
        }
+
+        if(this.state.Form.file.value[1]){
+            fileName2=this.state.Form.file.value[1].name;
+            
+    }
+
+
+        if(this.state.Form.file.value[2]){
+            fileName3=this.state.Form.file.value[2].name;
+            
+        }
+
+
+        if(this.state.Form.file.value[3]){
+            fileName4=this.state.Form.file.value[3].name;
+            
+        }
+
+
+    if(this.state.Form.file.value[4]){
+        fileName5=this.state.Form.file.value[4].name;
+        
+    }
 
       
         
 
-        // if(this.state.alert.valid){
-        //     alertContent = ( <Alert alertMsg ={this.state.alert.msg} 
-        //                             alertType={this.state.alert.alertType} 
-        //                             value={this.state.alertPressed}/> )
-        // }
+        if(this.state.alert.valid){
+            alertContent = ( <Alert alertMsg ={this.state.alert.msg} 
+                                    alertType={this.state.alert.alertType} 
+                                    value={this.state.alertPressed}/> )
+        }
         
         if(this.state.isLoggedIn) {
-            Welcome = <p > Upload 5 Videos</p>;
+            Welcome = <p > Upload upto 5 Videos</p>;
         }
           
       
@@ -243,11 +263,10 @@ console.log(this.props.location.state.CourseId)
             </div>
 
 
-        <div className="Teacher-Head-Class">
-            <img src={Cloud} alt="cloud"/>
+        {/* <div className="Teacher-Head-Class">
+           <img src={Cloud} alt="cloud"/>
             <p className="cloudpng">Upload your content</p>
-        </div>
-
+        </div> */}
 
             <div className="Teacher-Head-Class">
             
@@ -257,9 +276,9 @@ console.log(this.props.location.state.CourseId)
                     Upload Video1
                 </label>
 
-            <p className="ImageName">{fileName}</p>
+            <p className="ImageName">{fileName1}</p>
             <img className="" 
-                src={"http://localhost:8080/" + fileName} alt="banner1"/>
+                src={"http://localhost:8080/" + fileName1} alt="banner1"/>
 
             
             </div>
@@ -274,9 +293,9 @@ console.log(this.props.location.state.CourseId)
                     Upload Video2
             </label>
 
-            <p className="ImageName">{fileName}</p>
+            <p className="ImageName">{fileName2}</p>
             <img className="" 
-                src={"http://localhost:8080/" + fileName} alt="banner1"/>
+                src={"http://localhost:8080/" + fileName2} alt="banner1"/>
 
             
             </div>
@@ -291,9 +310,9 @@ console.log(this.props.location.state.CourseId)
                     Upload Video3
             </label>
 
-            <p className="ImageName">{fileName}</p>
+            <p className="ImageName">{fileName3}</p>
             <img className="" 
-                src={"http://localhost:8080/" + fileName} alt="banner1"/>
+                src={"http://localhost:8080/" + fileName3} alt="banner1"/>
 
             
             </div>
@@ -308,9 +327,9 @@ console.log(this.props.location.state.CourseId)
                     Upload Video4
             </label>
 
-            <p className="ImageName">{fileName}</p>
+            <p className="ImageName">{fileName4}</p>
             <img className="" 
-                src={"http://localhost:8080/" + fileName} alt="banner1"/>
+                src={"http://localhost:8080/" + fileName4} alt="banner1"/>
 
             
             </div>
@@ -325,31 +344,34 @@ console.log(this.props.location.state.CourseId)
                     Upload Video5
             </label>
 
-            <p className="ImageName">{fileName}</p>
+            <p className="ImageName">{fileName5}</p>
             <img className="" 
-                src={"http://localhost:8080/" + fileName} alt="banner1"/>
+                src={"http://localhost:8080/" + fileName5} alt="banner1"/>
 
             
             </div>
             
 
-        
-            <div className="Welcome-msg">
+            <div className="Welcome-msg sumbitVideoBtn">
                 <button onClick={this.sumbitButton} >Sumbit </button>
             </div>
 
+            
 
+        
 
-
-          {/* <div>
-              {uploadedPercentage>0 ? <ProgressBar now={uploadedPercentage}
+          <div className="progressBar">
+              {uploadedPercentage>0 ? <ProgressBar animated now={uploadedPercentage}
                     label={`${uploadedPercentage}%`}/> :null }
-          </div>  */}
+          </div> 
+
+          
             
 
           
         </div>
 
+  
         
 
 

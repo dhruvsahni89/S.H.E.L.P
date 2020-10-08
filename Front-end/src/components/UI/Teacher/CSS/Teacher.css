@@ -10,6 +10,7 @@
     align-items: center;
     flex-direction: column;
     text-align: center;
+  
    
 }
 
@@ -20,8 +21,15 @@
     justify-content: flex-start;
     margin-top:50px;
     text-align: left;
- 
+    font: normal normal  20px/29px Gilroy !important;
+    color: #707070 !important;
+    opacity: 0.8;
+    padding-left:5px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+
 }
+
+
 
 
 .Teacher-Courses-Buttons-head{
@@ -54,6 +62,8 @@
     width: 119px;
     height: 38px;
 }
+
+
 .Teacher-Courses-Buttons button:hover{
     background: #2D81F7 0% 0% no-repeat padding-box;
     color:white;
@@ -103,7 +113,7 @@
 }
 
 .Welcome-msg button{
-    width: 175px;
+    width: 80%;
     height: 49px;
     background: #2D81F7 0% 0% no-repeat padding-box;
     border-radius: 8px;
@@ -149,4 +159,20 @@ input[type="file"] {
     margin-bottom:100px;
     text-align:center;
     padding-top:10px;
+}
+
+.progressBar{
+    text-align:center;
+    margin-bottom:100px;
+    width:80%;
+}
+
+.sumbitVideoBtn{
+    margin-top:30px;
+    width:700px !important;
+    text-align:center!important;
+}
+
+.TeacherEdit{
+    margin-top:10%;
 }
