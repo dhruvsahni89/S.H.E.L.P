@@ -70,28 +70,11 @@
     
     
 }
-
-.Download-btn{
-    display:flex;
-    justify-content: flex-end;
-
-    
-
-}
-.Download-btn p{
-    cursor:pointer;
-    border-radius:3px;
-    padding:10px;
-    border:2px solid #0e3c5f;
-    font: normal normal  20px/20px Gilroy;
-    letter-spacing: 0px;
-    margin-right:50px;
-}
-
-.Download-btn p:hover{
-
-    background:rgba(0, 0, 255, 0.363);
-
+.progressBar{
+    margin-top:40px;
+    border:1px solid;
+    padding:40px;
+    width:100%;
 }
 
 

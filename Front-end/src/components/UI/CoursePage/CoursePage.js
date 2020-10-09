@@ -7,6 +7,7 @@ import axios from '../../../ApiServices/axiosUrl';
 import VideoList from './VideoList';
 import Layout from '../../Layout/Layout';
 import parse from 'html-react-parser';
+import ProgressBar from 'react-bootstrap/ProgressBar';
 
 class CoursePage extends Component {
 
@@ -20,6 +21,9 @@ class CoursePage extends Component {
         CurrentVideo:'',
         playing:false,
         PlayButton:'fa fa-play-circle',
+        progress:0,
+        index:0,
+        WatchedVideoCount:0,
 
         // Video0:{
         //     'video0':false,
@@ -52,12 +56,13 @@ class CoursePage extends Component {
          'video2':false,
          'video3':false,
          'video4':false,
+         
+         'video0Completed':false,
+         'video1Completed':false,
+         'video2Completed':false,
+         'video3Completed':false,
+         'video4Completed':false,
 
-         'CurrentVideo0':'',
-         'CurrentVideo1':'',
-         'CurrentVideo2':'',
-         'CurrentVideo3':'',
-         'CurrentVideo4':'',
 
 
 
@@ -77,9 +82,26 @@ class CoursePage extends Component {
             console.log("CoursePage Response",response);
        
             this.setState({CoursesInfo: response.data.course});
-            this.setState({CurrentVideo:response.data.course.videourl[0]})
+
+            this.setState({CurrentVideo:response.data.course.videoContent[0]})
             this.setState({loading:false});
-            console.log(this.state.CoursesInfo);
+            let count=0;
+
+        for(let j in response.data.course.videoContent){ 
+            for (let i in response.data.course.videoContent[j].usersWatched){
+                if(localStorage.getItem('userId')===response.data.course.videoContent[j].usersWatched[i]){
+                    this.setState({['video'+j+'Completed']:true});
+                    count+=1;
+                    
+                    break;
+                }
+            }
+        }
+        this.setState({WatchedVideoCount:count})
+            console.log(this.state);
+        
+      let progress = (this.state.WatchedVideoCount/this.state.CoursesInfo.videoContent.length)*100;
+      this.setState({progress:progress})
 
           
 
@@ -98,6 +120,7 @@ class CoursePage extends Component {
     VideochangeHandler=(event,video,index,playing)=> {
        let VideoNumber = 'video' + index;
        this.setState({CurrentVideo:video})
+       this.setState({index:index})
        console.log("before=",this.state[VideoNumber]);
       // this.setState({[VideoNumber]:!this.state[VideoNumber]})
 
@@ -109,7 +132,7 @@ class CoursePage extends Component {
             this.setState({['video'+i]:false})
         }
       }
-
+      console.log(this.state)
 
        //this.setState(prevState => 
         //({[VideoNumber]:prevState[VideoNumber]}));
@@ -126,7 +149,47 @@ class CoursePage extends Component {
        // console.log("boolean=",playing)
         //console.log("PLAYING STATE=",this.state.playing);
     }
+
+
+    videoCompleted=(index)=> {
+     
+       if(!this.state['video'+index+'Completed']) {
+       this.setState(prevState => 
+        ({WatchedVideoCount:prevState.WatchedVideoCount+1}));
+
+
+        const form = {}; 
+        form['courseID']= this.state.CourseId;
+        form['userID']=localStorage.getItem('userId');
+        form['videoID']=this.state.CoursesInfo.videoContent[index].videoUrl;
+    
+           axios.post('/watchedByuser',form)
+           
+           .then(response => {
+            console.log("Video information sent Response",response);
+       
+          
+    
+        })
+    
+        .catch(error => {
+            console.log(error.response);
+            if(error.response.data.message ==='jwt malformed')
+            if(error.response.status ===500)
+            this.setState({redirect:"/login"})
+        })
+       }
+
    
+       
+       let progress = (this.state.WatchedVideoCount/this.state.CoursesInfo.videoContent.length)*100;
+       this.setState({progress:progress})
+ 
+      this.setState({['video'+index+'Completed']:true});
+      
+      
+
+    }
 
     
 
@@ -149,6 +212,8 @@ class CoursePage extends Component {
         let CurrentVideo="";
         let playButton='';
         let playingVideo=false;
+        let completed=false;
+        let DummyVideoContent;
 
         if(this.state.loading ===false){
                 
@@ -164,17 +229,23 @@ class CoursePage extends Component {
                 longDescription=parse(this.state.CoursesInfo.discriptionLong);
                 willLearn=parse(this.state.CoursesInfo.willLearn);
                 ratingtimesUpdated=(this.state.CoursesInfo.rating.timesUpdated);
-                videourl=(this.state.CoursesInfo.videourl.slice(0));
+                 videourl=(this.state.CoursesInfo.videoContent.slice(0));
+                 console.log(videourl)
                // this.setState({CurrentVideo:videourl[0]});
-                CurrentVideo = "http://localhost:8080/" + this.state.CurrentVideo;
+                CurrentVideo =this.state.CurrentVideo;
+                DummyVideoContent=this.state.CoursesInfo.videoContent;
+
+               
+                
+                
 
 
 
                 if(rating ===0) rating=1;
                 
-                
                 VideoUrl= (
                     videourl.map((video,index)=>{
+
                     let VideoNumber ='video'+index;
                    
                     if(this.state[VideoNumber]){
@@ -188,21 +259,64 @@ class CoursePage extends Component {
                         playingVideo=false;
                        
                     }
+
+                    if(this.state['video'+index+'Completed']){
+                        completed='VideoCompleted';
+                    }
+
+                    else if(!this.state['video'+index+'Completed']){
+                        completed=false;
+                    }
+                
                 
                return(
 
                     <VideoList
                     key={index}
                     video={video}
+                    
                     changed={(event)=> this.VideochangeHandler(event,video,index,playingVideo)}
                     playButton={playButton}
-                    
+                    completed={completed}
                     
                     />)
             
                 
                      } )
                 );
+
+
+
+            //     VideoUrl= (
+            //         videourl.map((video,index)=>{
+            //         let VideoNumber ='video'+index;
+                   
+            //         if(this.state[VideoNumber]){
+
+            //             playButton='VideoSelected';
+            //             playingVideo=true;
+                    
+            //         }
+            //         else{
+            //             playButton='VideoNotSelected';
+            //             playingVideo=false;
+                       
+            //         }
+                
+            //    return(
+
+            //         <VideoList
+            //         key={index}
+            //         video={video}
+            //         changed={(event)=> this.VideochangeHandler(event,video,index,playingVideo)}
+            //         playButton={playButton}
+                    
+                    
+            //         />)
+            
+                
+            //          } )
+            //     );
 
         }
         
@@ -262,9 +376,11 @@ class CoursePage extends Component {
                         </div>
 
                             <div className="Course-Video">
-                           
+                           {console.log('index'+this.state.index)}
                                 <CourseVideo playing={this.state.playing} 
                                     videoUrl={CurrentVideo}
+                                    index={this.state.index}
+                                      videoCompleted={this.videoCompleted}
                                               />
                             </div>
 
@@ -319,11 +435,10 @@ class CoursePage extends Component {
                         playButton={this.state.PlayButton}/> */}
 
                         {VideoUrl}
-    
-                      
-                        
-                       
-                          
+                        <div className='progressBar'>
+                            <p>You have Completed {this.state.progress}% of your course!</p>
+                            <ProgressBar now={this.state.progress} />
+                        </div>
                      </div>
 
                     

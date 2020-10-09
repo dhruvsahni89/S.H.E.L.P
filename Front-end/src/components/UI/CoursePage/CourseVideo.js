@@ -9,12 +9,18 @@ class CourseVideo extends Component {
   state={
     progress:0,
     duration:0,
+    videoCompleted:this.props.videoUrl,
   }
 
   HandleProgress=(state)=>{
   
     let progress =( (state.playedSeconds/this.state.duration)*100);
+    console.log(progress)
     //console.log(this.state.duration, state.played, ":",progress)
+    if(progress >=80){
+      this.props.videoCompleted(this.props.index);
+  
+    }
     this.setState({progress:progress})
   
   }
@@ -28,6 +34,7 @@ class CourseVideo extends Component {
       return (
       
         <div className='player-wrapper'> 
+
         <ReactPlayer 
         className='react-player'
         width='100%'
@@ -36,7 +43,7 @@ class CourseVideo extends Component {
          onProgress={this.HandleProgress}
          onDuration={this.HandleDuration}
          playing={this.props.playing}
-        url={this.props.videoUrl} />
+        url={"http://localhost:8080/"+this.props.videoUrl.videoUrl} />
        
         {/* <div className="mt-5">
         <ProgressBar now={this.state.progress} />

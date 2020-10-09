@@ -7,9 +7,18 @@ class VideoList extends Component{
     
     render(){
         let className=[];
+        
+        let PlayIcon=[];
 
         if(this.props.playButton){
             className=['video-list',this.props.playButton];
+        }
+        
+        if(this.props.completed){
+            PlayIcon=['fa fa-check-circle',this.props.completed]
+        }
+        else if(!this.props.completed){
+            PlayIcon=['fa fa-pause-circle'];
         }
       
 
@@ -18,13 +27,11 @@ class VideoList extends Component{
                 
                 <div className="play-title">
                 
-                <i 
-               
-                className="fa fa-pause-circle"
-                aria-hidden="true"></i>
+                    <i className={PlayIcon.join(' ')}
+                    aria-hidden="true"></i>
 
 
-                <span> Title</span>   
+                    <span> Title</span>   
                 
                 </div>     
 

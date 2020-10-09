@@ -52,6 +52,13 @@
     rgba(255, 255, 255, 0.342);
 }
 
+.fa-check-circle{
+    color:green;
+}
+.VideoCompleted{
+
+}
+
 .video-duration{
     padding:15px;
 }

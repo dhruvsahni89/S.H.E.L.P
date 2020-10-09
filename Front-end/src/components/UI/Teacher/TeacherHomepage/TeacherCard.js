@@ -6,33 +6,7 @@ import axios from '../../../../ApiServices/axiosUrl';
 
 class TeacherCard extends Component{
 
-    DeleteCourse=()=>{
-
-        const fd = new FormData();
-        const form ={};
-        form['courseId']=this.props.CourseId;
-
-        fd.append('courseId',this.props.CourseId);
-
-        axios.post("/Course/delete",form,{
-            headers: {
-                Authorization: 'Bearer '+ localStorage.getItem('user') 
-            }
-        } )
-        .then(response => {
-            console.log("Removed Course",response);
-
-           // this.setState({loading:false});
-             alert("Course Removed,please refresh");
-            //this.AlertError("Course Removed,please refresh", "success");
-            
-        })
-        .catch(error => {
-            console.log(error);
-        })
-
-
-    }
+    
 
     render(){
 
@@ -60,7 +34,7 @@ class TeacherCard extends Component{
 
                      <div className="TeacherDeleteSection">
                         <p className="Teacher-Course-Teacher">{this.props.teacher}</p>
-                        <i onClick={this.DeleteCourse} class="fa fa-trash" aria-hidden="true"></i>
+                        <i onClick={this.props.DeleteCourse} class="fa fa-trash" aria-hidden="true"></i>
                      </div>
                           <p className="Course-info"> 
 

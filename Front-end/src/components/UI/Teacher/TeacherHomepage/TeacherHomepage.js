@@ -60,14 +60,43 @@ class TeacherHomePage extends Component {
         
 
     }
-   
+
     
     
+    DeleteCourse=(event,id)=> {
+        const form ={};
+        form['courseId']=id;
+    
+
+    
+        axios.post("/Course/delete",form,{
+            headers: {
+                Authorization: 'Bearer '+ localStorage.getItem('user') 
+            }
+        } )
+        .then(response => {
+            console.log("Removed Course",response);
+ 
+           
+             const updatedCourse =this.state.Courses;
+    
+             for(let i=0;i<this.state.Courses.length;i++){
+                 
+                 if(id=== this.state.Courses[i]._id){
+                    updatedCourse.splice(i,1);
+                 }
+             this.setState({Courses:updatedCourse})
+  
+            
+        }})
+        .catch(error => {
+            console.log(error);
+        })
+    }    
 
 
     render(){
 
-    //    let BannerImage ;
     if(this.state.redirect){
         return <Redirect to={this.state.redirect}/>
     }
@@ -94,20 +123,17 @@ class TeacherHomePage extends Component {
            
 
                 <TeacherCard  
-                key={item.id}
+                key={item._id}
                 title={item.title}
                 teacher={item.name}
                 img={"http://localhost:8080/" + item.imageurl}
                 rating={item.rating.ratingFinal}
                 Link={`/course/${this.state.CourseLink}/${item._id}`}
                 CourseId={item._id}
+                DeleteCourse={(event)=>this.DeleteCourse(event,item._id)}
                 />)
     
             );
-            
-           // BannerImage =   this.state.CourseLink 
-            
-
 
             };
         

@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import './CSS/Cart.css';
 import Rating from '../CoursePage/Rating';
 import axios from '../../../ApiServices/axiosUrl'
-import Alert from '../../../Auth/Forms/alert'
+//import Alert from '../../../Auth/Forms/alert'
 
 class CartCard extends Component{
 
@@ -16,61 +16,31 @@ class CartCard extends Component{
         alertType:" ",
     },
 
-    alertPressed:false,
+    // alertPressed:false,
 
 }
 
-AlertError(alertmsg, alertType) {
-    const AlertArray = {...this.state.alert};
-    AlertArray.msg = alertmsg;
-    AlertArray.valid=true;
-    AlertArray.alertType=alertType;
-    this.setState({alert:AlertArray});
+// AlertError(alertmsg, alertType) {
+//     const AlertArray = {...this.state.alert};
+//     AlertArray.msg = alertmsg;
+//     AlertArray.valid=true;
+//     AlertArray.alertType=alertType;
+//     this.setState({alert:AlertArray});
 
-}
-     remove =()=> {
-        this.setState({alertPressed:true})
-        setTimeout( ()=> this.setState({alertPressed:false}) , 3000);
-
-        const fd = new FormData();
-        const form ={};
-        form['_userID']=this.props.userId;
-        form['_id']=this.props.courseId;
-
-        fd.append('_userID',this.props.userId);
-        fd.append("_id",this.props.courseId);
-
-        axios.post("/unbookmark",form )
-        .then(response => {
-            console.log("Removed",response);
-       
-            
-         
-           
-            this.setState({loading:false});
-           // alert("Course Removed,please refresh");
-            this.AlertError("Course Removed,please refresh", "success");
-            
-
-          
-
-        })
-        .catch(error => {
-            console.log(error.response);
-        })
-    }
+// }
+     
 
 
     render(){
 
-        let alertContent = null;
+        // let alertContent = null;
         
       
-        if(this.state.alert.valid){
-            alertContent = ( <Alert value={this.state.alertPressed} 
-                alertMsg ={this.state.alert.msg} 
-                alertType={this.state.alert.alertType} /> )
-        }
+        // if(this.state.alert.valid){
+        //     alertContent = ( <Alert value={this.state.alertPressed} 
+        //         alertMsg ={this.state.alert.msg} 
+        //         alertType={this.state.alert.alertType} /> )
+        // }
         
         
     
@@ -78,8 +48,7 @@ AlertError(alertmsg, alertType) {
     return(
 
     <div className="CartContent">
-        
-        {alertContent}
+       
 
             <div className="CardMain ">
 
