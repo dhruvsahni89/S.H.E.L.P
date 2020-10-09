@@ -175,7 +175,7 @@ exports.preference=(req, res, next) => {
         var x=0;                
         user.interest.forEach(interest => {         //for every category user has chosen , finding courses of that category from his/her database
             console.log(interest)
-            courses.find({category:interest})
+            Courses.find({category:interest})
             .then(result=>{
                 x++;
                 result.forEach(all=>{                  //adding all the data of courses array into a single array
@@ -192,7 +192,7 @@ exports.preference=(req, res, next) => {
            
             
         });
-    //   console.log(coursesarray);
+        //console.log(coursesarray);
         // coursesarray.push("abhishek srivastav");
         // coursesarray.push("himnashu");
        
@@ -203,12 +203,11 @@ exports.preference=(req, res, next) => {
 
         // courses.find({category:category1})
         // .then(found=>{
-            // coursesarray=found;
-            // coursesarray.push(found);
-
-            // res.json(coursesarray);
-            // coursesarray=[...coursesarray,found];
-            // console.log(found);
+        // coursesarray=found;
+        // coursesarray.push(found);
+        // res.json(coursesarray);
+        // coursesarray=[...coursesarray,found];
+        // console.log(found);
 
            
         })

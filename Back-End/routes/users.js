@@ -24,4 +24,5 @@ router.post('/home/preferences',isAuth,UserController.preference);
 router.post('/teacher/uploads',isAuth,UserController.uploads);
 
 
+
 module.exports = router;

@@ -247,19 +247,48 @@ exports.videoUpload = (req,res,next) => {
     console.log("hi");
     const courseId = req.params.videocourseID;
     const file = req.files
-    const videoPathArray = [];
+    // const videoPathArray = [];
 
-    for(i in file){
-        videoPathArray.push(file[i].filename);
-    }
-    console.log(videoPathArray)
+    // for(i in file){
+    //     videoPathArray.push(file[i].filename);
+    // }
+    //console.log(videoPathArray)
     courses.findById({_id:courseId}).then(course =>{
-         course.videourl = videoPathArray;
-         course.save();
+        for(i in file){
+            course.videoContent.push({videoUrl:file[i].filename}); 
+        }
+        course.save();
         res.json({message:"Video Uploaded",updatedCourse:course })
     }).catch(err => {
         res.json({error:err,message:"Course Not found"});
     })
+}
+
+exports.watchedVideo = (req,res,next) => {
+    const courseID = req.body.courseID;
+    const userID = req.body.userID; 
+    const videoID = req.body.videoID;
+    console.log("here:-bablu:-",courseID)
+    courses.findById(courseID).then(course => {
+        console.log("1")
+        const videoContent = course.videoContent;
+        videoContent.find(obj => {
+            console.log("2")
+            if(obj.videoUrl === videoID){
+                console.log("3")
+                obj.usersWatched.push(userID);
+            }
+            course.save().then(result => {
+                console.log("4")
+                res.json({message:"course saved",result:result})
+            }).catch(err => {
+                console.log(err + " Course not saved");
+            })
+        })
+    }).catch(err => {
+        console.log(err)
+    })
+
 }
 
 exports.searchCourse = (req,res,next) => {

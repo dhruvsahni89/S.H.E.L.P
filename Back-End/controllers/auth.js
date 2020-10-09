@@ -198,7 +198,7 @@ exports.otpVerification = (req, res, next) => {
       }
 
       // check if entered otp is valid
-      if (data.Otp === recievedOtp) {
+      if (data.Otp === recievedOtp){
 
         User.findOne({ email: data.email }).then(user => {
           user.isverified = "true";
@@ -209,30 +209,14 @@ exports.otpVerification = (req, res, next) => {
               email: user.email,userId:user._id.toString()
             },
             "otpverifiedtoken",
-            { expiresIn:'6h' } //600s = 10min
+            { expiresIn:'6h' } 
           );
           data.remove();
 
           return res.status(200).json({
-            message: "otp entered is correct, user added", token:token, userId:user._id.toString() , username:user.name
+            message: "otp entered is correct, user added", token:token, userId:user._id.toString(),username:user.name
           });
         });
-       
-        // const email = req.body.email;
-        // const name = req.body.name;
-        // const password = req.body.password;
-        // const user = new User({
-          
-        //   email: email,
-        //   name: name,
-        //   password:password
-        // });
-       
-          
-        // });
-        // console.log(data.otp);
-
-       
       } else {
 
         const error = new Error("Validation Failed");

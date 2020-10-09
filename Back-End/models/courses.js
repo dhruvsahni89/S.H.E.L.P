@@ -40,9 +40,16 @@ const courseSchema = new Schema({
         required:true,
         ref:'User'
     },
-    videourl:[{
-        type:String,
-        required:true
+    videoContent:[{
+        videoUrl:{
+            type:String,
+            required:true
+        },
+        usersWatched:[{
+            type:Schema.Types.ObjectId,
+            required:false,
+            ref:'User'
+        }]
     }],
     rating:{
         ratingSum:{
@@ -66,3 +73,15 @@ const courseSchema = new Schema({
 );
 
 module.exports = courses = mongoose.model('Courses',courseSchema); //stored in users collection  and uses user schema
+
+
+/* 
+    videocontent.find( {videoUrl:passedbyfront} )
+    
+    video id-
+
+    video watch:-user id 
+    
+    
+
+*/
