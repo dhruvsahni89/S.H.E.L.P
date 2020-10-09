@@ -2,3 +2,11 @@
     opacity:0;
     
 }
+.alertbox{
+    display:flex !important;
+    justify-content: center !important;
+    align-content: center !important;
+    z-index:3 !important;
+    text-align:center !important;
+    
+}

@@ -67,7 +67,26 @@ class CourseDesc extends Component {
             }
 
 
-        }   
+        } 
+
+        
+    DownloadPdf=()=>{
+        axios.get(`/home/download/${this.state.CourseId}`)
+        
+        .then(response => {
+            let path ='http://localhost:8080/'+'invoice-' + 
+            this.state.CourseId + '.pdf';
+
+         
+            window.open(path);
+        
+        })
+        .catch(err=>{
+            console.log(err.response)
+        })
+  
+        
+    }  
 
     
 
@@ -86,7 +105,7 @@ class CourseDesc extends Component {
 
         return(
 
-            <div className="Description-main">
+            <div className="">
 
                 <p className="Course-title-main">{this.props.title}</p>
                 
@@ -95,7 +114,7 @@ class CourseDesc extends Component {
                     <div className="RatingStars"><Rating rating={this.props.rating}
                      specialrating={true} 
                     CourseId={this.props.CourseId}/></div>
-                    <p className="ratingtimesUpdated"> ( {this.props.ratingtimesUpdated} )</p>
+                    <p className="ratingtimesUpdated"> ( {this.props.ratingtimesUpdated} ratings )</p>
 
                 </div>
 
@@ -119,9 +138,9 @@ class CourseDesc extends Component {
                     </div>
 
                 <div className="flex-row">
-                        <div className="play-btn">
-                        <i className="fa fa-play-circle"></i>
-                            <p>Play</p>
+                        <div onClick={this.DownloadPdf} className="play-btn">
+                        <i class="fa fa-download" aria-hidden="true"></i>
+                            <p>Resources</p>
                             
                         </div>
 

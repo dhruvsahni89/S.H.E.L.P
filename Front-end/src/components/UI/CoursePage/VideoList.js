@@ -14,11 +14,11 @@ class VideoList extends Component{
       
 
             return(
-            <div className={className.join(' ')}>
+            <div onClick={this.props.changed}  className={className.join(' ')}>
                 
                 <div className="play-title">
                 
-                <i onClick={this.props.changed} 
+                <i 
                
                 className="fa fa-pause-circle"
                 aria-hidden="true"></i>

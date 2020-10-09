@@ -1,31 +1,40 @@
 .video-list{
-   
     display:flex;
     margin-top:10px;
     justify-content: space-between;
-    width:600px;
-    height:50px;
-    background: #e8f0fe;
-    border-radius: 24px;
+    border-radius: 17px;
+    box-shadow: 1px 1px 5px rgba(140, 161, 190, 0.6), 
+    -1px -1px 5px  
+    rgba(255, 255, 255, 0.342);
+    
     
 }
 
-.player-wrapper {
+/* .player-wrapper {
     position: relative;
-    padding-top: 56.25% /* Player ratio: 100 / (1280 / 720) */
+    padding-top: 56.25% /* Player ratio: 100 / (1280 / 720) 
   }
    
   .react-player {
     position: absolute;
     top: 0;
     left: 0;
-  }
+  } */
 
 .play-title{
     opacity:1!important;
     padding:15px;
+    font: normal normal medium 24px/29px Gilroy;
+    letter-spacing: 0px;
+    color: #051c30;
 
 }
+.video-duration{
+    font: normal normal medium 24px/29px Gilroy;
+    letter-spacing: 0px;
+    color: #566775;
+}
+
 
 .fa-play-circle,.fa-pause-circle{
     color:rgb(85, 84, 84) !important;
@@ -33,11 +42,14 @@
 }
 
 .VideoSelected{
-    background:rgba(145, 145, 219, 0.507);
+    background:#08BD80;
+    
 }
 
 .VideoNotSelected{
-    background: #e8f0fe;
+    box-shadow: 1px 1px 5px rgba(140, 161, 190, 0.6), 
+    -1px -1px 5px  
+    rgba(255, 255, 255, 0.342);
 }
 
 .video-duration{

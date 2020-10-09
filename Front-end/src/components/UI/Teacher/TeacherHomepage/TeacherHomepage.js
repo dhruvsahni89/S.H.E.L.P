@@ -53,6 +53,9 @@ class TeacherHomePage extends Component {
                 })
                 .catch(error => {
                     console.log(error.response);
+                    if(error.response.data.message ==="jwt malformed"){
+                        this.setState({redirect:'/login'})
+                    }
                 })
         
 
@@ -65,6 +68,9 @@ class TeacherHomePage extends Component {
     render(){
 
     //    let BannerImage ;
+    if(this.state.redirect){
+        return <Redirect to={this.state.redirect}/>
+    }
         
 
         let data = (<Loader

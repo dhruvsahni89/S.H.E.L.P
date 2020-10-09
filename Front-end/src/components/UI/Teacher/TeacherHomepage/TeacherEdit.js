@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 //import Aux from '../../../hoc/ReactFrag';
 //import Scroll from 'react-scroll';
+import Loader from 'react-loader-spinner';
 import Tinput from '../TinputFields';
 import TeacherTittle from '../TeacherTittle';
 import {Link,Redirect} from 'react-router-dom';
@@ -351,29 +352,30 @@ class TeacherPage extends Component{
               
 
 
-             AuthServices.UpdatedCourse(fd,{
+             AuthServices.UpdatedCourse(fd, {
+                onUploadProgress: progressEvent => {
+                    console.log("mmmmmm");
+                    const {loaded,total} =progressEvent;
+                    let percent =Math.floor((loaded*100)/total);
+                    console.log("percent" + percent)
+                    if(percent<100){
+                        this.setState({uploadedPercentage:percent})
+                    }
+                }
+            },{
                     headers: {
                         "Content-Type": "multipart/form-data",
                         "Access-Control-Allow-Origin": '*',
                         Authorization: 'Bearer '+ localStorage.getItem('user') 
-                    }
-                }, {
-                    onUploadProgress: progressEvent => {
-                        console.log("mmmmmm");
-                        const {loaded,total} =progressEvent;
-                        let percent =Math.floor((loaded*100)/total);
-                        console.log("percent" + percent)
-                        if(percent<100){
-                            this.setState({uploadedPercentage:percent})
-                        }
                     }
                 })
                 .then( res=> { console.log(res);
 
                     if(res.status ===201 || res.status ===200){
 
-                    this.AlertError("Your Course has been saved!", "success");
-                    this.setState({redirect:"/home"})
+                    this.AlertError("Your Course has been Edited Successfully!", "success");
+                    setTimeout( ()=> this.setState({redirect:"/home"}) , 2000);
+                    
                 }})
 
 
@@ -382,7 +384,7 @@ class TeacherPage extends Component{
                 .catch(error => { console.log(error.response)
                     this.AlertError(error.response.data.message, "danger");
                     if(error.response.data.message ==="jwt malformed" )
-                        this.setState({redirect:"/login"})
+                        this.setState({redirect:"/teacherhome"})
                 });
         
        // }
@@ -403,20 +405,9 @@ class TeacherPage extends Component{
         let willLearn=null;
         let requirement=null;
         let file= null;
+        let fileName=null;
 
-        if(!this.state.loading){
-            title=this.state.CourseDetails.title;
-            discription=this.state.CourseDetails.discription;
-            discriptionLong=this.state.CourseDetails.discriptionLong;
-            name=this.state.CourseDetails.name;
-            this.state.Form.category[this.state.CourseDetails.category]=true;
-            //category=this.state.CourseDetails.category;
-            requirement=this.state.CourseDetails.requirement;
-            willLearn=this.state.CourseDetails.willLearn;
-           // file=this.state.CourseDetails.imageurl;
-        }
-
-        
+         
         let classWeb=[];
         let classWebDesign=[];
         let classReact=[];
@@ -427,7 +418,7 @@ class TeacherPage extends Component{
 
         let Welcome = null;
         let alertContent = null;
-        let fileName=null;
+        
        
         if(this.state.redirect){
             return <Redirect to={this.state.redirect}/>
@@ -473,13 +464,7 @@ class TeacherPage extends Component{
         const uploadedPercentage = this.state.uploadedPercentage;
 
         
-         
-        // if(this.state.CourseDetails.file){
-        //     fileName=this.state.CourseDetails.file.value.name;
-            
-        // }
-
-      
+     
         
 
         if(this.state.alert.valid){
@@ -493,6 +478,192 @@ class TeacherPage extends Component{
         }
         
 
+        let data = (<Loader
+            type="Puff"
+            color="#2D81F7"
+            height={50}
+            width={50}
+            className="TeacherEdit"
+
+             //3 secs
+    
+         />);
+
+
+        if(!this.state.loading){
+            title=this.state.CourseDetails.title;
+            discription=this.state.CourseDetails.discription;
+            discriptionLong=this.state.CourseDetails.discriptionLong;
+            name=this.state.CourseDetails.name;
+            this.state.Form.category[this.state.CourseDetails.category]=true;
+            //category=this.state.CourseDetails.category;
+            requirement=this.state.CourseDetails.requirement;
+            willLearn=this.state.CourseDetails.willLearn;
+          //  file=this.state.CourseDetails.imageurl;
+
+          data = (   <>
+          
+            <div className="Welcome-msg">
+                                    
+                            {Welcome}
+
+                    </div>
+
+
+                    <div className="Teacher-Head-Class">
+
+                            
+                        <Tinput
+                        label={this.state.Form.name.label}
+                        rows={this.state.Form.name.rows}
+                        cols={this.state.Form.name.cols}
+                        value={name}
+                        changed={(event)=> this.inputchangeHandler(event,"name")}
+                        />
+
+
+                    </div>
+
+
+
+                    <div className="Teacher-Head-Class">
+
+                    
+                    <Tinput
+                    label={this.state.Form.title.label}
+                    rows={this.state.Form.title.rows}
+                    cols={this.state.Form.title.cols}
+                    value={title}
+                    changed={(event)=> this.inputchangeHandler(event,"title")}
+                    />
+
+
+                    </div>
+
+                    <div className="Teacher-Courses-Buttons-head">
+
+                    <p className="CourseCategoryTitle">Course Category</p>
+
+                    <div className="Teacher-Courses-Buttons">
+
+                        <button onClick={()=> this.categoryHandler("Web Development")} className={classWeb.join(' ')} > Development</button>
+                        <button className={classWebDesign.join(' ')} onClick={()=> this.categoryHandler("Web Designing")}> Designing</button>
+                        <button className={classReact.join(' ')} onClick={()=> this.categoryHandler("React")}> React</button>
+                        <button className={classML.join(' ')} onClick={()=> this.categoryHandler("ML")}> ML</button>
+                        <button className={classPhotography.join(' ')} onClick={()=> this.categoryHandler("Photography")}> Photography</button>
+                        <button className={classNodeJs.join(' ')} onClick={()=> this.categoryHandler("NodeJs")}> Node JS</button>
+                        
+                    </div>
+
+                    </div>    
+
+
+
+
+
+                    <TeacherTittle TitleDesc={"Description of your Course"}/>
+                    
+                    <div className="Teacher-Head-Class">
+                    <Tinput
+                    label={this.state.Form.discription.label}
+                    rows={this.state.Form.discription.rows}
+                    cols={this.state.Form.discription.cols}
+                    value={discription}
+                    changed={(event)=> this.inputchangeHandler(event,"discription")}
+                    />
+
+                    </div>
+
+                    <div id="section2" className="Teacher-Head-Class">
+
+                    <CKEditorArea
+                    label={this.state.Form.discriptionLong.label}
+                    rows={this.state.Form.discriptionLong.rows}
+                    cols={this.state.Form.discriptionLong.cols}
+                    value={discriptionLong}            
+                    changed={(event,editor)=> this.CKEditorHandler(event,editor,"discriptionLong")}
+                    
+                    
+                    // changed={(event)=> this.inputchangeHandler(event,"discriptionLong")}
+                    />
+
+                    </div>
+
+
+                    <div  className="Teacher-Head-Class">
+
+                    <CKEditorArea
+                    label={this.state.Form.willLearn.label}
+                    rows={this.state.Form.willLearn.rows}
+                    cols={this.state.Form.willLearn.cols}
+                    placeholder={this.state.Form.willLearn.placeholder}
+                    value={willLearn}   
+                    changed={(event,editor)=> this.CKEditorHandler(event,editor,"willLearn")}
+                    
+                    
+                    // changed={(event)=> this.inputchangeHandler(event,"discriptionLong")}
+                    />
+
+                    </div>
+
+                    <div  className="Teacher-Head-Class">
+
+                    <CKEditorArea
+                    label={this.state.Form.requirement.label}
+                    rows={this.state.Form.requirement.rows}
+                    cols={this.state.Form.requirement.cols}
+                    value={requirement}   
+                    changed={(event,editor)=> this.CKEditorHandler(event,editor,"requirement")}
+                    
+                    
+                    // changed={(event)=> this.inputchangeHandler(event,"discriptionLong")}
+                    />
+
+                    </div>
+
+                    {/* <button className="NextBtn">Next</button>  */}
+
+
+
+                    <div className="Teacher-Head-Class">
+                    <img src={Cloud} alt="cloud"/>
+                    <p className="cloudpng">Upload your content</p>
+                    </div>
+
+
+                    <div className="Teacher-Head-Class">
+                    
+                    
+                        <label className="custom-image-upload">
+                            <input type="file" name='imageurl' value={file} 
+                            onChange={this.fileSelectorHandler}/>
+                            Upload Image
+                    </label>
+
+                    <p className="ImageName">{fileName}</p>
+                    <img className="" 
+                        src={"http://localhost:8080/" + fileName} alt="banner1"/>
+
+                    
+                    </div>
+
+
+                    <div className="Welcome-msg">
+                        <button onClick={this.sumbitButton} >Sumbit </button>
+                    </div>
+
+                    <div>
+                        {uploadedPercentage>0 ? <ProgressBar now={uploadedPercentage}
+                            label={`${uploadedPercentage}%`}/> :null }
+                    </div>
+                    </>);
+                                    
+       
+      
+        }
+
+       
+
         return(
 
           
@@ -501,159 +672,7 @@ class TeacherPage extends Component{
 
             {alertContent}
 
-            <div className="Welcome-msg">
-                
-                    {Welcome}
-
-            </div>
-
-        
-        <div className="Teacher-Head-Class">
-        
-                    
-                <Tinput
-                label={this.state.Form.name.label}
-                rows={this.state.Form.name.rows}
-                cols={this.state.Form.name.cols}
-                value={name}
-                changed={(event)=> this.inputchangeHandler(event,"name")}
-                />
-
-
-        </div>
-
-
-          
-        <div className="Teacher-Head-Class">
-        
-            
-            <Tinput
-            label={this.state.Form.title.label}
-            rows={this.state.Form.title.rows}
-            cols={this.state.Form.title.cols}
-            value={title}
-            changed={(event)=> this.inputchangeHandler(event,"title")}
-            />
-
-
-        </div>
-
-     <div className="Teacher-Courses-Buttons-head">
-
-            <p className="CourseCategoryTitle">Course Category</p>
-
-            <div className="Teacher-Courses-Buttons">
-
-                <button onClick={()=> this.categoryHandler("Web Development")} className={classWeb.join(' ')} > Development</button>
-                <button className={classWebDesign.join(' ')} onClick={()=> this.categoryHandler("Web Designing")}> Designing</button>
-                <button className={classReact.join(' ')} onClick={()=> this.categoryHandler("React")}> React</button>
-                <button className={classML.join(' ')} onClick={()=> this.categoryHandler("ML")}> ML</button>
-                <button className={classPhotography.join(' ')} onClick={()=> this.categoryHandler("Photography")}> Photography</button>
-                <button className={classNodeJs.join(' ')} onClick={()=> this.categoryHandler("NodeJs")}> Node JS</button>
-                
-            </div>
-
-        </div>    
-
-
-  
-
-   
-            <TeacherTittle TitleDesc={"Description of your Course"}/>
-            
-        <div className="Teacher-Head-Class">
-            <Tinput
-            label={this.state.Form.discription.label}
-            rows={this.state.Form.discription.rows}
-            cols={this.state.Form.discription.cols}
-            value={discription}
-            changed={(event)=> this.inputchangeHandler(event,"discription")}
-            />
-
-        </div>
-
-        <div id="section2" className="Teacher-Head-Class">
-
-            <CKEditorArea
-            label={this.state.Form.discriptionLong.label}
-            rows={this.state.Form.discriptionLong.rows}
-            cols={this.state.Form.discriptionLong.cols}
-            value={discriptionLong}            
-            changed={(event,editor)=> this.CKEditorHandler(event,editor,"discriptionLong")}
-            
-            
-           // changed={(event)=> this.inputchangeHandler(event,"discriptionLong")}
-            />
-
-        </div>
-
-
-        <div  className="Teacher-Head-Class">
-
-        <CKEditorArea
-            label={this.state.Form.willLearn.label}
-            rows={this.state.Form.willLearn.rows}
-            cols={this.state.Form.willLearn.cols}
-            placeholder={this.state.Form.willLearn.placeholder}
-            value={willLearn}   
-            changed={(event,editor)=> this.CKEditorHandler(event,editor,"willLearn")}
-            
-            
-           // changed={(event)=> this.inputchangeHandler(event,"discriptionLong")}
-            />
-        
-        </div>
-
-        <div  className="Teacher-Head-Class">
-
-        <CKEditorArea
-            label={this.state.Form.requirement.label}
-            rows={this.state.Form.requirement.rows}
-            cols={this.state.Form.requirement.cols}
-            value={requirement}   
-            changed={(event,editor)=> this.CKEditorHandler(event,editor,"requirement")}
-            
-            
-           // changed={(event)=> this.inputchangeHandler(event,"discriptionLong")}
-            />
-        
-        </div>
-        
-         {/* <button className="NextBtn">Next</button>  */}
-
-
-
-        <div className="Teacher-Head-Class">
-            <img src={Cloud} alt="cloud"/>
-            <p className="cloudpng">Upload your content</p>
-        </div>
-
-
-            <div className="Teacher-Head-Class">
-            
-            
-                <label className="custom-image-upload">
-                    <input type="file" name='imageurl' value={file} 
-                     onChange={this.fileSelectorHandler}/>
-                    Upload Image
-            </label>
-
-            <p className="ImageName">{fileName}</p>
-            <img className="" 
-                src={"http://localhost:8080/" + fileName} alt="banner1"/>
-
-            
-            </div>
-
-        
-            <div className="Welcome-msg">
-                <button onClick={this.sumbitButton} >Sumbit </button>
-            </div>
-
-          <div>
-              {uploadedPercentage>0 ? <ProgressBar now={uploadedPercentage}
-                    label={`${uploadedPercentage}%`}/> :null }
-          </div> 
+            {data}
             
 
           

@@ -125,7 +125,10 @@ AlertError(alertmsg, alertType) {
 
         })
         .catch(error => {
-            console.log(error);
+            console.log(error.response);
+            if(error.response.statusText  === "Internal Server Error"){
+                this.setState({redirect:'/login'})
+            }
         })
 
 

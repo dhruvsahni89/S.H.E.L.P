@@ -85,6 +85,7 @@ class TeacherPage extends Component{
 
             image:{
                 value:'',
+                name:'',
                 validation: {
                     required: true,
                     
@@ -282,6 +283,7 @@ class TeacherPage extends Component{
 
         selectedfile.image.value= event.target.files[0];
        
+        selectedfile.image.name= URL.createObjectURL(event.target.files[0]);
         this.setState({Form:selectedfile })
         console.log(selectedfile)
 
@@ -317,14 +319,8 @@ class TeacherPage extends Component{
         
                     
                 axios.post('creator/create-course',fd,{
-                    headers: {
-                        "Content-Type": "multipart/form-data",
-                        "Access-Control-Allow-Origin": '*',
-                        Authorization: 'Bearer '+ localStorage.getItem('user') 
-                    }
-                }, {
                     onUploadProgress: progressEvent => {
-                        console.log("mmmmmm");
+                        console.log("Progress bar");
                         const {loaded,total} =progressEvent;
                         let percent =Math.floor((loaded*100)/total);
                         console.log("percent" + percent)
@@ -332,13 +328,21 @@ class TeacherPage extends Component{
                             this.setState({uploadedPercentage:percent})
                         }
                     }
+                },{
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                        "Access-Control-Allow-Origin": '*',
+                        Authorization: 'Bearer '+ localStorage.getItem('user') 
+                    }
                 })
                 .then( res=> { console.log(res);
 
                     if(res.status ===201 || res.status ===200){
                     this.setState({CourseId:res.data.newCourse._id})
-                    this.setState({redirect:true})
                     this.AlertError("Your Course has been saved!", "success");
+                    setTimeout( ()=> this.setState({redirect:true}) , 2000);
+                    
+                   
                 
                 }})
 
@@ -418,7 +422,7 @@ class TeacherPage extends Component{
         }
         else classNodeJs=[];
 
-        const uploadedPercentage = this.state.uploadedPercentage;
+        let uploadedPercentage = this.state.uploadedPercentage;
 
         
         if(this.state.Form.image.value){
@@ -585,13 +589,13 @@ class TeacherPage extends Component{
 
             <p className="ImageName">{fileName}</p>
             <img className="" 
-                src={"http://localhost:8080/" + fileName} alt="banner1"/>
+                src={this.state.Form.image.name} alt="No file Selected"/>
 
             
             </div>
 
         
-            <div className="Welcome-msg">
+            <div className="Welcome-msg sumbitVideoBtn">
                 <button onClick={this.sumbitButton} >Sumbit </button>
             </div>
 
