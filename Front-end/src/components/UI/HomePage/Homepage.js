@@ -5,6 +5,7 @@ import CourseCards from './CourseCards';
 import CourseTitle from './CourseTitle';
 import {NavLink} from 'react-router-dom';
 import Loader from 'react-loader-spinner';
+import Layout from '../../Layout/Layout'
 //import CoursePage from '../CoursePage/CoursePage';
 //import ProductApi from './../../../ApiServices/ProductApi';
 import axios from "../../../ApiServices/axiosUrl";
@@ -121,7 +122,7 @@ class Homepage extends Component {
             };
         
         return(
-          
+          <Layout>
             <div className="container">
 
                 <nav aria-label="breadcrumb">
@@ -162,6 +163,7 @@ class Homepage extends Component {
 
 
             </div>
+            </Layout>
         );
     }
 

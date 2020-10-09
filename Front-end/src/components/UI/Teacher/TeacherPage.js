@@ -2,8 +2,9 @@ import React,{Component} from 'react';
 //import Aux from '../../../hoc/ReactFrag';
 //import Scroll from 'react-scroll';
 import Tinput from './TinputFields';
+import Layout from '../../Layout/Layout';
 import TeacherTittle from './TeacherTittle';
-import {Link,Redirect} from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 import Cloud from '../../../assets/Images/cloud.png';
 import './CSS/Teacher.css';
 import axios from '../../../ApiServices/axiosUrl';
@@ -448,7 +449,7 @@ class TeacherPage extends Component{
         return(
 
           
-
+    <Layout>
         <div className="container-fluid-main">
 
             {alertContent}
@@ -607,7 +608,7 @@ class TeacherPage extends Component{
 
           
         </div>
-
+    </Layout>
         
 
 

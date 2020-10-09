@@ -3,8 +3,8 @@ import React,{Component} from 'react';
 //import Scroll from 'react-scroll';
 //import Tinput from './TinputFields';
 //import TeacherTittle from './TeacherTittle';
-import {Link,Redirect} from 'react-router-dom';
-import Cloud from '../../../assets/Images/cloud.png';
+import Layout from '../../Layout/Layout';
+import {Redirect} from 'react-router-dom';
 import './CSS/Teacher.css';
 import axios from '../../../ApiServices/axiosUrl';
 import AuthServices from '../../../ApiServices/auth.service';
@@ -243,7 +243,7 @@ class TeacherPage extends Component{
         return(
 
           
-
+<Layout>
         <div className="">
 
                  {alertContent}
@@ -368,7 +368,7 @@ class TeacherPage extends Component{
 
   
         
-
+    </Layout>
 
         );
     }

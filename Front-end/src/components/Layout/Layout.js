@@ -8,20 +8,19 @@ import Navbar from '../UI/Navigation/Navbar/Navbar';
 class Layout extends Component
  {
 
-     
 
     render(){
 
-        
 
     return (
         <Aux>
 
         <Navbar />
         
-
         <main className="Content">
+           
             {this.props.children}
+       
         </main>
         
         </Aux>

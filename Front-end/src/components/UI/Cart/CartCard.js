@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 //import Webdev from '../../../assets/Images/webdev.png';
+import {Link} from 'react-router-dom';
 import './CSS/Cart.css';
 import Rating from '../CoursePage/Rating';
 import axios from '../../../ApiServices/axiosUrl'
@@ -76,14 +77,19 @@ AlertError(alertmsg, alertType) {
    
     return(
 
-    <div className="CartContent">{alertContent}
+    <div className="CartContent">
+        
+        {alertContent}
 
             <div className="CardMain ">
 
 
+                <Link className="productLink" to={this.props.Link}>
                     <div className="CardImageParent">
                         <img src={this.props.img} alt="course"/>
                     </div>
+                </Link>
+
 
                     <div className="CardSideContent">
 
@@ -91,7 +97,7 @@ AlertError(alertmsg, alertType) {
 
                             <div className="CardParent1">
                                 <p className="CourseTeacher">By {this.props.teacher}</p>
-                                <p onClick={this.remove} className="CourseRemove">Remove</p>
+                                <p onClick={this.props.remove} className="CourseRemove">Remove</p>
                             </div>
 
                                 <div className="CardParent2"> 

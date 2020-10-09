@@ -1,10 +1,7 @@
 import React, {Component} from 'react';
 import './Navbar.css';
 import {NavLink,Redirect} from 'react-router-dom';
-
 import Logo from '../../../UI/Logo/Logo';
-//import ProfileLogo from '../../../UI/Logo/profileLogo';
-//import SideToggler from '../../SideNav/SideToggler/SideToggler';
 import AuthServices from '../../../../ApiServices/auth.service';
 
 class Navbar extends Component {
@@ -20,9 +17,10 @@ class Navbar extends Component {
         let userName= AuthServices.getUserName();
         if(userToken!==null){
             this.setState({isLoggedIn:true,userName:userName});
+         
         }
 
-        
+    
         
      }
 
@@ -31,7 +29,7 @@ class Navbar extends Component {
         AuthServices.logout();
        // alert(localStorage.getItem('user'))
         
-      window.location.reload();
+      //window.location.reload();
 
     }
 
@@ -43,6 +41,7 @@ class Navbar extends Component {
        if (this.state.redirect) {
             return <Redirect to="/login" />
         }
+     //   alert(AuthServices.getCurrentUser())
 
         let LoginLinks = ( <ul className="navbar-nav ml-auto">
 

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Redirect } from 'react-router-dom';
 //import Login from '../Login/Login';
+import Layout from '../../../components/Layout/Layout';
 import AuthService from "../../../ApiServices/auth.service";
 import '../Form.css';
 import Input from '../../../components/UI/Input/FormInput';
@@ -361,7 +362,7 @@ inputBlurHandler = (event,inputIdentifier)=> {
         );
 
         return (
-           <div>
+           <Layout>
                 {alertContent}
                 
                 <div className="SideContent">
@@ -372,7 +373,7 @@ inputBlurHandler = (event,inputIdentifier)=> {
 
                             {form}
                     </div>
-        </div>
+        </Layout>
         );
     }
   

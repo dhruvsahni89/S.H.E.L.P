@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import './App.css';
 import {Route, Switch, Redirect} from 'react-router-dom';
 import {BrowserRouter} from 'react-router-dom';
-import Layout from './components/Layout/Layout';
 import Login from './Auth/Forms/Login/Login';
 import Signup from './Auth/Forms/Signup/Signup';
 import EmailVerify from './Auth/Forms/ForgotPassword/EmailVerify';
@@ -24,7 +23,7 @@ class App extends Component {
   return (
 
 <BrowserRouter>
-    <Layout>
+    
       <Switch>
 
        <Route path="/signup" exact component={Signup}/>
@@ -54,7 +53,7 @@ class App extends Component {
 
 
        </Switch>
-    </Layout>
+
   </BrowserRouter>
 
 

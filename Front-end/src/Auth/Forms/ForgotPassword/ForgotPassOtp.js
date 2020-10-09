@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { Redirect } from 'react-router-dom';
+import Layout from '../../../components/Layout/Layout';
 import AuthService from '../../../ApiServices/auth.service';
 import '../Form.css';
 import Alert from '../alert';
@@ -188,7 +189,7 @@ class ForgotPasswordotp extends Component {
             </div>
         );
 
-        return (<div>
+        return (<Layout>
             {alertContent}
       
             <div className="SideContent">
@@ -199,7 +200,7 @@ class ForgotPasswordotp extends Component {
 
                     {form}
             </div>
-              </div>
+        </Layout>
         );
     }
   

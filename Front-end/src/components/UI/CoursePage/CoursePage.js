@@ -5,7 +5,7 @@ import CourseDesc from './CourseDesc';
 import CourseVideo from './CourseVideo';
 import axios from '../../../ApiServices/axiosUrl';
 import VideoList from './VideoList';
-//import { saveAs } from 'file-saver';
+import Layout from '../../Layout/Layout';
 import parse from 'html-react-parser';
 
 class CoursePage extends Component {
@@ -212,7 +212,7 @@ class CoursePage extends Component {
         return(
 
           
-          
+          <Layout>
             <div className="container">
                                 
                 <nav aria-label="breadcrumb">
@@ -335,6 +335,7 @@ class CoursePage extends Component {
 
 
         </div>
+        </Layout>
 
         );
     }

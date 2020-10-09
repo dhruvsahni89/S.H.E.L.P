@@ -4,6 +4,7 @@ import axios from '../../../ApiServices/axiosUrl';
 import CourseTitle from './CourseTitle';
 import { Redirect } from 'react-router-dom';
 import Alert from '../../../Auth/Forms/alert'
+import Layout from '../../Layout/Layout';
 
 class Preference extends Component {
 
@@ -196,7 +197,7 @@ AlertError(alertmsg, alertType) {
         return(
 
 
-       
+        <Layout>
          
             <div className="container">
                      {alertContent}
@@ -221,7 +222,7 @@ AlertError(alertmsg, alertType) {
 
 
             </div>
-
+        </Layout>
             
         );
     }

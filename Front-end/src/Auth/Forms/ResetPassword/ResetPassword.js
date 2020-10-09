@@ -4,7 +4,8 @@ import AuthService from "../../../ApiServices/auth.service";
 import '../Form.css';
 import Input from '../../../components/UI/Input/FormInput';
 import MainPage from '../../../components/UI/MainPage/MainPage';
-import Google_logo from '../../../components/UI/Logo/google';
+import Layout from '../../../components/Layout/Layout';
+//import Google_logo from '../../../components/UI/Logo/google';
 import SpinnerButton from '../../../components/UI/Spinners/SpinnerButton';
 import SumbitButton from '../../../components/UI/Buttons/SumbitButton';
 import Alert from '../alert';
@@ -327,7 +328,7 @@ inputBlurHandler = (event,inputIdentifier)=> {
         );
 
         return (
-           <div>
+           <Layout>
                 {alertContent}
                 
                 <div className="SideContent">
@@ -338,7 +339,7 @@ inputBlurHandler = (event,inputIdentifier)=> {
 
                             {form}
                     </div>
-        </div>
+        </Layout>
         );
     }
   

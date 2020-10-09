@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import TeacherCategory from './TeacherCatergory';
 import HomeBanner from '../../HomePage/HomeBanner';
-import CourseCards from '../../HomePage/CourseCards';
 import CourseTitle from '../../HomePage/CourseTitle';
-import {NavLink,Redirect} from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 import Loader from 'react-loader-spinner';
 import TeacherCard from './TeacherCard';
+import Layout from '../../../Layout/Layout';
 //import ProductApi from './../../../ApiServices/ProductApi';
 import axios from "../../../../ApiServices/axiosUrl";
 
@@ -112,7 +112,7 @@ class TeacherHomePage extends Component {
             };
         
         return(
-          
+          <Layout>
             <div className="container">
 
                 <HomeBanner img={null}/>
@@ -137,6 +137,7 @@ class TeacherHomePage extends Component {
 
 
             </div>
+        </Layout>
         );
     }
 

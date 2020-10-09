@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import AuthService from "../../../ApiServices/auth.service";
+import Layout from '../../../components/Layout/Layout';
 import '../Form.css';
 import { Link,Redirect } from 'react-router-dom';
 import Input from '../../../components/UI/Input/FormInput';
@@ -199,7 +200,7 @@ formHandler = (event)=> {
                 this.setState({loading:false})
                 this.setState({redirect:'/HomePage'})
                 console.log(response.data)
-                window.location.reload();
+              //  window.location.reload();
            
             }
             else 
@@ -286,7 +287,7 @@ render() {
         
 
 
-        return (<div>
+        return (<Layout>
                     {alertContent}
                     <div className="SideContent">
                         
@@ -297,7 +298,7 @@ render() {
 
                             {form}
                     </div>
-            </div>
+            </Layout>
         );
     }
   

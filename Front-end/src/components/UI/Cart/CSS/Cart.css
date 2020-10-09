@@ -1,12 +1,12 @@
 .flex-row{
     display:flex;
     flex-wrap: wrap;
-    
+
 }
 .empty-center{
     display: flex;
     justify-content: center !important;
-    
+
 }
 
 .CartTitle{
@@ -28,17 +28,16 @@
 }
 
 
-.CartContent{
+/* .CartContent{
     margin-top:10px;
     display:flex;
     flex-wrap:wrap;
-    
-    
-}
+
+
+} */
 
 .CardMain{
     display:flex;
-
     background: #FFFFFF 0% 0% no-repeat padding-box;
     border: 1px solid #70707033;
     border-radius: 12px;
@@ -46,13 +45,13 @@
     margin-bottom:10px;
     margin-left:20px;
     padding:2px;
-    
+
 }
 
 .CardImageParent{
     margin-right:8px;
-    width: 200px;
-    height: 190px;
+    /* width: auto;
+    height:auto; */
 }
 
 .CardImageParent img{
@@ -68,7 +67,7 @@
     margin-right:10px;
     width:330px;
     max-width:310px;
-    
+
 
 }
 
@@ -89,7 +88,7 @@
 
 .CardParent1,.CardParent2,.CardParent3{
     display:flex;
-   
+
 
 }
 
@@ -108,14 +107,14 @@
     letter-spacing: 0px;
     color: #3C4852;
     line-height:normal;
-  
+
     margin-left:5px;
     margin-right:3px;
     margin-top:12px;
 }
 
 .Coursestar{
-    
+
 }
 
 .CourseRemove,.CourseWhishlist,.CourseSave{
@@ -126,7 +125,7 @@
     color: #566775;
     line-height:normal;
     cursor:pointer;
-    
+
 }
 
 .CourseBuy{
@@ -154,6 +153,51 @@
         display:row;
         flex-wrap: wrap;
         justify-content: center;
-        
+
     }
+}
+
+@media(max-width:634px){
+    .CardImageParent img{
+        width: 200px;
+        height: 200px;
+    }
+    .CardSideContent{
+        margin-top:3px;
+        margin-right:10px;
+        width:250px;
+        max-width:310px;
+    
+    
+    }
+    .CourseWhishlist{
+        display:none;
+    }
+
+}
+
+@media(max-width:500px){
+    .CardImageParent img{
+        display: none;
+        width: 100px;
+        height: 100px;
+    }
+    .CardSideContent{
+        margin-top:3px;
+        margin-right:10px;
+        width:250px;
+        max-width:310px;
+    
+    
+    }
+    .CourseWhishlist{
+        display:none;
+    }
+
+
+    .flex-row{
+       
+       margin-bottom: 80px!important;
+    }    
+
 }

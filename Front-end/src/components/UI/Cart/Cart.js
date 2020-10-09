@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import {NavLink,Redirect} from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 import Loader from 'react-loader-spinner';
 import CartCard from './CartCard';
 import './CSS/Cart.css';
-import CartPrice from './CartPrice';
+import Layout from '../../Layout/Layout';
+//import CartPrice from './CartPrice';
 import EmptyCart from './EmptyCart';
 import axios from '../../../ApiServices/axiosUrl';
 
@@ -56,6 +57,48 @@ class Cart extends Component{
         })
        
     }
+
+    remove =(event,id)=> {
+        // this.setState({alertPressed:true})
+        // setTimeout( ()=> this.setState({alertPressed:false}) , 3000);
+
+       
+        const form ={};
+        form['_userID']=this.state.userId;
+        form['_id']=id;
+
+        axios.post("/unbookmark",form )
+        .then(response => {
+            console.log("Removed",response);
+       
+            
+         
+           
+        this.setState({loading:false});
+      
+        const updatedCourse =this.state.Courses;
+
+        for(let i=0;i<this.state.Courses.length;i++){
+            
+            if(id=== this.state.Courses[i]._id){
+               updatedCourse.splice(i,1);
+            }
+        this.setState({Courses:updatedCourse})
+
+        }
+
+         //   this.AlertError("Course Removed,please refresh", "success");
+            
+
+          
+
+        })
+        .catch(error => {
+            console.log(error.response);
+        })
+    }
+
+
 
    
     
@@ -120,7 +163,7 @@ class Cart extends Component{
               data = (
               CourseArray.map(item =>  
               
-        // <NavLink className="productLink" exact to={`/course/${this.state.CourseLink}/${item._id}`}>
+       
                <CartCard 
                 key={item.id}
                 title={item.title}
@@ -128,16 +171,19 @@ class Cart extends Component{
                 img={"http://localhost:8080/" + item.imageurl}
                 rating={item.rating.ratingFinal}
                 courseId={item._id}
-                userId={this.state.userId}
+               // userId={this.state.userId}
+                Link={`/course/${this.state.CourseLink}/${item._id}`}
+                remove={(event)=>this.remove(event,item._id)}
+
                 />
-        // </NavLink>
+
         )
     
             );
         }}
 
         return(
-        
+        <Layout>
         <div className="container">
            
                {title}
@@ -151,7 +197,7 @@ class Cart extends Component{
            
             
         </div>
-   
+        </Layout>
     );
 }}
 

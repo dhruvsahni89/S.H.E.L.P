@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Layout from '../../../components/Layout/Layout';
 import AuthService from "../../../ApiServices/auth.service";
 import '../Form.css';
 import { Link,Redirect } from 'react-router-dom';
@@ -259,7 +260,7 @@ render() {
         
 
 
-        return (<div>
+        return (<Layout>
                     {alertContent}
                     <div className="SideContent">
                         
@@ -270,7 +271,7 @@ render() {
 
                             {form}
                     </div>
-            </div>
+            </Layout>
         );
     }
   
