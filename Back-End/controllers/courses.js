@@ -104,7 +104,7 @@ exports.update=(req,res,next)=>{
         res.status(200).json({ message: 'course updated!', result:result });
       })
 }
-exports.deletePost = (req, res, next) => {
+exports.deleteCourse = (req, res, next) => {
     const courseId = req.body.courseId;
     courses.deleteOne({_id:courseId})
     .then((result) => {
@@ -146,7 +146,7 @@ exports.bookmarkCourse = (req, res, next) =>{
     const courseID = req.body._id;
     const userID = req.body._userID;
     Users.findOneAndUpdate({_id:userID},{
-        $push:{ bookmarked:courseID}
+        $addToSet:{ bookmarked:courseID} // addToSet add new value only if it is not present in array
     },{new:true}).then(data => {
         console.log(data);
         res.json(data);
@@ -259,5 +259,15 @@ exports.videoUpload = (req,res,next) => {
         res.json({message:"Video Uploaded",updatedCourse:course })
     }).catch(err => {
         res.json({error:err,message:"Course Not found"});
+    })
+}
+
+exports.searchCourse = (req,res,next) => {
+    const courseName = req.body.courseName
+    courses.find({category:{$regex:courseName,$options:"ix"}},{category:1}).sort({"course": 1}) // sort 1 for ascending order
+    .then(searchedCourse => {
+        res.json({result:searchedCourse,messsage:"Search Result"});
+    }).catch(err => {
+        res.json({error:err, message:"No course from this name"});
     })
 }
