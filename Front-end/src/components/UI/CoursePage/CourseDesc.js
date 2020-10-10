@@ -1,9 +1,7 @@
 import React,{Component} from 'react';
 import './CSS/CourseDesc.css';
 import Rating from './Rating';
-import Play from '../../../assets/Images/play.png';
-import axios from '../../../ApiServices/axiosUrl';
-
+import AuthServices from '../../../ApiServices/auth.service';
 
 
 
@@ -31,22 +29,15 @@ class CourseDesc extends Component {
                 form['_userID']=user;
                 form['_id']=this.state.CourseId;
                 
-                axios.post(`/home/${this.state.CourseId}/${this.props.CourseName}`,form ,{
-                    headers: {
-                       
-                        Authorization: 'Bearer '+ localStorage.getItem('user') 
-                    }
-                })
-
+              
+                AuthServices.BookMark(this.state.CourseId,this.props.CourseName,form)
                 .then(response => {
                     console.log("BookMarked",response);
                     if(response.status ===201 || response.status ===200){
                         this.setState({bookmarked:true})
                         
                     }
-                    
-                    
-                   // this.setState({loading:false});
+ 
                 
                 
 
@@ -71,10 +62,10 @@ class CourseDesc extends Component {
 
         
     DownloadPdf=()=>{
-        axios.get(`/home/download/${this.state.CourseId}`)
-        
+       
+        AuthServices.Download(this.state.CourseId)
         .then(response => {
-            let path ='http://localhost:8080/'+'invoice-' + 
+            let path ="https://shelp-webapp.herokuapp.com/"+'invoice-' + 
             this.state.CourseId + '.pdf';
 
          

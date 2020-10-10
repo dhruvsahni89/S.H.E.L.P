@@ -6,7 +6,7 @@ import './CSS/Cart.css';
 import Layout from '../../Layout/Layout';
 //import CartPrice from './CartPrice';
 import EmptyCart from './EmptyCart';
-import axios from '../../../ApiServices/axiosUrl';
+import AuthServices from '../../../ApiServices/auth.service';
 
 
 
@@ -27,13 +27,7 @@ class Cart extends Component{
 
 
     componentDidMount(){
-      
-        axios.get(`/users/${this.state.userName}/${this.state.userId}`,{
-            headers: {
-                
-                Authorization: 'Bearer '+ this.state.token
-            }
-        } )
+       AuthServices.bookmarkCourses(this.state.userName,this.state.userId) 
         .then(response => {
 
             if(response.status ===200 || response.status===201){
@@ -67,7 +61,7 @@ class Cart extends Component{
         form['_userID']=this.state.userId;
         form['_id']=id;
 
-        axios.post("/unbookmark",form )
+        AuthServices.DeleteBookmark(form)
         .then(response => {
             console.log("Removed",response);
        
@@ -170,7 +164,7 @@ class Cart extends Component{
                 key={item.id}
                 title={item.title}
                 teacher={item.name}
-                img={"http://localhost:8080/" + item.imageurl}
+                img={"https://shelp-webapp.herokuapp.com/" + item.imageurl}
                 rating={rating}
                 courseId={item._id}
                // userId={this.state.userId}

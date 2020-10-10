@@ -1,6 +1,4 @@
 import React,{Component} from 'react';
-//import Aux from '../../../hoc/ReactFrag';
-//import Scroll from 'react-scroll';
 import Layout from '../../../Layout/Layout'
 import Loader from 'react-loader-spinner';
 import Tinput from '../TinputFields';

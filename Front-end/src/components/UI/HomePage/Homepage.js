@@ -7,8 +7,7 @@ import {NavLink} from 'react-router-dom';
 import Loader from 'react-loader-spinner';
 import Layout from '../../Layout/Layout'
 //import CoursePage from '../CoursePage/CoursePage';
-//import ProductApi from './../../../ApiServices/ProductApi';
-import axios from "../../../ApiServices/axiosUrl";
+import AuthServices from './../../../ApiServices/auth.service';
 import Recommendation from './Recommendation';
 import './CSS/Homepage.css';
 
@@ -33,12 +32,8 @@ class Homepage extends Component {
 
        
        if(this.state.CourseLink === "preferences"){
-        axios.post(`/home/${this.state.CourseLink}`,form,{
-            headers: {
-               
-                Authorization: 'Bearer '+ localStorage.getItem('user') 
-            }
-        })
+    
+        AuthServices.PreferenceCourse(this.state.CourseLink,form)
         .then(response => {
             console.log("Courses Response",response);
             
@@ -56,8 +51,9 @@ class Homepage extends Component {
        
        }
        
-       else{ console.log(this.state.CourseLink)
-                axios.get(`/home/${this.state.CourseLink}`)
+       else{    
+
+        AuthServices.HomepageCourse(this.state.CourseLink)
                 .then(response => {
                     console.log("Courses Response",response);
                     
@@ -113,7 +109,7 @@ class Homepage extends Component {
                 key={item._id}
                 title={item.title}
                 teacher={item.name}
-                img={"http://localhost:8080/" + item.imageurl}
+                img={"https://shelp-webapp.herokuapp.com/" + item.imageurl}
                 rating={rating}
                 ratingtimesUpdated={item.rating.timesUpdated}
                 /></NavLink>)

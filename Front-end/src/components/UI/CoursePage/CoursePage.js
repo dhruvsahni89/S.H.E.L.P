@@ -8,6 +8,8 @@ import VideoList from './VideoList';
 import Layout from '../../Layout/Layout';
 import parse from 'html-react-parser';
 import ProgressBar from 'react-bootstrap/ProgressBar';
+import AuthServices from '../../../ApiServices/auth.service';
+
 
 class CoursePage extends Component {
 
@@ -51,12 +53,8 @@ class CoursePage extends Component {
 
     componentDidMount(){
       
-        axios.get(`/course/${this.state.CourseName}/${this.state.CourseId}`,{
-            headers: {
-                
-                Authorization: 'Bearer '+ this.state.token
-            }
-        } )
+      
+        AuthServices.FetchCourses(this.state.CourseName,this.state.CourseId)
         .then(response => {
             console.log("CoursePage Response",response);
        

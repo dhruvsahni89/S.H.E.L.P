@@ -1,6 +1,6 @@
 import ReactStars from "react-rating-stars-component";
 import React, {Component} from "react";
-import axios from '../../../ApiServices/axiosUrl';
+import AuthServices from "../../../ApiServices/auth.service";
 
 class Rating extends Component {
 
@@ -25,12 +25,9 @@ class Rating extends Component {
                 form['_id']=this.props.CourseId;
                 form['rating']=newRating;
     
-                axios.put("/Rating",form,{
-                    headers: {
-                        
-                        Authorization: 'Bearer '+ localStorage.getItem('user')
-                    }
-                } )
+             
+
+                AuthServices.Rating(form)
                 .then(response => {
                     console.log("Rating",response);
             

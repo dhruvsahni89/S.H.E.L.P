@@ -7,7 +7,7 @@ import Loader from 'react-loader-spinner';
 import TeacherCard from './TeacherCard';
 import Layout from '../../../Layout/Layout';
 //import ProductApi from './../../../ApiServices/ProductApi';
-import axios from "../../../../ApiServices/axiosUrl";
+import AuthServices from "../../../../ApiServices/auth.service";
 import '../../HomePage/CSS/Homepage.css';
 
 
@@ -32,12 +32,8 @@ class TeacherHomePage extends Component {
         fd.append("userId",localStorage.getItem('userId'))
        
 
-                axios.post("/teacher/uploads",form,{
-                    headers: {
-                       
-                        Authorization: 'Bearer '+ localStorage.getItem('user') 
-                    }
-                })
+              
+                AuthServices.TeacherUpload(form)
                 .then(response => {
                     
                     console.log("Teacher Uploaded Courses",response);
@@ -68,11 +64,8 @@ class TeacherHomePage extends Component {
     
 
     
-        axios.post("/Course/delete",form,{
-            headers: {
-                Authorization: 'Bearer '+ localStorage.getItem('user') 
-            }
-        } )
+      
+        AuthServices.TeacherCourseDelete(form)
         .then(response => {
             console.log("Removed Course",response);
  
@@ -125,7 +118,7 @@ class TeacherHomePage extends Component {
                 key={item._id}
                 title={item.title}
                 teacher={item.name}
-                img={"http://localhost:8080/" + item.imageurl}
+                img={"https://shelp-webapp.herokuapp.com/" + item.imageurl}
                 rating={item.rating.ratingFinal}
                 Link={`/course/${this.state.CourseLink}/${item._id}`}
                 CourseId={item._id}

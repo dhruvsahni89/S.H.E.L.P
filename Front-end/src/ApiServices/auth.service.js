@@ -60,6 +60,102 @@ class AuthServices {
         return userName;
     }
 
+    //Bookmark
+    bookmarkCourses(userName,userId){
+        return axios.get(`/users/${userName}/${userId}`,{
+            headers: {
+                
+                Authorization: 'Bearer '+ localStorage.getItem('user')
+            }
+        });
+    }
+
+    DeleteBookmark(data){
+        return axios.post("/unbookmark",data);
+    }
+
+
+    BookMark(CourseId,CourseName,data){
+        return axios.post(`/home/${CourseId}/${CourseName}`,data,{
+            headers: {
+               
+                Authorization: 'Bearer '+ localStorage.getItem('user') 
+            }
+        })
+    
+    }
+
+
+    Download(CourseId){
+        return axios.get(`/home/download/${CourseId}`)
+    }
+
+
+    
+
+    FetchCourses(CourseName,CourseId){
+        return axios.get(`/course/${CourseName}/${CourseId}`,{
+            headers: {
+                
+                Authorization: 'Bearer '+ localStorage.getItem('user')
+            }
+        } )
+    
+    }
+
+
+   
+
+
+    Rating(data){
+    return axios.put("/Rating",data,{
+        headers: {
+            
+            Authorization: 'Bearer '+ localStorage.getItem('user')
+        }
+    } )}
+
+   
+
+    PreferenceCourse(CourseLink,data){
+        return axios.post(`/home/${CourseLink}`,data,{
+            headers: {
+               
+                Authorization: 'Bearer '+ localStorage.getItem('user') 
+            }
+        })
+    }
+
+
+
+    
+
+    HomepageCourse(CourseLink){
+        return axios.get(`/home/${CourseLink}`)
+    }
+
+  
+
+    TeacherUpload(data){
+        return axios.post("/teacher/uploads",data,{
+            headers: {
+               
+                Authorization: 'Bearer '+ localStorage.getItem('user') 
+            }
+        })
+    }
+
+
+    TeacherCourseDelete(data){
+        return axios.post("/Course/delete",data,{
+            headers: {
+               
+                Authorization: 'Bearer '+ localStorage.getItem('user') 
+            }
+        })
+    }
+
+    
 }
 
 export default new AuthServices();
