@@ -1,6 +1,6 @@
 .unvisible {
     opacity:0;
-    
+    display:none;
 }
 .alertbox{
     display:flex !important;
@@ -8,5 +8,8 @@
     align-content: center !important;
     z-index:3 !important;
     text-align:center !important;
+    position: absolute;
+    top:0;
+    left:0;
     
 }

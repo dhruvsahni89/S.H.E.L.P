@@ -3,13 +3,16 @@
     margin-top:10px;
     justify-content: space-between;
     border-radius: 17px;
-    box-shadow: 1px 1px 5px rgba(140, 161, 190, 0.6), 
+    background:white;
+    /* box-shadow: 1px 1px 5px rgba(140, 161, 190, 0.6), 
     -1px -1px 5px  
     rgba(255, 255, 255, 0.342);
-    
+     */
     
 }
-
+.video-list:hover{
+    background: #c2dbdb;
+}
 /* .player-wrapper {
     position: relative;
     padding-top: 56.25% /* Player ratio: 100 / (1280 / 720) 
@@ -24,7 +27,7 @@
 .play-title{
     opacity:1!important;
     padding:15px;
-    font: normal normal medium 24px/29px Gilroy;
+    font: normal normal 16px/19px Gilroy;
     letter-spacing: 0px;
     color: #051c30;
 
@@ -42,7 +45,9 @@
 }
 
 .VideoSelected{
-    background:#08BD80;
+    /* background:#08BD80; */
+    background:#c2dbdb;
+    border:1.4px solid #1b4ead81;
     
 }
 

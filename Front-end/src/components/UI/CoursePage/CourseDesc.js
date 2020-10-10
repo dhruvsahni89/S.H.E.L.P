@@ -145,7 +145,8 @@ class CourseDesc extends Component {
                         </div>
 
                         <div className="Bookmarkbtn">
-                        <i onClick={this.bookmark}  className={classArray.join(' ')} aria-hidden="true"></i>
+                        <i onClick={this.bookmark} 
+                         className={classArray.join(' ')} aria-hidden="true"></i>
                             <p>BookMark</p>                     
                         </div>
                 </div>

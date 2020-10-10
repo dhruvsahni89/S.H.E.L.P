@@ -45,14 +45,19 @@
     opacity: 1;
     margin-left:10px;
 }
-
+.fa-heart{
+    color:red;
+}
 
 .Loginbtn:hover,
 .Signupbtn:hover{
     opacity:0.7;
 }
 
-
+.profileName{
+    color:rgba(13, 22, 46, 0.76) !important;
+    font-weight:bold;
+}
 
 .btnactive{
     background: #FCFCFC 0% 0% no-repeat padding-box;
@@ -88,7 +93,11 @@
   font-weight:bolder!important;
    
 }
+.dropdown:hover .dropdown-menu{
+    display:block;
+    margin-top:0;
 
+}
 
 
 

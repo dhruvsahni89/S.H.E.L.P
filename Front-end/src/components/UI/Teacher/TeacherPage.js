@@ -157,7 +157,6 @@ class TeacherPage extends Component{
     isLoggedIn:false,
     userName:"",
     alertPressed:false,
-    redirect:null,
     uploadedPercentage:0,
     CourseId:"",
     redirect:false,
@@ -286,7 +285,7 @@ class TeacherPage extends Component{
        
         selectedfile.image.name= URL.createObjectURL(event.target.files[0]);
         this.setState({Form:selectedfile })
-        console.log(selectedfile)
+            //console.log(selectedfile)
 
      
         
@@ -301,7 +300,7 @@ class TeacherPage extends Component{
         
         this.setState({alertPressed:true})
         setTimeout( ()=> this.setState({alertPressed:false}) , 2000);
-        const form={};
+  
         const fd = new FormData();
 
       
@@ -321,10 +320,10 @@ class TeacherPage extends Component{
                     
                 axios.post('creator/create-course',fd,{
                     onUploadProgress: progressEvent => {
-                        console.log("Progress bar");
+                        //console.log("Progress bar");
                         const {loaded,total} =progressEvent;
                         let percent =Math.floor((loaded*100)/total);
-                        console.log("percent" + percent)
+                       // console.log("percent" + percent)
                         if(percent<100){
                             this.setState({uploadedPercentage:percent})
                         }
@@ -449,7 +448,7 @@ class TeacherPage extends Component{
         return(
 
           
-    <Layout>
+    <Layout >
         <div className="container-fluid-main">
 
             {alertContent}
@@ -525,7 +524,7 @@ class TeacherPage extends Component{
 
         </div>
 
-        <div id="section2" className="Teacher-Head-Class">
+        <div className="Teacher-Head-Class">
             <CKEditorArea
             label={this.state.Form.discriptionLong.label}
             rows={this.state.Form.discriptionLong.rows}
@@ -550,12 +549,12 @@ class TeacherPage extends Component{
             changed={(event,editor)=> this.CKEditorHandler(event,editor,"willLearn")}
             
             
-           // changed={(event)=> this.inputchangeHandler(event,"discriptionLong")}
+         
             />
         
         </div>
 
-        <div  className="Teacher-Head-Class">
+        <div  className="Teacher-Head-Class ckeditor">
 
         <CKEditorArea
             label={this.state.Form.requirement.label}
@@ -565,7 +564,7 @@ class TeacherPage extends Component{
             changed={(event,editor)=> this.CKEditorHandler(event,editor,"requirement")}
             
             
-           // changed={(event)=> this.inputchangeHandler(event,"discriptionLong")}
+          
             />
         
         </div>

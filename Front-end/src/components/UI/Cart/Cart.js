@@ -161,15 +161,17 @@ class Cart extends Component{
 
               classes =["flex-row"]
               data = (
-              CourseArray.map(item =>  
+              CourseArray.map(item => {
               
-       
+                let rating = item.rating.ratingFinal;
+                if(rating ===0) rating =1;
+                return(
                <CartCard 
                 key={item.id}
                 title={item.title}
                 teacher={item.name}
                 img={"http://localhost:8080/" + item.imageurl}
-                rating={item.rating.ratingFinal}
+                rating={rating}
                 courseId={item._id}
                // userId={this.state.userId}
                 Link={`/course/${this.state.CourseLink}/${item._id}`}
@@ -177,7 +179,7 @@ class Cart extends Component{
 
                 />
 
-        )
+              )})
     
             );
         }}

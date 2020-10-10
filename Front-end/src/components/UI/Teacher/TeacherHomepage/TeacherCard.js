@@ -1,8 +1,8 @@
 import React,{Component} from "react";
 import '../CSS/TeacherHome.css';
-import Rating from '../../Rating';
+import Rating from '../../CoursePage/Rating';
 import {Link} from 'react-router-dom';
-import axios from '../../../../ApiServices/axiosUrl';
+
 
 class TeacherCard extends Component{
 
@@ -27,14 +27,14 @@ class TeacherCard extends Component{
                     pathname:'/TeacherEdit',
                     aboutProps:{CourseId: this.props.CourseId}
                 }}>
-                    <p class="fa fa-pencil" aria-hidden="true"></p>
+                    <p className="fa fa-pencil" aria-hidden="true"></p>
                 </Link>
 
                      </div>
 
                      <div className="TeacherDeleteSection">
                         <p className="Teacher-Course-Teacher">{this.props.teacher}</p>
-                        <i onClick={this.props.DeleteCourse} class="fa fa-trash" aria-hidden="true"></i>
+                        <i onClick={this.props.DeleteCourse} className="fa fa-trash" aria-hidden="true"></i>
                      </div>
                           <p className="Course-info"> 
 

@@ -171,11 +171,20 @@ OverallValidity = ()=>{
     return true;
 }
 
+timeout = ()=> {
+    let temp ={...this.state.alert}
+    temp.msg=''
+    temp.alertType=''
+
+     this.setState({alert:temp,alertPressed:false}) 
+}
+
 
 formHandler = (event)=> {
     event.preventDefault();
     this.setState({alertPressed:true})
-    setTimeout( ()=> this.setState({alertPressed:false}) , 3000);
+
+    setTimeout(this.timeout , 3000);
 
      if(this.OverallValidity()){
 
@@ -194,12 +203,14 @@ formHandler = (event)=> {
                 {
                 
                 //alert(response.data.message);
+                this.AlertError("Successfully Logged in", "success");
+  
                 localStorage.setItem('user',response.data.token);
                 localStorage.setItem('userId',response.data.userId);
                 localStorage.setItem('userName',response.data.username);
                 this.setState({loading:false})
-                this.setState({redirect:'/HomePage'})
-                console.log(response.data)
+             this.setState({redirect:'/HomePage'})
+             
               //  window.location.reload();
            
             }
@@ -221,12 +232,11 @@ formHandler = (event)=> {
 
 render() {
 
-    let value=0;
-    value= !value;
     let alertContent = null;
 
     if(this.state.alert.valid){
-        alertContent = ( <Alert value={this.state.alertPressed} alertMsg ={this.state.alert.msg} 
+        alertContent = ( <Alert value={this.state.alertPressed} 
+                        alertMsg ={this.state.alert.msg} 
                                 alertType={this.state.alert.alertType} /> )
     }
 
@@ -277,7 +287,7 @@ render() {
             <p className="forgot-password"  > Forgot Password?</p></Link>
 
             {LoginSumbitButton}
-            <p className="account-login"> New User? <a href="/">Sign up</a></p>
+           <p className="account-login"><Link to='/signup'>  New User? Sign up</Link></p>
          
 
                

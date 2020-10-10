@@ -19,14 +19,11 @@ class Rating extends Component {
             const ratingChanged = (newRating) => {
             
                
-                const fd =new FormData();
+            
                 const form ={};
                 
                 form['_id']=this.props.CourseId;
                 form['rating']=newRating;
-
-                // fd.append('_id',this.props.CourseId);
-                // fd.append('rating',newRating);
     
                 axios.put("/Rating",form,{
                     headers: {
@@ -59,8 +56,8 @@ class Rating extends Component {
                 size={24}
                 isHalf={true}
                 value={this.props.rating}
-                activeColor="#ffd700"/>);
-        
+                activeColor="#FF9529"/>);
+                
 
 
             }

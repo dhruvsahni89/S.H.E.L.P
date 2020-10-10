@@ -116,7 +116,7 @@ class TeacherPage extends Component{
         
         this.setState({alertPressed:true})
         setTimeout( ()=> this.setState({alertPressed:false}) , 2000);
-        const form={};
+        
         const fd = new FormData();
        
         for(let i=0;i<this.state.Form['file'].value.length;i++){

@@ -15,9 +15,11 @@ const CKEditorArea = (props)=> {
                         editor={ClassicEditor}
                         data={props.value}
                         className="CKEditor"
-                        rows={props.rows} cols={props.cols} 
-                        placeholder={props.placeholder}
-                       
+                        config={
+                            (event)=>{
+                                event.width='auto'
+                            }
+                        }
                         onChange={props.changed}
                         />
        
@@ -28,7 +30,7 @@ const CKEditorArea = (props)=> {
 
     return(
 
-        <div>
+        <div className='ekeditor'>
             <div>
                 <label className="Teacher-Label">{props.label}</label>
             </div>

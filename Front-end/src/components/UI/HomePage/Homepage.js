@@ -45,7 +45,7 @@ class Homepage extends Component {
             this.setState({Courses: response.data.coursesarray});
            
             this.setState({loading:false});
-            console.log(this.state.Courses);
+          //  console.log(this.state.Courses);
 
           
 
@@ -64,7 +64,7 @@ class Homepage extends Component {
                     this.setState({Courses: response.data.course});
                 
                     this.setState({loading:false});
-                    console.log(this.state.Courses);
+        //console.log(this.state.Courses);
 
                 
 
@@ -101,19 +101,24 @@ class Homepage extends Component {
             let CourseArray= this.state.Courses.slice(0);
 
             data = (
-              CourseArray.map(item =>  
+              CourseArray.map(item =>  {
+            
+               let rating=item.rating.ratingFinal;
+                if(rating ===0) rating=1;
+                
+              return(
               
               <NavLink className="productLink" exact to={`/course/${this.state.CourseLink}/${item._id}`}>
                 <CourseCards   
-                key={item.id}
+                key={item._id}
                 title={item.title}
                 teacher={item.name}
                 img={"http://localhost:8080/" + item.imageurl}
-                rating={item.rating.ratingFinal}
+                rating={rating}
                 ratingtimesUpdated={item.rating.timesUpdated}
                 /></NavLink>)
     
-            );
+              })  );
             
             BannerImage =   this.state.CourseLink 
             
@@ -126,13 +131,13 @@ class Homepage extends Component {
             <div className="container">
 
                 <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item">
+                        <ol className="breadcrumb">
+                            <li className="breadcrumb-item">
                                 <NavLink  to='/home'>
                                     Home
                                 </NavLink></li>
 
-                            <li class="breadcrumb-item">
+                            <li className="breadcrumb-item">
                                 <NavLink to={`/Home/${this.state.CourseLink}`}activeStyle={{textDecoration:'underline'}}>{this.state.CourseLink}
                                 </NavLink>
                             </li>

@@ -31,12 +31,13 @@ class VideoList extends Component{
                     aria-hidden="true"></i>
 
 
-                    <span> Title</span>   
+                    <span> {this.props.title}</span>   
                 
                 </div>     
 
                 <div className="video-duration">
-                    <span>4.29</span>    
+                    <span>4.22</span>  
+          
                 </div> 
 
             </div> 

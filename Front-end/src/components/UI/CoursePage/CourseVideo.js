@@ -15,8 +15,11 @@ class CourseVideo extends Component {
   HandleProgress=(state)=>{
   
     let progress =( (state.playedSeconds/this.state.duration)*100);
-    console.log(progress)
-    //console.log(this.state.duration, state.played, ":",progress)
+
+    if(progress==0){
+      this.props.videoDuration(this.state.duration,this.props.index);
+    }
+
     if(progress >=80){
       this.props.videoCompleted(this.props.index);
   
@@ -26,7 +29,7 @@ class CourseVideo extends Component {
   }
 
   HandleDuration = (state)=> {
-    console.log(state)
+
     this.setState({duration:state})
   }
 

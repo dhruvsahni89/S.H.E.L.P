@@ -144,12 +144,21 @@ OverallValidity = ()=>{
     return true;
 }
 
+timeout = ()=> {
+    let temp ={...this.state.alert}
+    temp.msg=''
+    temp.alertType=''
+
+     this.setState({alert:temp,alertPressed:false}) 
+   
+}
+
 
 formHandler = (event)=> {
 
     event.preventDefault();
     this.setState({alertPressed:true})
-    setTimeout( ()=> this.setState({alertPressed:false}) , 3000);
+    setTimeout(this.timeout , 3000);
 
      if(this.OverallValidity()){
 
@@ -159,7 +168,7 @@ formHandler = (event)=> {
                 formData[formElement]=this.state.Form[formElement].value;
         }
         
-        AuthService. VerifyEmail(formData)
+        AuthService.VerifyEmail(formData)
         .then(response => {
           
             console.log('VerifyEmail:', response)

@@ -1,5 +1,5 @@
 import React from 'react';
-import Aux from '../../../hoc/ReactFrag';
+
 import './MainPage.css';
 //import circle1 from "../../../assets/Images/circle1.png";
 //import circle2 from "../../../assets/Images/circle2.png";
@@ -21,7 +21,7 @@ const mainPage = (props)=> {
 
         return(
 
-            <Aux >
+            <>
                 <h1 className="Content-text"><span className="heading-1">{props.heading1}</span> 
                 <br/><span className="heading-2">{props.heading2}</span>
 
@@ -34,7 +34,7 @@ const mainPage = (props)=> {
                 </div>
             
                </h1>
-            </Aux>
+            </>
 
         );
     

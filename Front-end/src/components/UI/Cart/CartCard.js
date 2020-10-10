@@ -68,16 +68,16 @@ class CartCard extends Component{
                                 <p className="CourseTeacher">By {this.props.teacher}</p>
                                 <p onClick={this.props.remove} className="CourseRemove">Remove</p>
                             </div>
-
+                            <Link className="productLink"  to={this.props.Link}>
                                 <div className="CardParent2"> 
                                   
                                         <span className="CourseRating">{this.props.rating}</span>  
                                         <span className="Coursestar"><Rating rating={this.props.rating}/></span> 
                                    
-
-                                        <p className="CourseSave">Save for Later</p>
-
-                                </div>
+                                  
+                                        <p className="CourseSave">Go to Course</p>
+                                 
+                                </div>   </Link>
 
                                 
                                 <div className="CardParent3">

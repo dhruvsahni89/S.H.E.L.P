@@ -25,32 +25,6 @@ class CoursePage extends Component {
         index:0,
         WatchedVideoCount:0,
 
-        // Video0:{
-        //     'video0':false,
-        //     'videoName':'',
-        // }
-
-        // Video1:{
-        //     'video1':false,
-        //     'videoName':'',
-        // }
-
-        // Video2:{
-        //     'video2':false,
-        //     'videoName':'',
-        // }
-
-
-        // Video3:{
-        //     'video3':false,
-        //     'videoName':'',
-        // }
-
-        // Video4:{
-        //     'video4':false,
-        //     'videoName':'',
-        // },
-
         'video0':true,
          'video1':false,
          'video2':false,
@@ -62,6 +36,11 @@ class CoursePage extends Component {
          'video2Completed':false,
          'video3Completed':false,
          'video4Completed':false,
+         'video0Duration':'0',
+         'video1Duration':'0',
+         'video2Duration':'0',
+         'video3Duration':'0',
+         'video4Duration':'0',
 
 
 
@@ -98,8 +77,7 @@ class CoursePage extends Component {
             }
         }
         this.setState({WatchedVideoCount:count})
-            console.log(this.state);
-        
+       
       let progress = (this.state.WatchedVideoCount/this.state.CoursesInfo.videoContent.length)*100;
       this.setState({progress:progress})
 
@@ -121,7 +99,7 @@ class CoursePage extends Component {
        let VideoNumber = 'video' + index;
        this.setState({CurrentVideo:video})
        this.setState({index:index})
-       console.log("before=",this.state[VideoNumber]);
+     
       // this.setState({[VideoNumber]:!this.state[VideoNumber]})
 
       for(let i=0;i<5;i++){
@@ -132,22 +110,16 @@ class CoursePage extends Component {
             this.setState({['video'+i]:false})
         }
       }
-      console.log(this.state)
+     
 
-       //this.setState(prevState => 
-        //({[VideoNumber]:prevState[VideoNumber]}));
-
-        //console.log("STATE"+index,this.state[VideoNumber])
-        //console.log(this.state)
-
+       
         if(playing){
             this.setState({playing:true})
         }
         else{
             this.setState({playing:false})
         }
-       // console.log("boolean=",playing)
-        //console.log("PLAYING STATE=",this.state.playing);
+   
     }
 
 
@@ -191,7 +163,10 @@ class CoursePage extends Component {
 
     }
 
-    
+    videoDuration =(duration,index)=>{
+        this.setState({['video'+index+'Duration']:duration})
+        console.log(this.state)
+    }  
 
     render(){
         if(this.state.redirect)
@@ -213,7 +188,7 @@ class CoursePage extends Component {
         let playButton='';
         let playingVideo=false;
         let completed=false;
-        let DummyVideoContent;
+        let progressbar=null;
 
         if(this.state.loading ===false){
                 
@@ -230,10 +205,9 @@ class CoursePage extends Component {
                 willLearn=parse(this.state.CoursesInfo.willLearn);
                 ratingtimesUpdated=(this.state.CoursesInfo.rating.timesUpdated);
                  videourl=(this.state.CoursesInfo.videoContent.slice(0));
-                 console.log(videourl)
-               // this.setState({CurrentVideo:videourl[0]});
+   
                 CurrentVideo =this.state.CurrentVideo;
-                DummyVideoContent=this.state.CoursesInfo.videoContent;
+                
 
                
                 
@@ -279,6 +253,8 @@ class CoursePage extends Component {
                     playButton={playButton}
                     completed={completed}
                     
+                    title={'Video '+ index}
+                    Duration={this.state['video'+index+'Duration']}
                     />)
             
                 
@@ -286,47 +262,28 @@ class CoursePage extends Component {
                 );
 
 
-
-            //     VideoUrl= (
-            //         videourl.map((video,index)=>{
-            //         let VideoNumber ='video'+index;
-                   
-            //         if(this.state[VideoNumber]){
-
-            //             playButton='VideoSelected';
-            //             playingVideo=true;
-                    
-            //         }
-            //         else{
-            //             playButton='VideoNotSelected';
-            //             playingVideo=false;
-                       
-            //         }
-                
-            //    return(
-
-            //         <VideoList
-            //         key={index}
-            //         video={video}
-            //         changed={(event)=> this.VideochangeHandler(event,video,index,playingVideo)}
-            //         playButton={playButton}
-                    
-                    
-            //         />)
-            
-                
-            //          } )
-            //     );
-
         }
         
+        if(this.state.progress===100){
+        progressbar = <p>Congratulations {localStorage.getItem('userName')}!  
+          <i class="fa fa-birthday-cake" style={{marginLeft:'5px'}} aria-hidden="true"></i></p>
+        }
+
+        else{
+            progressbar=(<>
+             <p>You have Completed <b>{this.state.progress.toPrecision(2)}% </b> of your course!</p>
+                            <ProgressBar variant="success" now={this.state.progress} />
+            </>);
+        }
        
 
 
         return(
 
           
-          <Layout>
+          <Layout >
+            <div className="coursePage">
+            
             <div className="container">
                                 
                 <nav aria-label="breadcrumb">
@@ -376,11 +333,14 @@ class CoursePage extends Component {
                         </div>
 
                             <div className="Course-Video">
-                           {console.log('index'+this.state.index)}
+               
+
                                 <CourseVideo playing={this.state.playing} 
                                     videoUrl={CurrentVideo}
                                     index={this.state.index}
-                                      videoCompleted={this.videoCompleted}
+                                    videoCompleted={this.videoCompleted}
+                                    videoDuration={this.videoDuration}
+                                    
                                               />
                             </div>
 
@@ -431,13 +391,11 @@ class CoursePage extends Component {
                  </div>
 
                     <div className="flex-center">
-                        {/* <VideoList playing={this.PlayPause} 
-                        playButton={this.state.PlayButton}/> */}
-
+        
                         {VideoUrl}
                         <div className='progressBar'>
-                            <p>You have Completed {this.state.progress}% of your course!</p>
-                            <ProgressBar now={this.state.progress} />
+                            
+                           {progressbar}
                         </div>
                      </div>
 
@@ -449,6 +407,7 @@ class CoursePage extends Component {
             
 
 
+        </div>
         </div>
         </Layout>
 

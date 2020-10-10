@@ -16,8 +16,8 @@ const TeacherCategory =(props)=>{
 
 
             <div className="ListOfCourses">
-                  <NavLink to='/home/all' activeClassName="active-category" >Your Courses</NavLink>
-                  <NavLink to='/home/Web Development' activeClassName="active-category">Message</NavLink>
+                  <NavLink to='/teacherhome'  >Upload Your Courses</NavLink>
+                  <NavLink to='/teacherhome'>Edit your Course</NavLink>
                   
             </div>
                 </div>

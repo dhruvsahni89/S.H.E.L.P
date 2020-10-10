@@ -102,16 +102,6 @@ class ForgotPasswordotp extends Component {
                  
                  this.setState({loading:false})    
 
-
-                //  localStorage.removeItem('token') 
-                //  localStorage.removeItem('email') 
-                //  localStorage.removeItem('valid') 
-                //  localStorage.removeItem('msg') 
-                //  localStorage.removeItem('type') 
-
-                //  localStorage.setItem('user',response.data.token);
-                //  localStorage.setItem('userId',response.data.userId);
-                //  localStorage.setItem('userName',response.data.username); 
                  this.setState({redirect:'/ResetPassword'})
             
             

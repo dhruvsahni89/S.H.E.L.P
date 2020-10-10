@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Redirect } from 'react-router-dom';
+import {Link, Redirect } from 'react-router-dom';
 //import Login from '../Login/Login';
 import Layout from '../../../components/Layout/Layout';
 import AuthService from "../../../ApiServices/auth.service";
@@ -236,13 +236,22 @@ inputBlurHandler = (event,inputIdentifier)=> {
         return true;
     }
 
+    timeout = ()=> {
+        let temp ={...this.state.alert}
+        temp.msg=''
+        temp.alertType=''
+    
+         this.setState({alert:temp,alertPressed:false}) 
+         
+    }
+    
 
 
 
     formHandler = (event)=> {
         event.preventDefault();
         this.setState({alertPressed:true})
-        setTimeout( ()=> this.setState({alertPressed:false}) , 3000);
+        setTimeout(this.timeout , 3000);
          
         if(this.OverallValidity()){
             this.setState({loading:true});
@@ -298,9 +307,7 @@ inputBlurHandler = (event,inputIdentifier)=> {
 
         let alertContent = null;
         
-        let value=0;
-        value= !value;
-
+  
         if(this.state.alert.valid){
             alertContent = ( <Alert value={this.state.alertPressed} 
                 alertMsg ={this.state.alert.msg} 
@@ -353,7 +360,8 @@ inputBlurHandler = (event,inputIdentifier)=> {
                 }
                
                 {SigninSumbitButton}
-                <p className="account-login"> Already have an account? <a href="/">Login</a></p>
+              <Link to="/login">  <p className="account-login"> Already have an account?
+              Login</p></Link>
                  {/* <hr/>
 
                  <p className="Link-teach" onClick={this.product} >Teach on S-help</p>           */}

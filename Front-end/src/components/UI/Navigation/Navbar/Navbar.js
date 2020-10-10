@@ -27,64 +27,43 @@ class Navbar extends Component {
      logout=() => {
        this.setState({redirect:"/login"})
         AuthServices.logout();
-       // alert(localStorage.getItem('user'))
-        
-      //window.location.reload();
+
 
     }
 
 
 
     render(){
-     // console.log(localStorage.getItem('user'));
+
 
        if (this.state.redirect) {
             return <Redirect to="/login" />
         }
-     //   alert(AuthServices.getCurrentUser())
+
 
         let LoginLinks = ( <ul className="navbar-nav ml-auto">
 
 
-        <li className="nav-item">
+        <li className="nav-item" data-toggle="tooltip" data-placement="top" title="Create Your Course">
           
-          <NavLink to="/teacherhome" activeClassName="teacherActive" className="nav-link teachLink">Teach on Shelp</NavLink>
+          <NavLink to="/teacherhome" activeClassName="teacherActive"
+           className="nav-link teachLink">Teach on Shelp</NavLink>
         </li>
       
        
-
-        <li className="nav-item dropdown">
-            <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" 
-            role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Teacher
-            </a>
-            <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-
-                  <NavLink activeClassName="active-category" className="dropdown-item" to='/home/all'>Profile</NavLink>
-                  <NavLink activeClassName="active-category" className="dropdown-item" to='/Teacher' >Upload Content</NavLink>
-                  
-
-           
-            </div>
-        </li>
-
-        <li className="nav-item dropdown usere">
-            <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" 
-            role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i className="fa fa-user" aria-hidden="true"></i>
-            </a>
-            <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-
-            <NavLink to="/course"  activeClassName="active-category" className="dropdown-item profilelink">{this.state.userName}</NavLink>
-            <NavLink to="/Cart" activeClassName="active-category" className="dropdown-item wishlistlink">
-             Bookmarked</NavLink>
-                  
-
-           
-            </div>
-        </li>
-
+        <li className="nav-item">
+          <NavLink to="/Cart" className="nav-link "> 
+          <i data-toggle="tooltip" data-placement="top" title="Bookmarked Courses" className="fa fa-heart" aria-hidden="true"></i></NavLink>
          
+        </li>
+       
+       <li className='nav-item '>
+        <NavLink to="/"  
+        className="nav-link profileName">
+              {this.state.userName}</NavLink>
+        </li>
+
+
         <li className="nav-item">
           <NavLink to="/" className="nav-link logoutlink" onClick={this.logout}>Logout</NavLink>
          
@@ -133,8 +112,8 @@ class Navbar extends Component {
 
     <ul className="navbar-nav mr-auto">
 
-    <li className="nav-item dropdown">
-            <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <li className="nav-item dropdown" >
+            <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Category
             </a>
             <div className="dropdown-menu" aria-labelledby="navbarDropdown">

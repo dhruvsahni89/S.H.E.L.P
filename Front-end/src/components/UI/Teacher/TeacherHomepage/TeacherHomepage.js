@@ -8,8 +8,7 @@ import TeacherCard from './TeacherCard';
 import Layout from '../../../Layout/Layout';
 //import ProductApi from './../../../ApiServices/ProductApi';
 import axios from "../../../../ApiServices/axiosUrl";
-
-import '../../HomePage/CSS/Homepage.css'
+import '../../HomePage/CSS/Homepage.css';
 
 
 
@@ -46,7 +45,7 @@ class TeacherHomePage extends Component {
                     this.setState({Courses: response.data.data});
                 
                     this.setState({loading:false});
-                    console.log(this.state.Courses);
+                 //   console.log(this.state.Courses);
 
                 
 
@@ -100,7 +99,7 @@ class TeacherHomePage extends Component {
     if(this.state.redirect){
         return <Redirect to={this.state.redirect}/>
     }
-        
+    let welcomeMessage=null;
 
         let data = (<Loader
             type="Puff"
@@ -134,21 +133,29 @@ class TeacherHomePage extends Component {
                 />)
     
             );
-
+            
+            if(CourseArray.length!==0){
+                welcomeMessage =  <CourseTitle welcomeMessage ={"Here are your courses, " }/>;
+            }
+            else{
+                welcomeMessage = <CourseTitle welcomeMessage ={"You haven't Uploaded any courses yet "}/>;
+            }
+           
             };
         
         return(
           <Layout>
             <div className="container">
 
-                <HomeBanner img={null}/>
+                <HomeBanner className="teacherBannner" img={null}/>
 
                 <div className="mt-5 Course-Content"> 
                     <TeacherCategory/>
 
                     <div className="Course-Content-col">
-                   
-                                <CourseTitle welcomeMessage ={"Here are your courses, "}/>
+
+                        {welcomeMessage}
+                               
 
                                 <div className="Course-Content-wrap">
                                     {data}

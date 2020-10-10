@@ -1,10 +1,14 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import Empty from '../../../assets/Images/EmptyCart.png';
 import './CSS/EmptyCart.css';
 
-const EmptyCart =(props)=> {
+class EmptyCart extends Component{
 
+
+    render(){
+
+    
 
     return(
 
@@ -27,6 +31,6 @@ const EmptyCart =(props)=> {
    </div>
     );
 
-}
+}}
 
 export default EmptyCart;

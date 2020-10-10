@@ -188,6 +188,10 @@ class TeacherPage extends Component{
 
             this.setState({CourseDetails:response.data});
             this.setState({loading:false});
+                 
+        const updatedFormCategory = {...this.state.Form}
+        updatedFormCategory.category[this.state.CourseDetails.category]=true;
+        this.setState({Form:updatedFormCategory})
            // alert("Course Edit details,please refresh");
             
 
@@ -276,7 +280,7 @@ class TeacherPage extends Component{
 
 
         this.setState({CourseDetails: updatedForm});
-        console.log(this.state.CourseDetails)
+    
     }
 
     categoryHandler = (CourseName)=>{
@@ -299,7 +303,6 @@ class TeacherPage extends Component{
         }
 
         Coursecategory.category[CourseName]=true;
-        //updatedcategory.category[]=true;
 
         this.setState({Form:Coursecategory});
         this.setState({CourseDetails:updatedcategory})
@@ -316,6 +319,8 @@ class TeacherPage extends Component{
 
         selectedfile.file.value= event.target.files[0];
         UpdatedSelectedFile.imageurl=event.target.files[0];
+
+        selectedfile.file.name= URL.createObjectURL(event.target.files[0]);
 
         this.setState({Form:selectedfile })
         this.setState({CourseDetails:UpdatedSelectedFile})
@@ -334,15 +339,17 @@ class TeacherPage extends Component{
         
         this.setState({alertPressed:true})
         setTimeout( ()=> this.setState({alertPressed:false}) , 2000);
-        const form={};
+  
         const fd = new FormData();
         fd.append('courseId',localStorage.getItem('courseId'));
         for(let formElement in this.state.CourseDetails){
              
             fd.append(formElement, this.state.CourseDetails[formElement]);
-            console.log(this.state.CourseDetails[formElement])
-            
-                                                }
+       
+  
+    
+       
+        } 
 
 
        
@@ -355,10 +362,10 @@ class TeacherPage extends Component{
 
              AuthServices.UpdatedCourse(fd, {
                 onUploadProgress: progressEvent => {
-                    console.log("mmmmmm");
+                    
                     const {loaded,total} =progressEvent;
                     let percent =Math.floor((loaded*100)/total);
-                    console.log("percent" + percent)
+           
                     if(percent<100){
                         this.setState({uploadedPercentage:percent})
                     }
@@ -394,7 +401,6 @@ class TeacherPage extends Component{
        
     }
  
-    
 
     render(){
 
@@ -402,21 +408,16 @@ class TeacherPage extends Component{
         let discription=null;
         let discriptionLong=null;
         let name=null;
-        let category=null;
         let willLearn=null;
         let requirement=null;
-        let file= null;
-        let fileName=null;
-
-         
+        let file= '';
+   //     let fileName=null;
         let classWeb=[];
         let classWebDesign=[];
         let classReact=[];
         let classML=[];
         let classNodeJs=[];
         let classPhotography=[];
-
-
         let Welcome = null;
         let alertContent = null;
         
@@ -496,11 +497,11 @@ class TeacherPage extends Component{
             discription=this.state.CourseDetails.discription;
             discriptionLong=this.state.CourseDetails.discriptionLong;
             name=this.state.CourseDetails.name;
-            this.state.Form.category[this.state.CourseDetails.category]=true;
+            
             //category=this.state.CourseDetails.category;
             requirement=this.state.CourseDetails.requirement;
             willLearn=this.state.CourseDetails.willLearn;
-          //  file=this.state.CourseDetails.imageurl;
+            file=this.state.CourseDetails.imageurl;
 
           data = (   <>
           
@@ -636,14 +637,14 @@ class TeacherPage extends Component{
                     
                     
                         <label className="custom-image-upload">
-                            <input type="file" name='imageurl' value={file} 
+                            <input type="file" name='imageurl' value={""} 
                             onChange={this.fileSelectorHandler}/>
                             Upload Image
                     </label>
 
-                    <p className="ImageName">{fileName}</p>
+                    <p className="ImageName">{file}</p>
                     <img className="" 
-                        src={"http://localhost:8080/" + fileName} alt="banner1"/>
+                        src={this.state.Form.file.name} alt="upload"/>
 
                     
                     </div>
