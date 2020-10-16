@@ -46,6 +46,7 @@ class Rating extends Component {
             count={5}
             initialRating={3}
             onChange={ratingChanged}
+           
             size={24}
             isHalf={true}
             value={this.props.value}

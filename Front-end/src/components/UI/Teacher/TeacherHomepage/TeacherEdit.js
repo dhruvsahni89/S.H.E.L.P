@@ -313,20 +313,21 @@ class TeacherPage extends Component{
     fileSelectorHandler = event =>{
     
         const selectedfile= {...this.state.Form};
+
         const UpdatedSelectedFile={...this.state.CourseDetails}
 
         selectedfile.file.value= event.target.files[0];
         UpdatedSelectedFile.imageurl=event.target.files[0];
+        console.log(UpdatedSelectedFile.imageurl)
 
-        selectedfile.file.name= URL.createObjectURL(event.target.files[0]);
+       selectedfile.file.name= URL.createObjectURL(event.target.files[0]);
 
-        this.setState({Form:selectedfile })
+        //this.setState({Form:selectedfile })
         this.setState({CourseDetails:UpdatedSelectedFile})
-
+        console.log(this.state.CourseDetails)
 
      
         
-       
     }
 
 
@@ -499,7 +500,7 @@ class TeacherPage extends Component{
             //category=this.state.CourseDetails.category;
             requirement=this.state.CourseDetails.requirement;
             willLearn=this.state.CourseDetails.willLearn;
-            file=this.state.CourseDetails.imageurl;
+           // file=this.state.CourseDetails.imageurl;
 
           data = (   <>
           
@@ -635,7 +636,8 @@ class TeacherPage extends Component{
                     
                     
                         <label className="custom-image-upload">
-                            <input type="file" name='imageurl' value={""} 
+
+                            <input type="file" name='imageurl'  
                             onChange={this.fileSelectorHandler}/>
                             Upload Image
                     </label>

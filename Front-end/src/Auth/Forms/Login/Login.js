@@ -144,16 +144,16 @@ inputBlurHandler = (event,inputIdentifier)=> {
     }
     if(inputIdentifier === "password" && updatedElement.valid){
         updatedElement.error="";
-        updatedElement.msg="All good!";
+        updatedElement.msg="valid";
     }
     // msg errors for email
     if(inputIdentifier === "email" && !updatedElement.valid){
-        updatedElement.error = "check format";
+        updatedElement.error = "Invalid format";
         updatedElement.msg="";
     }
     if(inputIdentifier === "email" && updatedElement.valid){
         updatedElement.error="";
-        updatedElement.msg="All good!";
+        updatedElement.msg="valid";
     }
 
     updatedForm[inputIdentifier] = updatedElement;
@@ -219,8 +219,12 @@ formHandler = (event)=> {
 
         .catch(error=>{console.log(error.response); 
             this.setState({loading:false});
-            this.AlertError(error.response.data.message, "danger");});
-  
+            this.AlertError(error.response.data.message, "danger");
+            if(error.response.data.message ===' you have not verified your otp  , new otp has been sent to your email THANK YOU!'){
+                this.setState({redirect:'signup/otp'})
+            }
+
+          });
         }
         
         else this.AlertError("Make sure the Validations are correct", "warning");
@@ -231,6 +235,9 @@ formHandler = (event)=> {
 
 
 render() {
+   localStorage.removeItem('valid');
+   localStorage.removeItem('msg');
+   localStorage.removeItem('type');
 
     let alertContent = null;
 

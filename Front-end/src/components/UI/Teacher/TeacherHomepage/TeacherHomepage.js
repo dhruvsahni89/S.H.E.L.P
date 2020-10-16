@@ -137,7 +137,7 @@ class TeacherHomePage extends Component {
             };
         
         return(
-          <Layout>
+          <Layout navbar={"teacher"}>
             <div className="container">
 
                 <HomeBanner className="teacherBannner" img={null}/>

@@ -14,7 +14,7 @@ class HomepageBanner extends Component{
              Banner=( <div className="BannerSection">
 
              <img className="BannerImage" 
-             src={"http://localhost:8080/" + this.props.img +".jpg"} alt="banner1"/>
+             src={"https://shelp-webapp.herokuapp.com/" + this.props.img +".jpg"} alt="banner1"/>
 
             </div>);
             }
@@ -23,7 +23,7 @@ class HomepageBanner extends Component{
             Banner=( <div className="BannerSection">
 
                      <img className="BannerImage" 
-                     src={"http://localhost:8080/" + this.props.img +".jpg"} alt="banner1"/>
+                     src={"https://shelp-webapp.herokuapp.com/" + this.props.img +".jpg"} alt="banner1"/>
 
                     </div>);
         }

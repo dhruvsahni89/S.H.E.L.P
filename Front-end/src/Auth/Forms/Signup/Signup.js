@@ -189,7 +189,7 @@ inputBlurHandler = (event,inputIdentifier)=> {
     }
     if(inputIdentifier ==='name' && updatedElement.valid){
         updatedElement.error="";
-        updatedElement.msg="All good!";
+        updatedElement.msg="valid";
     }
         
     // msg error for password
@@ -199,7 +199,7 @@ inputBlurHandler = (event,inputIdentifier)=> {
     }
     if(inputIdentifier === "password" && updatedElement.valid){
         updatedElement.error="";
-        updatedElement.msg="All good!";
+        updatedElement.msg="valid";
     }
     // confirm password
     if(inputIdentifier === "ConfirmPassword" && !updatedElement.valid){
@@ -208,17 +208,17 @@ inputBlurHandler = (event,inputIdentifier)=> {
     }
     if(inputIdentifier === "ConfirmPassword" && updatedElement.valid){
         updatedElement.error="";
-        updatedElement.msg="All good!";
+        updatedElement.msg="Password matched!";
     }
 
     // msg errors for email
     if(inputIdentifier === "email" && !updatedElement.valid){
-        updatedElement.error = "check format";
+        updatedElement.error = "Invalid format";
         updatedElement.msg="";
     }
     if(inputIdentifier === "email" && updatedElement.valid){
         updatedElement.error="";
-        updatedElement.msg="All good!";
+        updatedElement.msg="valid";
     }
 
     updatedForm[inputIdentifier] = updatedElement;
@@ -360,8 +360,8 @@ inputBlurHandler = (event,inputIdentifier)=> {
                 }
                
                 {SigninSumbitButton}
-              <Link to="/login">  <p className="account-login"> Already have an account?
-              Login</p></Link>
+              <p className="account-login"> Already have an account?  <Link to="/login"> 
+              Login</Link></p>
                  {/* <hr/>
 
                  <p className="Link-teach" onClick={this.product} >Teach on S-help</p>           */}

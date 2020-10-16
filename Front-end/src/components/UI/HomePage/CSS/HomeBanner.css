@@ -1,10 +1,10 @@
 .BannerSection{
-    position: relative;
+  
     display:flex;
 }
 
 .BannerImage{
-    
+    position: relative !important;
     width: 100%;
     height:240px;
     background: transparent linear-gradient(270deg, #00000000 0%, #000000 100%) 

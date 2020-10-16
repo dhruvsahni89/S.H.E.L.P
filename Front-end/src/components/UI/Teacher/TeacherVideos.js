@@ -348,7 +348,7 @@ class TeacherPage extends Component{
             
 
             <div className="Welcome-msg sumbitVideoBtn">
-                <button onClick={this.sumbitButton} >Sumbit </button>
+                <button onClick={this.sumbitButton} >Submit </button>
             </div>
 
             

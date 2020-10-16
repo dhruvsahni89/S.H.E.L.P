@@ -23,15 +23,33 @@ const Categories =(props)=>{
                   <NavLink to='/home/Photography' activeClassName="active-category">Photography</NavLink>
                   <NavLink to='/home/IOT' activeClassName="active-category">IOT </NavLink>
                   <NavLink to='/home/ML' activeClassName="active-category">Machine Learning</NavLink>
-                   <NavLink to='/home/Nodejs' activeClassName="active-category">NodeJS</NavLink>
-                  <NavLink to='/home/preferences' className="recommended" activeClassName="active-category">Recommended Courses!</NavLink>
+                   <NavLink to='/home/NodeJs' activeClassName="active-category">NodeJs</NavLink>
+                  <NavLink to='/home/preferences' className="recommended" 
+                  activeClassName="active-category">Recommended Courses!</NavLink>
                 
             </div>
+
+       
+
                 </div>
 
                 <div className="Course-Devider">
 
                 </div>
+
+                <div className='CategoriesSlider'>
+                 <NavLink to='/home/all' activeClassName="Sactive-category" >All Courses</NavLink>
+                  <NavLink to='/home/Web Development' activeClassName="Sactive-category">Web Development </NavLink>
+                  <NavLink to='/home/Web Designing' activeClassName="Sactive-category" >Web Designing </NavLink>
+                  <NavLink to='/home/React' activeClassName="Sactive-category">React </NavLink>
+                  <NavLink to='/home/Photography' activeClassName="Sactive-category">Photography</NavLink>
+                  <NavLink to='/home/IOT' activeClassName="Sactive-category">IOT </NavLink>
+                  <NavLink to='/home/ML' activeClassName="Sactive-category">Machine Learning</NavLink>
+                   <NavLink to='/home/NodeJs' activeClassName="Sactive-category">NodeJs</NavLink>
+                  <NavLink to='/home/preferences' className="recommended" 
+                  activeClassName="active-category">Recommended Courses!</NavLink>
+            </div>
+
 
         </div>
 

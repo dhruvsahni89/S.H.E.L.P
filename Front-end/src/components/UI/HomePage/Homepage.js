@@ -2,11 +2,11 @@ import React, {Component} from 'react';
 import Categories from './Categories';
 import HomeBanner from './HomeBanner';
 import CourseCards from './CourseCards';
+import HomeProgressCourse from './HomeProgressCourse';
 import CourseTitle from './CourseTitle';
 import {NavLink} from 'react-router-dom';
 import Loader from 'react-loader-spinner';
 import Layout from '../../Layout/Layout'
-//import CoursePage from '../CoursePage/CoursePage';
 import AuthServices from './../../../ApiServices/auth.service';
 import Recommendation from './Recommendation';
 import './CSS/Homepage.css';
@@ -20,6 +20,7 @@ class Homepage extends Component {
         Courses: null,
         loading: true,
         img: "",
+        progress:0,
     }
 
 
@@ -60,9 +61,22 @@ class Homepage extends Component {
                     this.setState({Courses: response.data.course});
                 
                     this.setState({loading:false});
-        //console.log(this.state.Courses);
-
-                
+                    let count=0;
+                    for(let j in response.data.course.videoContent){ 
+                        for (let i in response.data.course.videoContent[j].usersWatched){
+                            if(localStorage.getItem('userId')===response.data.course.videoContent[j].usersWatched[i]){
+                                
+                                count+=1;
+                                
+                                break;
+                            }
+                        }
+                    }
+                    
+                   
+                  let progress = (count/response.data.course.videoContent.length)*100;
+                  this.setState({progress:progress})
+                    console.log(progress);
 
                 })
                 .catch(error => {
@@ -79,7 +93,7 @@ class Homepage extends Component {
     render(){
 
         let BannerImage ;
-        
+        let ProgressData=null;
 
         let data = (<Loader
             type="Puff"
@@ -104,7 +118,8 @@ class Homepage extends Component {
                 
               return(
               
-              <NavLink className="productLink" exact to={`/course/${this.state.CourseLink}/${item._id}`}>
+              <NavLink className="productLink"
+               exact to={`/course/${this.state.CourseLink}/${item._id}`}>
                 <CourseCards   
                 key={item._id}
                 title={item.title}
@@ -118,7 +133,29 @@ class Homepage extends Component {
             
             BannerImage =   this.state.CourseLink 
             
-
+        if(true){
+            ProgressData= (
+                this.state.Courses.map(item =>  {
+              
+                 let rating=item.rating.ratingFinal;
+                  if(rating ===0) rating=1;
+                  
+                return(
+                
+                <NavLink className="productLink"
+                 exact to={`/course/${this.state.CourseLink}/${item._id}`}>
+                  <HomeProgressCourse  
+                  key={item._id}
+                  title={item.title}
+                  teacher={item.name}
+                  img={"https://shelp-webapp.herokuapp.com/" + item.imageurl}
+                  rating={rating}
+                  ratingtimesUpdated={item.rating.timesUpdated}
+                  progress={100}
+                  /></NavLink>)
+      
+                })  );
+        }
 
             };
         
@@ -144,7 +181,7 @@ class Homepage extends Component {
 
                 <HomeBanner img={BannerImage}/>
 
-                <div className="mt-5 Course-Content"> 
+                <div className="mt-3 Course-Content"> 
                     <Categories/>
                     <div className="Course-Content-col">
                    
@@ -152,6 +189,12 @@ class Homepage extends Component {
 
                                 <div className="Course-Content-wrap">
                                     {data}
+                                </div>
+
+                                <CourseTitle welcomeMessage ={"Welcome"}/>
+
+                                <div className="Course-Content-wrap">
+                                    {ProgressData}
                                 </div>
 
 

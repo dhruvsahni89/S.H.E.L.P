@@ -28,7 +28,7 @@ const input = (props)=> {
         error = <p className="text-success error-msg">{props.msg}</p>;
 
     if(props.errors!=="" && props.touched)
-        error= <p className=" text-danger error-msg">{props.errors}</p>;
+        error= <p style={{color: "red"}} className="  error-msg">{props.errors}</p>;
     
     else if(!props.touched) 
         error=<p style={{opacity:"0"}}>a</p>;

@@ -3,13 +3,15 @@
     display:none;
 }
 .alertbox{
-    display:flex !important;
+    /* display:flex !important;
     justify-content: center !important;
     align-content: center !important;
-    z-index:3 !important;
+    
     text-align:center !important;
     position: absolute;
     top:0;
-    left:0;
+    left:0; */
+    position: fixed;
+    z-index:3 !important;
     
 }

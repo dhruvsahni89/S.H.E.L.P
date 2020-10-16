@@ -48,6 +48,18 @@
 .fa-heart{
     color:red;
 }
+#bookmarkNav{
+    
+    color:rgba(13, 22, 46, 0.76) !important;
+    font-weight:bold;
+    font: normal normal 200 17px/23px Gilroy;
+}
+
+.active-categoryMenu{
+    color:black !important;
+    font-weight:bolder !important;
+    
+}
 
 .Loginbtn:hover,
 .Signupbtn:hover{
@@ -55,8 +67,9 @@
 }
 
 .profileName{
+    font: normal normal 200 17px/23px Gilroy;
     color:rgba(13, 22, 46, 0.76) !important;
-    font-weight:bold;
+ 
 }
 
 .btnactive{

@@ -163,7 +163,7 @@ class CoursePage extends Component {
 
     videoDuration =(duration,index)=>{
         this.setState({['video'+index+'Duration']:duration})
-        console.log(this.state)
+        
     }  
 
     render(){

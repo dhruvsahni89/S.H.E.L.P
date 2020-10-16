@@ -44,7 +44,7 @@ class alert extends Component{
 
     return(
 
-    <div  className={AlertColors.join(' ')} role="alert">
+    <div style={{position: 'fixed'}} className={AlertColors.join(' ')} role="alert">
 
     {this.props.alertMsg}
    

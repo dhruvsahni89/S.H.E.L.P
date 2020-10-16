@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect,Link } from 'react-router-dom';
 import AuthService from '../../../ApiServices/auth.service';
 import '../Form.css';
 import Alert from '../alert';
@@ -7,6 +7,7 @@ import Input from '../../../components/UI/Input/FormInput';
 import MainPage from '../../../components/UI/MainPage/MainPage';
 import SpinnerButton from '../../../components/UI/Spinners/SpinnerButton';
 import SumbitButton from '../../../components/UI/Buttons/SumbitButton';
+import Layout from '../../../components/Layout/Layout';
 
 class Otp extends Component {
 
@@ -136,7 +137,7 @@ class Otp extends Component {
                  localStorage.setItem('userId',response.data.userId);
                  localStorage.setItem('userName',response.data.username); 
                  this.setState({redirect:'/HomePage'})
-                 window.location.reload();
+       
             
                 }
                
@@ -232,14 +233,14 @@ class Otp extends Component {
                 }
                <p className="forgot-password" onClick={this.resendotp}> Resend Otp?</p>
                 {SigninSumbitButton}
-                <p className="account-login"> Already have an account? <a href="/">Login</a></p>
+                <p className="account-login"><Link to='/login'> Already have an account? Login</Link> </p>
                  <hr/>
          
             </form> 
             </div>
         );
 
-        return (<div>
+        return (  <Layout>
             {alertContent}
       
             <div className="SideContent">
@@ -250,7 +251,7 @@ class Otp extends Component {
 
                     {form}
             </div>
-              </div>
+           </Layout>
         );
     }
   

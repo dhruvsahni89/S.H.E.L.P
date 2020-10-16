@@ -40,11 +40,12 @@ class Navbar extends Component {
             return <Redirect to="/login" />
         }
 
-
+      
         let LoginLinks = ( <ul className="navbar-nav ml-auto">
 
 
-        <li className="nav-item" data-toggle="tooltip" data-placement="top" title="Create Your Course">
+        <li className="nav-item" data-toggle="tooltip" data-placement="top"
+         title="Create Your Course">
           
           <NavLink to="/teacherhome" activeClassName="teacherActive"
            className="nav-link teachLink">Teach on Shelp</NavLink>
@@ -53,15 +54,16 @@ class Navbar extends Component {
        
         <li className="nav-item">
           <NavLink to="/Cart" className="nav-link "> 
-          <i data-toggle="tooltip" data-placement="top" title="Bookmarked Courses" className="fa fa-heart" aria-hidden="true"></i></NavLink>
+          <i data-toggle="tooltip" data-placement="top" title="Bookmarked Courses"
+           className="fa fa-heart" aria-hidden="true"><span id="bookmarkNav"> Bookmarked</span></i></NavLink>
          
         </li>
        
-       <li className='nav-item '>
+       {/* <li className='nav-item '>
         <NavLink to="/"  
         className="nav-link profileName">
               {this.state.userName}</NavLink>
-        </li>
+        </li> */}
 
 
         <li className="nav-item">
@@ -75,9 +77,7 @@ class Navbar extends Component {
 
         LoginLinks =( <ul className="navbar-nav ml-auto">
 
-                <li className="nav-item">
-                <NavLink to="/teacherhome" activeClassName="teacherActive" className="nav-link teachLink"  >Teach on Shelp</NavLink>
-                </li>
+               
 
                 <li className="nav-item">
                 
@@ -118,20 +118,25 @@ class Navbar extends Component {
             </a>
             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
 
-                  <NavLink  className="dropdown-item" to='/home/all' activeClassName="active-category" >All Courses</NavLink>
-                   <NavLink className="dropdown-item" to='/home/Web Development' activeClassName="active-category">Web Development </NavLink>
-                   <NavLink className="dropdown-item" to='/home/Web Designing' activeClassName="active-category" >Web Designing </NavLink>
-                   <NavLink className="dropdown-item" to='/home/React' activeClassName="active-category">React</NavLink>
-                    <NavLink className="dropdown-item" to='/home/NodeJs' activeClassName="active-category">NodeJs</NavLink>
-                   <NavLink className="dropdown-item" to='/home/ML' activeClassName="active-category">Machine Learning </NavLink>
-                   <NavLink className="dropdown-item" to='/home/Photography' activeClassName="active-category">Photography</NavLink>
-                   <NavLink className="dropdown-item" to='/home/IOT' activeClassName="active-category">IOT </NavLink>
+                  <NavLink  className="dropdown-item" to='/home/all' activeClassName="active-categoryMenu" >All Courses</NavLink>
+                   <NavLink className="dropdown-item" to='/home/Web Development' activeClassName="active-categoryMenu">Web Development </NavLink>
+                   <NavLink className="dropdown-item" to='/home/Web Designing' activeClassName="active-categoryMenu" >Web Designing </NavLink>
+                   <NavLink className="dropdown-item" to='/home/React' activeClassName="active-categoryMenu">React</NavLink>
+                    <NavLink className="dropdown-item" to='/home/NodeJs' activeClassName="active-categoryMenu">NodeJs</NavLink>
+                   <NavLink className="dropdown-item" to='/home/ML' activeClassName="active-categoryMenu">Machine Learning </NavLink>
+                   <NavLink className="dropdown-item" to='/home/Photography' activeClassName="active-categoryMenu">Photography</NavLink>
+                   <NavLink className="dropdown-item" to='/home/IOT' activeClassName="active-categoryMenu">IOT </NavLink>
 
 
            
             </div>
         </li>
     </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" 
+      placeholder="Search Courses" aria-label="Search"/>
+      <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+    </form>
 
     {LoginLinks}
     

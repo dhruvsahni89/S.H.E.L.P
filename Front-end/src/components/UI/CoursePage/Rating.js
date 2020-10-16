@@ -48,7 +48,6 @@ class Rating extends Component {
             <ReactStars
               
                 count={5}
-              
                 onChange={ratingChanged}
                 size={24}
                 isHalf={true}
