@@ -1,5 +1,5 @@
-# S.H.E.L.P
-## It is a fully responsive Coursera Clone made using React.js as Frontend and Node.js as backend and has all of its features from uploading courses as a teacher to watching them like students and it i
+# S.H.E.L.P (Coursera Clone)
+##### It is a fully responsive Coursera Clone made using React.js as Frontend and Node.js as backend and has all of its features from uploading courses as a teacher to watching them like students and it i
 
 ### Features
 
@@ -23,4 +23,7 @@
 - [x] Teacher can delete their course
 - [x] Teacher can edit their course
 
+   ---
+   
+![alt text](https://raw.githubusercontent.com/AbhishekSrivas114319/S.H.E.L.P/master/Front-end/shelp.png)
 
